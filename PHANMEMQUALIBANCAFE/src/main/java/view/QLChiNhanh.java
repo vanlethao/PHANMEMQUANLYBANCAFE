@@ -1,66 +1,20 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package view;
 
-import domainmodel.ChiNhanh;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.sql.Date;
-import java.util.List;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
-import service.IChiNhanh;
-import service.implement.ChiNhanhSevice;
-
 /**
  *
- * @author trant
+ * @author MSII
  */
-public class QLChiNhanh extends javax.swing.JFrame {
-
-    private DefaultTableModel dtm = new DefaultTableModel();
-    private List<ChiNhanh> lstcn = new ArrayList<>();
-    private IChiNhanh chiNhanhS = new ChiNhanhSevice();
+public class QLChiNhanh extends javax.swing.JPanel {
 
     /**
-     * Creates new form QLChiNhanh
+     * Creates new form QLChiNhanh1
      */
     public QLChiNhanh() {
         initComponents();
-
-        tblBang.setModel(dtm);
-        String[] header = {"Ma", "QuocGia", "ThanhPho", "NgayKC", "TrangThai"};
-        dtm.setColumnIdentifiers(header);
-        lstcn = chiNhanhS.getAll();
-        show(lstcn);
-    }
-
-    private void show(List<ChiNhanh> lst) {
-        dtm.setRowCount(0);
-        for (ChiNhanh cn : lst) {
-            dtm.addRow(cn.toDataRow());
-        }
-    }
-
-    private boolean checkFormEmpty(JTextField ma, JTextField ten) {
-        if (ma.getText().isBlank() || ten.getText().isBlank()) {
-            JOptionPane.showMessageDialog(this, "Không được trống");
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    public void fill(int index, List<ChiNhanh> lst) {
-        ChiNhanh cn = lst.get(index);
-        txtMa.setText(cn.getMa());
-        txtThanhPho.setText(cn.getThanhPho());
-        txtQuocGia.setText(cn.getQuocGia());
-        txtNgayKC.setText(String.valueOf(cn.getNgayKhaiTruong()));
     }
 
     /**
@@ -91,8 +45,6 @@ public class QLChiNhanh extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         txtTim = new javax.swing.JTextField();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel2.setBackground(new java.awt.Color(225, 218, 197));
 
@@ -201,7 +153,7 @@ public class QLChiNhanh extends javax.swing.JFrame {
                             .addComponent(jLabel3)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtThanhPho, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -271,58 +223,65 @@ public class QLChiNhanh extends javax.swing.JFrame {
                     .addContainerGap(411, Short.MAX_VALUE)))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGap(0, 1075, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGap(0, 592, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void tblBangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBangMouseClicked
+//        int row = tblBang.getSelectedRow();
+//        fill(row, lstcn);// TODO add your handling code here:
+    }//GEN-LAST:event_tblBangMouseClicked
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        if (checkFormEmpty(txtMa, txtQuocGia)) {
-            String ngS = txtNgayKC.getText();
-            Date ng = Date.valueOf(ngS);
-            chiNhanhS.insertChiNhanh(txtMa.getText(), txtQuocGia.getText(), txtThanhPho.getText(), ng, 1);
-            JOptionPane.showMessageDialog(this, "Thêm thành công");
-            lstcn = chiNhanhS.getAll();
-            show(lstcn);
-        } else {
-            JOptionPane.showMessageDialog(this, "Bip");
-        }
-
+//
+//        if (checkFormEmpty(txtMa, txtQuocGia)) {
+//            String ngS = txtNgayKC.getText();
+//            Date ng = Date.valueOf(ngS);
+//            chiNhanhS.insertChiNhanh(txtMa.getText(), txtQuocGia.getText(), txtThanhPho.getText(), ng, 1);
+//            JOptionPane.showMessageDialog(this, "Thêm thành công");
+//            lstcn = chiNhanhS.getAll();
+//            show(lstcn);
+//        } else {
+//            JOptionPane.showMessageDialog(this, "Bip");
+//        }
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
-        int row = tblBang.getSelectedRow();
-        if (row == -1) {
-            JOptionPane.showMessageDialog(this, "Vui lòng click vào Bảng");
-        } else {
-            if (checkFormEmpty(txtMa, txtQuocGia)) {
-                if (txtMa.getText().equals(tblBang.getValueAt(row, 0).toString())) {
-                    ChiNhanh mauView = new ChiNhanh();
-                    mauView.setMa(tblBang.getValueAt(row, 0).toString());
-                    chiNhanhS.update(mauView, txtMa.getText(), txtThanhPho.getText(), txtQuocGia.getText());
-                    JOptionPane.showMessageDialog(this, "Sửa thành công");
-                    show(chiNhanhS.getAll());
-                }
-            }
-        }
+//        int row = tblBang.getSelectedRow();
+//        if (row == -1) {
+//            JOptionPane.showMessageDialog(this, "Vui lòng click vào Bảng");
+//        } else {
+//            if (checkFormEmpty(txtMa, txtQuocGia)) {
+//                if (txtMa.getText().equals(tblBang.getValueAt(row, 0).toString())) {
+//                    ChiNhanh mauView = new ChiNhanh();
+//                    mauView.setMa(tblBang.getValueAt(row, 0).toString());
+//                    chiNhanhS.update(mauView, txtMa.getText(), txtThanhPho.getText(), txtQuocGia.getText());
+//                    JOptionPane.showMessageDialog(this, "Sửa thành công");
+//                    show(chiNhanhS.getAll());
+//                }
+//            }
+//        }
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void tblBangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBangMouseClicked
-        int row = tblBang.getSelectedRow();
-        fill(row, lstcn);// TODO add your handling code here:
-    }//GEN-LAST:event_tblBangMouseClicked
 
     private void txtMaSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaSActionPerformed
 
@@ -331,87 +290,21 @@ public class QLChiNhanh extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
 
-        String ma = lstcn.get(tblBang.getSelectedRow()).getMa();
-        chiNhanhS.deleteMauSac(txtMa.getText());
-        lstcn.remove(tblBang.getSelectedRow());
-        lstcn = chiNhanhS.getAll();
-        show(lstcn);
-
+//        String ma = lstcn.get(tblBang.getSelectedRow()).getMa();
+//        chiNhanhS.deleteMauSac(txtMa.getText());
+//        lstcn.remove(tblBang.getSelectedRow());
+//        lstcn = chiNhanhS.getAll();
+//        show(lstcn);
 
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
-        String ma = txtTim.getText();
-        lstcn = chiNhanhS.findByMa(ma);
-        show(lstcn);// TODO add your handling code here:
+//        String ma = txtTim.getText();
+//        lstcn = chiNhanhS.findByMa(ma);
+//        show(lstcn);// TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(QLChiNhanh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(QLChiNhanh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(QLChiNhanh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(QLChiNhanh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new QLChiNhanh().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

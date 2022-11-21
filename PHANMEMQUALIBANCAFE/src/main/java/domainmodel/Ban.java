@@ -32,6 +32,8 @@ public class Ban implements Serializable {
     private Integer soBan;
     @Column(name = "TrangThai")
     private Integer trangThai;
+    @Column(name = "TrangThaiSuDung")
+    private Integer trangThaiSuDung;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "IdKhuVuc")
     private KhuVuc khuVuc;
@@ -39,10 +41,11 @@ public class Ban implements Serializable {
     public Ban() {
     }
 
-    public Ban(String id, Integer soBan, Integer trangThai, KhuVuc khuVuc) {
+    public Ban(String id, Integer soBan, Integer trangThai, Integer trangThaiSuDung, KhuVuc khuVuc) {
         this.id = id;
         this.soBan = soBan;
         this.trangThai = trangThai;
+        this.trangThaiSuDung = trangThaiSuDung;
         this.khuVuc = khuVuc;
     }
 
@@ -70,6 +73,14 @@ public class Ban implements Serializable {
         this.trangThai = trangThai;
     }
 
+    public Integer getTrangThaiSuDung() {
+        return trangThaiSuDung;
+    }
+
+    public void setTrangThaiSuDung(Integer trangThaiSuDung) {
+        this.trangThaiSuDung = trangThaiSuDung;
+    }
+
     public KhuVuc getKhuVuc() {
         return khuVuc;
     }
@@ -77,5 +88,5 @@ public class Ban implements Serializable {
     public void setKhuVuc(KhuVuc khuVuc) {
         this.khuVuc = khuVuc;
     }
-
+ 
 }

@@ -51,7 +51,7 @@ public class OverView extends javax.swing.JFrame {
         banHang = new javax.swing.JPanel();
         lblBanHang = new javax.swing.JLabel();
         qlChiNhanh = new javax.swing.JPanel();
-        lblQlNguoiDung = new javax.swing.JLabel();
+        lblQlCNhanh = new javax.swing.JLabel();
         QLGiaoDich = new javax.swing.JPanel();
         lblQlGiaoDich = new javax.swing.JLabel();
         QLNguyenLieu = new javax.swing.JPanel();
@@ -71,7 +71,7 @@ public class OverView extends javax.swing.JFrame {
         QLDoiTac = new javax.swing.JPanel();
         lblQlDoiTac = new javax.swing.JLabel();
         QLNguoiDung = new javax.swing.JPanel();
-        lblQlChiNhanh = new javax.swing.JLabel();
+        lblQlNguoiDung = new javax.swing.JLabel();
         pnlLeft1 = new javax.swing.JPanel();
         banHang1 = new javax.swing.JPanel();
         lblBanHang1 = new javax.swing.JLabel();
@@ -147,11 +147,11 @@ public class OverView extends javax.swing.JFrame {
         });
         qlChiNhanh.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblQlNguoiDung.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lblQlNguoiDung.setForeground(new java.awt.Color(102, 51, 0));
-        lblQlNguoiDung.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/account_35px.png"))); // NOI18N
-        lblQlNguoiDung.setText(" Quản lý người dùng");
-        qlChiNhanh.add(lblQlNguoiDung, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 60));
+        lblQlCNhanh.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lblQlCNhanh.setForeground(new java.awt.Color(102, 51, 0));
+        lblQlCNhanh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/online_store_35px.png"))); // NOI18N
+        lblQlCNhanh.setText(" Quản lý chi nhánh");
+        qlChiNhanh.add(lblQlCNhanh, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 60));
 
         pnlLeft.add(qlChiNhanh, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 710, 200, 60));
 
@@ -377,11 +377,11 @@ public class OverView extends javax.swing.JFrame {
         });
         QLNguoiDung.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblQlChiNhanh.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lblQlChiNhanh.setForeground(new java.awt.Color(102, 51, 0));
-        lblQlChiNhanh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/online_store_35px.png"))); // NOI18N
-        lblQlChiNhanh.setText(" Quản lý chi nhánh");
-        QLNguoiDung.add(lblQlChiNhanh, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 60));
+        lblQlNguoiDung.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lblQlNguoiDung.setForeground(new java.awt.Color(102, 51, 0));
+        lblQlNguoiDung.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/account_35px.png"))); // NOI18N
+        lblQlNguoiDung.setText(" Quản lý người dùng");
+        QLNguoiDung.add(lblQlNguoiDung, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 60));
 
         pnlLeft.add(QLNguoiDung, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 650, 200, 60));
 
@@ -746,7 +746,7 @@ public class OverView extends javax.swing.JFrame {
     }//GEN-LAST:event_banHangMouseExited
 
     private void qlChiNhanhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_qlChiNhanhMouseClicked
-        setMainPanel(_khuyenMai);
+        setMainPanel(_qlChiNhanh);
     }//GEN-LAST:event_qlChiNhanhMouseClicked
 
     private void qlChiNhanhMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_qlChiNhanhMouseEntered
@@ -1128,7 +1128,7 @@ public class OverView extends javax.swing.JFrame {
     private javax.swing.JLabel lblBanHang2;
     private javax.swing.JLabel lblKhuyenMai;
     private javax.swing.JLabel lblKhuyenMai1;
-    private javax.swing.JLabel lblQlChiNhanh;
+    private javax.swing.JLabel lblQlCNhanh;
     private javax.swing.JLabel lblQlChiNhanh1;
     private javax.swing.JLabel lblQlDoiTac;
     private javax.swing.JLabel lblQlDoiTac1;
