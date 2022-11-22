@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 public class ChiTietSPViewModel {
 
+    private String IdNguyenLieu;
     private String maNguyenLieu;
     private String tenNguyenLieu;
     private BigDecimal dinhLuong;
@@ -11,10 +12,19 @@ public class ChiTietSPViewModel {
     public ChiTietSPViewModel() {
     }
 
-    public ChiTietSPViewModel(String maNguyenLieu, String tenNguyenLieu, BigDecimal dinhLuong) {
+    public ChiTietSPViewModel(String IdNguyenLieu, String maNguyenLieu, String tenNguyenLieu, BigDecimal dinhLuong) {
+        this.IdNguyenLieu = IdNguyenLieu;
         this.maNguyenLieu = maNguyenLieu;
         this.tenNguyenLieu = tenNguyenLieu;
         this.dinhLuong = dinhLuong;
+    }
+
+    public String getIdNguyenLieu() {
+        return IdNguyenLieu;
+    }
+
+    public void setIdNguyenLieu(String IdNguyenLieu) {
+        this.IdNguyenLieu = IdNguyenLieu;
     }
 
     public String getMaNguyenLieu() {

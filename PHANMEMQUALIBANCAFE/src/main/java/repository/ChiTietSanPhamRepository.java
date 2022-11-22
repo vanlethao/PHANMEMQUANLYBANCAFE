@@ -24,7 +24,7 @@ public class ChiTietSanPhamRepository {
 
     public Set<ChiTietSP> getChiTietSpByIdSanPham(String id) {
         Set<ChiTietSP> setChiTiet = null;
-        try (Session session = Hibernateutility.getFactory().openSession()) {
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
             SanPham sp = session.get(SanPham.class, id);
             setChiTiet = sp.getChiTietSp();
             session.close();
@@ -32,9 +32,26 @@ public class ChiTietSanPhamRepository {
         return setChiTiet;
     }
 
+    public static void deleteChiTietSpByIdSp(String id) {
+        Set<ChiTietSP> setChiTiet = null;
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            Transaction trans = session.beginTransaction();
+            SanPham sp = session.get(SanPham.class, id);
+            setChiTiet = sp.getChiTietSp();
+            setChiTiet.clear();
+            trans.commit();
+            session.close();
+        }
+
+    }
+
+    public static void main(String[] args) {
+        deleteChiTietSpByIdSp("87B948F9-5E16-4065-9055-780C3AEDD55B");
+    }
+
     public NguyenLieu getNguyenLieuByID(String id) {
         NguyenLieu nguyenLieu;
-        try (Session session = Hibernateutility.getFactory().openSession()) {
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
             nguyenLieu = session.get(NguyenLieu.class, id);
             session.close();
         }

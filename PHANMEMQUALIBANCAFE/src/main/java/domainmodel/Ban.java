@@ -88,5 +88,5 @@ public class Ban implements Serializable {
     public void setKhuVuc(KhuVuc khuVuc) {
         this.khuVuc = khuVuc;
     }
- 
+
 }

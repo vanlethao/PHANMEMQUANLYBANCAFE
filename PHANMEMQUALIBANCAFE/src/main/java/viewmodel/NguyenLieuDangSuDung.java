@@ -41,7 +41,7 @@ public class NguyenLieuDangSuDung {
 
     @Override
     public String toString() {
-        return ma + "" + ten;
+        return ma + " - " + ten;
     }
 
 }

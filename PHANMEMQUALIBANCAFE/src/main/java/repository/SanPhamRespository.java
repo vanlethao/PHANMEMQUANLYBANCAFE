@@ -1,10 +1,7 @@
 package repository;
 
-import domainmodel.ChiTietSP;
-import domainmodel.KhuyenMai;
 import domainmodel.NguyenLieu;
 import domainmodel.SanPham;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Session;
@@ -16,23 +13,24 @@ public class SanPhamRespository {
 
     public List<SanPham> getAllSanPham() {
         List<SanPham> list = null;
-        try (Session session = Hibernateutility.getFactory().openSession()) {
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
             list = session.createQuery("FROM SanPham").list();
             session.close();
         }
         return list;
     }
 
-    public String insertSanPham(String ma, String ten, float giaBan, String idKhuyenMai, byte[] avatar) {
+    public String insertSanPham(String ma, String ten, float giaBan, byte[] avatar) {
         String id = null;
-        try (Session session = Hibernateutility.getFactory().openSession()) {
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
             Transaction trans = session.beginTransaction();
             SanPham sanpham = new SanPham();
             sanpham.setId(id);
             sanpham.setMa(ma);
+            sanpham.setTen(ten);
             sanpham.setGiaBan(giaBan);
             sanpham.setTrangThai(1);
-            sanpham.setKhuyenMai(getKhyenMaiById(idKhuyenMai));
+            sanpham.setKhuyenMai(null);
             sanpham.setAvatar(avatar);
             id = (String) session.save(sanpham);
             trans.commit();
@@ -42,13 +40,12 @@ public class SanPhamRespository {
 
     }
 
-    public void UpdateSanPham(String id, String ma, String ten, float giaBan, KhuyenMai km, byte[] avatar) {
-        try (Session session = Hibernateutility.getFactory().openSession()) {
+    public void UpdateSanPham(String id, String ma, String ten, float giaBan, byte[] avatar) {
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
             Transaction trans = session.beginTransaction();
             SanPham sanpham = session.get(SanPham.class, id);
             sanpham.setMa(ma);
             sanpham.setGiaBan(giaBan);
-            sanpham.setKhuyenMai(km);
             sanpham.setAvatar(avatar);
             session.update(sanpham);
             trans.commit();
@@ -70,7 +67,7 @@ public class SanPhamRespository {
     public List<SanPham> searchSanPham(String tenSp) {
         Transaction trans = null;
         List<SanPham> listSP = new ArrayList<>();
-        try (Session session = Hibernateutility.getFactory().openSession()) {
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
             trans = session.beginTransaction();
             Query query = session.createQuery("FROM SanPham WHERE ten like :Ten");
             query.setParameter("Ten", "%" + tenSp + "%");
@@ -88,34 +85,30 @@ public class SanPhamRespository {
 
     public static SanPham getSanPhamById(String id) {
         SanPham sp;
-        try (Session session = Hibernateutility.getFactory().openSession()) {
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
             sp = session.get(SanPham.class, id);
             session.close();
         }
         return sp;
     }
 
-    public List<KhuyenMai> getAllKhuyenMai() {
-        List<KhuyenMai> listKm = null;
-        try (Session session = Hibernateutility.getFactory().openSession()) {
-            listKm = session.createQuery("FROM KhuyenMai").list();
+    public static SanPham getSanPhamByMa(String ma) {
+        SanPham sp = null;
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            Query query = session.createQuery("FROM SanPham WHERE ma=:maSp");
+            query.setParameter("maSp", ma);
+            List<SanPham> list = query.getResultList();
+            if (list.size() > 0) {
+                sp = list.get(0);
+            }
             session.close();
         }
-        return listKm;
-    }
-
-    public KhuyenMai getKhyenMaiById(String id) {
-        KhuyenMai khuyenMai;
-        try (Session session = Hibernateutility.getFactory().openSession()) {
-            khuyenMai = session.get(KhuyenMai.class, id);
-            session.close();
-        }
-        return khuyenMai;
+        return sp;
     }
 
     public List<NguyenLieu> getAllNguyenLieu() {
         List<NguyenLieu> listNguyenLieu = null;
-        try (Session session = Hibernateutility.getFactory().openSession()) {
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
             listNguyenLieu = session.createQuery("FROM NguyenLieu").list();
             session.close();
         }

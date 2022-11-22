@@ -8,17 +8,17 @@ public class SanPhamViewModel {
     private String maSp;
     private String tenSp;
     private BigDecimal giaBan;
-    private String tenKhuyenMai;
+    private byte[] avatar;
 
     public SanPhamViewModel() {
     }
 
-    public SanPhamViewModel(String idSp, String maSp, String tenSp, BigDecimal giaBan, String tenKhuyenMai) {
+    public SanPhamViewModel(String idSp, String maSp, String tenSp, BigDecimal giaBan, byte[] avatar) {
         this.idSp = idSp;
         this.maSp = maSp;
         this.tenSp = tenSp;
         this.giaBan = giaBan;
-        this.tenKhuyenMai = tenKhuyenMai;
+        this.avatar = avatar;
     }
 
     public String getIdSp() {
@@ -53,18 +53,12 @@ public class SanPhamViewModel {
         this.giaBan = giaBan;
     }
 
-    /**
-     * @return the tenKhuyenMai
-     */
-    public String getTenKhuyenMai() {
-        return tenKhuyenMai;
+    public byte[] getAvatar() {
+        return avatar;
     }
 
-    /**
-     * @param tenKhuyenMai the tenKhuyenMai to set
-     */
-    public void setTenKhuyenMai(String tenKhuyenMai) {
-        this.tenKhuyenMai = tenKhuyenMai;
+    public void setAvatar(byte[] avatar) {
+        this.avatar = avatar;
     }
 
 }

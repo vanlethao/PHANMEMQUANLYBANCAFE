@@ -48,7 +48,6 @@ public class BanHang extends javax.swing.JPanel {
                 public void mouseClicked(MouseEvent e) {
                     addProductForSaleToBill(item);
                     upTotalProduct(item);
-                    System.out.println(item.getMa());
                 }
 
             });
@@ -521,8 +520,7 @@ public class BanHang extends javax.swing.JPanel {
                 }
                 if (product.getAvatar() != null) {
                     Image image = new ImageIcon(product.getAvatar()).getImage().
-                            getScaledInstance(item.getLblAvatarSp().getWidth(),
-                                    item.getLblAvatarSp().getHeight(), Image.SCALE_SMOOTH);
+                            getScaledInstance(180, 180, Image.SCALE_SMOOTH);
                     item.getLblAvatarSp().setIcon(new ImageIcon(image));
                 }
                 pnlListSp.add(item);

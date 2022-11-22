@@ -10,30 +10,30 @@ import repository.ChiTietSanPhamRepository;
 import repository.SanPhamRespository;
 import service.IChiTietSpService;
 import viewmodel.ChiTietSPViewModel;
-import viewmodel.SanPhamViewModel;
 
 public class ChiTietSpService implements IChiTietSpService {
-
+    
     ChiTietSanPhamRepository chiTietSpRepo;
     SanPhamRespository sanPhamrepo;
-
+    
     public ChiTietSpService() {
         chiTietSpRepo = new ChiTietSanPhamRepository();
     }
-
+    
     @Override
     public void insertChiTietSanPham(float dinhLuong, String idSanPham, String idNguyenLieu) {
         SanPham sp = sanPhamrepo.getSanPhamById(idSanPham);
         NguyenLieu nguyenLieu = chiTietSpRepo.getNguyenLieuByID(idNguyenLieu);
         chiTietSpRepo.insertChiTietSanPham(dinhLuong, sp, nguyenLieu);
     }
-
+    
     @Override
     public Set<ChiTietSPViewModel> getChiTietSpByIdSanPham(String idsanPham) {
         Set<ChiTietSP> setChiTiet = chiTietSpRepo.getChiTietSpByIdSanPham(idsanPham);
         Set<ChiTietSPViewModel> setChiTietView = new HashSet<>();
         for (ChiTietSP chiTietSP : setChiTiet) {
             ChiTietSPViewModel ctView = new ChiTietSPViewModel();
+            ctView.setIdNguyenLieu(chiTietSP.getNguyenLieukey().getId());
             ctView.setMaNguyenLieu(chiTietSP.getNguyenLieukey().getMa());
             ctView.setTenNguyenLieu(chiTietSP.getNguyenLieukey().getTen());
             ctView.setDinhLuong(new BigDecimal(chiTietSP.getDinhLuong()));
@@ -41,5 +41,5 @@ public class ChiTietSpService implements IChiTietSpService {
         }
         return setChiTietView;
     }
-
+    
 }

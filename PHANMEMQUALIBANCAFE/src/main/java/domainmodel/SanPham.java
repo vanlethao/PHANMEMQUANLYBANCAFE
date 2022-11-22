@@ -51,7 +51,7 @@ public class SanPham implements Serializable {
     @JoinColumn(name = "IdKhuyenMai")
     private KhuyenMai khuyenMai;
 
-    @OneToMany(mappedBy = "sanPhamKey", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "sanPhamKey", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<ChiTietSP> chiTietSp;
 
     public SanPham() {

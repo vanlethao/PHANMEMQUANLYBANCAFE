@@ -1,6 +1,5 @@
 package service.implement;
 
-import domainmodel.KhuyenMai;
 import domainmodel.NguyenLieu;
 import domainmodel.SanPham;
 import java.math.BigDecimal;
@@ -8,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import repository.SanPhamRespository;
 import service.ISanPhamService;
-import viewmodel.KhuyenMaiDangHoatDong;
 import viewmodel.NguyenLieuDangSuDung;
 import viewmodel.SanPhamViewModel;
 
@@ -23,7 +21,7 @@ public class SanPhamService implements ISanPhamService {
     @Override
     public List<SanPhamViewModel> getAllSanPham() {
         var listSanPham = sanPhamRepo.getAllSanPham();
-        List<SanPhamViewModel> lisetView = new ArrayList<>();
+        List<SanPhamViewModel> listView = new ArrayList<>();
         if (listSanPham != null) {
             for (SanPham sanPham : listSanPham) {
                 if (sanPham.getTrangThai() == 1) {
@@ -36,26 +34,26 @@ public class SanPhamService implements ISanPhamService {
                     if (sanPham.getGiaBan() != null) {
                         spView.setGiaBan(new BigDecimal(sanPham.getGiaBan()));
                     }
-                    if (sanPham.getKhuyenMai().getTen() != null) {
-                        spView.setTenKhuyenMai(sanPham.getKhuyenMai().getTen());
+                    if (sanPham.getAvatar() != null) {
+                        spView.setAvatar(sanPham.getAvatar());
                     }
-                    lisetView.add(spView);
+                    listView.add(spView);
                 }
 
             }
         }
-        return lisetView;
+        return listView;
     }
 
     @Override
-    public String insertSanPham(String ma, String ten, float giaBan, String idkm, byte[] avatar) {
-        String id = sanPhamRepo.insertSanPham(ma, ten, giaBan, idkm, avatar);
+    public String insertSanPham(String ma, String ten, float giaBan, byte[] avatar) {
+        String id = sanPhamRepo.insertSanPham(ma, ten, giaBan, avatar);
         return id;
     }
 
     @Override
-    public void UpdateSanPham(String id, String ma, String ten, float giaBan, KhuyenMai km, byte[] avatar) {
-        sanPhamRepo.UpdateSanPham(id, ma, ten, giaBan, km, avatar);
+    public void UpdateSanPham(String id, String ma, String ten, float giaBan, byte[] avatar) {
+        sanPhamRepo.UpdateSanPham(id, ma, ten, giaBan, avatar);
     }
 
     @Override
@@ -86,6 +84,7 @@ public class SanPhamService implements ISanPhamService {
     public SanPhamViewModel getSanPhamById(String id) {
         SanPham sanPham = sanPhamRepo.getSanPhamById(id);
         SanPhamViewModel spView = new SanPhamViewModel();
+        spView.setIdSp(sanPham.getId());
         spView.setMaSp(sanPham.getMa());
         if (sanPham.getTen() != null) {
             spView.setTenSp(sanPham.getTen());
@@ -93,27 +92,10 @@ public class SanPhamService implements ISanPhamService {
         if (sanPham.getGiaBan() != null) {
             spView.setGiaBan(new BigDecimal(sanPham.getGiaBan()));
         }
-        return spView;
-    }
-
-    @Override
-    public List<KhuyenMaiDangHoatDong> getAllKhuyenMai() {
-        var listKm = sanPhamRepo.getAllKhuyenMai();
-        List<KhuyenMaiDangHoatDong> listSaleActive = new ArrayList<>();
-        if (listKm != null) {
-            for (KhuyenMai khuyenMai : listKm) {
-                KhuyenMaiDangHoatDong kmActive = new KhuyenMaiDangHoatDong();
-                kmActive.setIdKhuyenMai(khuyenMai.getId());
-                if (khuyenMai.getTen() != null) {
-                    kmActive.setTenKhuyenMai(khuyenMai.getTen());
-                }
-                if (khuyenMai.getMota() != null) {
-                    kmActive.setMoTa(khuyenMai.getMota());
-                }
-                listSaleActive.add(kmActive);
-            }
+        if (sanPham.getAvatar() != null) {
+            spView.setAvatar(sanPham.getAvatar());
         }
-        return listSaleActive;
+        return spView;
     }
 
     @Override
@@ -130,6 +112,28 @@ public class SanPhamService implements ISanPhamService {
             }
         }
         return listNguyenLieu;
+    }
+
+    @Override
+    public SanPhamViewModel getSanPhamByMa(String ma) {
+        var sanPham = sanPhamRepo.getSanPhamByMa(ma);
+        SanPhamViewModel spView = null;
+        if (sanPham != null) {
+            spView = new SanPhamViewModel();
+            spView.setIdSp(sanPham.getId());
+            spView.setMaSp(sanPham.getMa());
+            if (sanPham.getTen() != null) {
+                spView.setTenSp(sanPham.getTen());
+            }
+            if (sanPham.getGiaBan() != null) {
+                spView.setGiaBan(new BigDecimal(sanPham.getGiaBan()));
+            }
+            if (sanPham.getAvatar() != null) {
+                spView.setAvatar(sanPham.getAvatar());
+            }
+
+        }
+        return spView;
     }
 
 }
