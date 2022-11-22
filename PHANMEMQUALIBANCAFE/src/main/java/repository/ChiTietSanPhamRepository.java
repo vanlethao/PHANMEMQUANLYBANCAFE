@@ -45,10 +45,6 @@ public class ChiTietSanPhamRepository {
 
     }
 
-    public static void main(String[] args) {
-        deleteChiTietSpByIdSp("87B948F9-5E16-4065-9055-780C3AEDD55B");
-    }
-
     public NguyenLieu getNguyenLieuByID(String id) {
         NguyenLieu nguyenLieu;
         try ( Session session = Hibernateutility.getFactory().openSession()) {

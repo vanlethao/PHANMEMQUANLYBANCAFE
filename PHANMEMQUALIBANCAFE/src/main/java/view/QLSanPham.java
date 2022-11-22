@@ -344,6 +344,11 @@ public class QLSanPham extends javax.swing.JPanel {
         btnXoa.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         btnXoa.setText("Xóa");
         btnXoa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlRightLayout = new javax.swing.GroupLayout(pnlRight);
         pnlRight.setLayout(pnlRightLayout);
@@ -525,9 +530,9 @@ public class QLSanPham extends javax.swing.JPanel {
     }
 
     private void clearForm() {
+        cboNguyenLieu.setSelectedIndex(0);
         modelTableDinhLuong = (DefaultTableModel) tblDinhLuong.getModel();
         modelTableDinhLuong.setRowCount(0);
-        cboNguyenLieu.setSelectedIndex(0);
         lblAnh.setIcon(defaultAvatar);
         txtMaSp.setText("");
         txtTenSp.setText("");
@@ -549,13 +554,44 @@ public class QLSanPham extends javax.swing.JPanel {
 
     private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
         int row = tblSanPham.getSelectedRow();
-        sanPhamService.UpdateSanPham(
-                tblSanPham.getValueAt(row, 0).toString(),
-                tblSanPham.getValueAt(row, 1).toString(),
-                tblSanPham.getValueAt(row, 2).toString(),
-                Float.parseFloat(tblSanPham.getValueAt(row, 3).toString()),
-                _arrAvatar);
+        if (tblDinhLuong.getRowCount() > 0 && row != -1) {
+            if (tblSanPham.getValueAt(row, 2) != null && tblSanPham.getValueAt(row, 3) != null) {
+                sanPhamService.UpdateSanPham(
+                        tblSanPham.getValueAt(row, 0).toString(),
+                        tblSanPham.getValueAt(row, 1).toString(),
+                        tblSanPham.getValueAt(row, 2).toString(),
+                        Float.parseFloat(tblSanPham.getValueAt(row, 3).toString()),
+                        _arrAvatar);
+                chiTietSPService.deleteChiTietSpByIdSp(tblSanPham.getValueAt(row, 0).toString());
+                for (int i = 0; i < tblDinhLuong.getRowCount(); i++) {
+                    chiTietSPService.insertChiTietSanPham(Float.parseFloat(tblDinhLuong.getValueAt(i, 3).toString()),
+                            tblSanPham.getValueAt(row, 0).toString(), tblDinhLuong.getValueAt(i, 0).toString());
+                }
+                ShowSanPhamToTable(sanPhamService.getAllSanPham());
+                clearForm();
+                JOptionPane.showMessageDialog(this, "Cập nhật phẩm thành công");
+            } else {
+                JOptionPane.showMessageDialog(this, "Dữ liệu trống");
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm và thêm định lượng");
+        }
+
     }//GEN-LAST:event_btnCapNhatActionPerformed
+
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        int row = tblSanPham.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm cần xóa");
+        } else {
+            sanPhamService.deleteSanPham(tblSanPham.getValueAt(row, 0).toString());
+            ShowSanPhamToTable(sanPhamService.getAllSanPham());
+            clearForm();
+            JOptionPane.showMessageDialog(this, "Xóa phẩm thành công");
+        }
+
+    }//GEN-LAST:event_btnXoaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

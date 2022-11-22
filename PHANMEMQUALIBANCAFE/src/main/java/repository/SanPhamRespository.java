@@ -45,6 +45,7 @@ public class SanPhamRespository {
             Transaction trans = session.beginTransaction();
             SanPham sanpham = session.get(SanPham.class, id);
             sanpham.setMa(ma);
+            sanpham.setTen(ten);
             sanpham.setGiaBan(giaBan);
             sanpham.setAvatar(avatar);
             session.update(sanpham);

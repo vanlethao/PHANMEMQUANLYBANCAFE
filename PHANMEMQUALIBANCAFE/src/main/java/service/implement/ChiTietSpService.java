@@ -41,5 +41,10 @@ public class ChiTietSpService implements IChiTietSpService {
         }
         return setChiTietView;
     }
+
+    @Override
+    public void deleteChiTietSpByIdSp(String id) {
+        chiTietSpRepo.deleteChiTietSpByIdSp(id);
+    }
     
 }
