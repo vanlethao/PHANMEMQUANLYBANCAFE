@@ -51,6 +51,8 @@ public class KhachHang implements Serializable {
 
     @Column(name = "TrangThai")
     private Integer trangThai;
+    @Column(name = "diemTichLuy")
+    private Integer diemTichLuy;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "CHITIETKHACHHANG",
@@ -63,8 +65,7 @@ public class KhachHang implements Serializable {
     public KhachHang() {
     }
 
-    public KhachHang(String id, String ma, String hoTen, String quocGia, String thanhPho,
-            String sdt, String gioiTinh, Integer trangThai, Set<ChiNhanh> listChiNhanh) {
+    public KhachHang(String id, String ma, String hoTen, String quocGia, String thanhPho, String sdt, String gioiTinh, Integer trangThai, Integer diemTichLuy, Set<ChiNhanh> listChiNhanh) {
         this.id = id;
         this.ma = ma;
         this.hoTen = hoTen;
@@ -73,6 +74,7 @@ public class KhachHang implements Serializable {
         this.sdt = sdt;
         this.gioiTinh = gioiTinh;
         this.trangThai = trangThai;
+        this.diemTichLuy = diemTichLuy;
         this.listChiNhanh = listChiNhanh;
     }
 
@@ -138,6 +140,14 @@ public class KhachHang implements Serializable {
 
     public void setTrangThai(Integer trangThai) {
         this.trangThai = trangThai;
+    }
+
+    public Integer getDiemTichLuy() {
+        return diemTichLuy;
+    }
+
+    public void setDiemTichLuy(Integer diemTichLuy) {
+        this.diemTichLuy = diemTichLuy;
     }
 
     public Set<ChiNhanh> getListChiNhanh() {
