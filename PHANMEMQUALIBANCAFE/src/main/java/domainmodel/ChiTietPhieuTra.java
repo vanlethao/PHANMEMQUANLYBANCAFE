@@ -33,7 +33,7 @@ public class ChiTietPhieuTra implements Serializable {
     private NguyenLieu nguyenLieuKey;
 
     @Column(name = "SoLuongTra")
-    private float soLuongTra;
+    private Float soLuongTra;
 
     @Column(name = "LiDo")
     private String liDo;
@@ -64,11 +64,11 @@ public class ChiTietPhieuTra implements Serializable {
         this.nguyenLieuKey = nguyenLieuKey;
     }
 
-    public float getSoLuongTra() {
+    public Float getSoLuongTra() {
         return soLuongTra;
     }
 
-    public void setSoLuongTra(float soLuongTra) {
+    public void setSoLuongTra(Float soLuongTra) {
         this.soLuongTra = soLuongTra;
     }
 

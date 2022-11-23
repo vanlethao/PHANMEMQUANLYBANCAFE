@@ -33,15 +33,15 @@ public class ChiTietPhieuNhap implements Serializable {
     private NguyenLieu nguyenLieuKey;
 
     @Column(name = "SoLuongNhap")
-    private float soLuongNhap;
+    private Float soLuongNhap;
 
     @Column(name = "DonGia")
-    private float donGia;
+    private Float donGia;
 
     public ChiTietPhieuNhap() {
     }
 
-    public ChiTietPhieuNhap(PhieuNhapHang phieuNhapKey, NguyenLieu nguyenLieuKey, float soLuongNhap, float donGia) {
+    public ChiTietPhieuNhap(PhieuNhapHang phieuNhapKey, NguyenLieu nguyenLieuKey, Float soLuongNhap, Float donGia) {
         this.phieuNhapKey = phieuNhapKey;
         this.nguyenLieuKey = nguyenLieuKey;
         this.soLuongNhap = soLuongNhap;
@@ -64,20 +64,21 @@ public class ChiTietPhieuNhap implements Serializable {
         this.nguyenLieuKey = nguyenLieuKey;
     }
 
-    public float getSoLuongNhap() {
+    public Float getSoLuongNhap() {
         return soLuongNhap;
     }
 
-    public void setSoLuongNhap(float soLuongNhap) {
+    public void setSoLuongNhap(Float soLuongNhap) {
         this.soLuongNhap = soLuongNhap;
     }
 
-    public float getDonGia() {
+    public Float getDonGia() {
         return donGia;
     }
 
-    public void setDonGia(float donGia) {
+    public void setDonGia(Float donGia) {
         this.donGia = donGia;
     }
 
+    
 }

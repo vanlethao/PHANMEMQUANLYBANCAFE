@@ -76,10 +76,4 @@ public class NhaCungCap implements Serializable {
     public void setTrangThai(Integer trangThai) {
         this.trangThai = trangThai;
     }
-
-    @Override
-    public String toString() {
-        return  ma + " - " + ten;
-    }
-
 }

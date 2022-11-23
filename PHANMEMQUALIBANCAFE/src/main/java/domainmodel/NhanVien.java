@@ -193,9 +193,5 @@ public class NhanVien implements Serializable {
         this.chiTietCa = chiTietCa;
     }
 
-    @Override
-    public String toString() {
-        return ma + " - " + hoTen;
-    }
 
 }
