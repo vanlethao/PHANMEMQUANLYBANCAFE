@@ -32,7 +32,7 @@ public class BanHangRepo {
     public static List<KhuVuc> getAllKhuVuc() {
         List<KhuVuc> listKhuVuc = null;
         try ( Session session = Hibernateutility.getFactory().openSession()) {
-            listKhuVuc = session.createQuery("FROM KhuVuc").list();
+            listKhuVuc = session.createQuery("FROM KhuVuc WHERE trangThai=1").list();
             session.close();
         }
         return listKhuVuc;
@@ -40,12 +40,18 @@ public class BanHangRepo {
 
     public static Set<Ban> getAllBanByKhuVuc(KhuVuc khuVuc) {
         Set<Ban> setBan = new HashSet<>();
+        Set<Ban> setBanDangHoatDong = new HashSet<>();
         try ( Session session = Hibernateutility.getFactory().openSession()) {
             KhuVuc kv = session.get(KhuVuc.class, khuVuc.getId());
             setBan = kv.getListBan();
+            for (Ban ban : setBan) {
+                if (ban.getTrangThaiSuDung() == 1) {
+                    setBanDangHoatDong.add(ban);
+                }
+            }
             session.close();
         }
-        return setBan;
+        return setBanDangHoatDong;
     }
 
 }

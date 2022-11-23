@@ -5,15 +5,20 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import javax.imageio.ImageReader;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import service.IBanHangService;
 import service.implement.BanHangService;
@@ -36,23 +41,14 @@ public class BanHang extends javax.swing.JPanel {
     public BanHang() {
         initComponents();
         modelTable = new DefaultTableModel();
+        modelTable = (DefaultTableModel) tblSpChon.getModel();
         banHangService = new BanHangService();
         modelComboArea = (DefaultComboBoxModel) new DefaultComboBoxModel<>(banHangService.getAllKhuVuc().toArray());
         cboKhuVuc.setModel((DefaultComboBoxModel) modelComboArea);
         listItemSanPham = new ArrayList<>();
         listItemBan = new ArrayList<>();
         showProductForSale();
-        for (ItemSanPham item : listItemSanPham) {
-            item.getLblAvatarSp().addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    addProductForSaleToBill(item);
-                    upTotalProduct(item);
-                }
-
-            });
-        }
-
+        setEventClickForItemSanPham();
     }
 
     @SuppressWarnings("unchecked")
@@ -180,6 +176,11 @@ public class BanHang extends javax.swing.JPanel {
         });
         tblSpChon.setGridColor(new java.awt.Color(255, 255, 255));
         tblSpChon.getTableHeader().setReorderingAllowed(false);
+        tblSpChon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblSpChonMouseClicked(evt);
+            }
+        });
         tblSpChon.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 tblSpChonKeyReleased(evt);
@@ -253,11 +254,11 @@ public class BanHang extends javax.swing.JPanel {
                                 .addComponent(cboKhuVuc, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(52, 52, 52)
                                 .addComponent(jLabel2)
-                                .addGap(26, 26, 26)
+                                .addGap(27, 27, 27)
                                 .addComponent(jLabel3)
-                                .addGap(29, 29, 29)
+                                .addGap(30, 30, 30)
                                 .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         pnlLeftLayout.setVerticalGroup(
@@ -267,11 +268,11 @@ public class BanHang extends javax.swing.JPanel {
                 .addGroup(pnlLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(pnlTimSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(pnlLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cboKhuVuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel4))))
+                            .addComponent(jLabel4))
+                        .addComponent(cboKhuVuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlLeftLayout.createSequentialGroup()
@@ -461,6 +462,19 @@ public class BanHang extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void setEventClickForItemSanPham() {
+        for (ItemSanPham item : listItemSanPham) {
+            item.getLblAvatarSp().addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    addProductForSaleToTable(item);
+                    upTotalProduct(item);
+                }
+
+            });
+        }
+    }
+
     private void upTotalProduct(ItemSanPham item) {
         int soLuong = 0;
         double thanhTien = 0;
@@ -479,21 +493,20 @@ public class BanHang extends javax.swing.JPanel {
         }
     }
 
-    private void addProductForSaleToBill(ItemSanPham item) {
-        modelTable = (DefaultTableModel) tblSpChon.getModel();
+    private void addProductForSaleToTable(ItemSanPham item) {
         int soLuong = 0;
         boolean check = false;
         BigDecimal thanhTien = new BigDecimal(item.getLblGiaSp().getText());
         for (int i = 0; i < tblSpChon.getRowCount(); i++) {
             if (item.getId().equalsIgnoreCase(tblSpChon.getValueAt(i, 0).toString())) {
                 check = true;
+                break;
             }
         }
         if (check != true) {
             modelTable.addRow(new Object[]{item.getId(), item.getMa(), item.getLblTenSp().getText(),
                 item.getLblGiaSp().getText(), 0, thanhTien});
         }
-
     }
 
     private void showProductForSale() {
@@ -633,6 +646,18 @@ public class BanHang extends javax.swing.JPanel {
         showTableOfArea(area);
 
     }//GEN-LAST:event_cboKhuVucActionPerformed
+
+    private void tblSpChonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSpChonMouseClicked
+        int row = tblSpChon.getSelectedRow();
+        int column = tblSpChon.getSelectedColumn();
+        if (column == 6) {
+            boolean remove = (boolean) tblSpChon.getValueAt(row, column);
+            if (remove == true) {
+                modelTable.removeRow(row);
+            }
+        }
+
+    }//GEN-LAST:event_tblSpChonMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

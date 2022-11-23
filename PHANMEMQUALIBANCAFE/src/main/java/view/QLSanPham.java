@@ -50,6 +50,8 @@ public class QLSanPham extends javax.swing.JPanel {
         chiTietSPService = new ChiTietSpService();
         modelTableSanPham = new DefaultTableModel();
         modelTableDinhLuong = new DefaultTableModel();
+        modelTableDinhLuong = (DefaultTableModel) tblDinhLuong.getModel();
+        modelTableSanPham = (DefaultTableModel) tblSanPham.getModel();
         modelComBoNguyenLieu = (DefaultComboBoxModel) new DefaultComboBoxModel<>(sanPhamService.getAllNguyenLieu().toArray());
         cboNguyenLieu.setModel((DefaultComboBoxModel) modelComBoNguyenLieu);
         Image image = new ImageIcon(getClass().getClassLoader().getResource("icon\\add-image.png")).getImage();
@@ -250,24 +252,24 @@ public class QLSanPham extends javax.swing.JPanel {
                 .addGroup(pnlLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(pnlLeftLayout.createSequentialGroup()
-                        .addGroup(pnlLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(pnlLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlLeftLayout.createSequentialGroup()
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(31, 31, 31)
-                                .addComponent(txtGiaBan, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
-                            .addGroup(pnlLeftLayout.createSequentialGroup()
-                                .addGroup(pnlLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(25, 25, 25)
-                                .addGroup(pnlLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtTenSp)
-                                    .addComponent(txtMaSp))))
-                        .addGap(115, 115, 115)
-                        .addComponent(lblAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(pnlLeftLayout.createSequentialGroup()
-                        .addComponent(btnThemSP)
+                                .addGroup(pnlLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(pnlLeftLayout.createSequentialGroup()
+                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(31, 31, 31)
+                                        .addComponent(txtGiaBan, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
+                                    .addGroup(pnlLeftLayout.createSequentialGroup()
+                                        .addGroup(pnlLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(25, 25, 25)
+                                        .addGroup(pnlLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtTenSp)
+                                            .addComponent(txtMaSp))))
+                                .addGap(115, 115, 115)
+                                .addComponent(lblAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnThemSP))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -445,7 +447,6 @@ public class QLSanPham extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ShowSanPhamToTable(List<SanPhamViewModel> list) {
-        modelTableSanPham = (DefaultTableModel) tblSanPham.getModel();
         modelTableSanPham.setRowCount(0);
         for (SanPhamViewModel sp : list) {
             modelTableSanPham.addRow(new Object[]{sp.getIdSp(), sp.getMaSp(),
@@ -483,7 +484,6 @@ public class QLSanPham extends javax.swing.JPanel {
     }//GEN-LAST:event_lbUploadMouseExited
 
     private void showChiTietSanPham(String idSp) {
-        modelTableDinhLuong = (DefaultTableModel) tblDinhLuong.getModel();
         modelTableDinhLuong.setRowCount(0);
         SanPhamViewModel spView = sanPhamService.getSanPhamById(idSp);
         Set<ChiTietSPViewModel> chiTietView = chiTietSPService.getChiTietSpByIdSanPham(idSp);
@@ -513,7 +513,6 @@ public class QLSanPham extends javax.swing.JPanel {
         if (cboNguyenLieu.getItemCount() <= 0) {
             JOptionPane.showMessageDialog(jPanel4, "Vui lòng bổ sung nguyên liệu");
         } else {
-            modelTableDinhLuong = (DefaultTableModel) tblDinhLuong.getModel();
             NguyenLieuDangSuDung nguyenLieu = (NguyenLieuDangSuDung) modelComBoNguyenLieu.getSelectedItem();
             for (int i = 0; i < tblDinhLuong.getRowCount(); i++) {
                 if (nguyenLieu.getId().equalsIgnoreCase(tblDinhLuong.getValueAt(i, 0).toString())) {
@@ -547,13 +546,16 @@ public class QLSanPham extends javax.swing.JPanel {
     }//GEN-LAST:event_tblDinhLuongKeyReleased
 
     private void tblDinhLuongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDinhLuongMouseClicked
-        modelTableDinhLuong = (DefaultTableModel) tblDinhLuong.getModel();
         int row = tblDinhLuong.getSelectedRow();
-        if (tblDinhLuong.getSelectedColumn() == 4) {
-            if (tblDinhLuong.getValueAt(row, 4).equals(true)) {
-                modelTableDinhLuong.removeRow(row);
+        int column = tblDinhLuong.getSelectedColumn();
+        if (column == 4) {
+            if (tblDinhLuong.getSelectedColumn() == 4) {
+                if (tblDinhLuong.getValueAt(row, 4).equals(true)) {
+                    modelTableDinhLuong.removeRow(row);
+                }
             }
         }
+
 
     }//GEN-LAST:event_tblDinhLuongMouseClicked
 
@@ -579,7 +581,6 @@ public class QLSanPham extends javax.swing.JPanel {
 
     private void clearForm() {
         cboNguyenLieu.setSelectedIndex(0);
-        modelTableDinhLuong = (DefaultTableModel) tblDinhLuong.getModel();
         modelTableDinhLuong.setRowCount(0);
         lblAnh.setIcon(defaultAvatar);
         txtMaSp.setText("");
