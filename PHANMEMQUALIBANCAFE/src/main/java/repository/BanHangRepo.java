@@ -23,7 +23,7 @@ public class BanHangRepo {
     public static List<SanPham> getAllSanPham() {
         List<SanPham> listSp = null;
         try ( Session session = Hibernateutility.getFactory().openSession()) {
-            listSp = session.createQuery("FROM SanPham").list();
+            listSp = session.createQuery("FROM SanPham WHERE trangThai=1").list();
             session.close();
         }
         return listSp;

@@ -19,12 +19,39 @@ public class SanPhamService implements ISanPhamService {
     }
 
     @Override
-    public List<SanPhamViewModel> getAllSanPham() {
+    public List<SanPhamViewModel> getAllSanPhamDangBan() {
         var listSanPham = sanPhamRepo.getAllSanPham();
         List<SanPhamViewModel> listView = new ArrayList<>();
         if (listSanPham != null) {
             for (SanPham sanPham : listSanPham) {
                 if (sanPham.getTrangThai() == 1) {
+                    SanPhamViewModel spView = new SanPhamViewModel();
+                    spView.setIdSp(sanPham.getId());
+                    spView.setMaSp(sanPham.getMa());
+                    if (sanPham.getTen() != null) {
+                        spView.setTenSp(sanPham.getTen());
+                    }
+                    if (sanPham.getGiaBan() != null) {
+                        spView.setGiaBan(new BigDecimal(sanPham.getGiaBan()));
+                    }
+                    if (sanPham.getAvatar() != null) {
+                        spView.setAvatar(sanPham.getAvatar());
+                    }
+                    listView.add(spView);
+                }
+
+            }
+        }
+        return listView;
+    }
+
+    @Override
+    public List<SanPhamViewModel> getAllSanPhamDaXoa() {
+        var listSanPham = sanPhamRepo.getAllSanPham();
+        List<SanPhamViewModel> listView = new ArrayList<>();
+        if (listSanPham != null) {
+            for (SanPham sanPham : listSanPham) {
+                if (sanPham.getTrangThai() == 0) {
                     SanPhamViewModel spView = new SanPhamViewModel();
                     spView.setIdSp(sanPham.getId());
                     spView.setMaSp(sanPham.getMa());

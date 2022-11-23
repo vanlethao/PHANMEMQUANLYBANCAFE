@@ -6,7 +6,9 @@ import viewmodel.SanPhamViewModel;
 
 public interface ISanPhamService {
 
-    List<SanPhamViewModel> getAllSanPham();
+    List<SanPhamViewModel> getAllSanPhamDangBan();
+
+    List<SanPhamViewModel> getAllSanPhamDaXoa();
 
     String insertSanPham(String ma, String ten, float giaBan, byte[] avatar);
 
