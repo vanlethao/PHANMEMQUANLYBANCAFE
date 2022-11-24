@@ -57,10 +57,7 @@ CREATE TABLE KHACHHANG(
 	Sdt VARCHAR(12) NULL,
 	GioiTinh NVARCHAR(5) NULL,
 	TrangThai INT NULL,
-	diemTichLuy INT NULL,
-	TyleTichDiem FLOAT NULL, /*ví dụ= 100.000 nghĩa là 100.000=1 điểm(là tỷ lệ quy đổi từ tiền sang điểm)*/
-	TyleDoiTien FLOAT NULL	/*ví dụ =1000 nghĩa là 1000=1điểm (là tỷ lệ quy đổi từ điểm sang tiền cho khách)*/
-
+	diemTichLuy INT NULL
 )
 CREATE TABLE CHITIETKHACHHANG(
 	IdKhachHang UNIQUEIDENTIFIER NOT NULL ,
