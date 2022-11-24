@@ -9,7 +9,11 @@ import domainmodel.NguyenLieu;
 import domainmodel.NhaCungCap;
 import domainmodel.NhanVien;
 import domainmodel.PhieuNhapHang;
+import java.util.Date;
 import java.util.List;
+import viewmodel.NguyenLieuViewModel_Hoang;
+import viewmodel.NhaCungCapViewModel_Hoang;
+import viewmodel.NhanVienViewModel_Hoang;
 import viewmodel.PhieuNhapViewModel;
 
 /**
@@ -20,14 +24,25 @@ public interface IPhieuNhap {
 
     List<PhieuNhapViewModel> getAllPhieuNhap();
 
-    List<NguyenLieu> getAllNguyenLieu();
+    List<NguyenLieuViewModel_Hoang> getAllNguyenLieu();
 
-    List<NhaCungCap> getAllNhaCungCap();
+    List<NhaCungCapViewModel_Hoang> getAllNhaCungCap();
 
-    List<NhanVien> getAllNhanVien();
+    List<NhanVienViewModel_Hoang> getAllNhanVien();
 
     PhieuNhapHang getPhieuNhapByMa(String maPN);
 
     String updateTrangThaiPhieuNhap(String maPN, Integer trangThai);
 
+    NhanVien getNhanVienByMa(String maNhanVien);
+
+    NhaCungCap getNhaCungCapByMa(String maNhaCungCap);
+
+    NguyenLieu getNguyenLieuByMa(String maNguyenLieu);
+
+    List<PhieuNhapViewModel> searchPhieuNhap(String maPN);
+
+    String insertPhieuNhap(String maPN, NhaCungCapViewModel_Hoang ncc, NhanVienViewModel_Hoang nv, Date ngayNhap, int trangThai);
+
+    void insertCTPhieuNhap(PhieuNhapViewModel pn, NguyenLieuViewModel_Hoang nl, float soLuongNhap, float donGia);
 }

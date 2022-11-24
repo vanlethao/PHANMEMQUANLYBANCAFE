@@ -6,8 +6,10 @@ package service;
 
 import java.util.List;
 import viewmodel.Area;
+import viewmodel.KhuyenMaiDangHoatDong;
 import viewmodel.ProductForSale;
 import viewmodel.Table;
+import viewmodel.ThemKhachViewModel;
 
 /**
  *
@@ -17,9 +19,17 @@ public interface IBanHangService {
 
     List<ProductForSale> getAllProductForSale();
 
-    boolean checkSoLuongMua(String soLuong);
+    boolean checkSo(String soLuong);
 
     List<Area> getAllKhuVuc();
 
+    List<KhuyenMaiDangHoatDong> getAllKhuyenMai();
+
+    KhuyenMaiDangHoatDong getKhuyenMaibySanPham(String id);
+
     List<Table> getAllBanByKhuVuc(Area are);
+
+    String insertKhachHang(ThemKhachViewModel khachHang);
+
+    ThemKhachViewModel getKhachHangBySdt(String sdt);
 }

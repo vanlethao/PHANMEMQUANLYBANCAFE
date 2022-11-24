@@ -8,6 +8,7 @@ import viewmodel.HoaDonViewModel;
 import domainmodel.HoaDonBanHang;
 import domainmodel.NhanVien;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import repository.HoaDonRepo;
 import repository.PhieuNhapRepo;
@@ -31,11 +32,22 @@ public class HoaDonService implements IHoaDon {
         List<HoaDonViewModel> lstView = new ArrayList<>();
         for (HoaDonBanHang x : hoaDon) {
             HoaDonViewModel qlhd = new HoaDonViewModel();
-            qlhd.setMaHoaDon(x.getMa());
-            qlhd.setNgayTao(x.getNgayTao());
-            qlhd.setMaNhanVien(x.getNhanVien().getMa());
-            qlhd.setTenNhanVien(x.getNhanVien().getHoTen());
-            qlhd.setTrangThai(x.getTrangThai());
+            qlhd.setId(x.getId());
+            if (x.getMa() != null) {
+                qlhd.setMaHoaDon(x.getMa());
+            }
+            if (x.getNgayTao() != null) {
+                qlhd.setNgayTao(x.getNgayTao());
+            }
+            if (x.getNhanVien().getMa() != null) {
+                qlhd.setMaNhanVien(x.getNhanVien().getMa());
+            }
+            if (x.getNhanVien().getHoTen() != null) {
+                qlhd.setTenNhanVien(x.getNhanVien().getHoTen());
+            }
+            if (x.getTrangThai() != null) {
+                qlhd.setTrangThai(x.getTrangThai());
+            }
             lstView.add(qlhd);
         }
         return lstView;
@@ -49,6 +61,33 @@ public class HoaDonService implements IHoaDon {
     @Override
     public String updateTrangThai(String maHD, Integer trangThai) {
         return hoaDonRepo.updateTrangThai(maHD, trangThai);
+    }
+
+    @Override
+    public List<HoaDonViewModel> locHoaDon(Date startDate, Date endDate) {
+        var hoaDon = hoaDonRepo.locHoaDon(startDate, endDate);
+        List<HoaDonViewModel> lstView = new ArrayList<>();
+        for (HoaDonBanHang x : hoaDon) {
+           HoaDonViewModel qlhd = new HoaDonViewModel();
+            qlhd.setId(x.getId());
+            if (x.getMa() != null) {
+                qlhd.setMaHoaDon(x.getMa());
+            }
+            if (x.getNgayTao() != null) {
+                qlhd.setNgayTao(x.getNgayTao());
+            }
+            if (x.getNhanVien().getMa() != null) {
+                qlhd.setMaNhanVien(x.getNhanVien().getMa());
+            }
+            if (x.getNhanVien().getHoTen() != null) {
+                qlhd.setTenNhanVien(x.getNhanVien().getHoTen());
+            }
+            if (x.getTrangThai() != null) {
+                qlhd.setTrangThai(x.getTrangThai());
+            }
+            lstView.add(qlhd);
+        }
+        return lstView;
     }
 
     public static void main(String[] args) {

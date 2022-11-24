@@ -6,6 +6,7 @@ package repository;
 
 import domainmodel.ChiTietPhieuTra;
 import domainmodel.PhieuTraHang;
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -18,7 +19,7 @@ import utility.Hibernateutility;
  * @author ASUS
  */
 public class PhieuTraRepo {
-    public List<ChiTietPhieuTra> getAllPhieuNhap() {
+    public List<ChiTietPhieuTra> getAllPhieuTra() {
         List<ChiTietPhieuTra> lstCtPhieuTra = null;
         try ( Session session = Hibernateutility.getFactory().openSession()) {
             lstCtPhieuTra = session.createQuery("from ChiTietPhieuTra").list();
@@ -52,5 +53,25 @@ public class PhieuTraRepo {
            }catch(Exception e){
                return "Thất bại";
            }
+    }
+       public List<ChiTietPhieuTra> searchPhieuTra(String maPN) {
+        Transaction trans = null;
+        List<ChiTietPhieuTra> listChiTiet = new ArrayList<>();
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            trans = session.beginTransaction();
+            Query query = session.createQuery("FROM PhieuTraHang WHERE Ma like :Ma");
+            query.setParameter("Ma", "%" + maPN + "%");
+            List<PhieuTraHang> listSearch = query.list();
+            for (PhieuTraHang x : listSearch) {
+                for (ChiTietPhieuTra ctpt : x.getChiTietPhieuTra()) {
+                    listChiTiet.add(ctpt);
+                }
+            }
+            trans.commit();
+            session.close();
+        } catch (Exception ex) {
+            System.out.println("Lỗi ko thể tìm kiếm");
+        }
+        return listChiTiet;
     }
 }

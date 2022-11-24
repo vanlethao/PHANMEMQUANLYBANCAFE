@@ -4,6 +4,7 @@
  */
 package viewmodel;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -21,10 +22,26 @@ public class PhieuTraViewModel {
     private String maNhanVien;
     private String tenNhanVien;
     private Date ngayTra;
-    private float soLuongTra;
+    private BigDecimal soLuongTra;
     private String lyDo;
+    private int trangThai;
 
     public PhieuTraViewModel() {
+    }
+
+    public PhieuTraViewModel(String id, String maPhieuNhap, String maNguyenLieu, String tenNguyenLieu, String maNhaCungCap, String tenNhaCungCap, String maNhanVien, String tenNhanVien, Date ngayTra, BigDecimal soLuongTra, String lyDo, int trangThai) {
+        this.id = id;
+        this.maPhieuNhap = maPhieuNhap;
+        this.maNguyenLieu = maNguyenLieu;
+        this.tenNguyenLieu = tenNguyenLieu;
+        this.maNhaCungCap = maNhaCungCap;
+        this.tenNhaCungCap = tenNhaCungCap;
+        this.maNhanVien = maNhanVien;
+        this.tenNhanVien = tenNhanVien;
+        this.ngayTra = ngayTra;
+        this.soLuongTra = soLuongTra;
+        this.lyDo = lyDo;
+        this.trangThai = trangThai;
     }
 
     public String getId() {
@@ -99,11 +116,11 @@ public class PhieuTraViewModel {
         this.ngayTra = ngayTra;
     }
 
-    public float getSoLuongTra() {
+    public BigDecimal getSoLuongTra() {
         return soLuongTra;
     }
 
-    public void setSoLuongTra(float soLuongTra) {
+    public void setSoLuongTra(BigDecimal soLuongTra) {
         this.soLuongTra = soLuongTra;
     }
 
@@ -115,7 +132,26 @@ public class PhieuTraViewModel {
         this.lyDo = lyDo;
     }
 
-    public Object getPhieuTrahangView() {
-        return new Object[]{maPhieuNhap, maNguyenLieu, tenNguyenLieu, maNhaCungCap, tenNhaCungCap, maNhanVien, tenNhanVien, ngayTra, soLuongTra, lyDo};
+    public int getTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(int trangThai) {
+        this.trangThai = trangThai;
+    }
+
+    public String getStatus() {
+        if (trangThai == 0) {
+            return "Đã hủy";
+        } else if (trangThai == 1) {
+            return "Phiếu tạm";
+        } else if (trangThai == 3) {
+            return "Đã hoàn thành";
+        }
+        return null;
+    }
+
+    public Object[] getPhieuTrahangView() {
+        return new Object[]{maPhieuNhap, maNguyenLieu, tenNguyenLieu, maNhaCungCap, tenNhaCungCap, maNhanVien, tenNhanVien, ngayTra, soLuongTra, lyDo, getStatus()};
     }
 }

@@ -5,13 +5,18 @@
 package repository;
 
 import domainmodel.Ban;
+import domainmodel.KhachHang;
 import domainmodel.KhuVuc;
+import domainmodel.KhuyenMai;
 import domainmodel.SanPham;
+import java.math.BigDecimal;
 import java.util.HashSet;
 
 import java.util.List;
 import java.util.Set;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import utility.Hibernateutility;
 
 /**
@@ -38,6 +43,15 @@ public class BanHangRepo {
         return listKhuVuc;
     }
 
+    public static List<KhuyenMai> getAllKhuyenMai() {
+        List<KhuyenMai> listKhuyenMai = null;
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            listKhuyenMai = session.createQuery("FROM KhuyenMai WHERE trangThai=1").list();
+            session.close();
+        }
+        return listKhuyenMai;
+    }
+
     public static Set<Ban> getAllBanByKhuVuc(KhuVuc khuVuc) {
         Set<Ban> setBan = new HashSet<>();
         Set<Ban> setBanDangHoatDong = new HashSet<>();
@@ -52,6 +66,44 @@ public class BanHangRepo {
             session.close();
         }
         return setBanDangHoatDong;
+    }
+
+    public static KhuyenMai getKhuyenMaibySanPham(String id) {
+        KhuyenMai khuyenMai = null;
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            SanPham sp = session.get(SanPham.class, id);
+            if (sp.getKhuyenMai() != null) {
+                khuyenMai = sp.getKhuyenMai();
+            }
+            session.close();
+        }
+        return khuyenMai;
+    }
+
+    public String insertKhachHang(KhachHang khachHang) {
+        String id = null;
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            Transaction trans = session.beginTransaction();
+            id = (String) session.save(khachHang);
+            trans.commit();
+            session.close();
+        }
+        return id;
+
+    }
+
+    public static KhachHang getKhachHangBySdt(String sdt) {
+        KhachHang kh = null;
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            Query query = session.createQuery("FROM KhachHang WHERE sdt=:sdtKhach");
+            query.setParameter("sdtKhach", sdt);
+            List<KhachHang> listKh = query.getResultList();
+            if (!listKh.isEmpty()) {
+                kh = listKh.get(0);
+            }
+            session.close();
+        }
+        return kh;
     }
 
 }

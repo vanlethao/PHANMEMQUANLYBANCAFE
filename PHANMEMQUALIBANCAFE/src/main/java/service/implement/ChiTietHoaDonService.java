@@ -7,6 +7,7 @@ package service.implement;
 import domainmodel.ChiTietHoaDon;
 import domainmodel.HoaDonBanHang;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -36,10 +37,18 @@ public class ChiTietHoaDonService implements IHoaDonChiTiet {
         for (ChiTietHoaDon x : chiTietHoaDon) {
             ChitietHoaDonViewModel chiTietView = new ChitietHoaDonViewModel();
             chiTietView.setMaSanPham(x.getSanPhamKey().getMa());
-            chiTietView.setTenSanPham(x.getSanPhamKey().getTen());
-            chiTietView.setSoLuongMua(x.getSoLuongMua());
-            chiTietView.setGiaBan(BigDecimal.valueOf(x.getSanPhamKey().getGiaBan()));
-            chiTietView.setThanhTien(x.getThanhTien());
+            if (x.getSanPhamKey().getTen() != null) {
+                chiTietView.setTenSanPham(x.getSanPhamKey().getTen());
+            }
+            if (x.getSoLuongMua() != null) {
+                chiTietView.setSoLuongMua( x.getSoLuongMua());
+            }
+            if (x.getSanPhamKey().getGiaBan() != null) {
+                 chiTietView.setGiaBan(new BigDecimal(x.getSanPhamKey().getGiaBan()));
+            }
+            if (x.getThanhTien() != null) {
+                chiTietView.setThanhTien((x.getThanhTien()));
+            }
             chiTietView.setThanhTienSauKM(x.getThanhTienSauKm());
             lstView.add(chiTietView);
         }

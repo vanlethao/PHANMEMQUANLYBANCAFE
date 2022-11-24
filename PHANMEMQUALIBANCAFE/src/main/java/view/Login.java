@@ -1,6 +1,10 @@
 package view;
 
+import domainmodel.TaiKhoanNguoiDung;
 import java.awt.Color;
+import javax.swing.JOptionPane;
+import service.ILogin;
+import service.implement.LoginSerVice;
 
 /**
  *
@@ -12,7 +16,7 @@ public class Login extends javax.swing.JFrame {
      * Creates new form Login
      */
     DangKy _displayDangKy;
-
+    ILogin logService = new LoginSerVice();
     public Login() {
         initComponents();
         _displayDangKy = new DangKy();
@@ -38,7 +42,7 @@ public class Login extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         txtTenTk = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        pwMatKhau = new javax.swing.JPasswordField();
         btnDangNhap = new javax.swing.JButton();
         btnDangKyThanhVien = new javax.swing.JButton();
         lblQuenMatKhau = new javax.swing.JLabel();
@@ -90,7 +94,7 @@ public class Login extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         jLabel7.setText("Mật khẩu :");
 
-        jPasswordField1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
+        pwMatKhau.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
 
         btnDangNhap.setBackground(new java.awt.Color(108, 83, 54));
         btnDangNhap.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -134,10 +138,13 @@ public class Login extends javax.swing.JFrame {
         });
 
         lblQuenMatKhau.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblQuenMatKhau.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblQuenMatKhau.setText("Quên mật khẩu");
+        lblQuenMatKhau.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblQuenMatKhau.setText("Quên mật khẩu?");
         lblQuenMatKhau.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblQuenMatKhau.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblQuenMatKhauMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lblQuenMatKhauMouseEntered(evt);
             }
@@ -168,24 +175,24 @@ public class Login extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(154, 154, 154)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnDangNhap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblQuenMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(154, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(109, 109, 109)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtTenTk)
-                    .addComponent(btnDangKyThanhVien, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel5)
-                    .addComponent(jPasswordField1))
-                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(lblExit))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(109, 109, 109)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblQuenMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(txtTenTk)
+                        .addComponent(btnDangKyThanhVien, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
+                        .addComponent(jLabel7)
+                        .addComponent(jLabel5)
+                        .addComponent(pwMatKhau)))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(154, Short.MAX_VALUE)
+                .addComponent(btnDangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(154, 154, 154))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,12 +207,12 @@ public class Login extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pwMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addComponent(lblQuenMatKhau)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnDangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblQuenMatKhau)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addGap(27, 27, 27)
                 .addComponent(btnDangKyThanhVien, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(59, 59, 59))
         );
@@ -217,7 +224,18 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
-        // TODO add your handling code here:
+        if (!txtTenTk.getText().isEmpty() || pwMatKhau.getPassword().length >0) {
+            TaiKhoanNguoiDung taiKhoan = logService.getNguoiDung(txtTenTk.getText(),String.valueOf(pwMatKhau.getPassword()));
+            if (taiKhoan != null) {
+                JOptionPane.showMessageDialog(this, "Đăng nhập thành công");
+                OverView ov = new OverView();
+                ov.setVisible(true);
+                this.dispose();
+            }else{
+                JOptionPane.showMessageDialog(this, "Đăng nhập thất  bại");
+            }
+            
+        }
     }//GEN-LAST:event_btnDangNhapActionPerformed
 
     private void btnDangNhapMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDangNhapMouseExited
@@ -259,7 +277,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_lblQuenMatKhauMouseEntered
 
     private void lblExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExitMouseClicked
-        this.dispose();
+        System.exit(0);
     }//GEN-LAST:event_lblExitMouseClicked
 
     private void lblExitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExitMouseEntered
@@ -270,6 +288,11 @@ public class Login extends javax.swing.JFrame {
         Color color = new Color(102, 0, 0);
         lblExit.setForeground(color);
     }//GEN-LAST:event_lblExitMouseExited
+
+    private void lblQuenMatKhauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQuenMatKhauMouseClicked
+        QuenMatKhau quenMk = new QuenMatKhau();
+        quenMk.setVisible(true);
+    }//GEN-LAST:event_lblQuenMatKhauMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -294,6 +317,7 @@ public class Login extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -314,10 +338,10 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JLabel lblCoffee;
     private javax.swing.JLabel lblExit;
     private javax.swing.JLabel lblQuenMatKhau;
+    private javax.swing.JPasswordField pwMatKhau;
     private javax.swing.JTextField txtTenTk;
     // End of variables declaration//GEN-END:variables
 }

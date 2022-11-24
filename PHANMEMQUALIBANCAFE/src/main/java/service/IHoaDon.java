@@ -5,6 +5,7 @@
 package service;
 
 import domainmodel.HoaDonBanHang;
+import java.util.Date;
 import java.util.List;
 import viewmodel.HoaDonViewModel;
 
@@ -19,4 +20,6 @@ public interface IHoaDon {
     HoaDonBanHang getHoaDonByMa(String maHD);
 
     String updateTrangThai(String maHD,Integer trangThai);
+    
+    List<HoaDonViewModel> locHoaDon(Date startDate, Date endDate);
 }

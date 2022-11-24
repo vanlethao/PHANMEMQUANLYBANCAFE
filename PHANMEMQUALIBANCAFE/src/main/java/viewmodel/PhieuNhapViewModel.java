@@ -6,6 +6,7 @@ package viewmodel;
 
 import domainmodel.NguyenLieu;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Date;
 
 /**
@@ -23,18 +24,29 @@ public class PhieuNhapViewModel {
     private String maNhanVien;
     private String tenNhanVien;
     private Date ngayNhap;
-    private float soLuongNhap;
-    private double donGia;
-    private int trangThai;
+    private BigDecimal soLuongNhap;
+    private BigDecimal donGia;
+    private Integer trangThai;
 
-    public double thanhTien() {
-        return soLuongNhap * donGia;
+    public BigDecimal thanhTien() {
+        return soLuongNhap.multiply(donGia);
     }
 
     public PhieuNhapViewModel() {
     }
 
-    public PhieuNhapViewModel(String id, String maPhieuNhap, String maNguyenLieu, String tenNguyenLieu, String maNhaCungCap, String tenNhaCungCap, String maNhanVien, String tenNhanVien, Date ngayNhap, float soLuongNhap, double donGia, int trangThai) {
+    public PhieuNhapViewModel(String id, String maPhieuNhap, String maNguyenLieu, String maNhaCungCap, String maNhanVien, Date ngayNhap, BigDecimal soLuongNhap, BigDecimal donGia) {
+        this.id = id;
+        this.maPhieuNhap = maPhieuNhap;
+        this.maNguyenLieu = maNguyenLieu;
+        this.maNhaCungCap = maNhaCungCap;
+        this.maNhanVien = maNhanVien;
+        this.ngayNhap = ngayNhap;
+        this.soLuongNhap = soLuongNhap;
+        this.donGia = donGia;
+    }
+
+    public PhieuNhapViewModel(String id, String maPhieuNhap, String maNguyenLieu, String tenNguyenLieu, String maNhaCungCap, String tenNhaCungCap, String maNhanVien, String tenNhanVien, Date ngayNhap, BigDecimal soLuongNhap, BigDecimal donGia, Integer trangThai) {
         this.id = id;
         this.maPhieuNhap = maPhieuNhap;
         this.maNguyenLieu = maNguyenLieu;
@@ -121,41 +133,45 @@ public class PhieuNhapViewModel {
         this.ngayNhap = ngayNhap;
     }
 
-    public float getSoLuongNhap() {
+    public BigDecimal getSoLuongNhap() {
         return soLuongNhap;
     }
 
-    public void setSoLuongNhap(float soLuongNhap) {
+    public void setSoLuongNhap(BigDecimal soLuongNhap) {
         this.soLuongNhap = soLuongNhap;
     }
 
-    public double getDonGia() {
+    public BigDecimal getDonGia() {
         return donGia;
     }
 
-    public void setDonGia(double donGia) {
+    public void setDonGia(BigDecimal donGia) {
         this.donGia = donGia;
     }
 
-    public int getTrangThai() {
+    public Integer getTrangThai() {
         return trangThai;
     }
 
-    public void setTrangThai(int trangThai) {
+    public void setTrangThai(Integer trangThai) {
         this.trangThai = trangThai;
     }
-    public String getStatus(){
-        if (trangThai ==0 ) {
+
+    
+
+    public String getStatus() {
+        if (trangThai == 0) {
             return "Đã hủy";
-        }else if (trangThai ==1) {
+        } else if (trangThai == 1) {
             return "Phiếu tạm";
-        }else if(trangThai == 3){
+        } else if (trangThai == 3) {
             return "Đã hoàn thành";
         }
         return null;
     }
+
     public Object[] getDataPhieuNhapView() {
         return new Object[]{maPhieuNhap, maNguyenLieu, tenNguyenLieu, maNhaCungCap,
-            tenNhaCungCap, maNhanVien, tenNhanVien, ngayNhap, soLuongNhap, donGia,thanhTien(), getStatus()};
+            tenNhaCungCap, maNhanVien, tenNhanVien, ngayNhap, soLuongNhap, donGia, thanhTien(), getStatus()};
     }
 }

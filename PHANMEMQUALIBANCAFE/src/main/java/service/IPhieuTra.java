@@ -7,6 +7,7 @@ package service;
 import domainmodel.ChiTietPhieuTra;
 import domainmodel.PhieuTraHang;
 import java.util.List;
+import viewmodel.PhieuTraViewModel;
 
 /**
  *
@@ -14,9 +15,11 @@ import java.util.List;
  */
 public interface IPhieuTra {
 
-    List<ChiTietPhieuTra> getAllPhieuNhap();
+    List<PhieuTraViewModel> getAllPhieuTra();
 
     PhieuTraHang getPhieuTraByMa(String maPT);
 
     String updateTrangThaiPhieuTra(String maPT, Integer trangThai);
+    
+    List<PhieuTraViewModel> searchPhieuTra(String maPN);
 }
