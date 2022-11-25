@@ -35,9 +35,6 @@ public class TaiKhoanAdmin implements Serializable {
     @Column(name = "MatKhau")
     private String matKhau;
 
-    @Column(name = "Email")
-    private String email;
-
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "IdThuongHieu")
     private ThuongHieu thuongHieu;
@@ -45,11 +42,10 @@ public class TaiKhoanAdmin implements Serializable {
     public TaiKhoanAdmin() {
     }
 
-    public TaiKhoanAdmin(String id, String tenTK, String matKhau, String email, ThuongHieu thuongHieu) {
+    public TaiKhoanAdmin(String id, String tenTK, String matKhau, ThuongHieu thuongHieu) {
         this.id = id;
         this.tenTK = tenTK;
         this.matKhau = matKhau;
-        this.email = email;
         this.thuongHieu = thuongHieu;
     }
 
@@ -75,14 +71,6 @@ public class TaiKhoanAdmin implements Serializable {
 
     public void setMatKhau(String matKhau) {
         this.matKhau = matKhau;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public ThuongHieu getThuongHieu() {

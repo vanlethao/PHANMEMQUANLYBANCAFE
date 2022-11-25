@@ -29,17 +29,13 @@ public class ThuongHieu implements Serializable {
     private String id;
     @Column(name = "Ten")
     private String ten;
-    @Column(name = "NgayDangKy")
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date ngayDangKy;
 
     public ThuongHieu() {
     }
 
-    public ThuongHieu(String id, String ten, Date ngayDangKy) {
+    public ThuongHieu(String id, String ten) {
         this.id = id;
         this.ten = ten;
-        this.ngayDangKy = ngayDangKy;
     }
 
     public String getId() {
@@ -56,14 +52,6 @@ public class ThuongHieu implements Serializable {
 
     public void setTen(String ten) {
         this.ten = ten;
-    }
-
-    public Date getNgayDangKy() {
-        return ngayDangKy;
-    }
-
-    public void setNgayDangKy(Date ngayDangKy) {
-        this.ngayDangKy = ngayDangKy;
     }
 
 }

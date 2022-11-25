@@ -153,6 +153,8 @@ public class BanHang extends javax.swing.JPanel {
         pnlSPChon.setBackground(new java.awt.Color(255, 255, 255));
         pnlSPChon.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 1, 0, new java.awt.Color(0, 0, 0)));
 
+        jScrollPane7.setBorder(null);
+
         tblSpChon.setBorder(null);
         tblSpChon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -219,6 +221,8 @@ public class BanHang extends javax.swing.JPanel {
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jScrollPane2.setBorder(null);
 
         pnlBan.setLayout(new java.awt.GridLayout(0, 8, 10, 10));
         jScrollPane2.setViewportView(pnlBan);
