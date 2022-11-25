@@ -55,12 +55,6 @@ public class KhachHang implements Serializable {
     @Column(name = "diemTichLuy")
     private Integer diemTichLuy;
 
-    @Column(name = "TyleDoiDiem")
-    private Float tyLeDoiDiem;
-
-    @Column(name = "TyleDoiTien")
-    private Float tyLeDoiTien;
-
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "CHITIETKHACHHANG",
             joinColumns = {
@@ -72,7 +66,7 @@ public class KhachHang implements Serializable {
     public KhachHang() {
     }
 
-    public KhachHang(String id, String ma, String hoTen, String quocGia, String thanhPho, String sdt, String gioiTinh, Integer trangThai, Integer diemTichLuy, Float tyLeDoiDiem, Float tyLeDoiTien, Set<ChiNhanh> listChiNhanh) {
+    public KhachHang(String id, String ma, String hoTen, String quocGia, String thanhPho, String sdt, String gioiTinh, Integer trangThai, Integer diemTichLuy, Set<ChiNhanh> listChiNhanh) {
         this.id = id;
         this.ma = ma;
         this.hoTen = hoTen;
@@ -82,8 +76,6 @@ public class KhachHang implements Serializable {
         this.gioiTinh = gioiTinh;
         this.trangThai = trangThai;
         this.diemTichLuy = diemTichLuy;
-        this.tyLeDoiDiem = tyLeDoiDiem;
-        this.tyLeDoiTien = tyLeDoiTien;
         this.listChiNhanh = listChiNhanh;
     }
 
@@ -165,34 +157,6 @@ public class KhachHang implements Serializable {
 
     public void setListChiNhanh(Set<ChiNhanh> listChiNhanh) {
         this.listChiNhanh = listChiNhanh;
-    }
-
-    /**
-     * @return the tyLeDoiDiem
-     */
-    public Float getTyLeDoiDiem() {
-        return tyLeDoiDiem;
-    }
-
-    /**
-     * @param tyLeDoiDiem the tyLeDoiDiem to set
-     */
-    public void setTyLeDoiDiem(Float tyLeDoiDiem) {
-        this.tyLeDoiDiem = tyLeDoiDiem;
-    }
-
-    /**
-     * @return the tyLeDoiTien
-     */
-    public Float getTyLeDoiTien() {
-        return tyLeDoiTien;
-    }
-
-    /**
-     * @param tyLeDoiTien the tyLeDoiTien to set
-     */
-    public void setTyLeDoiTien(Float tyLeDoiTien) {
-        this.tyLeDoiTien = tyLeDoiTien;
     }
 
 }

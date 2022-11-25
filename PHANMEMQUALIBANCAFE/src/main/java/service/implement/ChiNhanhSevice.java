@@ -50,7 +50,7 @@ public class ChiNhanhSevice implements IChiNhanh {
         var allmauSac = chinhanhRepo.getAll();
         List<ChiNhanh> listView = new ArrayList<>();
         for (ChiNhanh chinhanh : allmauSac) {
-            listView.add(new ChiNhanh(null, chinhanh.getMa(), chinhanh.getQuocGia(), chinhanh.getThanhPho(), chinhanh.getNgayKhaiTruong(), chinhanh.getTrangThai(), chinhanh.getThuongHieu()));
+            //listView.add(new ChiNhanh(null, chinhanh.getMa(), chinhanh.getQuocGia(), chinhanh.getThanhPho(), chinhanh.getNgayKhaiTruong(), chinhanh.getTrangThai(), chinhanh.getThuongHieu()));
         }
         return listView;
     }

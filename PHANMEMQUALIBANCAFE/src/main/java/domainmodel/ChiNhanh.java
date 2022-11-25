@@ -25,17 +25,29 @@ public class ChiNhanh implements Serializable {
     @GenericGenerator(name = "GenIdSql", strategy = "guid")
     @Column(name = "Id")
     private String id;
+
     @Column(name = "Ma")
     private String ma;
+
     @Column(name = "QuocGia")
     private String quocGia;
+
     @Column(name = "ThanhPho")
     private String thanhPho;
+
     @Column(name = "NgayKhaiTruong")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date ngayKhaiTruong;
+
     @Column(name = "TrangThai")
     private Integer trangThai;
+
+    @Column(name = "GiaTriDoiDiem")
+    private Float giaTriDoiDiem;
+
+    @Column(name = "GiaTriDiem")
+    private Float giaTriDiem;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "IdThuongHieu")
     private ThuongHieu thuongHieu;
@@ -51,14 +63,17 @@ public class ChiNhanh implements Serializable {
     public ChiNhanh() {
     }
 
-    public ChiNhanh(String id, String ma, String quocGia, String thanhPho, Date ngayKhaiTruong, Integer trangThai, ThuongHieu thuongHieu) {
+    public ChiNhanh(String id, String ma, String quocGia, String thanhPho, Date ngayKhaiTruong, Integer trangThai, Float giaTriDoiDiem, Float giaTriDiem, ThuongHieu thuongHieu, Set<NguyenLieu> listNguyenLieu) {
         this.id = id;
         this.ma = ma;
         this.quocGia = quocGia;
         this.thanhPho = thanhPho;
         this.ngayKhaiTruong = ngayKhaiTruong;
         this.trangThai = trangThai;
+        this.giaTriDoiDiem = giaTriDoiDiem;
+        this.giaTriDiem = giaTriDiem;
         this.thuongHieu = thuongHieu;
+        this.listNguyenLieu = listNguyenLieu;
     }
 
     public String getId() {
@@ -124,15 +139,42 @@ public class ChiNhanh implements Serializable {
     public void setListNguyenLieu(Set<NguyenLieu> listNguyenLieu) {
         this.listNguyenLieu = listNguyenLieu;
     }
-    
-    
-        @Override
+
+    @Override
     public String toString() {
         return "ChiNhanh{" + "id=" + id + ", ma=" + ma + ", quocGia=" + quocGia + ", thanhPho=" + thanhPho + ", ngayKhaiTruong=" + ngayKhaiTruong + ", trangThai=" + trangThai + ", thuongHieu=" + thuongHieu + ", listNguyenLieu=" + listNguyenLieu + '}';
     }
 
     public Object[] toDataRow() {
-        return new Object[]{ma, quocGia, thanhPho, ngayKhaiTruong, trangThai==1?"DaKhaiChuong":"ChuaKhaiChuong", thuongHieu};
+        return new Object[]{ma, quocGia, thanhPho, ngayKhaiTruong, trangThai == 1 ? "DaKhaiChuong" : "ChuaKhaiChuong", thuongHieu};
+    }
+
+    /**
+     * @return the giaTriDoiDiem
+     */
+    public Float getGiaTriDoiDiem() {
+        return giaTriDoiDiem;
+    }
+
+    /**
+     * @param giaTriDoiDiem the giaTriDoiDiem to set
+     */
+    public void setGiaTriDoiDiem(Float giaTriDoiDiem) {
+        this.giaTriDoiDiem = giaTriDoiDiem;
+    }
+
+    /**
+     * @return the giaTriDiem
+     */
+    public Float getGiaTriDiem() {
+        return giaTriDiem;
+    }
+
+    /**
+     * @param giaTriDiem the giaTriDiem to set
+     */
+    public void setGiaTriDiem(Float giaTriDiem) {
+        this.giaTriDiem = giaTriDiem;
     }
 
 }
