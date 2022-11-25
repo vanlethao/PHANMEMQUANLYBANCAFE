@@ -1,10 +1,14 @@
 package view;
 
+import domainmodel.ChiNhanh;
+import domainmodel.NhanVien;
+import domainmodel.TaiKhoanAdmin;
 import domainmodel.TaiKhoanNguoiDung;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 import service.ILogin;
 import service.implement.LoginSerVice;
+import viewmodel.ChiNhanhViewModel_Hoang;
 
 /**
  *
@@ -15,13 +19,23 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
-    DangKy _displayDangKy;
     ILogin logService = new LoginSerVice();
+    private ChiNhanhViewModel_Hoang chiNhanh;
+
     public Login() {
         initComponents();
-        _displayDangKy = new DangKy();
 
     }
+
+    public ChiNhanhViewModel_Hoang getChiNhanh() {
+        return chiNhanh;
+    }
+
+    public void setChiNhanh(ChiNhanhViewModel_Hoang chiNhanh) {
+        this.chiNhanh = chiNhanh;
+    }
+
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -44,7 +58,6 @@ public class Login extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         pwMatKhau = new javax.swing.JPasswordField();
         btnDangNhap = new javax.swing.JButton();
-        btnDangKyThanhVien = new javax.swing.JButton();
         lblQuenMatKhau = new javax.swing.JLabel();
         lblExit = new javax.swing.JLabel();
 
@@ -115,28 +128,6 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        btnDangKyThanhVien.setBackground(new java.awt.Color(108, 83, 54));
-        btnDangKyThanhVien.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        btnDangKyThanhVien.setForeground(new java.awt.Color(255, 255, 255));
-        btnDangKyThanhVien.setText("Đăng ký thành viên");
-        btnDangKyThanhVien.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnDangKyThanhVien.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnDangKyThanhVienMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnDangKyThanhVienMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnDangKyThanhVienMouseExited(evt);
-            }
-        });
-        btnDangKyThanhVien.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDangKyThanhVienActionPerformed(evt);
-            }
-        });
-
         lblQuenMatKhau.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblQuenMatKhau.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblQuenMatKhau.setText("Quên mật khẩu?");
@@ -183,8 +174,7 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblQuenMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txtTenTk)
-                        .addComponent(btnDangKyThanhVien, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
+                        .addComponent(txtTenTk, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
                         .addComponent(jLabel7)
                         .addComponent(jLabel5)
                         .addComponent(pwMatKhau)))
@@ -212,9 +202,7 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(lblQuenMatKhau)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnDangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(btnDangKyThanhVien, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(59, 59, 59))
+                .addGap(125, 125, 125))
         );
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 0, 470, 480));
@@ -224,46 +212,38 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
-        if (!txtTenTk.getText().isEmpty() || pwMatKhau.getPassword().length >0) {
-            TaiKhoanNguoiDung taiKhoan = logService.getNguoiDung(txtTenTk.getText(),String.valueOf(pwMatKhau.getPassword()));
-            if (taiKhoan != null) {
+        if (!txtTenTk.getText().isEmpty() && pwMatKhau.getPassword().length > 0) {
+            TaiKhoanAdmin taiKhoanAdmin = logService.getAdmin(txtTenTk.getText(), pwMatKhau.getText());
+            TaiKhoanNguoiDung taiKhoanND = logService.getNguoiDung(txtTenTk.getText(), pwMatKhau.getText());
+            if (taiKhoanAdmin != null) {
+                this.setChiNhanh(null);
                 JOptionPane.showMessageDialog(this, "Đăng nhập thành công");
-                OverView ov = new OverView();
+                OverView ov = new OverView(taiKhoanAdmin, taiKhoanND);
                 ov.setVisible(true);
                 this.dispose();
-            }else{
-                JOptionPane.showMessageDialog(this, "Đăng nhập thất  bại");
+            } else if (taiKhoanND != null) {
+                NhanVien nv = logService.getNhanVienbyTaiKhoan(taiKhoanND.getId());
+                this.setChiNhanh(logService.getChiNhanhByNhanVien(nv.getId()));
+                JOptionPane.showMessageDialog(this, "Đăng nhập thành công");
+                OverView ov = new OverView(taiKhoanAdmin, taiKhoanND);
+                ov.setVisible(true);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Tài khoản hoặc mật khẩu không đúng");
             }
-            
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập tài khoản mật khẩu");
         }
     }//GEN-LAST:event_btnDangNhapActionPerformed
 
     private void btnDangNhapMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDangNhapMouseExited
-        Color color = new Color(108,83,54);
+        Color color = new Color(108, 83, 54);
         btnDangNhap.setBackground(color);
     }//GEN-LAST:event_btnDangNhapMouseExited
 
     private void btnDangNhapMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDangNhapMouseEntered
-      
+
     }//GEN-LAST:event_btnDangNhapMouseEntered
-
-    private void btnDangKyThanhVienMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDangKyThanhVienMouseEntered
-        Color color = new Color(108, 83, 54);
-        btnDangKyThanhVien.setBackground(color);
-    }//GEN-LAST:event_btnDangKyThanhVienMouseEntered
-
-    private void btnDangKyThanhVienMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDangKyThanhVienMouseExited
-        Color color = new Color(255,255,255);
-        btnDangKyThanhVien.setForeground(color);
-    }//GEN-LAST:event_btnDangKyThanhVienMouseExited
-
-    private void btnDangKyThanhVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangKyThanhVienActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnDangKyThanhVienActionPerformed
-
-    private void btnDangKyThanhVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDangKyThanhVienMouseClicked
-        _displayDangKy.setVisible(true);
-    }//GEN-LAST:event_btnDangKyThanhVienMouseClicked
 
     private void lblQuenMatKhauMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQuenMatKhauMouseExited
         // TODO add your handling code here:
@@ -272,7 +252,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_lblQuenMatKhauMouseExited
 
     private void lblQuenMatKhauMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQuenMatKhauMouseEntered
-       Color color = new Color(255,102,0);
+        Color color = new Color(255, 102, 0);
         lblQuenMatKhau.setForeground(color);
     }//GEN-LAST:event_lblQuenMatKhauMouseEntered
 
@@ -318,6 +298,8 @@ public class Login extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -328,7 +310,6 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnDangKyThanhVien;
     private javax.swing.JButton btnDangNhap;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
