@@ -134,7 +134,7 @@ public class OverView extends javax.swing.JFrame {
         btnDangXuat = new javax.swing.JButton();
         lblTenTaiKhoan = new javax.swing.JLabel();
         cboChiNhanh = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -740,12 +740,17 @@ public class OverView extends javax.swing.JFrame {
 
         lblTenTaiKhoan.setForeground(new java.awt.Color(255, 255, 255));
         lblTenTaiKhoan.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblTenTaiKhoan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_account_30px.png"))); // NOI18N
+        lblTenTaiKhoan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/account_30px.png"))); // NOI18N
         lblTenTaiKhoan.setText(" Tên tài khoản");
 
         cboChiNhanh.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        cboChiNhanh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboChiNhanhActionPerformed(evt);
+            }
+        });
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_location_30px_2.png"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/location_30px.png"))); // NOI18N
 
         javax.swing.GroupLayout pnlHeaderLayout = new javax.swing.GroupLayout(pnlHeader);
         pnlHeader.setLayout(pnlHeaderLayout);
@@ -753,11 +758,11 @@ public class OverView extends javax.swing.JFrame {
             pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlHeaderLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(pnlHeaderLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cboChiNhanh, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cboChiNhanh, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(lblTenTaiKhoan, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 1013, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -767,9 +772,8 @@ public class OverView extends javax.swing.JFrame {
         );
         pnlHeaderLayout.setVerticalGroup(
             pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlHeaderLayout.createSequentialGroup()
-                .addGroup(pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(pnlHeaderLayout.createSequentialGroup()
+                .addGroup(pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlHeaderLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(lblTenTaiKhoan, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -779,10 +783,11 @@ public class OverView extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(btnDangXuat, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(pnlHeaderLayout.createSequentialGroup()
-                                .addGroup(pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(cboChiNhanh, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel1))
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                    .addComponent(jLabel3))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -1154,6 +1159,10 @@ public class OverView extends javax.swing.JFrame {
         btnDangXuat.setForeground(Color.RED);
     }//GEN-LAST:event_btnDangXuatMouseExited
 
+    private void cboChiNhanhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboChiNhanhActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboChiNhanhActionPerformed
+
     private void setMainPanel(Component component) {
         pnlMain.removeAll();
         pnlMain.add(component);
@@ -1183,8 +1192,8 @@ public class OverView extends javax.swing.JFrame {
     private javax.swing.JPanel banHang1;
     private javax.swing.JButton btnDangXuat;
     private javax.swing.JComboBox<String> cboChiNhanh;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel khuyenMai;
     private javax.swing.JPanel khuyenMai1;
     private javax.swing.JLabel lblBan;
