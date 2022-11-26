@@ -30,7 +30,7 @@ public interface IPhieuNhap {
 
     List<NhanVienViewModel_Hoang> getAllNhanVien();
 
-    PhieuNhapHang getPhieuNhapByMa(String maPN);
+    PhieuNhapViewModel getPhieuNhapByMa(String maPN);
 
     String updateTrangThaiPhieuNhap(String maPN, Integer trangThai);
 
@@ -38,7 +38,7 @@ public interface IPhieuNhap {
 
     NhaCungCap getNhaCungCapByMa(String maNhaCungCap);
 
-    NguyenLieu getNguyenLieuByMa(String maNguyenLieu);
+    NguyenLieuViewModel_Hoang getNguyenLieuByMa(String maNguyenLieu);
 
     List<PhieuNhapViewModel> searchPhieuNhap(String maPN);
 
