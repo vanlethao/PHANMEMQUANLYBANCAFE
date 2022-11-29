@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import org.hibernate.annotations.GenericGenerator;
@@ -60,10 +61,18 @@ public class ChiNhanh implements Serializable {
                 @JoinColumn(name = "IdNguyenLieu")})
     private Set<NguyenLieu> listNguyenLieu;
 
+    @OneToMany(mappedBy = "chiNhanh", fetch = FetchType.EAGER)
+    private Set<KhuVuc> setKhuVuc;
+
+    @OneToMany(mappedBy = "chiNhanh", fetch = FetchType.EAGER)
+    private Set<NhanVien> setNhanVien;
+
     public ChiNhanh() {
     }
 
-    public ChiNhanh(String id, String ma, String quocGia, String thanhPho, Date ngayKhaiTruong, Integer trangThai, Float giaTriDoiDiem, Float giaTriDiem, ThuongHieu thuongHieu, Set<NguyenLieu> listNguyenLieu) {
+    public ChiNhanh(String id, String ma, String quocGia, String thanhPho,
+            Date ngayKhaiTruong, Integer trangThai, Float giaTriDoiDiem, Float giaTriDiem,
+            ThuongHieu thuongHieu, Set<NguyenLieu> listNguyenLieu, Set<KhuVuc> setKhuVuc, Set<NhanVien> setNhanVien) {
         this.id = id;
         this.ma = ma;
         this.quocGia = quocGia;
@@ -74,6 +83,8 @@ public class ChiNhanh implements Serializable {
         this.giaTriDiem = giaTriDiem;
         this.thuongHieu = thuongHieu;
         this.listNguyenLieu = listNguyenLieu;
+        this.setKhuVuc = setKhuVuc;
+        this.setNhanVien = setNhanVien;
     }
 
     public String getId() {
@@ -124,6 +135,22 @@ public class ChiNhanh implements Serializable {
         this.trangThai = trangThai;
     }
 
+    public Float getGiaTriDoiDiem() {
+        return giaTriDoiDiem;
+    }
+
+    public void setGiaTriDoiDiem(Float giaTriDoiDiem) {
+        this.giaTriDoiDiem = giaTriDoiDiem;
+    }
+
+    public Float getGiaTriDiem() {
+        return giaTriDiem;
+    }
+
+    public void setGiaTriDiem(Float giaTriDiem) {
+        this.giaTriDiem = giaTriDiem;
+    }
+
     public ThuongHieu getThuongHieu() {
         return thuongHieu;
     }
@@ -140,41 +167,20 @@ public class ChiNhanh implements Serializable {
         this.listNguyenLieu = listNguyenLieu;
     }
 
-    @Override
-    public String toString() {
-        return "ChiNhanh{" + "id=" + id + ", ma=" + ma + ", quocGia=" + quocGia + ", thanhPho=" + thanhPho + ", ngayKhaiTruong=" + ngayKhaiTruong + ", trangThai=" + trangThai + ", thuongHieu=" + thuongHieu + ", listNguyenLieu=" + listNguyenLieu + '}';
+    public Set<KhuVuc> getSetKhuVuc() {
+        return setKhuVuc;
     }
 
-    public Object[] toDataRow() {
-        return new Object[]{ma, quocGia, thanhPho, ngayKhaiTruong, trangThai == 1 ? "DaKhaiChuong" : "ChuaKhaiChuong", thuongHieu};
+    public void setSetKhuVuc(Set<KhuVuc> setKhuVuc) {
+        this.setKhuVuc = setKhuVuc;
     }
 
-    /**
-     * @return the giaTriDoiDiem
-     */
-    public Float getGiaTriDoiDiem() {
-        return giaTriDoiDiem;
+    public Set<NhanVien> getSetNhanVien() {
+        return setNhanVien;
     }
 
-    /**
-     * @param giaTriDoiDiem the giaTriDoiDiem to set
-     */
-    public void setGiaTriDoiDiem(Float giaTriDoiDiem) {
-        this.giaTriDoiDiem = giaTriDoiDiem;
-    }
-
-    /**
-     * @return the giaTriDiem
-     */
-    public Float getGiaTriDiem() {
-        return giaTriDiem;
-    }
-
-    /**
-     * @param giaTriDiem the giaTriDiem to set
-     */
-    public void setGiaTriDiem(Float giaTriDiem) {
-        this.giaTriDiem = giaTriDiem;
+    public void setSetNhanVien(Set<NhanVien> setNhanVien) {
+        this.setNhanVien = setNhanVien;
     }
 
 }

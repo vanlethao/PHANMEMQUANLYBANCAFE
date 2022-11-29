@@ -5,12 +5,14 @@
 package service.implement;
 
 import domainmodel.Ban;
-import domainmodel.KhachHang;
+import domainmodel.HoaDonBanHang;
 import domainmodel.KhuVuc;
 import domainmodel.KhuyenMai;
+import domainmodel.NhanVien;
 import domainmodel.SanPham;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
 import repository.BanHangRepo;
@@ -26,13 +28,13 @@ import viewmodel.ThemKhachViewModel;
  * @author trant
  */
 public class BanHangService implements IBanHangService {
-
+    
     BanHangRepo _BanHangRepo;
-
+    
     public BanHangService() {
         _BanHangRepo = new BanHangRepo();
     }
-
+    
     @Override
     public List<ProductForSale> getAllProductForSale() {
         List<ProductForSale> listView = new ArrayList<>();
@@ -62,7 +64,7 @@ public class BanHangService implements IBanHangService {
         }
         return listView;
     }
-
+    
     @Override
     public boolean checkSo(String soLuong) {
         Pattern checkInt = Pattern.compile("^[0-9]+$");
@@ -71,7 +73,7 @@ public class BanHangService implements IBanHangService {
         }
         return true;
     }
-
+    
     @Override
     public List<Area> getAllKhuVuc() {
         List<Area> listView = new ArrayList<>();
@@ -86,7 +88,7 @@ public class BanHangService implements IBanHangService {
         }
         return listView;
     }
-
+    
     @Override
     public List<Table> getAllBanByKhuVuc(Area area) {
         KhuVuc kv = new KhuVuc();
@@ -103,7 +105,7 @@ public class BanHangService implements IBanHangService {
         }
         return listView;
     }
-
+    
     @Override
     public List<KhuyenMaiDangHoatDong> getAllKhuyenMai() {
         List<KhuyenMaiDangHoatDong> listView = new ArrayList<>();
@@ -123,7 +125,7 @@ public class BanHangService implements IBanHangService {
         }
         return listView;
     }
-
+    
     @Override
     public KhuyenMaiDangHoatDong getKhuyenMaibySanPham(String id) {
         KhuyenMaiDangHoatDong kmView = null;
@@ -137,12 +139,12 @@ public class BanHangService implements IBanHangService {
         }
         return kmView;
     }
-
+    
     @Override
     public String insertKhachHang(ThemKhachViewModel khachHang) {
         return null;
     }
-
+    
     @Override
     public ThemKhachViewModel getKhachHangBySdt(String sdt) {
         var khachHang = _BanHangRepo.getKhachHangBySdt(sdt);
@@ -157,4 +159,64 @@ public class BanHangService implements IBanHangService {
         }
         return khachView;
     }
+    
+    @Override
+    public Float getGiaTriDoiDiem() {
+        Float giaTriDoiDiem = null;
+        if (_BanHangRepo.getOneChiNhanh() != null) {
+            giaTriDoiDiem = _BanHangRepo.getOneChiNhanh().getGiaTriDoiDiem();
+        }
+        return giaTriDoiDiem;
+    }
+    
+    @Override
+    public Float getGiaTriDiem() {
+        Float giaTriDiem = null;
+        if (_BanHangRepo.getOneChiNhanh() != null) {
+            giaTriDiem = _BanHangRepo.getOneChiNhanh().getGiaTriDiem();
+        }
+        return giaTriDiem;
+    }
+    
+    @Override
+    public String inserHoaDon(String ma, Date ngayTao, String idNhanVien, Integer soBan) {
+        return _BanHangRepo.inserHoaDon(ma, ngayTao, idNhanVien, soBan);
+    }
+    
+    @Override
+    public void insertChiTietHoaDon(String idSanPham, String idHoaDon, int soLuongMua, BigDecimal thanhTien, BigDecimal thanhTienSauKM) {
+        _BanHangRepo.insertChiTietHoaDon(idSanPham, idHoaDon, soLuongMua, thanhTien, thanhTienSauKM);
+    }
+    
+    @Override
+    public String autoGenMaHoaDon() {
+        String firstWord = "HD";
+        int lastNumber = 0;
+        String maHD = null;
+        List<Integer> list = new ArrayList<>();
+        var listHoaDon = _BanHangRepo.getAllHoaDon();
+        if (listHoaDon != null) {
+            for (HoaDonBanHang hoaDonBanHang : listHoaDon) {
+                maHD = hoaDonBanHang.getMa();
+                list.add(Integer.parseInt(maHD.substring(2)));
+            }
+            list.sort((o1, o2) -> {
+                return o1.compareTo(o2);
+            });
+            lastNumber = (int) list.get(list.size() - 1);
+            lastNumber++;
+        }
+        
+        return maHD = firstWord + String.valueOf(lastNumber);
+    }
+    
+    @Override
+    public NhanVien getNhanVienbyTaiKhoan(String idTaiKhoan) {
+        var nhanVien = _BanHangRepo.getNhanVienbyTaiKhoan(idTaiKhoan);
+        if (nhanVien != null) {
+            return nhanVien;
+        }
+        return null;
+    }
+    
 }

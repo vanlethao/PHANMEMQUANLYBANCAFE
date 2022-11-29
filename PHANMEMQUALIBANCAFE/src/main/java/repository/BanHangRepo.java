@@ -5,11 +5,17 @@
 package repository;
 
 import domainmodel.Ban;
+import domainmodel.ChiNhanh;
+import domainmodel.ChiTietHoaDon;
+import domainmodel.HoaDonBanHang;
 import domainmodel.KhachHang;
 import domainmodel.KhuVuc;
 import domainmodel.KhuyenMai;
+import domainmodel.NhanVien;
 import domainmodel.SanPham;
+import domainmodel.TaiKhoanNguoiDung;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.HashSet;
 
 import java.util.List;
@@ -104,6 +110,78 @@ public class BanHangRepo {
             session.close();
         }
         return kh;
+    }
+
+    public static ChiNhanh getOneChiNhanh() {
+        List<ChiNhanh> listChiNhanh = null;
+        ChiNhanh chiNhanh = null;
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            listChiNhanh = session.createQuery("FROM ChiNhanh").list();
+            if (!listChiNhanh.isEmpty()) {
+                chiNhanh = listChiNhanh.get(0);
+            }
+            session.close();
+        }
+        return chiNhanh;
+    }
+
+    public static String inserHoaDon(String ma, Date ngayTao, String idNhanVien,
+            Integer soBan) {
+        String id = null;
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            Transaction trans = session.beginTransaction();
+            NhanVien nhanVien = session.get(NhanVien.class, idNhanVien);
+            Query query = session.createQuery("FROM Ban WHERE soBan=:soBan");
+            query.setParameter("soBan", soBan);
+            Ban ban = (Ban) query.uniqueResult();
+            HoaDonBanHang hoaDon = new HoaDonBanHang();
+            hoaDon.setMa(ma);
+            hoaDon.setNgayTao(ngayTao);
+            hoaDon.setNhanVien(nhanVien);
+            hoaDon.setTrangThai(1);
+            hoaDon.setBan(ban);
+            id = (String) session.save(hoaDon);
+            trans.commit();
+            session.close();
+        }
+        return id;
+    }
+
+    public static void insertChiTietHoaDon(String idSanPham, String idHoaDon, int soLuongMua,
+            BigDecimal thanhTien, BigDecimal thanhTienSauKM) {
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            Transaction trans = session.beginTransaction();
+            ChiTietHoaDon chiTietHd = new ChiTietHoaDon();
+            HoaDonBanHang hoaDon = session.get(HoaDonBanHang.class, idHoaDon);
+            SanPham sanPham = session.get(SanPham.class, idSanPham);
+            chiTietHd.setSoLuongMua(soLuongMua);
+            chiTietHd.setSoLuongMua(soLuongMua);
+            chiTietHd.setThanhTien(thanhTien);
+            chiTietHd.setThanhTienSauKm(thanhTienSauKM);
+            session.save(chiTietHd);
+            trans.commit();
+            session.close();
+        }
+
+    }
+
+    public static List<HoaDonBanHang> getAllHoaDon() {
+        List<HoaDonBanHang> ListHoaDon = null;
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            ListHoaDon = session.createQuery("FROM HoaDonBanHang").list();
+            session.close();
+        }
+        return ListHoaDon;
+    }
+
+    public static NhanVien getNhanVienbyTaiKhoan(String idTaiKhoan) {
+        NhanVien nhanVien = null;
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            TaiKhoanNguoiDung taiKhoan = session.get(TaiKhoanNguoiDung.class, idTaiKhoan);
+            nhanVien = taiKhoan.getNhanVien();
+            session.close();
+        }
+        return nhanVien;
     }
 
 }

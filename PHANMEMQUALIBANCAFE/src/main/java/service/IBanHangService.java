@@ -4,6 +4,9 @@
  */
 package service;
 
+import domainmodel.NhanVien;
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import viewmodel.Area;
 import viewmodel.KhuyenMaiDangHoatDong;
@@ -32,4 +35,18 @@ public interface IBanHangService {
     String insertKhachHang(ThemKhachViewModel khachHang);
 
     ThemKhachViewModel getKhachHangBySdt(String sdt);
+
+    Float getGiaTriDoiDiem();
+
+    Float getGiaTriDiem();
+
+    String inserHoaDon(String ma, Date ngayTao, String idNhanVien,
+            Integer soBan);
+
+    void insertChiTietHoaDon(String idSanPham, String idHoaDon, int soLuongMua,
+            BigDecimal thanhTien, BigDecimal thanhTienSauKM);
+
+    String autoGenMaHoaDon();
+
+    NhanVien getNhanVienbyTaiKhoan(String idTaiKhoan);
 }
