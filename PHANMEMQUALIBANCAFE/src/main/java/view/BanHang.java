@@ -1069,24 +1069,24 @@ public class BanHang extends javax.swing.JPanel {
     }//GEN-LAST:event_txtTienKhachDuaKeyReleased
 
     private void btnTraTienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTraTienActionPerformed
-        if (txtTienKhachDua.getText().isBlank()) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập tiền khách đưa");
-        } else if (Double.parseDouble(lblTienThua.getText()) < 0) {
-            JOptionPane.showMessageDialog(this, "Số tiền chưa đủ thanh toán");
-        } else {
-            Date ngayTaoHD = new Date();
-            DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD");
-            dateFormat.format(ngayTaoHD);
-            NhanVien nhanVien = banHangService.getNhanVienbyTaiKhoan(new Login().getNguoiDung().getId());
-            String idHoaDon = banHangService.inserHoaDon(banHangService.autoGenMaHoaDon(), ngayTaoHD,
-                    nhanVien.getId(), Integer.parseInt(lblSoBan.getText()));
-            for (int i = 0; i < tblSpChon.getRowCount(); i++) {
-                banHangService.insertChiTietHoaDon(tblSpChon.getValueAt(i, 0).toString(),
-                        idHoaDon, Integer.parseInt(tblSpChon.getValueAt(i, 4).toString()),
-                        new BigDecimal(lbl), BigDecimal.TEN);
-            }
-
-        }
+//        if (txtTienKhachDua.getText().isBlank()) {
+//            JOptionPane.showMessageDialog(this, "Vui lòng nhập tiền khách đưa");
+//        } else if (Double.parseDouble(lblTienThua.getText()) < 0) {
+//            JOptionPane.showMessageDialog(this, "Số tiền chưa đủ thanh toán");
+//        } else {
+//            Date ngayTaoHD = new Date();
+//            DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD");
+//            dateFormat.format(ngayTaoHD);
+//            NhanVien nhanVien = banHangService.getNhanVienbyTaiKhoan(new Login().getNguoiDung().getId());
+//            String idHoaDon = banHangService.inserHoaDon(banHangService.autoGenMaHoaDon(), ngayTaoHD,
+//                    nhanVien.getId(), Integer.parseInt(lblSoBan.getText()));
+//            for (int i = 0; i < tblSpChon.getRowCount(); i++) {
+//                banHangService.insertChiTietHoaDon(tblSpChon.getValueAt(i, 0).toString(),
+//                        idHoaDon, Integer.parseInt(tblSpChon.getValueAt(i, 4).toString()),
+//                        new BigDecimal(lbl), BigDecimal.TEN);
+//            }
+//
+//        }
 
     }//GEN-LAST:event_btnTraTienActionPerformed
 
