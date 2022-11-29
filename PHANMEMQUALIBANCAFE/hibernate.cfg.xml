@@ -14,11 +14,11 @@
         <!-- Assume test is the database name -->
 
         <property name="hibernate.connection.url">
-            jdbc:sqlserver://localhost:1433;databaseName=PHANMEMQUANLYCUAHANGCAPHE;
+            jdbc:sqlserver://localhost:1433;databaseName=PHANMEMQUANLYBANCAFE;
         </property>
 
         <property name="hibernate.connection.username">
-           sa
+            sa
         </property>
 
         <property name="hibernate.connection.password">
