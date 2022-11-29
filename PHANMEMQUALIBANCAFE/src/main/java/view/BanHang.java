@@ -5,6 +5,8 @@
 package view;
 
 import domainmodel.NhanVien;
+import domainmodel.TaiKhoanAdmin;
+import domainmodel.TaiKhoanNguoiDung;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
@@ -15,17 +17,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.DiscriminatorType;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import org.apache.poi.util.LocaleID;
 import service.IBanHangService;
 import service.implement.BanHangService;
 import viewmodel.Area;
 import viewmodel.KhuyenMaiDangHoatDong;
-import viewmodel.NhanVienViewModel_Hoang;
 import viewmodel.ProductForSale;
 import viewmodel.Table;
 import viewmodel.ThemKhachViewModel;
@@ -44,7 +43,7 @@ public class BanHang extends javax.swing.JPanel {
     ThemKhachViewModel _khach = null;
     private boolean _ConfirmCloseDlong = false;
 
-    public BanHang() {
+    public BanHang(TaiKhoanAdmin admin, TaiKhoanNguoiDung nguoiDung) {
         initComponents();
         hideInfoKhach();
         modelTable = new DefaultTableModel();
@@ -1070,24 +1069,24 @@ public class BanHang extends javax.swing.JPanel {
     }//GEN-LAST:event_txtTienKhachDuaKeyReleased
 
     private void btnTraTienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTraTienActionPerformed
-//        if (txtTienKhachDua.getText().isBlank()) {
-//            JOptionPane.showMessageDialog(this, "Vui lòng nhập tiền khách đưa");
-//        } else if (Double.parseDouble(lblTienThua.getText()) < 0) {
-//            JOptionPane.showMessageDialog(this, "Số tiền chưa đủ thanh toán");
-//        } else {
-//            Date ngayTaoHD = new Date();
-//            DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD");
-//            dateFormat.format(ngayTaoHD);
-//            NhanVien nhanVien = banHangService.getNhanVienbyTaiKhoan(new Login().getNguoiDung().getId());
-//            String idHoaDon = banHangService.inserHoaDon(banHangService.autoGenMaHoaDon(), ngayTaoHD,
-//                    nhanVien.getId(), Integer.parseInt(lblSoBan.getText()));
-//            for (int i = 0; i < tblSpChon.getRowCount(); i++) {
-//                banHangService.insertChiTietHoaDon(tblSpChon.getValueAt(i, 0).toString(),
-//                        idHoaDon, Integer.parseInt(tblSpChon.getValueAt(i, 4).toString()),
-//                        new BigDecimal(lbl), BigDecimal.TEN);
-//            }
-//            
-//        }
+        if (txtTienKhachDua.getText().isBlank()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập tiền khách đưa");
+        } else if (Double.parseDouble(lblTienThua.getText()) < 0) {
+            JOptionPane.showMessageDialog(this, "Số tiền chưa đủ thanh toán");
+        } else {
+            Date ngayTaoHD = new Date();
+            DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD");
+            dateFormat.format(ngayTaoHD);
+            NhanVien nhanVien = banHangService.getNhanVienbyTaiKhoan(new Login().getNguoiDung().getId());
+            String idHoaDon = banHangService.inserHoaDon(banHangService.autoGenMaHoaDon(), ngayTaoHD,
+                    nhanVien.getId(), Integer.parseInt(lblSoBan.getText()));
+            for (int i = 0; i < tblSpChon.getRowCount(); i++) {
+                banHangService.insertChiTietHoaDon(tblSpChon.getValueAt(i, 0).toString(),
+                        idHoaDon, Integer.parseInt(tblSpChon.getValueAt(i, 4).toString()),
+                        new BigDecimal(lbl), BigDecimal.TEN);
+            }
+
+        }
 
     }//GEN-LAST:event_btnTraTienActionPerformed
 

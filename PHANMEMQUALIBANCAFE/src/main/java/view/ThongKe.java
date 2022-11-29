@@ -4,6 +4,9 @@
  */
 package view;
 
+import domainmodel.TaiKhoanAdmin;
+import domainmodel.TaiKhoanNguoiDung;
+
 /**
  *
  * @author trant
@@ -13,7 +16,7 @@ public class ThongKe extends javax.swing.JPanel {
     /**
      * Creates new form ThongKe
      */
-    public ThongKe() {
+    public ThongKe(TaiKhoanAdmin admin, TaiKhoanNguoiDung nguoiDung) {
         initComponents();
     }
 
