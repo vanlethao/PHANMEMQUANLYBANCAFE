@@ -70,6 +70,6 @@ public class NguyenLieuViewModel_Hoang {
 
     @Override
     public String toString() {
-        return ma + " - " + ten;
+        return ma + " - " + ten + "(" + donVitinh + ")";
     }
 }

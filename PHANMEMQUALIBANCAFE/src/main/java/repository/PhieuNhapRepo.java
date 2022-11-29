@@ -13,6 +13,7 @@ import domainmodel.PhieuNhapHang;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -24,15 +25,38 @@ import utility.Hibernateutility;
  */
 public class PhieuNhapRepo {
 
-    public List<ChiTietPhieuNhap> getAllPhieuNhap() {
-        List<ChiTietPhieuNhap> lstCtPhieuNhap = null;
+    public List<PhieuNhapHang> getAllPhieuNhap() {
+        List<PhieuNhapHang> lstPhieuNhap = null;
         try ( Session session = Hibernateutility.getFactory().openSession()) {
-            lstCtPhieuNhap = session.createQuery("from ChiTietPhieuNhap").list();
+            lstPhieuNhap = session.createQuery("from PhieuNhapHang").list();
             session.close();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return lstCtPhieuNhap;
+        return lstPhieuNhap;
+    }
+
+    public List<ChiTietPhieuNhap> getAllChiTietPhieuNhap() {
+        List<ChiTietPhieuNhap> lstPhieuNhapChiTiet = null;
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            lstPhieuNhapChiTiet = session.createQuery("from ChiTietPhieuNhap").list();
+            session.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return lstPhieuNhapChiTiet;
+    }
+
+    public Set<ChiTietPhieuNhap> getPhieuNhapByChiTietPhieuNhap(PhieuNhapHang pnh) {
+        Set<ChiTietPhieuNhap> setCTPN;
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            Transaction trans = session.beginTransaction();
+            PhieuNhapHang pn= session.get(PhieuNhapHang.class, pnh.getId());
+            setCTPN = pn.getChiTietPhieuNhap();
+             trans.commit();
+            session.close();
+        }
+        return setCTPN;
     }
 
     public List<NguyenLieu> getAllNguyenLieu() {
@@ -68,7 +92,6 @@ public class PhieuNhapRepo {
         return lstNhanVien;
     }
 
-
     public PhieuNhapHang getPhieuNhapByMa(String maPN) {
         PhieuNhapHang phieuNhapHang = null;
         try ( Session session = Hibernateutility.getFactory().openSession()) {
@@ -81,6 +104,7 @@ public class PhieuNhapRepo {
         }
         return phieuNhapHang;
     }
+
     public NhanVien getNhanVienByMa(String maNhanVien) {
         NhanVien nhanVien = null;
         try ( Session session = Hibernateutility.getFactory().openSession()) {
@@ -93,6 +117,7 @@ public class PhieuNhapRepo {
         }
         return nhanVien;
     }
+
     public NhaCungCap getNhaCungCapByMa(String maNhaCungCap) {
         NhaCungCap nhaCungCap = null;
         try ( Session session = Hibernateutility.getFactory().openSession()) {
@@ -105,6 +130,7 @@ public class PhieuNhapRepo {
         }
         return nhaCungCap;
     }
+
     public NguyenLieu getNguyenLieuByMa(String maNguyenLieu) {
         NguyenLieu nguyenLieu = null;
         try ( Session session = Hibernateutility.getFactory().openSession()) {
@@ -117,9 +143,10 @@ public class PhieuNhapRepo {
         }
         return nguyenLieu;
     }
-    public PhieuNhapHang getPhieuNhapById(String idPhieuNhap){
-        PhieuNhapHang pnh=null;
-        try(Session session = Hibernateutility.getFactory().openSession()){
+
+    public PhieuNhapHang getPhieuNhapById(String idPhieuNhap) {
+        PhieuNhapHang pnh = null;
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
             Transaction trans = session.beginTransaction();
             pnh = session.get(PhieuNhapHang.class, idPhieuNhap);
             trans.commit();
@@ -127,9 +154,32 @@ public class PhieuNhapRepo {
         }
         return pnh;
     }
-    public NguyenLieu getNguyenLieuById(String idNguyenLieu){
-        NguyenLieu nl=null;
-        try(Session session = Hibernateutility.getFactory().openSession()){
+
+    public NhanVien getNhanVienById(String idNhanVien) {
+        NhanVien nv = null;
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            Transaction trans = session.beginTransaction();
+            nv = session.get(NhanVien.class, idNhanVien);
+            trans.commit();
+            session.close();
+        }
+        return nv;
+    }
+
+    public NhaCungCap getNhaCungCapById(String idNhaCungCap) {
+        NhaCungCap ncc = null;
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            Transaction trans = session.beginTransaction();
+            ncc = session.get(NhaCungCap.class, idNhaCungCap);
+            trans.commit();
+            session.close();
+        }
+        return ncc;
+    }
+
+    public NguyenLieu getNguyenLieuById(String idNguyenLieu) {
+        NguyenLieu nl = null;
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
             Transaction trans = session.beginTransaction();
             nl = session.get(NguyenLieu.class, idNguyenLieu);
             trans.commit();
@@ -152,34 +202,53 @@ public class PhieuNhapRepo {
         }
     }
 
-    public String insertPhieuNhap(String maPN, NhaCungCap ncc, NhanVien nv, Date ngayNhap,int trangThai) {
+    public String insertPhieuNhap(String maPN, String idNcc, String idNv, Date ngayNhap, int trangThai) {
         String id = null;
         try ( Session session = Hibernateutility.getFactory().openSession()) {
             Transaction trans = session.beginTransaction();
+            NhaCungCap ncc = session.get(NhaCungCap.class, idNcc);
+            NhanVien nv = session.get(NhanVien.class, idNv);
             PhieuNhapHang pnh = new PhieuNhapHang();
             pnh.setMa(maPN);
             pnh.setNhaCungCap(ncc);
             pnh.setNhanVien(nv);
             pnh.setNgayNhap(ngayNhap);
             pnh.setTrangThai(trangThai);
+            id = (String) session.save(pnh);
+            trans.commit();
+            session.close();
         }
         return id;
     }
 
-    public void insertCTPhieuNhap(PhieuNhapHang pn, NguyenLieu nl, float soLuongNhap, float donGia) {
-        String id = null;
+    public void insertCTPhieuNhap(String idPn, String idNl, float soLuongNhap, float donGia) {
         try ( Session session = Hibernateutility.getFactory().openSession()) {
             Transaction trans = session.beginTransaction();
+            PhieuNhapHang pn = session.get(PhieuNhapHang.class, idPn);
+            NguyenLieu nl = session.get(NguyenLieu.class, idNl);
             ChiTietPhieuNhap ctpn = new ChiTietPhieuNhap();
             ctpn.setPhieuNhapKey(pn);
             ctpn.setNguyenLieuKey(nl);
             ctpn.setSoLuongNhap(soLuongNhap);
             ctpn.setDonGia(donGia);
-            session.save(ctpn);
+            session.persist(ctpn);
             trans.commit();
             session.close();
         }
     }
+
+    public void updateSoluongNguyenLieu(String idNguyenLieu, float soLuongNhap) {
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            Transaction trans = session.beginTransaction();
+            NguyenLieu nl = session.get(NguyenLieu.class, idNguyenLieu);
+            float soLuongNL = nl.getSoLuongTon() + soLuongNhap;
+            nl.setSoLuongTon(soLuongNL);
+            session.update(nl);
+            trans.commit();
+            session.close();
+        }
+    }
+
     public List<ChiTietPhieuNhap> searchPhieuNhap(String maPN) {
         Transaction trans = null;
         List<ChiTietPhieuNhap> listChiTiet = new ArrayList<>();

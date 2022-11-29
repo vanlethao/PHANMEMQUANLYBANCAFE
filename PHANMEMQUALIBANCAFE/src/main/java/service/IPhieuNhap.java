@@ -11,6 +11,8 @@ import domainmodel.NhanVien;
 import domainmodel.PhieuNhapHang;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+import viewmodel.ChiTietPhieuNhapViewModel;
 import viewmodel.NguyenLieuViewModel_Hoang;
 import viewmodel.NhaCungCapViewModel_Hoang;
 import viewmodel.NhanVienViewModel_Hoang;
@@ -23,6 +25,10 @@ import viewmodel.PhieuNhapViewModel;
 public interface IPhieuNhap {
 
     List<PhieuNhapViewModel> getAllPhieuNhap();
+
+    List<ChiTietPhieuNhapViewModel> getPhieuNhapByChiTietPhieuNhap(String maPN);
+
+    PhieuNhapViewModel getPhieuNhapById(String idPhieuNhap);
 
     List<NguyenLieuViewModel_Hoang> getAllNguyenLieu();
 
@@ -42,7 +48,9 @@ public interface IPhieuNhap {
 
     List<PhieuNhapViewModel> searchPhieuNhap(String maPN);
 
-    String insertPhieuNhap(String maPN, NhaCungCapViewModel_Hoang ncc, NhanVienViewModel_Hoang nv, Date ngayNhap, int trangThai);
+    String insertPhieuNhap(String maPN, String idNcc, String idNv, Date ngayNhap, int trangThai);
 
-    void insertCTPhieuNhap(PhieuNhapViewModel pn, NguyenLieuViewModel_Hoang nl, float soLuongNhap, float donGia);
+    void insertCTPhieuNhap(String idPn, String idNl, float soLuongNhap, float donGia);
+
+    void updateSoluongNguyenLieu(String idNguyenLieu, float soLuongNhap);
 }

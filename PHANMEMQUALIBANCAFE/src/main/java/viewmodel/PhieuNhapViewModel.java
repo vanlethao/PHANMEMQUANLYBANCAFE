@@ -17,47 +17,28 @@ public class PhieuNhapViewModel {
 
     private String id;
     private String maPhieuNhap;
-    private String maNguyenLieu;
-    private String tenNguyenLieu;
     private String maNhaCungCap;
     private String tenNhaCungCap;
     private String maNhanVien;
     private String tenNhanVien;
     private Date ngayNhap;
-    private BigDecimal soLuongNhap;
-    private BigDecimal donGia;
+    private String donViTinh;
     private Integer trangThai;
 
-    public BigDecimal thanhTien() {
-        return soLuongNhap.multiply(donGia);
-    }
+    
 
     public PhieuNhapViewModel() {
     }
 
-    public PhieuNhapViewModel(String id, String maPhieuNhap, String maNguyenLieu, String maNhaCungCap, String maNhanVien, Date ngayNhap, BigDecimal soLuongNhap, BigDecimal donGia) {
+    public PhieuNhapViewModel(String id, String maPhieuNhap, String maNhaCungCap, String tenNhaCungCap, String maNhanVien, String tenNhanVien, Date ngayNhap, String donViTinh, Integer trangThai) {
         this.id = id;
         this.maPhieuNhap = maPhieuNhap;
-        this.maNguyenLieu = maNguyenLieu;
-        this.maNhaCungCap = maNhaCungCap;
-        this.maNhanVien = maNhanVien;
-        this.ngayNhap = ngayNhap;
-        this.soLuongNhap = soLuongNhap;
-        this.donGia = donGia;
-    }
-
-    public PhieuNhapViewModel(String id, String maPhieuNhap, String maNguyenLieu, String tenNguyenLieu, String maNhaCungCap, String tenNhaCungCap, String maNhanVien, String tenNhanVien, Date ngayNhap, BigDecimal soLuongNhap, BigDecimal donGia, Integer trangThai) {
-        this.id = id;
-        this.maPhieuNhap = maPhieuNhap;
-        this.maNguyenLieu = maNguyenLieu;
-        this.tenNguyenLieu = tenNguyenLieu;
         this.maNhaCungCap = maNhaCungCap;
         this.tenNhaCungCap = tenNhaCungCap;
         this.maNhanVien = maNhanVien;
         this.tenNhanVien = tenNhanVien;
         this.ngayNhap = ngayNhap;
-        this.soLuongNhap = soLuongNhap;
-        this.donGia = donGia;
+        this.donViTinh = donViTinh;
         this.trangThai = trangThai;
     }
 
@@ -75,22 +56,6 @@ public class PhieuNhapViewModel {
 
     public void setMaPhieuNhap(String maPhieuNhap) {
         this.maPhieuNhap = maPhieuNhap;
-    }
-
-    public String getMaNguyenLieu() {
-        return maNguyenLieu;
-    }
-
-    public void setMaNguyenLieu(String maNguyenLieu) {
-        this.maNguyenLieu = maNguyenLieu;
-    }
-
-    public String getTenNguyenLieu() {
-        return tenNguyenLieu;
-    }
-
-    public void setTenNguyenLieu(String tenNguyenLieu) {
-        this.tenNguyenLieu = tenNguyenLieu;
     }
 
     public String getMaNhaCungCap() {
@@ -133,20 +98,12 @@ public class PhieuNhapViewModel {
         this.ngayNhap = ngayNhap;
     }
 
-    public BigDecimal getSoLuongNhap() {
-        return soLuongNhap;
+    public String getDonViTinh() {
+        return donViTinh;
     }
 
-    public void setSoLuongNhap(BigDecimal soLuongNhap) {
-        this.soLuongNhap = soLuongNhap;
-    }
-
-    public BigDecimal getDonGia() {
-        return donGia;
-    }
-
-    public void setDonGia(BigDecimal donGia) {
-        this.donGia = donGia;
+    public void setDonViTinh(String donViTinh) {
+        this.donViTinh = donViTinh;
     }
 
     public Integer getTrangThai() {
@@ -156,9 +113,6 @@ public class PhieuNhapViewModel {
     public void setTrangThai(Integer trangThai) {
         this.trangThai = trangThai;
     }
-
-    
-
     public String getStatus() {
         if (trangThai == 0) {
             return "Đã hủy";
@@ -171,7 +125,7 @@ public class PhieuNhapViewModel {
     }
 
     public Object[] getDataPhieuNhapView() {
-        return new Object[]{maPhieuNhap, maNguyenLieu, tenNguyenLieu, maNhaCungCap,
-            tenNhaCungCap, maNhanVien, tenNhanVien, ngayNhap, soLuongNhap, donGia, thanhTien(), getStatus()};
+        return new Object[]{id,maPhieuNhap, maNhaCungCap,
+            tenNhaCungCap, maNhanVien, tenNhanVien, ngayNhap, getStatus()};
     }
 }

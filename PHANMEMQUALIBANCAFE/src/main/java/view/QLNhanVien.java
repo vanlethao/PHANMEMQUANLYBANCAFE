@@ -4,6 +4,9 @@
  */
 package view;
 
+import domainmodel.TaiKhoanAdmin;
+import domainmodel.TaiKhoanNguoiDung;
+
 /**
  *
  * @author trant
@@ -13,7 +16,7 @@ public class QLNhanVien extends javax.swing.JPanel {
     /**
      * Creates new form QLNhanVien
      */
-    public QLNhanVien() {
+    public QLNhanVien(TaiKhoanAdmin admin, TaiKhoanNguoiDung nguoiDung) {
         initComponents();
     }
 

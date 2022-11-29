@@ -4,6 +4,8 @@
  */
 package view;
 
+import domainmodel.TaiKhoanAdmin;
+import domainmodel.TaiKhoanNguoiDung;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -34,7 +36,7 @@ public class Ban extends javax.swing.JPanel {
     List<KhuVucViewModel> listkvView = new ArrayList<>();
     List<BanViewModel> listBanView = new ArrayList<>();
 
-    public Ban() {
+    public Ban(TaiKhoanAdmin admin, TaiKhoanNguoiDung nguoiDung) {
         initComponents();
         ibanService = new BanService();
         iKhuVucService = new KhuVucService();

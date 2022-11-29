@@ -42,18 +42,18 @@ public class OverView extends javax.swing.JFrame {
         initComponents();
 
         colorEntered = new Color(212, 182, 73);
-        _banHang = new BanHang();
-        _ban = new Ban();
-        _khuyenMai = new KhuyenMai();
-        _qlCa = new QLCa();
-        _qlChiNhanh = new QLChiNhanh();
-        _qlDoiTac = new QLDoiTac();
-        _qlgiaoDich = new QLGiaoDich();
-        _qlNguoiDung = new QLNguoiDung();
-        _qlnguyenLieu = new QLNguyenLieu();
-        _qlNhanVien = new QLNhanVien();
-        _qlSanPham = new QLSanPham();
-        _thongKe = new ThongKe();
+        _banHang = new BanHang(admin, nguoiDung);
+        _ban = new Ban(admin, nguoiDung);
+        _khuyenMai = new KhuyenMai(admin, nguoiDung);
+        _qlCa = new QLCa(admin, nguoiDung);
+        _qlChiNhanh = new QLChiNhanh(admin, nguoiDung);
+        _qlDoiTac = new QLDoiTac(admin, nguoiDung);
+        _qlgiaoDich = new QLGiaoDich(admin, nguoiDung);
+        _qlNguoiDung = new QLNguoiDung(admin, nguoiDung);
+        _qlnguyenLieu = new QLNguyenLieu(admin, nguoiDung);
+        _qlNhanVien = new QLNhanVien(admin, nguoiDung);
+        _qlSanPham = new QLSanPham(admin, nguoiDung);
+        _thongKe = new ThongKe(admin, nguoiDung);
         this.setExtendedState(this.MAXIMIZED_BOTH);
         this.setUndecorated(true);
         if (admin != null) {

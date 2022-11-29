@@ -97,6 +97,7 @@ public class PhieuTraRepo {
             session.close();
         }
     }
+      
        public List<ChiTietPhieuTra> searchPhieuTra(String maPN) {
         Transaction trans = null;
         List<ChiTietPhieuTra> listChiTiet = new ArrayList<>();

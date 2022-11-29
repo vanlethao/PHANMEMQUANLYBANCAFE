@@ -6,6 +6,8 @@ package view;
 
 import domainmodel.Ca;
 import domainmodel.ChiNhanh;
+import domainmodel.TaiKhoanAdmin;
+import domainmodel.TaiKhoanNguoiDung;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
@@ -30,7 +32,7 @@ public class QLCa extends javax.swing.JPanel {
     /**
      * Creates new form QLCa
      */
-    public QLCa() {
+    public QLCa(TaiKhoanAdmin admin, TaiKhoanNguoiDung nguoiDung) {
         initComponents();
           tblBang.setModel(dtm);
         String[] header = {"MA","GioBD","GioKT","TrangThai"};

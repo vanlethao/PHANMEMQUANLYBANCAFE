@@ -4,6 +4,8 @@
  */
 package view;
 
+import domainmodel.TaiKhoanAdmin;
+import domainmodel.TaiKhoanNguoiDung;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -44,7 +46,7 @@ public class QLSanPham extends javax.swing.JPanel {
     private byte[] _arrAvatar;
     private ImageIcon defaultAvatar;
 
-    public QLSanPham() {
+    public QLSanPham(TaiKhoanAdmin admin, TaiKhoanNguoiDung nguoiDung) {
         initComponents();
         sanPhamService = new SanPhamService();
         chiTietSPService = new ChiTietSpService();

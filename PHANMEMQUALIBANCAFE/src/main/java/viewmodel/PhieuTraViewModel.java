@@ -152,6 +152,6 @@ public class PhieuTraViewModel {
     }
 
     public Object[] getPhieuTrahangView() {
-        return new Object[]{maPhieuNhap, maNguyenLieu, tenNguyenLieu, maNhaCungCap, tenNhaCungCap, maNhanVien, tenNhanVien, ngayTra, soLuongTra, lyDo, getStatus()};
+        return new Object[]{id,maPhieuNhap, maNguyenLieu, tenNguyenLieu, maNhaCungCap, tenNhaCungCap, maNhanVien, tenNhanVien, ngayTra, soLuongTra, lyDo, getStatus()};
     }
 }

@@ -4,6 +4,9 @@
  */
 package view;
 
+import domainmodel.TaiKhoanAdmin;
+import domainmodel.TaiKhoanNguoiDung;
+
 /**
  *
  * @author trant
@@ -13,7 +16,7 @@ public class KhuyenMai extends javax.swing.JPanel {
     /**
      * Creates new form KhuyenMai
      */
-    public KhuyenMai() {
+    public KhuyenMai(TaiKhoanAdmin admin, TaiKhoanNguoiDung nguoiDung) {
         initComponents();
     }
 

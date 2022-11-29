@@ -5,6 +5,8 @@
 package view;
 
 import domainmodel.NhanVien;
+import domainmodel.TaiKhoanAdmin;
+import domainmodel.TaiKhoanNguoiDung;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +42,7 @@ public class QLNguoiDung extends javax.swing.JPanel {
     /**
      * Creates new form QLNguoiDung
      */
-    public QLNguoiDung() {
+    public QLNguoiDung(TaiKhoanAdmin admin, TaiKhoanNguoiDung nguoiDung) {
         initComponents();
         iTaiKhoanNguoiDungService = new TaiKhoanNguoiDungService();
         comboBoxNV = new DefaultComboBoxModel<>();

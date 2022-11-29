@@ -6,6 +6,8 @@ package view;
 
 import domainmodel.ChiNhanh;
 import domainmodel.NguyenLieu;
+import domainmodel.TaiKhoanAdmin;
+import domainmodel.TaiKhoanNguoiDung;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -32,7 +34,7 @@ public class QLNguyenLieu extends javax.swing.JPanel {
     /**
      * Creates new form QLNguyenLieu
      */
-    public QLNguyenLieu() {
+    public QLNguyenLieu(TaiKhoanAdmin admin, TaiKhoanNguoiDung nguoiDung) {
         initComponents();
         tblBang.setModel(dtm);
         String[] header = {"id", "Ma", "Ten", "SLT", "HSD", "DVT"};
