@@ -13,6 +13,9 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -42,17 +45,22 @@ public class PhieuKiemKe implements Serializable {
     @Column(name = "TrangThai")
     private Integer trangThai;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "IdNhanVien")
+    private NhanVien nhanVien;
+
     @OneToMany(mappedBy = "kiemKeKey", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<ChiTietPhieuKiemKe> chiTietphieuKiem;
 
     public PhieuKiemKe() {
     }
 
-    public PhieuKiemKe(String id, String ma, Date ngayKiemKe, Integer trangThai, Set<ChiTietPhieuKiemKe> chiTietphieuKiem) {
+    public PhieuKiemKe(String id, String ma, Date ngayKiemKe, Integer trangThai, NhanVien nhanVien, Set<ChiTietPhieuKiemKe> chiTietphieuKiem) {
         this.id = id;
         this.ma = ma;
         this.ngayKiemKe = ngayKiemKe;
         this.trangThai = trangThai;
+        this.nhanVien = nhanVien;
         this.chiTietphieuKiem = chiTietphieuKiem;
     }
 
@@ -86,6 +94,14 @@ public class PhieuKiemKe implements Serializable {
 
     public void setTrangThai(Integer trangThai) {
         this.trangThai = trangThai;
+    }
+
+    public NhanVien getNhanVien() {
+        return nhanVien;
+    }
+
+    public void setNhanVien(NhanVien nhanVien) {
+        this.nhanVien = nhanVien;
     }
 
     public Set<ChiTietPhieuKiemKe> getChiTietphieuKiem() {
