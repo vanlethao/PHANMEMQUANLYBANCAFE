@@ -5,8 +5,12 @@
 package repository;
 
 import domainmodel.ChiTietPhieuTra;
+import domainmodel.NguyenLieu;
+import domainmodel.NhaCungCap;
+import domainmodel.NhanVien;
 import domainmodel.PhieuTraHang;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -41,6 +45,18 @@ public class PhieuTraRepo {
         }
         return phieuTraHang;
     }
+      public PhieuTraHang getPhieuTraByID(String id) {
+        PhieuTraHang phieuTraHang = null;
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            Transaction trans = session.beginTransaction();
+            Query query = session.createQuery("From PhieuTraHang Where Id=:Id");
+            query.setParameter("Id",id);
+            phieuTraHang =(PhieuTraHang) query.uniqueResult();
+            trans.commit();
+            session.close();
+        }
+        return phieuTraHang;
+    }
        public String updateTrangThaiPhieuTra(String maPT,Integer trangThai) {
            try ( Session session = Hibernateutility.getFactory().openSession()) {
                Transaction trans= session.beginTransaction();
@@ -53,6 +69,33 @@ public class PhieuTraRepo {
            }catch(Exception e){
                return "Thất bại";
            }
+    }
+       public String insertPhieuTra(String maPT, NhaCungCap ncc, NhanVien nv, Date ngayTra,int trangThai) {
+        String id = null;
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            Transaction trans = session.beginTransaction();
+            PhieuTraHang pth = new PhieuTraHang();
+            pth.setMa(maPT);
+            pth.setNhaCungCap(ncc);
+            pth.setNhanVien(nv);
+            pth.setNgayTra(ngayTra);
+            pth.setTrangThai(trangThai);
+        }
+        return id;
+    }
+       public void insertCTPhieuTra(PhieuTraHang pth, NguyenLieu nl, float soLuongTra, String lyDo) {
+        String id = null;
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            Transaction trans = session.beginTransaction();
+            ChiTietPhieuTra ctpt = new ChiTietPhieuTra();
+            ctpt.setPhieuTraKey(pth);
+            ctpt.setNguyenLieuKey(nl);
+            ctpt.setSoLuongTra(soLuongTra);
+            ctpt.setLiDo(lyDo);
+            session.save(ctpt);
+            trans.commit();
+            session.close();
+        }
     }
        public List<ChiTietPhieuTra> searchPhieuTra(String maPN) {
         Transaction trans = null;

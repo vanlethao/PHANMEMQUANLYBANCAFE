@@ -34,9 +34,9 @@ public interface IPhieuNhap {
 
     String updateTrangThaiPhieuNhap(String maPN, Integer trangThai);
 
-    NhanVien getNhanVienByMa(String maNhanVien);
+    NhanVienViewModel_Hoang getNhanVienByMa(String maNhanVien);
 
-    NhaCungCap getNhaCungCapByMa(String maNhaCungCap);
+    NhaCungCapViewModel_Hoang getNhaCungCapByMa(String maNhaCungCap);
 
     NguyenLieuViewModel_Hoang getNguyenLieuByMa(String maNguyenLieu);
 

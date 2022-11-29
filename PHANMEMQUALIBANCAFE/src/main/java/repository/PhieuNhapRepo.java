@@ -161,7 +161,7 @@ public class PhieuNhapRepo {
             pnh.setNhaCungCap(ncc);
             pnh.setNhanVien(nv);
             pnh.setNgayNhap(ngayNhap);
-            pnh.setTrangThai(1);
+            pnh.setTrangThai(trangThai);
         }
         return id;
     }

@@ -1167,7 +1167,6 @@
                                           <Component id="rdoHuyPhieuTra" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="rdoPhieuTraTam" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="1" attributes="0">
                                           <Component id="btnExport1" min="-2" max="-2" attributes="0"/>
@@ -1202,10 +1201,8 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="btnCapNhatPhieuTra" max="32767" attributes="0"/>
-                                  <Component id="btnHoanThanhPhieuTra" max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="btnCapNhatPhieuTra" alignment="0" max="32767" attributes="0"/>
+                              <Component id="btnHoanThanhPhieuTra" alignment="0" max="32767" attributes="0"/>
                               <Component id="btnImport1" max="32767" attributes="0"/>
                               <Component id="btnExport1" alignment="0" max="32767" attributes="0"/>
                           </Group>
@@ -1442,12 +1439,10 @@
                                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                                   <Component id="txtMaPhieuTra" alignment="0" pref="280" max="32767" attributes="0"/>
                                                   <Component id="txtSoLuongTra" alignment="0" max="32767" attributes="0"/>
-                                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                                      <Component id="dateNgayTra" alignment="0" pref="149" max="32767" attributes="0"/>
-                                                      <Component id="cboNhanVienTra" alignment="0" max="32767" attributes="0"/>
-                                                      <Component id="cboNhaCungCapTra" alignment="0" max="32767" attributes="0"/>
-                                                      <Component id="cboNguyenLieuTra" alignment="0" max="32767" attributes="0"/>
-                                                  </Group>
+                                                  <Component id="dateNgayTra" alignment="0" pref="280" max="32767" attributes="0"/>
+                                                  <Component id="cboNhanVienTra" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="cboNhaCungCapTra" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="cboNguyenLieuTra" alignment="0" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
                                           <Component id="jLabel4" alignment="0" max="32767" attributes="0"/>
@@ -1474,15 +1469,10 @@
                               <Component id="jLabel40" alignment="3" max="32767" attributes="0"/>
                               <Component id="txtMaPhieuTra" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace min="33" pref="33" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                                  <Component id="jLabel26" min="-2" pref="37" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                                  <Component id="cboNguyenLieuTra" min="-2" pref="35" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="jLabel26" min="-2" pref="37" max="-2" attributes="0"/>
+                              <Component id="cboNguyenLieuTra" alignment="1" min="-2" pref="35" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">

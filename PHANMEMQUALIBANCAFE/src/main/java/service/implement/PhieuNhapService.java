@@ -131,13 +131,25 @@ public class PhieuNhapService implements IPhieuNhap {
     }
 
     @Override
-    public NhanVien getNhanVienByMa(String maNhanVien) {
-        return phieuNhapRepo.getNhanVienByMa(maNhanVien);
+    public NhanVienViewModel_Hoang getNhanVienByMa(String maNhanVien) {
+        NhanVien nv = phieuNhapRepo.getNhanVienByMa(maNhanVien);
+        NhanVienViewModel_Hoang nlView = null;
+        if (nv != null) {
+            nlView = new NhanVienViewModel_Hoang();
+            nlView.setMa(nv.getMa());
+        }
+        return nlView;
     }
 
     @Override
-    public NhaCungCap getNhaCungCapByMa(String maNhaCungCap) {
-        return phieuNhapRepo.getNhaCungCapByMa(maNhaCungCap);
+    public NhaCungCapViewModel_Hoang getNhaCungCapByMa(String maNhaCungCap) {
+        NhaCungCap ncc = phieuNhapRepo.getNhaCungCapByMa(maNhaCungCap);
+        NhaCungCapViewModel_Hoang nlView = null;
+        if (ncc != null) {
+            nlView = new NhaCungCapViewModel_Hoang();
+            nlView.setMa(ncc.getMa());
+        }
+        return nlView;
     }
 
     @Override
@@ -208,7 +220,7 @@ public class PhieuNhapService implements IPhieuNhap {
     @Override
     public void insertCTPhieuNhap(PhieuNhapViewModel pn, NguyenLieuViewModel_Hoang nl, float soLuongNhap, float donGia) {
         PhieuNhapHang pnh = phieuNhapRepo.getPhieuNhapByMa(pn.getMaPhieuNhap());
-        NguyenLieu nguyenLieu = phieuNhapRepo.getNguyenLieuById(nl.getId());
+        NguyenLieu nguyenLieu = phieuNhapRepo.getNguyenLieuByMa(nl.getMa());
         phieuNhapRepo.insertCTPhieuNhap(pnh, nguyenLieu, soLuongNhap, donGia);
     }
 

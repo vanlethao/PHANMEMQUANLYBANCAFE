@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import service.ILogin;
 import service.implement.LoginSerVice;
 import viewmodel.ChiNhanhViewModel_Hoang;
+import viewmodel.TaiKhoanNguoiDungViewModel_Hoang;
 
 /**
  *
@@ -21,11 +22,21 @@ public class Login extends javax.swing.JFrame {
      */
     ILogin logService = new LoginSerVice();
     private ChiNhanhViewModel_Hoang chiNhanh;
+    private TaiKhoanNguoiDung nguoiDung;
 
     public Login() {
         initComponents();
 
     }
+
+    public TaiKhoanNguoiDung getNguoiDung() {
+        return nguoiDung;
+    }
+
+    public void setNguoiDung(TaiKhoanNguoiDung nguoiDung) {
+        this.nguoiDung = nguoiDung;
+    }
+    
 
     public ChiNhanhViewModel_Hoang getChiNhanh() {
         return chiNhanh;
@@ -216,12 +227,14 @@ public class Login extends javax.swing.JFrame {
             TaiKhoanAdmin taiKhoanAdmin = logService.getAdmin(txtTenTk.getText(), pwMatKhau.getText());
             TaiKhoanNguoiDung taiKhoanND = logService.getNguoiDung(txtTenTk.getText(), pwMatKhau.getText());
             if (taiKhoanAdmin != null) {
+                this.setNguoiDung(null);
                 this.setChiNhanh(null);
                 JOptionPane.showMessageDialog(this, "Đăng nhập thành công");
                 OverView ov = new OverView(taiKhoanAdmin, taiKhoanND);
                 ov.setVisible(true);
                 this.dispose();
             } else if (taiKhoanND != null) {
+                this.setNguoiDung(taiKhoanND);
                 NhanVien nv = logService.getNhanVienbyTaiKhoan(taiKhoanND.getId());
                 this.setChiNhanh(logService.getChiNhanhByNhanVien(nv.getId()));
                 JOptionPane.showMessageDialog(this, "Đăng nhập thành công");

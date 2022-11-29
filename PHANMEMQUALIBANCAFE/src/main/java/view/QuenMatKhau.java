@@ -5,6 +5,7 @@
 package view;
 
 import java.awt.Color;
+import javax.swing.JRootPane;
 
 /**
  *
@@ -16,7 +17,10 @@ public class QuenMatKhau extends javax.swing.JFrame {
      * Creates new form QuenMatKhau
      */
     public QuenMatKhau() {
+        this.setUndecorated(true);
         initComponents();
+//        this.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
+       
     }
 
     /**
