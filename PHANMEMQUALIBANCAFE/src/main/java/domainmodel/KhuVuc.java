@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
@@ -28,17 +30,20 @@ public class KhuVuc implements Serializable {
     private String ma;
     @Column(name = "TrangThai")
     private Integer trangThai;
-
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "IdChiNhanh")
+    private ChiNhanh chiNhanh;
     @OneToMany(mappedBy = "khuVuc", fetch = FetchType.EAGER)
     private Set<Ban> listBan;
 
     public KhuVuc() {
     }
 
-    public KhuVuc(String id, String ma, Integer trangThai, Set<Ban> listBan) {
+    public KhuVuc(String id, String ma, Integer trangThai, ChiNhanh chiNhanh, Set<Ban> listBan) {
         this.id = id;
         this.ma = ma;
         this.trangThai = trangThai;
+        this.chiNhanh = chiNhanh;
         this.listBan = listBan;
     }
 
@@ -64,6 +69,14 @@ public class KhuVuc implements Serializable {
 
     public void setTrangThai(Integer trangThai) {
         this.trangThai = trangThai;
+    }
+
+    public ChiNhanh getChiNhanh() {
+        return chiNhanh;
+    }
+
+    public void setChiNhanh(ChiNhanh chiNhanh) {
+        this.chiNhanh = chiNhanh;
     }
 
     public Set<Ban> getListBan() {
