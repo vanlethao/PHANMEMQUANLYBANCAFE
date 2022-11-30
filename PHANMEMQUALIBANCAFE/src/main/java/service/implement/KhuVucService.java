@@ -1,10 +1,14 @@
 package service.implement;
 
+import domainmodel.ChiNhanh;
 import domainmodel.KhuVuc;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import repository.KhuVucRepository;
 import service.IKhuVucService;
+import viewmodel.ChiNhanhViewModel_Hoang;
 import viewmodel.KhuVucViewModel;
 
 public class KhuVucService implements IKhuVucService {
@@ -17,8 +21,24 @@ public class KhuVucService implements IKhuVucService {
     }
 
     @Override
-    public List<KhuVucViewModel> getAllKhuVuc() {
-        var allKhuVuc = khuVucRepository.getAllKhuVuc();
+    public String insertKhuVucToChiNhanh(String maKv, String idChiNhanh) {
+        return khuVucRepository.insertKhuVucToChiNhanh(maKv, idChiNhanh);
+    }
+
+    @Override
+    public void updateKhuVuc(KhuVucViewModel kvView, String maKv, Integer TrangThai) {
+        KhuVuc kv = khuVucRepository.getKhuVucFromID(kvView.getIdKhuVuc());
+        khuVucRepository.updateKhuVuc(kv, maKv, TrangThai);
+    }
+
+    @Override
+    public void deleteKhuVuc(String idKhuVuc) {
+        khuVucRepository.deleteKhuVuc(idKhuVuc);
+    }
+
+    @Override
+    public List<KhuVucViewModel> getAllKhuVucByChiNhanh(String idChiNhanh) {
+        var allKhuVuc = khuVucRepository.getAllKhuVucByChiNhanh(idChiNhanh);
         List<KhuVucViewModel> listView = new ArrayList<>();
         for (KhuVuc kv : allKhuVuc) {
             listView.add(new KhuVucViewModel(kv.getId(), kv.getMa(), kv.getTrangThai()));
@@ -27,19 +47,13 @@ public class KhuVucService implements IKhuVucService {
     }
 
     @Override
-    public String insertKhuVuc(String maKv, Integer TrangThai) {
-        return khuVucRepository.insertKhuVuc(maKv, TrangThai);
-    }
-    
-
-    @Override
-    public void updateKhuVuc(KhuVucViewModel kvView, String maKv, Integer TrangThai) {
-        KhuVuc kv = khuVucRepository.getKhuVucFromMa(kvView.getMakhuvuc());
-        khuVucRepository.updateKhuVuc(kv, maKv, TrangThai);
-    }
-     @Override
-    public void deleteKhuVuc(String idKhuVuc) {
-        khuVucRepository.deleteKhuVuc(idKhuVuc);
+    public List<ChiNhanhViewModel_Hoang> getAllChiNhanh() {
+        var allChiNhanh = khuVucRepository.getAllChiNhanh();
+        List<ChiNhanhViewModel_Hoang> listView = new ArrayList<>();
+        for (ChiNhanh cn : allChiNhanh) {
+            listView.add(new ChiNhanhViewModel_Hoang(cn.getId(), cn.getMa()));
+        }
+        return listView;
     }
 
 }

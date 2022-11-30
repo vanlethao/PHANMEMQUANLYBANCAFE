@@ -3,12 +3,15 @@ package service.implement;
 import domainmodel.Ban;
 import domainmodel.KhuVuc;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import repository.BanRepository;
 import repository.KhuVucRepository;
 import service.IBanHangService;
 import service.IBanService;
 import viewmodel.BanViewModel;
+import viewmodel.ChiNhanhViewModel_Hoang;
 import viewmodel.KhuVucViewModel;
 
 public class BanService implements IBanService {
@@ -23,11 +26,17 @@ public class BanService implements IBanService {
     }
 
     @Override
-    public List<BanViewModel> getAllBan() {
-        var allBan = banRepository.getAllBan();
+    public List<BanViewModel> getAllBanByKhuVuc(String idKhuVuc) {
+        var allBan = banRepository.getAllBanByKhuVuc(idKhuVuc);
         List<BanViewModel> listView = new ArrayList<>();
         for (Ban ban : allBan) {
-            if (ban.getTrangThaiSuDung()== 1) {
+            BanViewModel banView = new BanViewModel();
+            if (ban.getTrangThaiSuDung() == 1) {
+                if (ban.getKhuVuc() != null) {
+                    banView.setMakhuvuc(ban.getKhuVuc().getMa());
+                } else {
+                    banView.setMakhuvuc("chưa có thông tin");
+                }
                 listView.add(new BanViewModel(ban.getId(), ban.getSoBan(), ban.getKhuVuc().getMa()));
             }
 
@@ -36,15 +45,23 @@ public class BanService implements IBanService {
     }
 
     @Override
-    public String insertBan(Integer SoBan,  KhuVucViewModel kvView) {
-        KhuVuc kv = khuVucRepository.getKhuVucFromMa(kvView.getMakhuvuc());
-        return banRepository.insertBan(SoBan,  kv);
+    public String insertBan(Integer SoBan, KhuVucViewModel kvView) {
+        KhuVuc kv = khuVucRepository.getKhuVucFromID(kvView.getIdKhuVuc());
+        return banRepository.insertBan(SoBan, kv);
     }
 
     @Override
     public void deleteBan(String idBan) {
         banRepository.deleteBan(idBan);
     }
-    
+
+    @Override
+    public ChiNhanhViewModel_Hoang getChiNhanhByTaiKhoan(String idTaiKhoan) {
+        var chiNhanh = banRepository.getChiNhanhByTaiKhoan(idTaiKhoan);
+        ChiNhanhViewModel_Hoang cnView = new ChiNhanhViewModel_Hoang();
+        cnView.setId(chiNhanh.getId());
+        cnView.setMa(chiNhanh.getMa());
+        return cnView;
+    }
 
 }

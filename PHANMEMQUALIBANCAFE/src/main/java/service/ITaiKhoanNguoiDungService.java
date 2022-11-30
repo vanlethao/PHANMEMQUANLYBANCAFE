@@ -2,17 +2,18 @@ package service;
 
 import domainmodel.NhanVien;
 import java.util.List;
+import viewmodel.NhanVienViewModel_Van;
 import viewmodel.TaiKhoanNguoiDungViewModel;
 
 public interface ITaiKhoanNguoiDungService {
 
     public List<TaiKhoanNguoiDungViewModel> getAllTkNguoiDung();
 
-    public List<NhanVien> getAllNV();
+    public List<NhanVienViewModel_Van> getAllNV();
 
-    String inserttkNguoiDung(String TenTk, String MatKhau, NhanVien nv);
+    String inserttkNguoiDung(String TenTk, String MatKhau, NhanVienViewModel_Van nv);
 
-   void updateTKNguoiDung(String id, String TenTk, String MatKhau, NhanVien nv1);
+   void updateTKNguoiDung(String id, String TenTk, String MatKhau, NhanVienViewModel_Van nv1);
 
     public void deletetkNguoiDung(String idTk);
 

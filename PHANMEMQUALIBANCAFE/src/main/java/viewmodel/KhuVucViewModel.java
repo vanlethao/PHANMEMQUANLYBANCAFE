@@ -39,7 +39,7 @@ public class KhuVucViewModel {
         this.trangthai = trangthai;
     }
      public Object[] getDataKhuVuc() {
-        return new Object[]{idKhuVuc, makhuvuc, trangthai == 0 ? "Dừng Hoạt Động" : "Đang Hoạt Động"};
+        return new Object[]{idKhuVuc, makhuvuc, trangthai == 1 ? "Đang Hoạt Động" : "Dừng Hoạt Động"};
     }
 
     @Override

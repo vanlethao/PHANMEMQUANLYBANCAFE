@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import utility.Hibernateutility;
+import viewmodel.ChiNhanhViewModel_Hoang;
 
 public class TaiKhoanNguoiDungRepository {
 
@@ -31,12 +32,15 @@ public class TaiKhoanNguoiDungRepository {
         }
         return list;
     }
-     public NhanVien getNhanVienFromHoTen(String HoTenNV) {
+
+   
+
+    public NhanVien getNhanVienFromMa(String Ma) {
         NhanVien nv = null;
         try (Session session = Hibernateutility.getFactory().openSession()) {
             Transaction trans = session.beginTransaction();
-            Query query = session.createQuery("FROM NhanVien Where HoTen=:HoTen");
-            query.setParameter("HoTen",HoTenNV);
+            Query query = session.createQuery("FROM NhanVien Where Ma=:Ma");
+            query.setParameter("Ma", Ma);
             List<NhanVien> list = query.getResultList();
             if (list.size() > 0) {
                 nv = list.get(0);
@@ -83,7 +87,6 @@ public class TaiKhoanNguoiDungRepository {
             Transaction trans = session.beginTransaction();
             TaiKhoanNguoiDung taiKhoanNguoiDung = session.get(TaiKhoanNguoiDung.class, idTk);
             taiKhoanNguoiDung.setTrangThai(0);
-            taiKhoanNguoiDung.setNhanVien(null);
             session.update(taiKhoanNguoiDung);
             trans.commit();
             session.close();

@@ -1,9 +1,13 @@
 package repository;
 
 import domainmodel.Ban;
+import domainmodel.ChiNhanh;
 import domainmodel.HoaDonBanHang;
 import domainmodel.KhuVuc;
+import domainmodel.NhanVien;
+import domainmodel.TaiKhoanNguoiDung;
 import java.util.List;
+import java.util.Set;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -11,15 +15,16 @@ import utility.Hibernateutility;
 
 public class BanRepository {
 
-    public List<Ban> getAllBan() {
-        List<Ban> list = null;
+    public Set<Ban> getAllBanByKhuVuc(String idKhuVuc) {
+        Set<Ban> setBan = null;
         try (Session session = Hibernateutility.getFactory().openSession()) {
             Transaction trans = session.beginTransaction();
-            list = session.createQuery("FROM Ban").list();
+            KhuVuc kv = session.get(KhuVuc.class, idKhuVuc);
+            setBan = kv.getListBan();
             trans.commit();
             session.close();
         }
-        return list;
+        return setBan;
     }
 
     public String insertBan(Integer SoBan, KhuVuc kv) {
@@ -65,8 +70,8 @@ public class BanRepository {
         Ban ban = null;
         try (Session session = Hibernateutility.getFactory().openSession()) {
             Transaction trans = session.beginTransaction();
-            Query query = session.createQuery("FROM Ban Where SoBan=:SoBan");
-            query.setParameter("SoBan", soBan);
+            Query query = session.createQuery("FROM Ban Where soBan=:soBan");
+            query.setParameter("soBan", soBan);
             List<Ban> list = query.getResultList();
             if (list.size() > 0) {
                 ban = list.get(0);
@@ -76,5 +81,16 @@ public class BanRepository {
             session.close();
         }
         return soBan;
+    }
+
+    public static ChiNhanh getChiNhanhByTaiKhoan(String idTaiKhoan) {
+        ChiNhanh chiNhanh = null;
+        try (Session session = Hibernateutility.getFactory().openSession()) {
+            TaiKhoanNguoiDung tk = session.get(TaiKhoanNguoiDung.class, idTaiKhoan);
+            NhanVien nv = tk.getNhanVien();
+            chiNhanh = nv.getChiNhanh();
+            session.close();
+        }
+        return chiNhanh;
     }
 }

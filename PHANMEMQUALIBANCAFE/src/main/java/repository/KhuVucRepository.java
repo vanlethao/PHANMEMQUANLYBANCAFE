@@ -1,9 +1,9 @@
 package repository;
 
 import domainmodel.KhuVuc;
-import domainmodel.Ban;
-import domainmodel.TaiKhoanNguoiDung;
+import domainmodel.ChiNhanh;
 import java.util.List;
+import java.util.Set;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -11,24 +11,27 @@ import utility.Hibernateutility;
 
 public class KhuVucRepository {
 
-    public List<KhuVuc> getAllKhuVuc() {
-        List<KhuVuc> list = null;
+    public Set<KhuVuc> getAllKhuVucByChiNhanh(String IdchiNhanh) {
+        Set<KhuVuc> setKhuVuc = null;
         try (Session session = Hibernateutility.getFactory().openSession()) {
             Transaction trans = session.beginTransaction();
-            list = session.createQuery("FROM KhuVuc").list();
+            ChiNhanh cn = session.get(ChiNhanh.class, IdchiNhanh);
+            setKhuVuc = cn.getSetKhuVuc();
             trans.commit();
             session.close();
         }
-        return list;
+        return setKhuVuc;
     }
 
-    public String insertKhuVuc(String maKv, Integer TrangThai) {
+    public String insertKhuVucToChiNhanh(String maKV, String idChiNhanh) {
         String id = null;
         try (Session session = Hibernateutility.getFactory().openSession()) {
             Transaction trans = session.beginTransaction();
+            ChiNhanh cn = session.get(ChiNhanh.class, idChiNhanh);
             KhuVuc kv = new KhuVuc();
-            kv.setMa(maKv);
-            kv.setTrangThai(TrangThai);
+            kv.setMa(maKV);
+            kv.setChiNhanh(cn);
+            kv.setTrangThai(1);
             id = (String) session.save(kv);
             trans.commit();
             session.close();
@@ -36,9 +39,8 @@ public class KhuVucRepository {
         return id;
 
     }
-   
 
-    public void updateKhuVuc(KhuVuc kv,String maKv, Integer TrangThai) {
+    public void updateKhuVuc(KhuVuc kv, String maKv, Integer TrangThai) {
         try (Session session = Hibernateutility.getFactory().openSession()) {
             Transaction trans = session.beginTransaction();
             kv.setMa(maKv);
@@ -49,22 +51,15 @@ public class KhuVucRepository {
         }
     }
 
-    public KhuVuc getKhuVucFromMa(String maKhuVuc) {
+    public KhuVuc getKhuVucFromID(String idKhuVuc) {
         KhuVuc kv = null;
         try (Session session = Hibernateutility.getFactory().openSession()) {
-            Transaction trans = session.beginTransaction();
-            Query query = session.createQuery("FROM KhuVuc Where Ma=:Ma");
-            query.setParameter("Ma", maKhuVuc);
-            List<KhuVuc> list = query.getResultList();
-            if (list.size() > 0) {
-                kv = list.get(0);
-            }
-
-            trans.commit();
+            kv = session.get(KhuVuc.class, idKhuVuc);
             session.close();
         }
         return kv;
     }
+
     public void deleteKhuVuc(String idKhuVuc) {
         try (Session session = Hibernateutility.getFactory().openSession()) {
             Transaction trans = session.beginTransaction();
@@ -75,5 +70,16 @@ public class KhuVucRepository {
             session.close();
         }
     }
-    
+
+    public List<ChiNhanh> getAllChiNhanh() {
+        List<ChiNhanh> list = null;
+        try (Session session = Hibernateutility.getFactory().openSession()) {
+            Transaction trans = session.beginTransaction();
+            list = session.createQuery("FROM ChiNhanh where trangThai=1").list();
+            trans.commit();
+            session.close();
+        }
+        return list;
+    }
+
 }
