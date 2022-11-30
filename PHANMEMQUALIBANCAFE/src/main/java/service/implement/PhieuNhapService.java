@@ -12,7 +12,9 @@ import domainmodel.PhieuNhapHang;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import repository.*;
 import service.IPhieuNhap;
 import viewmodel.ChiTietPhieuNhapViewModel;
@@ -71,9 +73,9 @@ public class PhieuNhapService implements IPhieuNhap {
     }
 
     @Override
-    public List<ChiTietPhieuNhapViewModel> getPhieuNhapByChiTietPhieuNhap(String maPN) {
-        var chiTietPhieuNhap = phieuNhapRepo.getPhieuNhapByChiTietPhieuNhap(phieuNhapRepo.getPhieuNhapByMa(maPN));
-        List<ChiTietPhieuNhapViewModel> lstView = new ArrayList<>();
+    public Set<ChiTietPhieuNhapViewModel> getPhieuNhapByChiTietPhieuNhap(String id) {
+        var chiTietPhieuNhap = phieuNhapRepo.getPhieuNhapByChiTietPhieuNhap(id);
+        Set<ChiTietPhieuNhapViewModel> lstView = new HashSet<>();
         for (ChiTietPhieuNhap x : chiTietPhieuNhap) {
             ChiTietPhieuNhapViewModel ctView = new ChiTietPhieuNhapViewModel();
             ctView.setIdPhieuNhap(x.getPhieuNhapKey().getId());
@@ -81,13 +83,13 @@ public class PhieuNhapService implements IPhieuNhap {
             if (x.getNguyenLieuKey().getMa() != null) {
                 ctView.setMaNguyenLieu(x.getNguyenLieuKey().getMa());
             }
-            if (x.getNguyenLieuKey().getTen()!= null) {
+            if (x.getNguyenLieuKey().getTen() != null) {
                 ctView.setTenNguyenLieu(x.getNguyenLieuKey().getTen());
             }
             if (x.getSoLuongNhap() != null) {
                 ctView.setSoLuongNhap(new BigDecimal(x.getSoLuongNhap()));
             }
-            if (x.getNguyenLieuKey().getDonViTinh()!= null) {
+            if (x.getNguyenLieuKey().getDonViTinh() != null) {
                 ctView.setDonViTinh(x.getNguyenLieuKey().getDonViTinh());
             }
             if (x.getDonGia() != null) {
@@ -262,12 +264,22 @@ public class PhieuNhapService implements IPhieuNhap {
 
     @Override
     public PhieuNhapViewModel getPhieuNhapById(String idPhieuNhap) {
-        PhieuNhapHang pn =phieuNhapRepo.getPhieuNhapById(idPhieuNhap);
+        PhieuNhapHang pn = phieuNhapRepo.getPhieuNhapById(idPhieuNhap);
         PhieuNhapViewModel pnView = null;
         if (pn != null) {
-           pnView = new PhieuNhapViewModel();
+            pnView = new PhieuNhapViewModel();
         }
         return pnView;
+    }
+
+    @Override
+    public void updatePhieuNhap(String idPN, String maPN, String idNCC, String idNV, Date ngayNhap) {
+        updatePhieuNhap(idPN, maPN, idNCC, idNV, ngayNhap);
+    }
+
+    @Override
+    public void deleteChiTietPnbyidPn(String idPn) {
+        deleteChiTietPnbyidPn(idPn);
     }
 
 }

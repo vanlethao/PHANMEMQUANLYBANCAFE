@@ -47,13 +47,11 @@ public class PhieuNhapRepo {
         return lstPhieuNhapChiTiet;
     }
 
-    public Set<ChiTietPhieuNhap> getPhieuNhapByChiTietPhieuNhap(PhieuNhapHang pnh) {
-        Set<ChiTietPhieuNhap> setCTPN;
+    public Set<ChiTietPhieuNhap> getPhieuNhapByChiTietPhieuNhap(String id) {
+        Set<ChiTietPhieuNhap> setCTPN = null;
         try ( Session session = Hibernateutility.getFactory().openSession()) {
-            Transaction trans = session.beginTransaction();
-            PhieuNhapHang pn= session.get(PhieuNhapHang.class, pnh.getId());
+            PhieuNhapHang pn = session.get(PhieuNhapHang.class, id);
             setCTPN = pn.getChiTietPhieuNhap();
-             trans.commit();
             session.close();
         }
         return setCTPN;
@@ -219,6 +217,34 @@ public class PhieuNhapRepo {
             session.close();
         }
         return id;
+    }
+
+    private void updatePhieuNhap(String idPN, String maPN, String idNCC, String idNV, Date ngayNhap) {
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            Transaction trans = session.beginTransaction();
+            NhaCungCap ncc = session.get(NhaCungCap.class, idNCC);
+            NhanVien nv = session.get(NhanVien.class, idNV);
+            PhieuNhapHang phieuNhap = session.get(PhieuNhapHang.class, idPN);
+            phieuNhap.setMa(maPN);
+            phieuNhap.setNhaCungCap(ncc);
+            phieuNhap.setNhanVien(nv);
+            phieuNhap.setNgayNhap(ngayNhap);
+            session.update(phieuNhap);
+            trans.commit();
+            session.close();
+        }
+    }
+
+    public static void deleteChiTietPnbyidPn(String idPn) {
+        Set<ChiTietPhieuNhap> setChiTiet = null;
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            Transaction trans = session.beginTransaction();
+            PhieuNhapHang pnh = session.get(PhieuNhapHang.class, idPn);
+            setChiTiet = pnh.getChiTietPhieuNhap();
+            setChiTiet.clear();
+            trans.commit();
+            session.close();
+        }
     }
 
     public void insertCTPhieuNhap(String idPn, String idNl, float soLuongNhap, float donGia) {
