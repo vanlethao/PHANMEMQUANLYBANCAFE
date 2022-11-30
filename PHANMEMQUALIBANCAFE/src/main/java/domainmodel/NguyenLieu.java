@@ -6,10 +6,14 @@ package domainmodel;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import org.hibernate.annotations.GenericGenerator;
@@ -44,16 +48,20 @@ public class NguyenLieu implements Serializable {
     @Column(name = "SoLuongTon")
     private Float soLuongTon;
 
+    @OneToMany(mappedBy = "nguyenLieukey", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private Set<ChiTietSP> chiTietSp;
+
     public NguyenLieu() {
     }
 
-    public NguyenLieu(String id, String ma, String ten, Date hanSuDung, String donViTinh, Float soLuongTon) {
+    public NguyenLieu(String id, String ma, String ten, Date hanSuDung, String donViTinh, Float soLuongTon, Set<ChiTietSP> chiTietSp) {
         this.id = id;
         this.ma = ma;
         this.ten = ten;
         this.hanSuDung = hanSuDung;
         this.donViTinh = donViTinh;
         this.soLuongTon = soLuongTon;
+        this.chiTietSp = chiTietSp;
     }
 
     public String getId() {
@@ -103,20 +111,22 @@ public class NguyenLieu implements Serializable {
     public void setSoLuongTon(Float soLuongTon) {
         this.soLuongTon = soLuongTon;
     }
-    
-    
-        @Override
+
+    public Set<ChiTietSP> getChiTietSp() {
+        return chiTietSp;
+    }
+
+    public void setChiTietSp(Set<ChiTietSP> chiTietSp) {
+        this.chiTietSp = chiTietSp;
+    }
+
+    @Override
     public String toString() {
         return "NguyenLieu{" + "id=" + id + ", ma=" + ma + ", ten=" + ten + ", hanSuDung=" + hanSuDung + ", donViTinh=" + donViTinh + ", soLuongTon=" + soLuongTon + '}';
     }
-    
-    
-  
 
     public Object[] toDataRow() {
-        return new Object[]{id,ma, ten,soLuongTon, hanSuDung,donViTinh};
+        return new Object[]{id, ma, ten, soLuongTon, hanSuDung, donViTinh};
     }
-
-  
 
 }
