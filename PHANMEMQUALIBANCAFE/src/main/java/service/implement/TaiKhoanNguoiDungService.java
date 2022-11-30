@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import repository.TaiKhoanNguoiDungRepository;
 import service.ITaiKhoanNguoiDungService;
+import viewmodel.NhanVienViewModel_Van;
 import viewmodel.TaiKhoanNguoiDungViewModel;
 
 public class TaiKhoanNguoiDungService implements ITaiKhoanNguoiDungService {
@@ -22,37 +23,46 @@ public class TaiKhoanNguoiDungService implements ITaiKhoanNguoiDungService {
         var allTk = taiKhoanNguoiDungRepository.getAllTaiKhoanNguoiDung();
         List<TaiKhoanNguoiDungViewModel> listView = new ArrayList<>();
         for (TaiKhoanNguoiDung tk : allTk) {
-            if (tk.getTrangThai() !=0) {
-                 listView.add(new TaiKhoanNguoiDungViewModel(tk.getId(), tk.getTenTK(), tk.getMatKhau(), tk.getNhanVien().getHoTen()));
+            TaiKhoanNguoiDungViewModel tkView = new TaiKhoanNguoiDungViewModel();
+            if (tk.getTrangThai() != 0) {
+                if (tk.getNhanVien() != null) {
+                    tkView.setMaNhanVien(tk.getNhanVien().getMa());
+                } else {
+                    tkView.setMaNhanVien("chưa có thông tin");
+                }
+                listView.add(new TaiKhoanNguoiDungViewModel(tk.getId(), tk.getTenTK(), tk.getMatKhau(), tk.getNhanVien().getMa(),tk.getNhanVien().getHoTen()));
             }
-           
+
         }
         return listView;
     }
+
     @Override
-    public List<NhanVien> getAllNV() {
-    
+    public List<NhanVienViewModel_Van> getAllNV() {
+
         var nv = taiKhoanNguoiDungRepository.getAllNhanVien();
-        List<NhanVien> listView = new ArrayList<>();
+        List<NhanVienViewModel_Van> listView = new ArrayList<>();
         for (NhanVien NV : nv) {
-            NhanVien nvView = new NhanVien();
-            nvView.setId(NV.getId());
-            nvView.setMa(NV.getMa());
+            NhanVienViewModel_Van nvView = new NhanVienViewModel_Van();
+            nvView.setIdNhanVien(NV.getId());
+            nvView.setMaNhanVien(NV.getMa());
             nvView.setHoTen(NV.getHoTen());
             listView.add(nvView);
         }
         return listView;
-  
-    }
-    @Override
-    public String inserttkNguoiDung(String TenTk, String MatKhau, NhanVien nv) {      
-        return taiKhoanNguoiDungRepository.insertTaiKhoanNguoiDung(TenTk, MatKhau, nv);
+
     }
 
-     @Override
-    public void updateTKNguoiDung(String id, String TenTk, String MatKhau, NhanVien nv1) {
-        NhanVien nv = taiKhoanNguoiDungRepository.getNhanVienFromHoTen(nv1.getHoTen());
-        taiKhoanNguoiDungRepository.updateTaiKhoanNguoiDung(id, TenTk,MatKhau,nv);
+    @Override
+    public String inserttkNguoiDung(String TenTk, String MatKhau, NhanVienViewModel_Van nvView) {
+           NhanVien nv = taiKhoanNguoiDungRepository.getNhanVienFromMa(nvView.getMaNhanVien());
+        return taiKhoanNguoiDungRepository.insertTaiKhoanNguoiDung(TenTk, MatKhau,nv );
+    }
+
+    @Override
+    public void updateTKNguoiDung(String id, String TenTk, String MatKhau, NhanVienViewModel_Van nv1) {
+        NhanVien nv = taiKhoanNguoiDungRepository.getNhanVienFromMa(nv1.getMaNhanVien());
+        taiKhoanNguoiDungRepository.updateTaiKhoanNguoiDung(id, TenTk, MatKhau, nv);
     }
 
     @Override
