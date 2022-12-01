@@ -52,7 +52,6 @@ public class SanPhamRespository {
             trans.commit();
             session.close();
         }
-
     }
 
     public void deleteSanPham(String id) {

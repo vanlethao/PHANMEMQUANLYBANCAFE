@@ -223,7 +223,7 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
-        if (!txtTenTk.getText().isEmpty() && pwMatKhau.getPassword().length > 0) {
+        if (!txtTenTk.getText().isEmpty() || pwMatKhau.getPassword().length > 0) {
             TaiKhoanAdmin taiKhoanAdmin = logService.getAdmin(txtTenTk.getText(), pwMatKhau.getText());
             TaiKhoanNguoiDung taiKhoanND = logService.getNguoiDung(txtTenTk.getText(), pwMatKhau.getText());
             if (taiKhoanAdmin != null) {

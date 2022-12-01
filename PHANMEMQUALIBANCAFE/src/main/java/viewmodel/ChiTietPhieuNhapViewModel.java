@@ -97,4 +97,8 @@ public class ChiTietPhieuNhapViewModel {
         return new Object[]{idPhieuNhap,idNguyenLieu,maNguyenLieu, tenNguyenLieu,
             soLuongNhap, donViTinh,donGia,thanhTien()};
     }
+    public Object[] getDataNguyenLieuView() {
+        return new Object[]{idNguyenLieu,maNguyenLieu, tenNguyenLieu,soLuongNhap,
+            donViTinh};
+    }
 }

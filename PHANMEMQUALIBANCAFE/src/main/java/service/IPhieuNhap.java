@@ -26,7 +26,12 @@ public interface IPhieuNhap {
 
     List<PhieuNhapViewModel> getAllPhieuNhap();
 
-    List<ChiTietPhieuNhapViewModel> getPhieuNhapByChiTietPhieuNhap(String maPN);
+//    Set<ChiTietPhieuNhapViewModel> getPhieuNhapByChiTietPhieuNhap(String maPN);
+    void updatePhieuNhap(String idPN, String maPN, String idNCC, String idNV, Date ngayNhap);
+
+    void deleteChiTietPnbyidPn(String idPn);
+
+    Set<ChiTietPhieuNhapViewModel> getPhieuNhapByChiTietPhieuNhap(String id);
 
     PhieuNhapViewModel getPhieuNhapById(String idPhieuNhap);
 
