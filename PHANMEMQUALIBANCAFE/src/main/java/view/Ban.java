@@ -330,24 +330,26 @@ public class Ban extends javax.swing.JPanel {
                     .addGroup(KhuVucLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane2))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, KhuVucLayout.createSequentialGroup()
-                        .addGap(116, 116, 116)
-                        .addComponent(btnThemKhuVuc, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(KhuVucLayout.createSequentialGroup()
-                        .addGroup(KhuVucLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(KhuVucLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(KhuVucLayout.createSequentialGroup()
-                                .addContainerGap(13, Short.MAX_VALUE)
-                                .addComponent(jLabel1)
-                                .addGap(30, 30, 30))
+                                .addGap(116, 116, 116)
+                                .addComponent(btnThemKhuVuc, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnCapNhatKhuVuc, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(KhuVucLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGroup(KhuVucLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtMaKhuVuc, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(KhuVucLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(btnCapNhatKhuVuc, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(cbTrangThaiKhuVuc, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(KhuVucLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(KhuVucLayout.createSequentialGroup()
+                                        .addContainerGap(13, Short.MAX_VALUE)
+                                        .addComponent(jLabel1)
+                                        .addGap(30, 30, 30))
+                                    .addGroup(KhuVucLayout.createSequentialGroup()
+                                        .addContainerGap()
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGroup(KhuVucLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtMaKhuVuc, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cbTrangThaiKhuVuc, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(104, 104, 104)))
                 .addContainerGap())
         );
@@ -464,7 +466,7 @@ public class Ban extends javax.swing.JPanel {
 
     }
     private void btnThemKhuVucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemKhuVucActionPerformed
-        if (checkFormEmpty(txtMaKhuVuc)) {
+        if (checkFormEmpty(txtMaKhuVuc) && checkVuotquakitu1(txtMaKhuVuc.getText())) {
             if (taiKhoanNguoiDung == null) {
                 iKhuVucService.insertKhuVucToChiNhanh(txtMaKhuVuc.getText(),
                         ((ChiNhanhViewModel_Hoang) comboChiNhanh.getSelectedItem()).getId());
@@ -506,7 +508,7 @@ public class Ban extends javax.swing.JPanel {
 
     private void btnThemBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemBanActionPerformed
 
-        if (checkFormEmpty(txtSoBan) && checkNumber(txtSoBan.getText())) {
+        if (checkFormEmpty(txtSoBan) && checkNumber(txtSoBan.getText()) && checkVuotquakitu(txtSoBan.getText())) {
             KhuVucViewModel kvView = (KhuVucViewModel) comboKhuVuc.getSelectedItem();
             ibanService.insertBan(Integer.parseInt(txtSoBan.getText()), kvView);
             JOptionPane.showMessageDialog(this, "Thêm Bàn thành công");
@@ -581,6 +583,24 @@ private boolean checkFormEmpty(JTextField soban) {
         Pattern regexInt = Pattern.compile("^[0-9]+$");
         if (!regexInt.matcher(num).find()) {
             JOptionPane.showMessageDialog(this, "Số không hợp lệ", "Number Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else {
+            return true;
+        }
+    }
+    private boolean checkVuotquakitu(String soban) {
+        Pattern regex = Pattern.compile("^\\w{1,5}+$");
+        if (!regex.matcher(soban).find()) {
+            JOptionPane.showMessageDialog(this, "Vượt quá kí tự", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else {
+            return true;
+        }
+    }
+    private boolean checkVuotquakitu1(String makv) {
+        Pattern regex = Pattern.compile("^\\w{1,5}+$");
+        if (!regex.matcher(makv).find()) {
+            JOptionPane.showMessageDialog(this, "Vượt quá kí tự", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         } else {
             return true;

@@ -37,6 +37,11 @@ public class BanService implements IBanService {
                 } else {
                     banView.setMakhuvuc("chưa có thông tin");
                 }
+                if (ban.getId() != null) {
+                    banView.setIdban(ban.getId());
+                } else {
+                    banView.setIdban("chưa có thông tin");
+                }
                 listView.add(new BanViewModel(ban.getId(), ban.getSoBan(), ban.getKhuVuc().getMa()));
             }
 
