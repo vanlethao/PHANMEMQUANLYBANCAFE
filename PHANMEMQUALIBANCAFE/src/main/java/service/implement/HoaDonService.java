@@ -32,24 +32,26 @@ public class HoaDonService implements IHoaDon {
         List<HoaDonViewModel> lstView = new ArrayList<>();
         for (HoaDonBanHang x : hoaDon) {
             if (hoaDon != null) {
-                 HoaDonViewModel qlhd = new HoaDonViewModel();
-            qlhd.setId(x.getId());
-            if (x.getMa() != null) {
-                qlhd.setMaHoaDon(x.getMa());
-            }
-            if (x.getNgayTao() != null) {
-                qlhd.setNgayTao(x.getNgayTao());
-            }
-            if (x.getNhanVien().getMa() != null) {
-                qlhd.setMaNhanVien(x.getNhanVien().getMa());
-            }
-            if (x.getNhanVien().getHoTen() != null) {
-                qlhd.setTenNhanVien(x.getNhanVien().getHoTen());
-            }
-            if (x.getTrangThai() != null) {
-                qlhd.setTrangThai(x.getTrangThai());
-            }
-            lstView.add(qlhd);
+                HoaDonViewModel qlhd = new HoaDonViewModel();
+                qlhd.setId(x.getId());
+                if (x.getMa() != null) {
+                    qlhd.setMaHoaDon(x.getMa());
+                }
+                if (x.getNgayTao() != null) {
+                    qlhd.setNgayTao(x.getNgayTao());
+                }
+                if (x.getNhanVien() != null) {
+                    if (x.getNhanVien().getMa() != null) {
+                        qlhd.setMaNhanVien(x.getNhanVien().getMa());
+                    }
+                    if (x.getNhanVien().getHoTen() != null) {
+                        qlhd.setTenNhanVien(x.getNhanVien().getHoTen());
+                    }
+                }
+                if (x.getTrangThai() != null) {
+                    qlhd.setTrangThai(x.getTrangThai());
+                }
+                lstView.add(qlhd);
             }
         }
         return lstView;
@@ -70,7 +72,7 @@ public class HoaDonService implements IHoaDon {
         var hoaDon = hoaDonRepo.locHoaDon(startDate, endDate);
         List<HoaDonViewModel> lstView = new ArrayList<>();
         for (HoaDonBanHang x : hoaDon) {
-           HoaDonViewModel qlhd = new HoaDonViewModel();
+            HoaDonViewModel qlhd = new HoaDonViewModel();
             qlhd.setId(x.getId());
             if (x.getMa() != null) {
                 qlhd.setMaHoaDon(x.getMa());
