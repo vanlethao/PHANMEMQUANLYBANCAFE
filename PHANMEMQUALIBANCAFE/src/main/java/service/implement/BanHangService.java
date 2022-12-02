@@ -5,6 +5,7 @@
 package service.implement;
 
 import domainmodel.Ban;
+import domainmodel.ChiNhanh;
 import domainmodel.HoaDonBanHang;
 import domainmodel.KhuVuc;
 import domainmodel.KhuyenMai;
@@ -18,6 +19,7 @@ import java.util.regex.Pattern;
 import repository.BanHangRepo;
 import service.IBanHangService;
 import viewmodel.Area;
+import viewmodel.ChiNhanhViewModel_Hoang;
 import viewmodel.KhuyenMaiDangHoatDong;
 import viewmodel.ProductForSale;
 import viewmodel.Table;
@@ -28,18 +30,18 @@ import viewmodel.ThemKhachViewModel;
  * @author trant
  */
 public class BanHangService implements IBanHangService {
-    
+
     BanHangRepo _BanHangRepo;
-    
+
     public BanHangService() {
         _BanHangRepo = new BanHangRepo();
     }
-    
+
     @Override
-    public List<ProductForSale> getAllProductForSale() {
+    public List<ProductForSale> getAllProductForSaleByChiNhanh(String idChiNhanh) {
         List<ProductForSale> listView = new ArrayList<>();
-        var product = _BanHangRepo.getAllSanPham();
-        if (product != null) {
+        var product = _BanHangRepo.getAllSanPhamByChiNhanh(idChiNhanh);
+        if (product.size() > 0) {
             for (SanPham sanPham : product) {
                 ProductForSale productView = new ProductForSale();
                 productView.setIdSp(sanPham.getId());
@@ -64,7 +66,7 @@ public class BanHangService implements IBanHangService {
         }
         return listView;
     }
-    
+
     @Override
     public boolean checkSo(String soLuong) {
         Pattern checkInt = Pattern.compile("^[0-9]+$");
@@ -73,12 +75,12 @@ public class BanHangService implements IBanHangService {
         }
         return true;
     }
-    
+
     @Override
-    public List<Area> getAllKhuVuc() {
+    public List<Area> getAllKhuVucByChiNhanh(String idChiNhanh) {
         List<Area> listView = new ArrayList<>();
-        var khuVuc = _BanHangRepo.getAllKhuVuc();
-        if (khuVuc != null) {
+        var khuVuc = _BanHangRepo.getAllKhuVucByChiNhanh(idChiNhanh);
+        if (khuVuc.size() > 0) {
             for (KhuVuc kv : khuVuc) {
                 Area area = new Area();
                 area.setIdArea(kv.getId());
@@ -88,7 +90,7 @@ public class BanHangService implements IBanHangService {
         }
         return listView;
     }
-    
+
     @Override
     public List<Table> getAllBanByKhuVuc(Area area) {
         KhuVuc kv = new KhuVuc();
@@ -105,12 +107,12 @@ public class BanHangService implements IBanHangService {
         }
         return listView;
     }
-    
+
     @Override
-    public List<KhuyenMaiDangHoatDong> getAllKhuyenMai() {
+    public List<KhuyenMaiDangHoatDong> getAllKhuyenMaiByChiNhanh(String idChiNhanh) {
         List<KhuyenMaiDangHoatDong> listView = new ArrayList<>();
-        var khuyenMai = _BanHangRepo.getAllKhuyenMai();
-        if (khuyenMai != null) {
+        var khuyenMai = _BanHangRepo.getAllKhuyenMaiByChiNhanh(idChiNhanh);
+        if (khuyenMai.size() > 0) {
             for (KhuyenMai km : khuyenMai) {
                 KhuyenMaiDangHoatDong kmView = new KhuyenMaiDangHoatDong();
                 kmView.setIdKhuyenMai(km.getId());
@@ -125,7 +127,7 @@ public class BanHangService implements IBanHangService {
         }
         return listView;
     }
-    
+
     @Override
     public KhuyenMaiDangHoatDong getKhuyenMaibySanPham(String id) {
         KhuyenMaiDangHoatDong kmView = null;
@@ -139,12 +141,12 @@ public class BanHangService implements IBanHangService {
         }
         return kmView;
     }
-    
+
     @Override
     public String insertKhachHang(ThemKhachViewModel khachHang) {
         return null;
     }
-    
+
     @Override
     public ThemKhachViewModel getKhachHangBySdt(String sdt) {
         var khachHang = _BanHangRepo.getKhachHangBySdt(sdt);
@@ -159,7 +161,7 @@ public class BanHangService implements IBanHangService {
         }
         return khachView;
     }
-    
+
     @Override
     public Float getGiaTriDoiDiem() {
         Float giaTriDoiDiem = null;
@@ -168,7 +170,7 @@ public class BanHangService implements IBanHangService {
         }
         return giaTriDoiDiem;
     }
-    
+
     @Override
     public Float getGiaTriDiem() {
         Float giaTriDiem = null;
@@ -177,17 +179,17 @@ public class BanHangService implements IBanHangService {
         }
         return giaTriDiem;
     }
-    
+
     @Override
     public String inserHoaDon(String ma, Date ngayTao, String idNhanVien, Integer soBan) {
         return _BanHangRepo.inserHoaDon(ma, ngayTao, idNhanVien, soBan);
     }
-    
+
     @Override
     public void insertChiTietHoaDon(String idSanPham, String idHoaDon, int soLuongMua, BigDecimal thanhTien, BigDecimal thanhTienSauKM) {
         _BanHangRepo.insertChiTietHoaDon(idSanPham, idHoaDon, soLuongMua, thanhTien, thanhTienSauKM);
     }
-    
+
     @Override
     public String autoGenMaHoaDon() {
         String firstWord = "HD";
@@ -195,7 +197,7 @@ public class BanHangService implements IBanHangService {
         String maHD = null;
         List<Integer> list = new ArrayList<>();
         var listHoaDon = _BanHangRepo.getAllHoaDon();
-        if (listHoaDon != null) {
+        if (listHoaDon.size() > 0) {
             for (HoaDonBanHang hoaDonBanHang : listHoaDon) {
                 maHD = hoaDonBanHang.getMa();
                 list.add(Integer.parseInt(maHD.substring(2)));
@@ -206,10 +208,10 @@ public class BanHangService implements IBanHangService {
             lastNumber = (int) list.get(list.size() - 1);
             lastNumber++;
         }
-        
+
         return maHD = firstWord + String.valueOf(lastNumber);
     }
-    
+
     @Override
     public NhanVien getNhanVienbyTaiKhoan(String idTaiKhoan) {
         var nhanVien = _BanHangRepo.getNhanVienbyTaiKhoan(idTaiKhoan);
@@ -218,5 +220,47 @@ public class BanHangService implements IBanHangService {
         }
         return null;
     }
-    
+
+    @Override
+    public void updateDiemKhachHang(String idKhach, Integer diemTichLuy) {
+        _BanHangRepo.updateDiemKhachHang(idKhach, diemTichLuy);
+    }
+
+    @Override
+    public ChiNhanhViewModel_Hoang getChiNhanhbyTaiKhoan(String idTaiKhoan) {
+        var chiNhanh = _BanHangRepo.getChiNhanhbyTaiKhoan(idTaiKhoan);
+        ChiNhanhViewModel_Hoang cnView = new ChiNhanhViewModel_Hoang();
+        cnView.setId(chiNhanh.getId());
+        return cnView;
+    }
+
+    @Override
+    public List<ChiNhanhViewModel_Hoang> getAllChiNhanh() {
+        var chiNhanh = _BanHangRepo.getAllChiNhanh();
+        List<ChiNhanhViewModel_Hoang> listView = new ArrayList<>();
+        for (ChiNhanh cn : chiNhanh) {
+            ChiNhanhViewModel_Hoang cnView = new ChiNhanhViewModel_Hoang();
+            cnView.setId(cn.getId());
+            cnView.setMa(cn.getMa());
+            listView.add(cnView);
+        }
+
+        return listView;
+    }
+
+    @Override
+    public void updateTrangThaiBanBySoBan(Integer soBan) {
+        _BanHangRepo.updateTrangThaiBanBySoBan(soBan);
+    }
+
+    @Override
+    public void updateNguyenLieuAfterSellSanPham(String idSanPham, int soLuongMua) {
+        _BanHangRepo.updateNguyenLieuAfterSellSanPham(idSanPham, soLuongMua);
+    }
+
+    @Override
+    public boolean checkDinhLuongPhaChex3(String idSanPham) {
+        return _BanHangRepo.checkDinhLuongPhaChex3(idSanPham);
+    }
+
 }

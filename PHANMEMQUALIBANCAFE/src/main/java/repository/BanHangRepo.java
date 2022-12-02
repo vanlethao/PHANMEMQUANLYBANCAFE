@@ -7,10 +7,12 @@ package repository;
 import domainmodel.Ban;
 import domainmodel.ChiNhanh;
 import domainmodel.ChiTietHoaDon;
+import domainmodel.ChiTietSP;
 import domainmodel.HoaDonBanHang;
 import domainmodel.KhachHang;
 import domainmodel.KhuVuc;
 import domainmodel.KhuyenMai;
+import domainmodel.NguyenLieu;
 import domainmodel.NhanVien;
 import domainmodel.SanPham;
 import domainmodel.TaiKhoanNguoiDung;
@@ -31,31 +33,100 @@ import utility.Hibernateutility;
  */
 public class BanHangRepo {
 
-    public static List<SanPham> getAllSanPham() {
-        List<SanPham> listSp = null;
+    public static Set<SanPham> getAllSanPhamByChiNhanh(String idChiNhanh) {
+        Set<SanPham> setSp = new HashSet<>();
+        Set<NguyenLieu> setNguyenLieu;
         try ( Session session = Hibernateutility.getFactory().openSession()) {
-            listSp = session.createQuery("FROM SanPham WHERE trangThai=1").list();
+            ChiNhanh chiNhanh = session.get(ChiNhanh.class, idChiNhanh);
+            setNguyenLieu = chiNhanh.getListNguyenLieu();
+            for (NguyenLieu nguyenLieu : setNguyenLieu) {
+                Set<ChiTietSP> setChiTiet = nguyenLieu.getChiTietSp();
+                for (ChiTietSP chiTietSP : setChiTiet) {
+                    setSp.add(chiTietSP.getSanPhamKey());
+                }
+            }
+
             session.close();
         }
-        return listSp;
+        return setSp;
     }
 
-    public static List<KhuVuc> getAllKhuVuc() {
-        List<KhuVuc> listKhuVuc = null;
+    public static void updateNguyenLieuAfterSellSanPham(String idSanPham, int soLuongMua) {
         try ( Session session = Hibernateutility.getFactory().openSession()) {
-            listKhuVuc = session.createQuery("FROM KhuVuc WHERE trangThai=1").list();
+            Transaction trans = session.beginTransaction();
+            SanPham sanPham = session.get(SanPham.class, idSanPham);
+            Set<ChiTietSP> chiTietSp = sanPham.getChiTietSp();
+            for (int i = 0; i < soLuongMua; i++) {
+                for (ChiTietSP ctSp : chiTietSp) {
+                    float soLuongTon = ctSp.getNguyenLieukey().getSoLuongTon();
+                    float dinhLuong = ctSp.getDinhLuong();
+                    ctSp.getNguyenLieukey().setSoLuongTon(soLuongTon - dinhLuong);
+                    session.update(ctSp);
+                }
+            }
+            trans.commit();
             session.close();
         }
-        return listKhuVuc;
     }
 
-    public static List<KhuyenMai> getAllKhuyenMai() {
-        List<KhuyenMai> listKhuyenMai = null;
+    public static boolean checkDinhLuongPhaChex3(String idSanPham) {
+        boolean check = true;
         try ( Session session = Hibernateutility.getFactory().openSession()) {
-            listKhuyenMai = session.createQuery("FROM KhuyenMai WHERE trangThai=1").list();
+            Transaction trans = session.beginTransaction();
+            SanPham sanPham = session.get(SanPham.class, idSanPham);
+            Set<ChiTietSP> setChiTiet = sanPham.getChiTietSp();
+            for (ChiTietSP chiTietSP : setChiTiet) {
+                float slTon = chiTietSP.getNguyenLieukey().getSoLuongTon();
+                float dinhLuong = chiTietSP.getDinhLuong();
+                if (slTon < (dinhLuong * 3)) {
+                    check = false;
+                    break;
+                }
+            }
+            trans.commit();
             session.close();
         }
-        return listKhuyenMai;
+        return check;
+    }
+
+    public static Set<KhuVuc> getAllKhuVucByChiNhanh(String idChiNhanh) {
+        Set<KhuVuc> setKhuVuc = null;
+        Set<KhuVuc> khuVucDangHoatDong = new HashSet<>();
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            ChiNhanh chiNhanh = session.get(ChiNhanh.class, idChiNhanh);
+            setKhuVuc = chiNhanh.getSetKhuVuc();
+            for (KhuVuc khuVuc : setKhuVuc) {
+                if (khuVuc.getTrangThai() == 1) {
+                    khuVucDangHoatDong.add(khuVuc);
+                }
+            }
+            session.close();
+        }
+        return khuVucDangHoatDong;
+    }
+
+    public static List<ChiNhanh> getAllChiNhanh() {
+        List<ChiNhanh> ListChiNhanh = null;
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            ListChiNhanh = session.createQuery("FROM ChiNhanh WHERE trangThai=1").list();
+            session.close();
+        }
+        return ListChiNhanh;
+    }
+
+    public static Set<KhuyenMai> getAllKhuyenMaiByChiNhanh(String idChiNhanh) {
+        Set<KhuyenMai> setKhuyenMai = new HashSet<>();
+        Set<SanPham> setSanPham = getAllSanPhamByChiNhanh(idChiNhanh);
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            for (SanPham sanPham : setSanPham) {
+                KhuyenMai khuyenMai = sanPham.getKhuyenMai();
+                if (khuyenMai != null) {
+                    setKhuyenMai.add(khuyenMai);
+                }
+            }
+            session.close();
+        }
+        return setKhuyenMai;
     }
 
     public static Set<Ban> getAllBanByKhuVuc(KhuVuc khuVuc) {
@@ -112,6 +183,17 @@ public class BanHangRepo {
         return kh;
     }
 
+    public static void updateDiemKhachHang(String idKhach, Integer diemTichLuy) {
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            Transaction trans = session.beginTransaction();
+            KhachHang khachHang = session.get(KhachHang.class, idKhach);
+            khachHang.setDiemTichLuy(diemTichLuy);
+            session.update(khachHang);
+            trans.commit();
+            session.close();
+        }
+    }
+
     public static ChiNhanh getOneChiNhanh() {
         List<ChiNhanh> listChiNhanh = null;
         ChiNhanh chiNhanh = null;
@@ -130,7 +212,10 @@ public class BanHangRepo {
         String id = null;
         try ( Session session = Hibernateutility.getFactory().openSession()) {
             Transaction trans = session.beginTransaction();
-            NhanVien nhanVien = session.get(NhanVien.class, idNhanVien);
+            NhanVien nhanVien = null;
+            if (idNhanVien != null) {
+                nhanVien = session.get(NhanVien.class, idNhanVien);
+            }
             Query query = session.createQuery("FROM Ban WHERE soBan=:soBan");
             query.setParameter("soBan", soBan);
             Ban ban = (Ban) query.uniqueResult();
@@ -154,9 +239,10 @@ public class BanHangRepo {
             ChiTietHoaDon chiTietHd = new ChiTietHoaDon();
             HoaDonBanHang hoaDon = session.get(HoaDonBanHang.class, idHoaDon);
             SanPham sanPham = session.get(SanPham.class, idSanPham);
-            chiTietHd.setSoLuongMua(soLuongMua);
-            chiTietHd.setSoLuongMua(soLuongMua);
+            chiTietHd.setSanPhamKey(sanPham);
+            chiTietHd.setHoaDonKey(hoaDon);
             chiTietHd.setThanhTien(thanhTien);
+            chiTietHd.setSoLuongMua(soLuongMua);
             chiTietHd.setThanhTienSauKm(thanhTienSauKM);
             session.save(chiTietHd);
             trans.commit();
@@ -182,6 +268,36 @@ public class BanHangRepo {
             session.close();
         }
         return nhanVien;
+    }
+
+    public static ChiNhanh getChiNhanhbyTaiKhoan(String idTaiKhoan) {
+        NhanVien nhanVien = null;
+        ChiNhanh chiNhanh = null;
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            TaiKhoanNguoiDung taiKhoan = session.get(TaiKhoanNguoiDung.class, idTaiKhoan);
+            nhanVien = taiKhoan.getNhanVien();
+            chiNhanh = nhanVien.getChiNhanh();
+            session.close();
+        }
+        return chiNhanh;
+    }
+
+    public static void updateTrangThaiBanBySoBan(Integer soBan) {
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            Transaction trans = session.beginTransaction();
+            Query query = session.createQuery("FROM Ban WHERE soBan=:soBan");
+            query.setParameter("soBan", soBan);
+            Ban ban = (Ban) query.uniqueResult();
+            if (ban.getTrangThai() == 0) {
+                ban.setTrangThai(1);
+            } else {
+                ban.setTrangThai(0);
+            }
+            session.update(ban);
+            trans.commit();
+            session.close();
+        }
+
     }
 
 }

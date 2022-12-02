@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import viewmodel.Area;
+import viewmodel.ChiNhanhViewModel_Hoang;
 import viewmodel.KhuyenMaiDangHoatDong;
 import viewmodel.ProductForSale;
 import viewmodel.Table;
@@ -20,13 +21,13 @@ import viewmodel.ThemKhachViewModel;
  */
 public interface IBanHangService {
 
-    List<ProductForSale> getAllProductForSale();
+    List<ProductForSale> getAllProductForSaleByChiNhanh(String idChiNhanh);
 
     boolean checkSo(String soLuong);
 
-    List<Area> getAllKhuVuc();
+    List<Area> getAllKhuVucByChiNhanh(String idChiNhanh);
 
-    List<KhuyenMaiDangHoatDong> getAllKhuyenMai();
+    List<KhuyenMaiDangHoatDong> getAllKhuyenMaiByChiNhanh(String idChiNhanh);
 
     KhuyenMaiDangHoatDong getKhuyenMaibySanPham(String id);
 
@@ -49,4 +50,16 @@ public interface IBanHangService {
     String autoGenMaHoaDon();
 
     NhanVien getNhanVienbyTaiKhoan(String idTaiKhoan);
+
+    void updateDiemKhachHang(String idKhach, Integer diemTichLuy);
+
+    ChiNhanhViewModel_Hoang getChiNhanhbyTaiKhoan(String idTaiKhoan);
+
+    List<ChiNhanhViewModel_Hoang> getAllChiNhanh();
+
+    void updateTrangThaiBanBySoBan(Integer soBan);
+
+    void updateNguyenLieuAfterSellSanPham(String idSanPham, int soLuongMua);
+
+    boolean checkDinhLuongPhaChex3(String idSanPham);
 }
