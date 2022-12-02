@@ -4,6 +4,7 @@
  */
 package service.implement;
 
+import domainmodel.ChiTietPhieuNhap;
 import domainmodel.ChiTietPhieuTra;
 import domainmodel.NguyenLieu;
 import domainmodel.NhaCungCap;
@@ -12,10 +13,14 @@ import domainmodel.PhieuNhapHang;
 import domainmodel.PhieuTraHang;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import repository.*;
 import service.IPhieuNhap;
 import service.IPhieuTra;
+import viewmodel.ChiTietPhieuTraViewModel;
 import viewmodel.NguyenLieuViewModel_Hoang;
 import viewmodel.NhaCungCapViewModel_Hoang;
 import viewmodel.NhanVienViewModel_Hoang;
@@ -29,42 +34,40 @@ import viewmodel.PhieuTraViewModel;
 public class PhieuTraService implements IPhieuTra {
 
     PhieuTraRepo phieuTraRepo;
+    PhieuNhapRepo phieuNhapRepo;
 
     public PhieuTraService() {
-        phieuTraRepo = new PhieuTraRepo();;
+        phieuTraRepo = new PhieuTraRepo();
+        phieuNhapRepo = new PhieuNhapRepo();
     }
 
     @Override
     public List<PhieuTraViewModel> getAllPhieuTra() {
+
         List<PhieuTraViewModel> lstView = new ArrayList<>();
-        var lstCtPhieuTra = phieuTraRepo.getAllPhieuTra();
-        for (ChiTietPhieuTra x : lstCtPhieuTra) {
+        var lstPhieuTra = phieuTraRepo.getAllPhieuTra();
+
+        for (PhieuTraHang x : lstPhieuTra) {
             PhieuTraViewModel ptView = new PhieuTraViewModel();
-            ptView.setId(x.getPhieuTraKey().getId());
-            ptView.setMaPhieuNhap(x.getPhieuTraKey().getMa());
-            ptView.setMaNguyenLieu(x.getNguyenLieuKey().getMa());
-            if (x.getNguyenLieuKey().getTen() != null) {
-                ptView.setTenNguyenLieu(x.getNguyenLieuKey().getTen());
+            ptView.setIdPhieuTra(x.getId());
+            ptView.setMaPhieuTra(x.getMa());
+            ptView.setMaNhaCungCap(x.getNhaCungCap().getMa());
+            if (x.getNhaCungCap().getTen() != null) {
+                ptView.setTenNhaCungCap(x.getNhaCungCap().getTen());
             }
-            ptView.setMaNhaCungCap(x.getPhieuTraKey().getNhaCungCap().getMa());
-            if (x.getPhieuTraKey().getNhaCungCap().getTen() != null) {
-                ptView.setTenNhaCungCap(x.getPhieuTraKey().getNhaCungCap().getTen());
+            ptView.setMaNhanVien(x.getNhanVien().getMa());
+            if (x.getNhanVien().getHoTen() != null) {
+                ptView.setTenNhanVien(x.getNhanVien().getHoTen());
             }
-            ptView.setMaNhanVien(x.getPhieuTraKey().getNhanVien().getMa());
-            if (x.getPhieuTraKey().getNhanVien().getHoTen() != null) {
-                ptView.setTenNhanVien(x.getPhieuTraKey().getNhanVien().getHoTen());
+            if (x.getNgayTra() != null) {
+                ptView.setNgayTra(x.getNgayTra());
             }
-            if (x.getPhieuTraKey().getNgayTra() != null) {
-                ptView.setNgayTra(x.getPhieuTraKey().getNgayTra());
+            if (x.getTrangThai() != null) {
+                ptView.setTrangThai(x.getTrangThai());
             }
-            if (x.getSoLuongTra() != null) {
-                ptView.setSoLuongTra(new BigDecimal(x.getSoLuongTra()));
-            }
-            if (x.getLiDo() != null) {
-                ptView.setLyDo(x.getLiDo());
-            }
-            if (x.getPhieuTraKey().getTrangThai() != null) {
-                ptView.setTrangThai(x.getPhieuTraKey().getTrangThai());
+            var lst = phieuTraRepo.getPhieuTraByChiTietPhieuTra(x.getId());
+            for (ChiTietPhieuTra chiTietPhieuTra : lst) {
+                ptView.setLyDo(chiTietPhieuTra.getLiDo());
             }
             lstView.add(ptView);
         }
@@ -72,8 +75,14 @@ public class PhieuTraService implements IPhieuTra {
     }
 
     @Override
-    public PhieuTraHang getPhieuTraByMa(String maPT) {
-        return phieuTraRepo.getPhieuTraByMa(maPT);
+    public PhieuTraViewModel getPhieuTraByMa(String maPT) {
+        PhieuTraHang pt = phieuTraRepo.getPhieuTraByMa(maPT);
+        PhieuTraViewModel ptView = null;
+        if (pt != null) {
+            ptView = new PhieuTraViewModel();
+            ptView.setMaPhieuTra(pt.getMa());
+        }
+        return ptView;
     }
 
     @Override
@@ -85,14 +94,10 @@ public class PhieuTraService implements IPhieuTra {
     public List<PhieuTraViewModel> searchPhieuTra(String maPN) {
         List<PhieuTraViewModel> lstView = new ArrayList<>();
         var lstCtPhieuTra = phieuTraRepo.searchPhieuTra(maPN);
-         for (ChiTietPhieuTra x : lstCtPhieuTra) {
+        for (ChiTietPhieuTra x : lstCtPhieuTra) {
             PhieuTraViewModel ptView = new PhieuTraViewModel();
-            ptView.setId(x.getPhieuTraKey().getId());
-            ptView.setMaPhieuNhap(x.getPhieuTraKey().getMa());
-            ptView.setMaNguyenLieu(x.getNguyenLieuKey().getMa());
-            if (x.getNguyenLieuKey().getTen() != null) {
-                ptView.setTenNguyenLieu(x.getNguyenLieuKey().getTen());
-            }
+            ptView.setIdPhieuTra(x.getPhieuTraKey().getId());
+            ptView.setMaPhieuTra(x.getPhieuTraKey().getMa());
             ptView.setMaNhaCungCap(x.getPhieuTraKey().getNhaCungCap().getMa());
             if (x.getPhieuTraKey().getNhaCungCap().getTen() != null) {
                 ptView.setTenNhaCungCap(x.getPhieuTraKey().getNhaCungCap().getTen());
@@ -104,18 +109,72 @@ public class PhieuTraService implements IPhieuTra {
             if (x.getPhieuTraKey().getNgayTra() != null) {
                 ptView.setNgayTra(x.getPhieuTraKey().getNgayTra());
             }
-            if (x.getSoLuongTra() != null) {
-                ptView.setSoLuongTra(new BigDecimal(x.getSoLuongTra()));
-            }
-            if (x.getLiDo() != null) {
-                ptView.setLyDo(x.getLiDo());
-            }
             if (x.getPhieuTraKey().getTrangThai() != null) {
                 ptView.setTrangThai(x.getPhieuTraKey().getTrangThai());
             }
             lstView.add(ptView);
         }
         return lstView;
+    }
+
+    @Override
+    public Set<ChiTietPhieuTraViewModel> getPhieuTraByChiTietPhieuTra(String id) {
+        var chiTietPhieuTra = phieuTraRepo.getPhieuTraByChiTietPhieuTra(id);
+        var chitietPhieuNhap = phieuNhapRepo.getAllChiTietPhieuNhap();
+        Set<ChiTietPhieuTraViewModel> chitietView = new HashSet<>();
+        for (ChiTietPhieuTra x : chiTietPhieuTra) {
+            if (chiTietPhieuTra != null) {
+                ChiTietPhieuTraViewModel ctView = new ChiTietPhieuTraViewModel();
+                ctView.setIdPhieuTra(x.getPhieuTraKey().getId());
+                ctView.setIdNguyenLieu(x.getNguyenLieuKey().getId());
+                ctView.setMaNguyenLieu(x.getNguyenLieuKey().getMa());
+                ctView.setTenNguyenLieu(x.getNguyenLieuKey().getTen());
+                ctView.setSoLuongTra(BigDecimal.valueOf(x.getSoLuongTra()));
+                ctView.setDonViTinh(x.getNguyenLieuKey().getDonViTinh());
+                for (ChiTietPhieuNhap y : chitietPhieuNhap) {
+                    var chiTietPhieuNhap1 = phieuNhapRepo.getPhieuNhapByChiTietPhieuNhap(y.getPhieuNhapKey().getId());
+                    for (ChiTietPhieuNhap z : chiTietPhieuNhap1) {
+                        ctView.setDonGia(BigDecimal.valueOf(z.getDonGia()));
+                    }
+                }
+                chitietView.add(ctView);
+            }
+        }
+        return chitietView;
+    }
+
+    public static void main(String[] args) {
+        PhieuTraService pt = new PhieuTraService();
+        Set<ChiTietPhieuTraViewModel> set = pt.getPhieuTraByChiTietPhieuTra("30A4647E-6637-4960-A6D3-8567499B17CF");
+        for (ChiTietPhieuTraViewModel x : set) {
+            System.out.println(x.getDonGia());
+        }
+    }
+
+    @Override
+    public PhieuTraViewModel getPhieuTraByID(String id) {
+        PhieuTraHang pt = phieuTraRepo.getPhieuTraByID(id);
+        PhieuTraViewModel ptView = null;
+        if (pt != null) {
+            ptView = new PhieuTraViewModel();
+            ptView.setIdPhieuTra(pt.getId());
+        }
+        return ptView;
+    }
+
+    @Override
+    public String insertPhieuTra(String maPT, String idNcc, String idNv, Date ngayTra, int trangThai) {
+        return phieuTraRepo.insertPhieuTra(maPT, idNcc, idNv, ngayTra, trangThai);
+    }
+
+    @Override
+    public void updateSoluongNguyenLieuTra(String idNguyenLieu, float soLuongTra) {
+        phieuTraRepo.updateSoluongNguyenLieuTra(idNguyenLieu, soLuongTra);
+    }
+
+    @Override
+    public void insertCTPhieuTra(String idPt, String idNL, float soLuongTra, String lyDo) {
+        phieuTraRepo.insertCTPhieuTra(idPt, idNL, soLuongTra, lyDo);
     }
 
 }

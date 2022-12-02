@@ -56,6 +56,15 @@ public class PhieuNhapRepo {
         }
         return setCTPN;
     }
+//    public Set<ChiTietPhieuNhap> getNguyenLieuByChiTietPhieuNhap(String id) {
+//        Set<ChiTietPhieuNhap> setCTPN = null;
+//        try ( Session session = Hibernateutility.getFactory().openSession()) {
+//            NguyenLieu nl = session.get(NguyenLieu.class, id);
+//            setCTPN = nl.get();
+//            session.close();
+//        }
+//        return setCTPN;
+//    }
 
     public List<NguyenLieu> getAllNguyenLieu() {
         List<NguyenLieu> lstNguyenLieu = null;
@@ -219,7 +228,7 @@ public class PhieuNhapRepo {
         return id;
     }
 
-    private void updatePhieuNhap(String idPN, String maPN, String idNCC, String idNV, Date ngayNhap) {
+    public void updatePhieuNhap(String idPN, String maPN, String idNCC, String idNV, Date ngayNhap) {
         try ( Session session = Hibernateutility.getFactory().openSession()) {
             Transaction trans = session.beginTransaction();
             NhaCungCap ncc = session.get(NhaCungCap.class, idNCC);
@@ -234,8 +243,23 @@ public class PhieuNhapRepo {
             session.close();
         }
     }
+    public void updateCTPhieuNhap(String idPn, String idNl, float soLuongNhap, float donGia) {
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            Transaction trans = session.beginTransaction();
+            PhieuNhapHang pn = session.get(PhieuNhapHang.class, idPn);
+            NguyenLieu nl = session.get(NguyenLieu.class, idNl);
+            ChiTietPhieuNhap ctpn = new ChiTietPhieuNhap();
+            ctpn.setPhieuNhapKey(pn);
+            ctpn.setNguyenLieuKey(nl);
+            ctpn.setSoLuongNhap(soLuongNhap);
+            ctpn.setDonGia(donGia);
+            session.update(ctpn);
+            trans.commit();
+            session.close();
+        }
+    }
 
-    public static void deleteChiTietPnbyidPn(String idPn) {
+    public  void deleteChiTietPnbyidPn(String idPn) {
         Set<ChiTietPhieuNhap> setChiTiet = null;
         try ( Session session = Hibernateutility.getFactory().openSession()) {
             Transaction trans = session.beginTransaction();

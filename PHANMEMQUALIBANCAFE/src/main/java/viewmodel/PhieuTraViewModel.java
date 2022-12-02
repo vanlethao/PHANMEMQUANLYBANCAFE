@@ -13,67 +13,55 @@ import java.util.Date;
  */
 public class PhieuTraViewModel {
 
-    private String id;
-    private String maPhieuNhap;
-    private String maNguyenLieu;
-    private String tenNguyenLieu;
+    private String idPhieuTra;
+    private String maPhieuTra;
     private String maNhaCungCap;
     private String tenNhaCungCap;
     private String maNhanVien;
     private String tenNhanVien;
     private Date ngayTra;
-    private BigDecimal soLuongTra;
-    private String lyDo;
     private int trangThai;
+    private String lyDo;
 
     public PhieuTraViewModel() {
     }
 
-    public PhieuTraViewModel(String id, String maPhieuNhap, String maNguyenLieu, String tenNguyenLieu, String maNhaCungCap, String tenNhaCungCap, String maNhanVien, String tenNhanVien, Date ngayTra, BigDecimal soLuongTra, String lyDo, int trangThai) {
-        this.id = id;
-        this.maPhieuNhap = maPhieuNhap;
-        this.maNguyenLieu = maNguyenLieu;
-        this.tenNguyenLieu = tenNguyenLieu;
+    public PhieuTraViewModel(String idPhieuTra, String maPhieuTra, String maNhaCungCap, String tenNhaCungCap, String maNhanVien, String tenNhanVien, Date ngayTra, int trangThai, String lyDo) {
+        this.idPhieuTra = idPhieuTra;
+        this.maPhieuTra = maPhieuTra;
         this.maNhaCungCap = maNhaCungCap;
         this.tenNhaCungCap = tenNhaCungCap;
         this.maNhanVien = maNhanVien;
         this.tenNhanVien = tenNhanVien;
         this.ngayTra = ngayTra;
-        this.soLuongTra = soLuongTra;
-        this.lyDo = lyDo;
         this.trangThai = trangThai;
+        this.lyDo = lyDo;
     }
 
-    public String getId() {
-        return id;
+    public String getLyDo() {
+        return lyDo;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setLyDo(String lyDo) {
+        this.lyDo = lyDo;
     }
 
-    public String getMaPhieuNhap() {
-        return maPhieuNhap;
+    
+
+    public String getIdPhieuTra() {
+        return idPhieuTra;
     }
 
-    public void setMaPhieuNhap(String maPhieuNhap) {
-        this.maPhieuNhap = maPhieuNhap;
+    public void setIdPhieuTra(String idPhieuTra) {
+        this.idPhieuTra = idPhieuTra;
     }
 
-    public String getMaNguyenLieu() {
-        return maNguyenLieu;
+    public String getMaPhieuTra() {
+        return maPhieuTra;
     }
 
-    public void setMaNguyenLieu(String maNguyenLieu) {
-        this.maNguyenLieu = maNguyenLieu;
-    }
-
-    public String getTenNguyenLieu() {
-        return tenNguyenLieu;
-    }
-
-    public void setTenNguyenLieu(String tenNguyenLieu) {
-        this.tenNguyenLieu = tenNguyenLieu;
+    public void setMaPhieuTra(String maPhieuTra) {
+        this.maPhieuTra = maPhieuTra;
     }
 
     public String getMaNhaCungCap() {
@@ -116,22 +104,6 @@ public class PhieuTraViewModel {
         this.ngayTra = ngayTra;
     }
 
-    public BigDecimal getSoLuongTra() {
-        return soLuongTra;
-    }
-
-    public void setSoLuongTra(BigDecimal soLuongTra) {
-        this.soLuongTra = soLuongTra;
-    }
-
-    public String getLyDo() {
-        return lyDo;
-    }
-
-    public void setLyDo(String lyDo) {
-        this.lyDo = lyDo;
-    }
-
     public int getTrangThai() {
         return trangThai;
     }
@@ -139,6 +111,8 @@ public class PhieuTraViewModel {
     public void setTrangThai(int trangThai) {
         this.trangThai = trangThai;
     }
+
+    
 
     public String getStatus() {
         if (trangThai == 0) {
@@ -152,6 +126,6 @@ public class PhieuTraViewModel {
     }
 
     public Object[] getPhieuTrahangView() {
-        return new Object[]{id,maPhieuNhap, maNguyenLieu, tenNguyenLieu, maNhaCungCap, tenNhaCungCap, maNhanVien, tenNhanVien, ngayTra, soLuongTra, lyDo, getStatus()};
+        return new Object[]{idPhieuTra,maPhieuTra, maNhaCungCap, tenNhaCungCap, maNhanVien, tenNhanVien, ngayTra, getStatus(),lyDo};
     }
 }

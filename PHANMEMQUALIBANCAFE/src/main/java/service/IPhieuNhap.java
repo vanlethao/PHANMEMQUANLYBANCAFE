@@ -57,5 +57,7 @@ public interface IPhieuNhap {
 
     void insertCTPhieuNhap(String idPn, String idNl, float soLuongNhap, float donGia);
 
+    void updateCTPhieuNhap(String idPn, String idNl, float soLuongNhap, float donGia);
+
     void updateSoluongNguyenLieu(String idNguyenLieu, float soLuongNhap);
 }

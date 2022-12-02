@@ -31,7 +31,8 @@ public class HoaDonService implements IHoaDon {
         var hoaDon = hoaDonRepo.getAllHoaDon();
         List<HoaDonViewModel> lstView = new ArrayList<>();
         for (HoaDonBanHang x : hoaDon) {
-            HoaDonViewModel qlhd = new HoaDonViewModel();
+            if (hoaDon != null) {
+                 HoaDonViewModel qlhd = new HoaDonViewModel();
             qlhd.setId(x.getId());
             if (x.getMa() != null) {
                 qlhd.setMaHoaDon(x.getMa());
@@ -49,6 +50,7 @@ public class HoaDonService implements IHoaDon {
                 qlhd.setTrangThai(x.getTrangThai());
             }
             lstView.add(qlhd);
+            }
         }
         return lstView;
     }

@@ -10,37 +10,39 @@ import java.math.BigDecimal;
  *
  * @author ASUS
  */
-public class ChiTietPhieuNhapViewModel {
+public class ChiTietPhieuTraViewModel {
 
-    private String idPhieuNhap, idNguyenLieu;
+    private String idPhieuTra, idNguyenLieu;
     private String maNguyenLieu, tenNguyenLieu;
-    private BigDecimal soLuongNhap;
+    private BigDecimal soLuongTra;
     private String donViTinh;
     private BigDecimal donGia;
 
     public BigDecimal thanhTien() {
-        return soLuongNhap.multiply(donGia);
+        return soLuongTra.multiply(donGia);
     }
 
-    public ChiTietPhieuNhapViewModel() {
-    }
-
-    public ChiTietPhieuNhapViewModel(String idPhieuNhap, String idNguyenLieu, String maNguyenLieu, String tenNguyenLieu, BigDecimal soLuongNhap, String donViTinh, BigDecimal donGia) {
-        this.idPhieuNhap = idPhieuNhap;
+    public ChiTietPhieuTraViewModel(String idPhieuTra, String idNguyenLieu, String maNguyenLieu, String tenNguyenLieu, BigDecimal soLuongTra, String donViTinh, BigDecimal donGia) {
+        this.idPhieuTra = idPhieuTra;
         this.idNguyenLieu = idNguyenLieu;
         this.maNguyenLieu = maNguyenLieu;
         this.tenNguyenLieu = tenNguyenLieu;
-        this.soLuongNhap = soLuongNhap;
+        this.soLuongTra = soLuongTra;
         this.donViTinh = donViTinh;
         this.donGia = donGia;
     }
 
-    public String getIdPhieuNhap() {
-        return idPhieuNhap;
+    
+
+    public ChiTietPhieuTraViewModel() {
     }
 
-    public void setIdPhieuNhap(String idPhieuNhap) {
-        this.idPhieuNhap = idPhieuNhap;
+    public String getIdPhieuTra() {
+        return idPhieuTra;
+    }
+
+    public void setIdPhieuTra(String idPhieuTra) {
+        this.idPhieuTra = idPhieuTra;
     }
 
     public String getIdNguyenLieu() {
@@ -67,12 +69,12 @@ public class ChiTietPhieuNhapViewModel {
         this.tenNguyenLieu = tenNguyenLieu;
     }
 
-    public BigDecimal getSoLuongNhap() {
-        return soLuongNhap;
+    public BigDecimal getSoLuongTra() {
+        return soLuongTra;
     }
 
-    public void setSoLuongNhap(BigDecimal soLuongNhap) {
-        this.soLuongNhap = soLuongNhap;
+    public void setSoLuongTra(BigDecimal soLuongTra) {
+        this.soLuongTra = soLuongTra;
     }
 
     public String getDonViTinh() {
@@ -91,14 +93,12 @@ public class ChiTietPhieuNhapViewModel {
         this.donGia = donGia;
     }
 
-   
+  
 
-    public Object[] getDataChiTietPhieuNhapView() {
-        return new Object[]{idPhieuNhap,idNguyenLieu,maNguyenLieu, tenNguyenLieu,
-            soLuongNhap, donViTinh,donGia,thanhTien()};
+    public Object[] getChiTietPhieuTrahangView() {
+        return new Object[]{idPhieuTra, idNguyenLieu, maNguyenLieu, tenNguyenLieu, soLuongTra, donViTinh, donGia, thanhTien()};
     }
-    public Object[] getDataNguyenLieuView() {
-        return new Object[]{idNguyenLieu,maNguyenLieu, tenNguyenLieu,soLuongNhap,
-            donViTinh,donGia};
+    public Object[] getNguyenLieuByPhieuTrahangView() {
+        return new Object[]{idNguyenLieu, maNguyenLieu, tenNguyenLieu, soLuongTra, donViTinh};
     }
 }

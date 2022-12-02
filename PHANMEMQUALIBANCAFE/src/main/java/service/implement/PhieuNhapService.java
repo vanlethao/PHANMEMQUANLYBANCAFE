@@ -274,12 +274,19 @@ public class PhieuNhapService implements IPhieuNhap {
 
     @Override
     public void updatePhieuNhap(String idPN, String maPN, String idNCC, String idNV, Date ngayNhap) {
-        updatePhieuNhap(idPN, maPN, idNCC, idNV, ngayNhap);
+       phieuNhapRepo.updatePhieuNhap(idPN, maPN, idNCC, idNV, ngayNhap);
     }
 
     @Override
     public void deleteChiTietPnbyidPn(String idPn) {
-        deleteChiTietPnbyidPn(idPn);
+        phieuNhapRepo.deleteChiTietPnbyidPn(idPn);
     }
+
+    @Override
+    public void updateCTPhieuNhap(String idPn, String idNl, float soLuongNhap, float donGia) {
+        phieuNhapRepo.updateCTPhieuNhap(idPn, idNl, soLuongNhap, donGia);
+    }
+
+    
 
 }
