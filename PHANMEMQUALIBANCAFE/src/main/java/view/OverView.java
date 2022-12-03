@@ -20,7 +20,8 @@ import viewmodel.ChiNhanhViewModel_Hoang;
 import viewmodel.NguyenLieuViewModel_Hoang;
 
 public class OverView extends javax.swing.JFrame {
-
+    TaiKhoanAdmin _admin;
+    TaiKhoanNguoiDung _nguoiDung;
     private String chucVu;
     ILogin logService = new LoginSerVice();
     private DefaultComboBoxModel<ChiNhanhViewModel_Hoang> comboModel = new DefaultComboBoxModel();
@@ -40,7 +41,8 @@ public class OverView extends javax.swing.JFrame {
 
     public OverView(TaiKhoanAdmin admin, TaiKhoanNguoiDung nguoiDung) {
         initComponents();
-
+        _admin = admin;
+        _nguoiDung =nguoiDung;
         colorEntered = new Color(212, 182, 73);
         _banHang = new BanHang(admin, nguoiDung);
         _ban = new Ban(admin, nguoiDung);
@@ -59,16 +61,12 @@ public class OverView extends javax.swing.JFrame {
         if (admin != null) {
             lblTenTaiKhoan.setText(admin.getTenTK());
             chucVu = "Ông chủ";
-            comboModel = (DefaultComboBoxModel) new DefaultComboBoxModel<>(logService.getAllChiNhanh().toArray());
-            cboChiNhanh.setModel((DefaultComboBoxModel) comboModel);
+            lblChiNhanh.setText("Center");
         } else if (nguoiDung != null) {
             NhanVien nv = logService.getNhanVienbyTaiKhoan(nguoiDung.getId());
             lblTenTaiKhoan.setText(nguoiDung.getTenTK());
             chucVu = logService.getChucVubyIdNhanVien(nv.getId()).getTen();
-            List<ChiNhanhViewModel_Hoang> lstArr = new ArrayList<>();
-            lstArr.add(logService.getChiNhanhByNhanVien(nv.getId()));
-            comboModel = (DefaultComboBoxModel) new DefaultComboBoxModel<>(lstArr.toArray());
-            cboChiNhanh.setModel((DefaultComboBoxModel) comboModel);
+            lblChiNhanh.setText(logService.getChiNhanhByNhanVien(nv.getId()).getMa());
         }
 
     }
@@ -133,9 +131,9 @@ public class OverView extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         btnDangXuat = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        cboChiNhanh = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         lblTenTaiKhoan = new javax.swing.JLabel();
+        lblChiNhanh = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -742,14 +740,17 @@ public class OverView extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(108, 83, 54));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin tài khoản", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14), new java.awt.Color(255, 255, 255))); // NOI18N
 
-        cboChiNhanh.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/location_30px.png"))); // NOI18N
 
+        lblTenTaiKhoan.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblTenTaiKhoan.setForeground(new java.awt.Color(255, 255, 255));
         lblTenTaiKhoan.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblTenTaiKhoan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/account_30px.png"))); // NOI18N
         lblTenTaiKhoan.setText(" Tên tài khoản");
+
+        lblChiNhanh.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblChiNhanh.setForeground(new java.awt.Color(255, 255, 255));
+        lblChiNhanh.setText("Chi nhánh");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -757,15 +758,13 @@ public class OverView extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblTenTaiKhoan)
-                        .addGap(0, 38, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblTenTaiKhoan)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cboChiNhanh, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(lblChiNhanh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -774,7 +773,7 @@ public class OverView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cboChiNhanh))
+                    .addComponent(lblChiNhanh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -785,7 +784,7 @@ public class OverView extends javax.swing.JFrame {
             .addGroup(pnlHeaderLayout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
-                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 1022, Short.MAX_VALUE)
+                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 1003, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(btnDangXuat)
                 .addContainerGap())
@@ -807,7 +806,8 @@ public class OverView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void banHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_banHangMouseClicked
-        setMainPanel(_banHang);
+       BanHang bh = new BanHang(_admin, _nguoiDung);
+        setMainPanel(bh);
     }//GEN-LAST:event_banHangMouseClicked
 
     private void banHangMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_banHangMouseEntered
@@ -821,7 +821,8 @@ public class OverView extends javax.swing.JFrame {
     private void qlChiNhanhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_qlChiNhanhMouseClicked
 
         if (chucVu.equalsIgnoreCase("Ông chủ")) {
-            setMainPanel(_qlChiNhanh);
+             QLChiNhanh qlChiNhanh = new QLChiNhanh(_admin, _nguoiDung);
+            setMainPanel(qlChiNhanh);
         } else {
             JOptionPane.showMessageDialog(this, "Bạn không đủ thẩm quyền");
         }
@@ -838,7 +839,8 @@ public class OverView extends javax.swing.JFrame {
     private void QLGiaoDichMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_QLGiaoDichMouseClicked
 
         if (chucVu.equalsIgnoreCase("Ông chủ") || chucVu.equalsIgnoreCase("Quản lý")) {
-            setMainPanel(_qlgiaoDich);
+            QLGiaoDich gd = new QLGiaoDich(_admin, _nguoiDung);
+            setMainPanel(gd);
         } else {
             JOptionPane.showMessageDialog(this, "Bạn không đủ thẩm quyền");
         }
@@ -855,7 +857,8 @@ public class OverView extends javax.swing.JFrame {
     private void QLNguyenLieuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_QLNguyenLieuMouseClicked
 
         if (chucVu.equalsIgnoreCase("Ông chủ") || chucVu.equalsIgnoreCase("Quản lý")) {
-            setMainPanel(_qlnguyenLieu);
+            QLNguyenLieu qlnl = new QLNguyenLieu(_admin, _nguoiDung);
+            setMainPanel(qlnl);
         } else {
             JOptionPane.showMessageDialog(this, "Bạn không đủ thẩm quyền");
         }
@@ -872,7 +875,8 @@ public class OverView extends javax.swing.JFrame {
     private void QLSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_QLSanPhamMouseClicked
 
         if (chucVu.equalsIgnoreCase("Ông chủ") || chucVu.equalsIgnoreCase("Quản lý")) {
-            setMainPanel(_qlSanPham);
+            QLSanPham qlsp = new QLSanPham(_admin, _nguoiDung);
+            setMainPanel(qlsp);
         } else {
             JOptionPane.showMessageDialog(this, "Bạn không đủ thẩm quyền");
         }
@@ -888,7 +892,8 @@ public class OverView extends javax.swing.JFrame {
 
     private void QLNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_QLNhanVienMouseClicked
         if (chucVu.equalsIgnoreCase("Ông chủ") || chucVu.equalsIgnoreCase("Quản lý")) {
-            setMainPanel(_qlNhanVien);
+            QLNhanVien qlnv = new QLNhanVien(_admin, _nguoiDung);
+            setMainPanel(qlnv);
         } else {
             JOptionPane.showMessageDialog(this, "Bạn không đủ thẩm quyền");
         }
@@ -905,7 +910,8 @@ public class OverView extends javax.swing.JFrame {
     private void khuyenMaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_khuyenMaiMouseClicked
 
         if (chucVu.equalsIgnoreCase("Ông chủ") || chucVu.equalsIgnoreCase("Quản lý")) {
-            setMainPanel(_khuyenMai);
+            KhuyenMai km = new KhuyenMai(_admin, _nguoiDung);
+            setMainPanel(km);
         } else {
             JOptionPane.showMessageDialog(this, "Bạn không đủ thẩm quyền");
         }
@@ -922,7 +928,8 @@ public class OverView extends javax.swing.JFrame {
     private void banMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_banMouseClicked
 
         if (chucVu.equalsIgnoreCase("Ông chủ") || chucVu.equalsIgnoreCase("Quản lý")) {
-            setMainPanel(_ban);
+            Ban ban = new Ban(_admin, _nguoiDung);
+            setMainPanel(ban);
         } else {
             JOptionPane.showMessageDialog(this, "Bạn không đủ thẩm quyền");
         }
@@ -939,7 +946,8 @@ public class OverView extends javax.swing.JFrame {
     private void QLCaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_QLCaMouseClicked
 
         if (chucVu.equalsIgnoreCase("Ông chủ") || chucVu.equalsIgnoreCase("Quản lý")) {
-            setMainPanel(_qlCa);
+            QLCa ca = new QLCa(_admin, _nguoiDung);
+            setMainPanel(ca);
         } else {
             JOptionPane.showMessageDialog(this, "Bạn không đủ thẩm quyền");
         }
@@ -955,6 +963,7 @@ public class OverView extends javax.swing.JFrame {
 
     private void thongKeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_thongKeMouseClicked
         if (chucVu.equalsIgnoreCase("Ông chủ") || chucVu.equalsIgnoreCase("Quản lý")) {
+            ThongKe tk = new ThongKe(_admin, _nguoiDung);
             setMainPanel(_thongKe);
         } else {
             JOptionPane.showMessageDialog(this, "Bạn không đủ thẩm quyền");
@@ -972,7 +981,8 @@ public class OverView extends javax.swing.JFrame {
     private void QLDoiTacMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_QLDoiTacMouseClicked
 
         if (chucVu.equalsIgnoreCase("Ông chủ") || chucVu.equalsIgnoreCase("Quản lý")) {
-            setMainPanel(_qlDoiTac);
+            QLDoiTac dt = new QLDoiTac(_admin, _nguoiDung);
+            setMainPanel(dt);
         } else {
             JOptionPane.showMessageDialog(this, "Bạn không đủ thẩm quyền");
         }
@@ -988,7 +998,8 @@ public class OverView extends javax.swing.JFrame {
 
     private void QLNguoiDungMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_QLNguoiDungMouseClicked
         if (chucVu.equalsIgnoreCase("Ông chủ")) {
-            setMainPanel(_qlNguoiDung);
+            QLNguoiDung ng = new QLNguoiDung(_admin, _nguoiDung);
+            setMainPanel(ng);
         } else {
             JOptionPane.showMessageDialog(this, "Bạn không đủ thẩm quyền");
         }
@@ -1196,7 +1207,6 @@ public class OverView extends javax.swing.JFrame {
     private javax.swing.JPanel banHang;
     private javax.swing.JPanel banHang1;
     private javax.swing.JButton btnDangXuat;
-    private javax.swing.JComboBox<String> cboChiNhanh;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
@@ -1207,6 +1217,7 @@ public class OverView extends javax.swing.JFrame {
     private javax.swing.JLabel lblBanHang;
     private javax.swing.JLabel lblBanHang1;
     private javax.swing.JLabel lblBanHang2;
+    private javax.swing.JLabel lblChiNhanh;
     private javax.swing.JLabel lblKhuyenMai;
     private javax.swing.JLabel lblKhuyenMai1;
     private javax.swing.JLabel lblQlCNhanh;
