@@ -33,8 +33,6 @@ public class TaiKhoanNguoiDungRepository {
         return list;
     }
 
-   
-
     public NhanVien getNhanVienFromMa(String Ma) {
         NhanVien nv = null;
         try (Session session = Hibernateutility.getFactory().openSession()) {
@@ -93,14 +91,4 @@ public class TaiKhoanNguoiDungRepository {
         }
     }
 
-//    public TaiKhoanNguoiDung getTaiKhoanNguoiDungById(String idTk) {
-//        TaiKhoanNguoiDung taiKhoanNguoiDung = null;
-//        try (Session session = Hibernateutility.getFactory().openSession()) {
-//            Transaction trans = session.beginTransaction();
-//            taiKhoanNguoiDung = session.get(TaiKhoanNguoiDung.class, idTk);
-//            trans.commit();
-//            session.close();
-//        }
-//        return taiKhoanNguoiDung;
-//    }
 }

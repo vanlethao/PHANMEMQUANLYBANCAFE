@@ -1,6 +1,5 @@
 package viewmodel;
 
-
 public class NhanVienViewModel_Van {
 
     private String idNhanVien;
@@ -42,6 +41,6 @@ public class NhanVienViewModel_Van {
 
     @Override
     public String toString() {
-        return  MaNhanVien ;
+        return MaNhanVien;
     }
 }

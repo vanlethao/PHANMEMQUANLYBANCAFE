@@ -1,6 +1,5 @@
 package viewmodel;
 
-
 public class TaiKhoanNguoiDungViewModel {
 
     private String id;
@@ -60,16 +59,13 @@ public class TaiKhoanNguoiDungViewModel {
         this.tenNhanVien = tenNhanVien;
     }
 
-    
-
     public Object[] getDataTK() {
-        return new Object[]{id, TenTk, MatKhau, tenNhanVien};
+        return new Object[]{id, TenTk, MatKhau, MaNhanVien};
     }
 
     @Override
     public String toString() {
-        return  MaNhanVien + tenNhanVien;
+        return MaNhanVien + tenNhanVien;
     }
 
-  
 }
