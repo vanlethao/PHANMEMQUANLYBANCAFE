@@ -1340,8 +1340,7 @@ public class QLGiaoDich extends javax.swing.JPanel {
                 clearFormPhieuNhap();
                 loadAll();
                 JOptionPane.showMessageDialog(this, "Cập nhật thành công");
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(this, "Không được sửa mã phiếu nhập");
             }
         } else {
@@ -1502,7 +1501,9 @@ public class QLGiaoDich extends javax.swing.JPanel {
             if (chon == JOptionPane.YES_OPTION) {
                 if (pnView.getTrangThai() == 1) {
                     JOptionPane.showMessageDialog(this, phieuNhapSevice.updateTrangThaiPhieuNhap(tblPhieuNhap.getValueAt(row, 1).toString(), 3));
-                    phieuNhapSevice.updateSoluongNguyenLieu(tblNguyenLieu.getValueAt(row, 0).toString(), Float.parseFloat(tblNguyenLieu.getValueAt(row, 3).toString()));
+                    for (int i = 0; i < tblNguyenLieu.getRowCount(); i++) {
+                        phieuNhapSevice.updateSoluongNguyenLieu(tblNguyenLieu.getValueAt(i, 0).toString(), Float.parseFloat(tblNguyenLieu.getValueAt(i, 3).toString()));
+                    }
                     JOptionPane.showMessageDialog(this, "Đã hoàn thành phiếu và cập nhật số lượng trong kho");
                     loadAll();
                     loadDaHoanThanh(lstPhieuNhap);
