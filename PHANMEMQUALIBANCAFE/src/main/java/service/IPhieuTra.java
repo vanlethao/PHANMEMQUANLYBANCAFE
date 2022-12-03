@@ -21,7 +21,6 @@ public interface IPhieuTra {
     List<PhieuTraViewModel> getAllPhieuTra();
 
 //    List<ChiTietPhieuTraViewModel> getAllChiTietPhieuTra();
-
     Set<ChiTietPhieuTraViewModel> getPhieuTraByChiTietPhieuTra(String id);
 
     PhieuTraViewModel getPhieuTraByMa(String maPT);
@@ -31,6 +30,10 @@ public interface IPhieuTra {
     String insertPhieuTra(String maPT, String idNcc, String idNv, Date ngayTra, int trangThai);
 
     void updateSoluongNguyenLieuTra(String idNguyenLieu, float soLuongTra);
+
+    void updatePhieuTra(String idPT, String maPT, String idNCC, String idNV, Date ngayTra);
+
+    void deleteChiTietPnbyidPT(String idPT);
 
     void insertCTPhieuTra(String idPt, String idNL, float soLuongTra, String lyDo);
 

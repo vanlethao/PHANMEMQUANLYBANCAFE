@@ -281,7 +281,7 @@ public class PhieuNhapRepo {
             ctpn.setNguyenLieuKey(nl);
             ctpn.setSoLuongNhap(soLuongNhap);
             ctpn.setDonGia(donGia);
-            session.persist(ctpn);
+            session.save(ctpn);
             trans.commit();
             session.close();
         }

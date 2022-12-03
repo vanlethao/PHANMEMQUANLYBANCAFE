@@ -17,12 +17,13 @@ public class ChiTietPhieuTraViewModel {
     private BigDecimal soLuongTra;
     private String donViTinh;
     private BigDecimal donGia;
+    private String lyDo;
 
     public BigDecimal thanhTien() {
         return soLuongTra.multiply(donGia);
     }
 
-    public ChiTietPhieuTraViewModel(String idPhieuTra, String idNguyenLieu, String maNguyenLieu, String tenNguyenLieu, BigDecimal soLuongTra, String donViTinh, BigDecimal donGia) {
+    public ChiTietPhieuTraViewModel(String idPhieuTra, String idNguyenLieu, String maNguyenLieu, String tenNguyenLieu, BigDecimal soLuongTra, String donViTinh, BigDecimal donGia, String lyDo) {
         this.idPhieuTra = idPhieuTra;
         this.idNguyenLieu = idNguyenLieu;
         this.maNguyenLieu = maNguyenLieu;
@@ -30,7 +31,18 @@ public class ChiTietPhieuTraViewModel {
         this.soLuongTra = soLuongTra;
         this.donViTinh = donViTinh;
         this.donGia = donGia;
+        this.lyDo = lyDo;
     }
+
+    public String getLyDo() {
+        return lyDo;
+    }
+
+    public void setLyDo(String lyDo) {
+        this.lyDo = lyDo;
+    }
+
+   
 
     
 
@@ -96,9 +108,9 @@ public class ChiTietPhieuTraViewModel {
   
 
     public Object[] getChiTietPhieuTrahangView() {
-        return new Object[]{idPhieuTra, idNguyenLieu, maNguyenLieu, tenNguyenLieu, soLuongTra, donViTinh, donGia, thanhTien()};
+        return new Object[]{idPhieuTra, idNguyenLieu, maNguyenLieu, tenNguyenLieu, soLuongTra, donViTinh, donGia, thanhTien(),lyDo};
     }
     public Object[] getNguyenLieuByPhieuTrahangView() {
-        return new Object[]{idNguyenLieu, maNguyenLieu, tenNguyenLieu, soLuongTra, donViTinh};
+        return new Object[]{idNguyenLieu, maNguyenLieu, tenNguyenLieu, soLuongTra, donViTinh,lyDo};
     }
 }

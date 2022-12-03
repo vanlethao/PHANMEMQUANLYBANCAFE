@@ -129,7 +129,6 @@ public class PhieuTraRepo {
     }
 
     public void insertCTPhieuTra(String idPt, String idNL, float soLuongTra, String lyDo) {
-        String id = null;
         try ( Session session = Hibernateutility.getFactory().openSession()) {
             Transaction trans = session.beginTransaction();
             PhieuTraHang pth = session.get(PhieuTraHang.class, idPt);
@@ -139,7 +138,49 @@ public class PhieuTraRepo {
             ctpt.setNguyenLieuKey(nl);
             ctpt.setSoLuongTra(soLuongTra);
             ctpt.setLiDo(lyDo);
-            session.persist(ctpt);
+            session.save(ctpt);
+            trans.commit();
+            session.close();
+        }
+    }
+    public void updatePhieuTra(String idPT, String maPT, String idNCC, String idNV, Date ngayTra) {
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            Transaction trans = session.beginTransaction();
+            NhaCungCap ncc = session.get(NhaCungCap.class, idNCC);
+            NhanVien nv = session.get(NhanVien.class, idNV);
+            PhieuTraHang phieuTra = session.get(PhieuTraHang.class, idPT);
+            phieuTra.setMa(maPT);
+            phieuTra.setNhaCungCap(ncc);
+            phieuTra.setNhanVien(nv);
+            phieuTra.setNgayTra(ngayTra);
+            session.update(phieuTra);
+            trans.commit();
+            session.close();
+        }
+    }
+     public void updateCTPhieuTra(String idPt, String idNl, float soLuongTra, String lyDo) {
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            Transaction trans = session.beginTransaction();
+            PhieuTraHang pt = session.get(PhieuTraHang.class, idPt);
+            NguyenLieu nl = session.get(NguyenLieu.class, idNl);
+            ChiTietPhieuTra ctpt = new ChiTietPhieuTra();
+            ctpt.setPhieuTraKey(pt);
+            ctpt.setNguyenLieuKey(nl);
+            ctpt.setSoLuongTra(soLuongTra);
+            ctpt.setLiDo(lyDo);
+            session.update(ctpt);
+            trans.commit();
+            session.close();
+        }
+    }
+
+    public  void deleteChiTietPnbyidPT(String idPT) {
+        Set<ChiTietPhieuTra> setChiTiet = null;
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            Transaction trans = session.beginTransaction();
+            PhieuTraHang pnh = session.get(PhieuTraHang.class, idPT);
+            setChiTiet = pnh.getChiTietPhieuTra();
+            setChiTiet.clear();
             trans.commit();
             session.close();
         }

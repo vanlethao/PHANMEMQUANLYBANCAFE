@@ -65,10 +65,6 @@ public class PhieuTraService implements IPhieuTra {
             if (x.getTrangThai() != null) {
                 ptView.setTrangThai(x.getTrangThai());
             }
-            var lst = phieuTraRepo.getPhieuTraByChiTietPhieuTra(x.getId());
-            for (ChiTietPhieuTra chiTietPhieuTra : lst) {
-                ptView.setLyDo(chiTietPhieuTra.getLiDo());
-            }
             lstView.add(ptView);
         }
         return lstView;
@@ -137,6 +133,7 @@ public class PhieuTraService implements IPhieuTra {
                         ctView.setDonGia(BigDecimal.valueOf(z.getDonGia()));
                     }
                 }
+                ctView.setLyDo(x.getLiDo());
                 chitietView.add(ctView);
             }
         }
@@ -175,6 +172,16 @@ public class PhieuTraService implements IPhieuTra {
     @Override
     public void insertCTPhieuTra(String idPt, String idNL, float soLuongTra, String lyDo) {
         phieuTraRepo.insertCTPhieuTra(idPt, idNL, soLuongTra, lyDo);
+    }
+
+    @Override
+    public void updatePhieuTra(String idPT, String maPT, String idNCC, String idNV, Date ngayTra) {
+       phieuTraRepo.updatePhieuTra(idPT, maPT, idNCC, idNV, ngayTra);
+    }
+
+    @Override
+    public void deleteChiTietPnbyidPT(String idPT) {
+        phieuTraRepo.deleteChiTietPnbyidPT(idPT);
     }
 
 }

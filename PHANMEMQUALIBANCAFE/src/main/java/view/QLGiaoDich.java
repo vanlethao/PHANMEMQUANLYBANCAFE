@@ -168,7 +168,6 @@ public class QLGiaoDich extends javax.swing.JPanel {
                 }
             }
             dateNgayTra.setDate((Date) tblPhieuTra.getValueAt(index, 6));
-            txtLyDo.setText(tblPhieuTra.getValueAt(index, 7).toString());
         }
     }
 
@@ -195,9 +194,6 @@ public class QLGiaoDich extends javax.swing.JPanel {
         jPanel10 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
         tblHoaDon = new javax.swing.JTable();
-        rdoDaThanhToan = new javax.swing.JRadioButton();
-        rdoDaHuy = new javax.swing.JRadioButton();
-        btnHuyHoaDon = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
@@ -259,11 +255,8 @@ public class QLGiaoDich extends javax.swing.JPanel {
         cboNguyenLieuTra = new javax.swing.JComboBox<>();
         cboNhaCungCapTra = new javax.swing.JComboBox<>();
         cboNhanVienTra = new javax.swing.JComboBox<>();
-        jLabel31 = new javax.swing.JLabel();
         btnTaoPhieuTra = new javax.swing.JButton();
         btnHuyPhieuTra = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        txtLyDo = new javax.swing.JTextArea();
         dateNgayTra = new com.toedter.calendar.JDateChooser();
         jLabel40 = new javax.swing.JLabel();
         txtMaPhieuTra = new javax.swing.JTextField();
@@ -394,55 +387,17 @@ public class QLGiaoDich extends javax.swing.JPanel {
         });
         jScrollPane7.setViewportView(tblHoaDon);
 
-        buttonGroup1.add(rdoDaThanhToan);
-        rdoDaThanhToan.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        rdoDaThanhToan.setText("Ðã thanh toán");
-        rdoDaThanhToan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rdoDaThanhToanActionPerformed(evt);
-            }
-        });
-
-        buttonGroup1.add(rdoDaHuy);
-        rdoDaHuy.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        rdoDaHuy.setText("Ðã hủy");
-        rdoDaHuy.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rdoDaHuyActionPerformed(evt);
-            }
-        });
-
-        btnHuyHoaDon.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnHuyHoaDon.setText("Hủy hóa đơn");
-        btnHuyHoaDon.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHuyHoaDonActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(rdoDaHuy)
-                .addGap(18, 18, 18)
-                .addComponent(rdoDaThanhToan)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnHuyHoaDon)
-                .addContainerGap())
             .addComponent(jScrollPane7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rdoDaHuy)
-                    .addComponent(rdoDaThanhToan)
-                    .addComponent(btnHuyHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 772, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 772, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -461,9 +416,9 @@ public class QLGiaoDich extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 836, Short.MAX_VALUE)
                     .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 29, Short.MAX_VALUE))
+                .addGap(0, 35, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Hóa đơn", jPanel1);
@@ -753,10 +708,6 @@ public class QLGiaoDich extends javax.swing.JPanel {
         if (tblNguyenLieu.getColumnModel().getColumnCount() > 0) {
             tblNguyenLieu.getColumnModel().getColumn(0).setMinWidth(0);
             tblNguyenLieu.getColumnModel().getColumn(0).setMaxWidth(0);
-            tblNguyenLieu.getColumnModel().getColumn(1).setResizable(false);
-            tblNguyenLieu.getColumnModel().getColumn(2).setResizable(false);
-            tblNguyenLieu.getColumnModel().getColumn(4).setResizable(false);
-            tblNguyenLieu.getColumnModel().getColumn(5).setResizable(false);
             tblNguyenLieu.getColumnModel().getColumn(6).setMinWidth(30);
             tblNguyenLieu.getColumnModel().getColumn(6).setMaxWidth(30);
         }
@@ -886,13 +837,13 @@ public class QLGiaoDich extends javax.swing.JPanel {
         tblChiTietPhieuTra.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tblChiTietPhieuTra.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "IdPhieuTra", "IdNguyenLieu", "Mã nguyên liệu", "Tên nguyên liệu", "Số lượng trả", "Đơn vị tính", "Đơn giá", "Thành tiền"
+                "IdPhieuTra", "IdNguyenLieu", "Mã nguyên liệu", "Tên nguyên liệu", "Số lượng trả", "Đơn vị tính", "Đơn giá", "Thành tiền", "Lý do"
             }
         ));
         tblChiTietPhieuTra.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -997,13 +948,13 @@ public class QLGiaoDich extends javax.swing.JPanel {
         tblPhieuTra.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tblPhieuTra.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Mã phiếu trả", "Mã nhà cung cấp", "Nhà cung cấp", "Mã nhân viên", "Tên nhân viên", "Ngày trả", "Trạng thái", "Lý do"
+                "ID", "Mã phiếu trả", "Mã nhà cung cấp", "Nhà cung cấp", "Mã nhân viên", "Tên nhân viên", "Ngày trả", "Trạng thái"
             }
         ));
         tblPhieuTra.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1102,9 +1053,6 @@ public class QLGiaoDich extends javax.swing.JPanel {
 
         cboNhanVienTra.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jLabel31.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel31.setText("Lý do");
-
         btnTaoPhieuTra.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnTaoPhieuTra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/add_20px.png"))); // NOI18N
         btnTaoPhieuTra.setText("Tạo phiếu trả");
@@ -1123,10 +1071,6 @@ public class QLGiaoDich extends javax.swing.JPanel {
             }
         });
 
-        txtLyDo.setColumns(20);
-        txtLyDo.setRows(5);
-        jScrollPane2.setViewportView(txtLyDo);
-
         dateNgayTra.setDateFormatString("dd-MM-yyyy");
 
         jLabel40.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -1142,14 +1086,14 @@ public class QLGiaoDich extends javax.swing.JPanel {
 
             },
             new String [] {
-                "IdNguyenLieu", "Mã nguyên liệu", "Tên nguyên liệu", "Số lượng trả", "Đơn vị tính", "Gỡ"
+                "IdNguyenLieu", "Mã nguyên liệu", "Tên nguyên liệu", "Số lượng trả", "Đơn vị tính", "Lý do", "Gỡ"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false, false, true, true, true
+                true, false, false, true, true, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1171,8 +1115,8 @@ public class QLGiaoDich extends javax.swing.JPanel {
             tblNguyenLieuTra.getColumnModel().getColumn(0).setMaxWidth(0);
             tblNguyenLieuTra.getColumnModel().getColumn(1).setResizable(false);
             tblNguyenLieuTra.getColumnModel().getColumn(2).setResizable(false);
-            tblNguyenLieuTra.getColumnModel().getColumn(5).setMinWidth(30);
-            tblNguyenLieuTra.getColumnModel().getColumn(5).setMaxWidth(30);
+            tblNguyenLieuTra.getColumnModel().getColumn(6).setMinWidth(30);
+            tblNguyenLieuTra.getColumnModel().getColumn(6).setMaxWidth(30);
         }
 
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
@@ -1205,11 +1149,8 @@ public class QLGiaoDich extends javax.swing.JPanel {
                                         .addComponent(cboNhanVienTra, 0, 175, Short.MAX_VALUE)
                                         .addGap(64, 64, 64))
                                     .addGroup(jPanel16Layout.createSequentialGroup()
-                                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel31)
-                                            .addComponent(jLabel28)
-                                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))))
+                                        .addComponent(jLabel28)
+                                        .addContainerGap(174, Short.MAX_VALUE))))))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createSequentialGroup()
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createSequentialGroup()
@@ -1239,16 +1180,11 @@ public class QLGiaoDich extends javax.swing.JPanel {
                     .addComponent(cboNhaCungCapTra, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cboNhanVienTra, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel31))
+                .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel16Layout.createSequentialGroup()
-                        .addComponent(dateNgayTra, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(dateNgayTra, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cboNguyenLieuTra, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -1299,16 +1235,6 @@ public class QLGiaoDich extends javax.swing.JPanel {
                 .addGap(0, 151, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void rdoDaHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoDaHuyActionPerformed
-        modelHoaDon = (DefaultTableModel) tblHoaDon.getModel();
-        modelHoaDon.setRowCount(0);
-        for (HoaDonViewModel x : lstHoaDon) {
-            if (x.getTrangThai() == 0) {
-                modelHoaDon.addRow(x.getDataHoaDonView());
-            }
-        }
-    }//GEN-LAST:event_rdoDaHuyActionPerformed
     private void showChiTietByPhieuNhap(String idPN) {
         modelChiTietPhieuNhap = (DefaultTableModel) tblPhieuNhapChiTiet.getModel();
         modelChiTietPhieuNhap.setRowCount(0);
@@ -1365,7 +1291,6 @@ public class QLGiaoDich extends javax.swing.JPanel {
                 dateNgayNhap.getDate(), 1);
         for (int i = 0; i < tblNguyenLieu.getRowCount(); i++) {
             phieuNhapSevice.insertCTPhieuNhap(idPhieuNhap, tblNguyenLieu.getValueAt(i, 0).toString(), Float.parseFloat(tblNguyenLieu.getValueAt(i, 3).toString()), Float.parseFloat(tblNguyenLieu.getValueAt(i, 5).toString()));
-            phieuNhapSevice.updateSoluongNguyenLieu(tblNguyenLieu.getValueAt(i, 0).toString(), Float.parseFloat(tblNguyenLieu.getValueAt(i, 3).toString()));
         }
 
         JOptionPane.showMessageDialog(this, "Thêm thành công");
@@ -1400,20 +1325,25 @@ public class QLGiaoDich extends javax.swing.JPanel {
     private void btnCapNhatPhieuNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatPhieuNhapActionPerformed
         // TODO add your handling code here:
         int row = tblPhieuNhap.getSelectedRow();
-        lstPhieuNhap = phieuNhapSevice.getAllPhieuNhap();
-        PhieuNhapViewModel pnView = new PhieuNhapViewModel();
-        pnView = lstPhieuNhap.get(row);
-        if (tblPhieuNhap.getValueAt(row, 2) != null && tblPhieuNhap.getValueAt(row, 3) != null && tblPhieuNhap.getValueAt(row, 4) != null && tblPhieuNhap.getValueAt(row, 5) != null && tblPhieuNhap.getValueAt(row, 6) != null) {
-            phieuNhapSevice.updatePhieuNhap(tblPhieuNhap.getValueAt(row, 0).toString(), tblPhieuNhap.getValueAt(row, 1).toString(), ((NhaCungCapViewModel_Hoang) cboNhaCungCapNhap.getSelectedItem()).getId(), ((NhanVienViewModel_Hoang) cboNhanVienNhap.getSelectedItem()).getId(),
-                    dateNgayNhap.getDate());
-            phieuNhapSevice.deleteChiTietPnbyidPn(tblPhieuNhap.getValueAt(row, 0).toString());
-            System.out.println(pnView.getId());
-            for (int i = 0; i < tblNguyenLieu.getRowCount(); i++) {
-                phieuNhapSevice.updateCTPhieuNhap(pnView.getId(), tblNguyenLieu.getValueAt(i, 0).toString(), Float.parseFloat(tblNguyenLieu.getValueAt(i, 3).toString()), Float.parseFloat(tblNguyenLieu.getValueAt(row, 5).toString()));
+
+        //        lstPhieuNhap = phieuNhapSevice.getAllPhieuNhap();
+//        PhieuNhapViewModel pnView = new PhieuNhapViewModel();
+//        pnView = lstPhieuNhap.get(row);
+        if (tblPhieuNhap.getValueAt(row, 3) != null && tblPhieuNhap.getValueAt(row, 5) != null && tblPhieuNhap.getValueAt(row, 6) != null) {
+            if (txtMaPhieuNhap.getText().equalsIgnoreCase(tblPhieuNhap.getValueAt(row, 1).toString())) {
+                phieuNhapSevice.updatePhieuNhap(tblPhieuNhap.getValueAt(row, 0).toString(), tblPhieuNhap.getValueAt(row, 1).toString(), ((NhaCungCapViewModel_Hoang) cboNhaCungCapNhap.getSelectedItem()).getId(), ((NhanVienViewModel_Hoang) cboNhanVienNhap.getSelectedItem()).getId(),
+                        dateNgayNhap.getDate());
+//            phieuNhapSevice.deleteChiTietPnbyidPn(tblPhieuNhap.getValueAt(row, 0).toString());
+//            for (int i = 0; i < tblNguyenLieu.getRowCount(); i++) {
+//                phieuNhapSevice.insertCTPhieuNhap(tblPhieuNhap.getValueAt(row, 0).toString(), tblNguyenLieu.getValueAt(i, 0).toString(), Float.parseFloat(tblNguyenLieu.getValueAt(i, 3).toString()), Float.parseFloat(tblNguyenLieu.getValueAt(row, 5).toString()));
+//            }
+                clearFormPhieuNhap();
+                loadAll();
+                JOptionPane.showMessageDialog(this, "Cập nhật thành công");
             }
-            clearFormPhieuNhap();
-            loadAll();
-            JOptionPane.showMessageDialog(this, "Cập nhật thành công");
+            else{
+                JOptionPane.showMessageDialog(this, "Không được sửa mã phiếu nhập");
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Dữ liệu trống");
         }
@@ -1471,21 +1401,21 @@ public class QLGiaoDich extends javax.swing.JPanel {
     }
     private void btnCapNhatPhieuTraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatPhieuTraActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnCapNhatPhieuTraActionPerformed
-
-    private void btnHuyHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyHoaDonActionPerformed
-        int chon = JOptionPane.showConfirmDialog(this, "Xác nhận hủy hóa đơn", "Hủy", JOptionPane.YES_NO_OPTION);
-        if (chon == JOptionPane.YES_OPTION) {
-            int row = tblHoaDon.getSelectedRow();
-            JOptionPane.showMessageDialog(this, hoaDonService.updateTrangThai((String) tblHoaDon.getValueAt(row, 0), 0));
-//        service.updateTrangThai((String) tblHoaDon.getValueAt(row, 0), 1);
+        int row = tblPhieuTra.getSelectedRow();
+        if (tblPhieuTra.getValueAt(row, 2) != null && tblPhieuTra.getValueAt(row, 3) != null && tblPhieuTra.getValueAt(row, 5) != null && tblPhieuTra.getValueAt(row, 6) != null) {
+            phieuTraService.updatePhieuTra(tblPhieuTra.getValueAt(row, 0).toString(), tblPhieuTra.getValueAt(row, 1).toString(), ((NhaCungCapViewModel_Hoang) cboNhaCungCapTra.getSelectedItem()).getId(), ((NhanVienViewModel_Hoang) cboNhanVienTra.getSelectedItem()).getId(),
+                    dateNgayTra.getDate());
+            phieuTraService.deleteChiTietPnbyidPT(tblPhieuTra.getValueAt(row, 0).toString());
+            for (int i = 0; i < tblNguyenLieuTra.getRowCount(); i++) {
+                phieuTraService.insertCTPhieuTra(tblPhieuTra.getValueAt(row, 0).toString(), tblNguyenLieuTra.getValueAt(i, 0).toString(), Float.parseFloat(tblNguyenLieuTra.getValueAt(i, 3).toString()), tblNguyenLieuTra.getValueAt(row, 5).toString());
+            }
+            clearPhieuTra();
             loadAll();
+            JOptionPane.showMessageDialog(this, "Cập nhật thành công");
+        } else {
+            JOptionPane.showMessageDialog(this, "Dữ liệu trống");
         }
-    }//GEN-LAST:event_btnHuyHoaDonActionPerformed
-
-    private void rdoDaThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoDaThanhToanActionPerformed
-        loadTableHoaDon(lstHoaDon);
-    }//GEN-LAST:event_rdoDaThanhToanActionPerformed
+    }//GEN-LAST:event_btnCapNhatPhieuTraActionPerformed
     private void loadTableHoaDonChiTiet(List<ChitietHoaDonViewModel> lstChiTietHD) {
         modelHDCT = (DefaultTableModel) tblHoaDonChiTiet.getModel();
         modelHDCT.setRowCount(0);
@@ -1572,6 +1502,8 @@ public class QLGiaoDich extends javax.swing.JPanel {
             if (chon == JOptionPane.YES_OPTION) {
                 if (pnView.getTrangThai() == 1) {
                     JOptionPane.showMessageDialog(this, phieuNhapSevice.updateTrangThaiPhieuNhap(tblPhieuNhap.getValueAt(row, 1).toString(), 3));
+                    phieuNhapSevice.updateSoluongNguyenLieu(tblNguyenLieu.getValueAt(row, 0).toString(), Float.parseFloat(tblNguyenLieu.getValueAt(row, 3).toString()));
+                    JOptionPane.showMessageDialog(this, "Đã hoàn thành phiếu và cập nhật số lượng trong kho");
                     loadAll();
                     loadDaHoanThanh(lstPhieuNhap);
                     rdoHoanThanhPhieuNhap.setSelected(true);
@@ -1628,7 +1560,6 @@ public class QLGiaoDich extends javax.swing.JPanel {
         cboNhaCungCapTra.setSelectedIndex(0);
         cboNhanVienTra.setSelectedIndex(0);
         cboNguyenLieuTra.setSelectedIndex(0);
-        txtLyDo.setText("");
         dateNgayTra.setDate(null);
         modelNguyenLieuTra.setRowCount(0);
         modelChiTietPhieuTra.setRowCount(0);
@@ -1896,6 +1827,16 @@ public class QLGiaoDich extends javax.swing.JPanel {
 
     private void btnTaoPhieuTraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoPhieuTraActionPerformed
         // TODO add your handling code here:
+        String idPhieuTra = null;
+        idPhieuTra = phieuTraService.insertPhieuTra(txtMaPhieuTra.getText(), ((NhaCungCapViewModel_Hoang) cboNhaCungCapTra.getSelectedItem()).getId(), ((NhanVienViewModel_Hoang) cboNhanVienTra.getSelectedItem()).getId(),
+                dateNgayTra.getDate(), 1);
+        for (int i = 0; i < tblNguyenLieuTra.getRowCount(); i++) {
+            phieuTraService.insertCTPhieuTra(idPhieuTra, tblNguyenLieuTra.getValueAt(i, 0).toString(), Float.parseFloat(tblNguyenLieuTra.getValueAt(i, 3).toString()), tblNguyenLieuTra.getValueAt(i, 5).toString());
+        }
+
+        JOptionPane.showMessageDialog(this, "Thêm thành công");
+        loadAll();
+        clearPhieuTra();
     }//GEN-LAST:event_btnTaoPhieuTraActionPerformed
     private void fillDataPhieuNhap(int index) {
         int row = tblPhieuNhap.getSelectedRow();
@@ -1971,9 +1912,9 @@ public class QLGiaoDich extends javax.swing.JPanel {
         // TODO add your handling code here:
         int row = tblNguyenLieuTra.getSelectedRow();
         int column = tblNguyenLieuTra.getSelectedColumn();
-        if (column == 5) {
-            if (tblNguyenLieuTra.getSelectedColumn() == 5) {
-                if (tblNguyenLieuTra.getValueAt(row, 5).equals(true)) {
+        if (column == 6) {
+            if (tblNguyenLieuTra.getSelectedColumn() == 6) {
+                if (tblNguyenLieuTra.getValueAt(row, 6).equals(true)) {
                     modelNguyenLieuTra.removeRow(row);
                 }
             }
@@ -1988,7 +1929,6 @@ public class QLGiaoDich extends javax.swing.JPanel {
     private javax.swing.JButton btnExport1;
     private javax.swing.JButton btnHoanThanhPhieuNhap;
     private javax.swing.JButton btnHoanThanhPhieuTra;
-    private javax.swing.JButton btnHuyHoaDon;
     private javax.swing.JButton btnHuyPhieuNhap;
     private javax.swing.JButton btnHuyPhieuTra;
     private javax.swing.JButton btnImport;
@@ -2014,7 +1954,6 @@ public class QLGiaoDich extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
@@ -2040,7 +1979,6 @@ public class QLGiaoDich extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
@@ -2049,8 +1987,6 @@ public class QLGiaoDich extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JRadioButton rdoDaHuy;
-    private javax.swing.JRadioButton rdoDaThanhToan;
     private javax.swing.JRadioButton rdoHoanThanhPhieuNhap;
     private javax.swing.JRadioButton rdoHoanThanhPhieuTra;
     private javax.swing.JRadioButton rdoHuyPhieuNhap;
@@ -2066,7 +2002,6 @@ public class QLGiaoDich extends javax.swing.JPanel {
     private javax.swing.JTable tblPhieuNhap;
     private javax.swing.JTable tblPhieuNhapChiTiet;
     private javax.swing.JTable tblPhieuTra;
-    private javax.swing.JTextArea txtLyDo;
     private javax.swing.JTextField txtMaPhieuNhap;
     private javax.swing.JTextField txtMaPhieuTra;
     private javax.swing.JTextField txtTimKiemPhieuNhap;

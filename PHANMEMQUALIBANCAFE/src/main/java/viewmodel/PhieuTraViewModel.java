@@ -21,12 +21,11 @@ public class PhieuTraViewModel {
     private String tenNhanVien;
     private Date ngayTra;
     private int trangThai;
-    private String lyDo;
 
     public PhieuTraViewModel() {
     }
 
-    public PhieuTraViewModel(String idPhieuTra, String maPhieuTra, String maNhaCungCap, String tenNhaCungCap, String maNhanVien, String tenNhanVien, Date ngayTra, int trangThai, String lyDo) {
+    public PhieuTraViewModel(String idPhieuTra, String maPhieuTra, String maNhaCungCap, String tenNhaCungCap, String maNhanVien, String tenNhanVien, Date ngayTra, int trangThai) {
         this.idPhieuTra = idPhieuTra;
         this.maPhieuTra = maPhieuTra;
         this.maNhaCungCap = maNhaCungCap;
@@ -35,18 +34,7 @@ public class PhieuTraViewModel {
         this.tenNhanVien = tenNhanVien;
         this.ngayTra = ngayTra;
         this.trangThai = trangThai;
-        this.lyDo = lyDo;
     }
-
-    public String getLyDo() {
-        return lyDo;
-    }
-
-    public void setLyDo(String lyDo) {
-        this.lyDo = lyDo;
-    }
-
-    
 
     public String getIdPhieuTra() {
         return idPhieuTra;
@@ -112,8 +100,6 @@ public class PhieuTraViewModel {
         this.trangThai = trangThai;
     }
 
-    
-
     public String getStatus() {
         if (trangThai == 0) {
             return "Đã hủy";
@@ -126,6 +112,6 @@ public class PhieuTraViewModel {
     }
 
     public Object[] getPhieuTrahangView() {
-        return new Object[]{idPhieuTra,maPhieuTra, maNhaCungCap, tenNhaCungCap, maNhanVien, tenNhanVien, ngayTra, getStatus(),lyDo};
+        return new Object[]{idPhieuTra, maPhieuTra, maNhaCungCap, tenNhaCungCap, maNhanVien, tenNhanVien, ngayTra, getStatus()};
     }
 }
