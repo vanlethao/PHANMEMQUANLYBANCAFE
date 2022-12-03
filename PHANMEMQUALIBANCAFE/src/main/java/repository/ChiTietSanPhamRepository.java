@@ -3,6 +3,9 @@ package repository;
 import domainmodel.ChiTietSP;
 import domainmodel.NguyenLieu;
 import domainmodel.SanPham;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -11,15 +14,16 @@ import utility.Hibernateutility;
 public class ChiTietSanPhamRepository {
 
     public void insertChiTietSanPham(float dinhLuong, SanPham sp, NguyenLieu nguyenlieu) {
-        Session session = Hibernateutility.getFactory().openSession();
-        Transaction trans = session.beginTransaction();
-        ChiTietSP chiTietSp = new ChiTietSP();
-        chiTietSp.setDinhLuong(dinhLuong);
-        chiTietSp.setSanPhamKey(sp);
-        chiTietSp.setNguyenLieukey(nguyenlieu);
-        session.save(chiTietSp);
-        trans.commit();
-        session.close();
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            Transaction trans = session.beginTransaction();
+            ChiTietSP chiTietSp = new ChiTietSP();
+            chiTietSp.setDinhLuong(dinhLuong);
+            chiTietSp.setSanPhamKey(sp);
+            chiTietSp.setNguyenLieukey(nguyenlieu);
+            session.save(chiTietSp);
+            trans.commit();
+            session.close();
+        }
     }
 
     public Set<ChiTietSP> getChiTietSpByIdSanPham(String id) {
@@ -33,12 +37,20 @@ public class ChiTietSanPhamRepository {
     }
 
     public static void deleteChiTietSpByIdSp(String id) {
-        Set<ChiTietSP> setChiTiet = null;
         try ( Session session = Hibernateutility.getFactory().openSession()) {
             Transaction trans = session.beginTransaction();
             SanPham sp = session.get(SanPham.class, id);
-            setChiTiet = sp.getChiTietSp();
-            setChiTiet.clear();
+            Set<ChiTietSP> setChiTiet = sp.getChiTietSp();
+            for (ChiTietSP chiTietSP : setChiTiet) {
+                Set<ChiTietSP> setCt = chiTietSP.getNguyenLieukey().getChiTietSp();
+                for (ChiTietSP ct : setCt) {
+                    if (chiTietSP.getSanPhamKey().getId().equals(ct.getSanPhamKey().getId())) {
+                        setCt.remove(ct);
+                        break;
+                    }
+                }
+            }
+
             trans.commit();
             session.close();
         }

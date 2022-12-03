@@ -33,7 +33,7 @@ import utility.Hibernateutility;
  */
 public class BanHangRepo {
 
-    public static Set<SanPham> getAllSanPhamByChiNhanh(String idChiNhanh) {
+    public static Set<SanPham> getAllSanPhamDangBanByChiNhanh(String idChiNhanh) {
         Set<SanPham> setSp = new HashSet<>();
         Set<NguyenLieu> setNguyenLieu;
         try ( Session session = Hibernateutility.getFactory().openSession()) {
@@ -42,7 +42,10 @@ public class BanHangRepo {
             for (NguyenLieu nguyenLieu : setNguyenLieu) {
                 Set<ChiTietSP> setChiTiet = nguyenLieu.getChiTietSp();
                 for (ChiTietSP chiTietSP : setChiTiet) {
-                    setSp.add(chiTietSP.getSanPhamKey());
+                    if (chiTietSP.getSanPhamKey().getTrangThai() == 1) {
+                        setSp.add(chiTietSP.getSanPhamKey());
+                    }
+
                 }
             }
 
@@ -116,7 +119,7 @@ public class BanHangRepo {
 
     public static Set<KhuyenMai> getAllKhuyenMaiByChiNhanh(String idChiNhanh) {
         Set<KhuyenMai> setKhuyenMai = new HashSet<>();
-        Set<SanPham> setSanPham = getAllSanPhamByChiNhanh(idChiNhanh);
+        Set<SanPham> setSanPham = getAllSanPhamDangBanByChiNhanh(idChiNhanh);
         try ( Session session = Hibernateutility.getFactory().openSession()) {
             for (SanPham sanPham : setSanPham) {
                 KhuyenMai khuyenMai = sanPham.getKhuyenMai();

@@ -40,7 +40,7 @@ public class BanHangService implements IBanHangService {
     @Override
     public List<ProductForSale> getAllProductForSaleByChiNhanh(String idChiNhanh) {
         List<ProductForSale> listView = new ArrayList<>();
-        var product = _BanHangRepo.getAllSanPhamByChiNhanh(idChiNhanh);
+        var product = _BanHangRepo.getAllSanPhamDangBanByChiNhanh(idChiNhanh);
         if (product.size() > 0) {
             for (SanPham sanPham : product) {
                 ProductForSale productView = new ProductForSale();

@@ -6,9 +6,9 @@ import viewmodel.SanPhamViewModel;
 
 public interface ISanPhamService {
 
-    List<SanPhamViewModel> getAllSanPhamDangBan();
+    List<SanPhamViewModel> getAllSanPhamDangBanByChiNhanh(String idChiNhanh);
 
-    List<SanPhamViewModel> getAllSanPhamDaXoa();
+    List<SanPhamViewModel> getAllSanPhamDaXoaByChiNhanh(String idChiNhanh);
 
     String insertSanPham(String ma, String ten, float giaBan, byte[] avatar);
 
@@ -22,5 +22,5 @@ public interface ISanPhamService {
 
     List<SanPhamViewModel> searchSanPham(String tenSp);
 
-    List<NguyenLieuDangSuDung> getAllNguyenLieu();
+    List<NguyenLieuDangSuDung> getAllNguyenLieuByChiNhanh(String idChiNhanh);
 }

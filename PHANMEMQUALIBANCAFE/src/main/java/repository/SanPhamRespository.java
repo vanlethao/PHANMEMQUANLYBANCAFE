@@ -1,9 +1,13 @@
 package repository;
 
+import domainmodel.ChiNhanh;
+import domainmodel.ChiTietSP;
 import domainmodel.NguyenLieu;
 import domainmodel.SanPham;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -11,13 +15,22 @@ import utility.Hibernateutility;
 
 public class SanPhamRespository {
 
-    public List<SanPham> getAllSanPham() {
-        List<SanPham> list = null;
+    public Set<SanPham> getAllSanPhamByChiNhanh(String idChiNhanh) {
+        Set<SanPham> setSp = new HashSet<>();
+        Set<NguyenLieu> setNguyenLieu;
         try ( Session session = Hibernateutility.getFactory().openSession()) {
-            list = session.createQuery("FROM SanPham").list();
+            ChiNhanh chiNhanh = session.get(ChiNhanh.class, idChiNhanh);
+            setNguyenLieu = chiNhanh.getListNguyenLieu();
+            for (NguyenLieu nguyenLieu : setNguyenLieu) {
+                Set<ChiTietSP> setChiTiet = nguyenLieu.getChiTietSp();
+                for (ChiTietSP chiTietSP : setChiTiet) {
+                    setSp.add(chiTietSP.getSanPhamKey());
+                }
+            }
+
             session.close();
         }
-        return list;
+        return setSp;
     }
 
     public String insertSanPham(String ma, String ten, float giaBan, byte[] avatar) {
@@ -106,12 +119,13 @@ public class SanPhamRespository {
         return sp;
     }
 
-    public List<NguyenLieu> getAllNguyenLieu() {
-        List<NguyenLieu> listNguyenLieu = null;
+    public Set<NguyenLieu> getAllNguyenLieuByChiNhanh(String idChiNhanh) {
+        Set<NguyenLieu> setNguyenLieu = null;
         try ( Session session = Hibernateutility.getFactory().openSession()) {
-            listNguyenLieu = session.createQuery("FROM NguyenLieu").list();
+            ChiNhanh chiNhanh = session.get(ChiNhanh.class, idChiNhanh);
+            setNguyenLieu = chiNhanh.getListNguyenLieu();
             session.close();
         }
-        return listNguyenLieu;
+        return setNguyenLieu;
     }
 }

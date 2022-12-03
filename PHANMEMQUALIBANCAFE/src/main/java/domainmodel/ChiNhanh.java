@@ -53,7 +53,7 @@ public class ChiNhanh implements Serializable {
     @JoinColumn(name = "IdThuongHieu")
     private ThuongHieu thuongHieu;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "NGUYENLIEUCHINHANH",
             joinColumns = {
                 @JoinColumn(name = "IdChiNhanh")},

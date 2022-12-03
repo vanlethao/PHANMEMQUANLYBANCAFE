@@ -19,8 +19,8 @@ public class SanPhamService implements ISanPhamService {
     }
 
     @Override
-    public List<SanPhamViewModel> getAllSanPhamDangBan() {
-        var listSanPham = sanPhamRepo.getAllSanPham();
+    public List<SanPhamViewModel> getAllSanPhamDangBanByChiNhanh(String idChiNhanh) {
+        var listSanPham = sanPhamRepo.getAllSanPhamByChiNhanh(idChiNhanh);
         List<SanPhamViewModel> listView = new ArrayList<>();
         if (listSanPham != null) {
             for (SanPham sanPham : listSanPham) {
@@ -46,8 +46,8 @@ public class SanPhamService implements ISanPhamService {
     }
 
     @Override
-    public List<SanPhamViewModel> getAllSanPhamDaXoa() {
-        var listSanPham = sanPhamRepo.getAllSanPham();
+    public List<SanPhamViewModel> getAllSanPhamDaXoaByChiNhanh(String idChiNhanh) {
+        var listSanPham = sanPhamRepo.getAllSanPhamByChiNhanh(idChiNhanh);
         List<SanPhamViewModel> listView = new ArrayList<>();
         if (listSanPham != null) {
             for (SanPham sanPham : listSanPham) {
@@ -126,9 +126,9 @@ public class SanPhamService implements ISanPhamService {
     }
 
     @Override
-    public List<NguyenLieuDangSuDung> getAllNguyenLieu() {
+    public List<NguyenLieuDangSuDung> getAllNguyenLieuByChiNhanh(String idChiNhanh) {
         List<NguyenLieuDangSuDung> listNguyenLieu = new ArrayList<>();
-        var ListNl = sanPhamRepo.getAllNguyenLieu();
+        var ListNl = sanPhamRepo.getAllNguyenLieuByChiNhanh(idChiNhanh);
         if (ListNl != null) {
             for (NguyenLieu nguyenLieu : ListNl) {
                 NguyenLieuDangSuDung nl = new NguyenLieuDangSuDung();

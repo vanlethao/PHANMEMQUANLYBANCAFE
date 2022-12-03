@@ -35,7 +35,7 @@ import viewmodel.ThemKhachViewModel;
  * @author trant
  */
 public class BanHang extends javax.swing.JPanel {
-    
+
     private IBanHangService banHangService;
     private List<ItemSanPham> listItemSanPham;
     private DefaultTableModel modelTableChonSp;
@@ -47,7 +47,7 @@ public class BanHang extends javax.swing.JPanel {
     TaiKhoanAdmin _admin;
     TaiKhoanNguoiDung _nguoiDung;
     ChiNhanhViewModel_Hoang _chiNhanhView;
-    
+
     public BanHang(TaiKhoanAdmin admin, TaiKhoanNguoiDung nguoiDung) {
         initComponents();
         _admin = admin;
@@ -76,9 +76,9 @@ public class BanHang extends javax.swing.JPanel {
         }
         cboKhuVuc.setModel((DefaultComboBoxModel) modelComboArea);
         setEventClickForItemSanPham();
-        
+
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -793,13 +793,13 @@ public class BanHang extends javax.swing.JPanel {
                     } else {
                         JOptionPane.showMessageDialog(pnlLeft, "Số lượng nguyên liệu có thể không đủ");
                     }
-                    
+
                 }
-                
+
             });
         }
     }
-    
+
     private void upTotalItemSanPham(ItemSanPham item) {
         int soLuong = 0;
         double thanhTien = 0;
@@ -817,16 +817,16 @@ public class BanHang extends javax.swing.JPanel {
             }
         }
     }
-    
+
     private void totalMoney() {
         double tongTien = 0;
         for (int i = 0; i < tblSpChon.getRowCount(); i++) {
             tongTien += Double.valueOf(tblSpChon.getValueAt(i, 5).toString());
         }
         lblTongTien.setText(String.valueOf(new BigDecimal(tongTien)));
-        
+
     }
-    
+
     private void totalMoneyAfterSale() {
         double soTienChietKhau = 0;
         double soTienPhaiTra = 0;
@@ -845,7 +845,7 @@ public class BanHang extends javax.swing.JPanel {
         }
         lblTienCanThanhToan.setText(String.valueOf(new BigDecimal(tongTienPhaiTra)));
     }
-    
+
     private void addProductForSaleToTable(ItemSanPham item) {
         int soLuong = 0;
         boolean check = false;
@@ -861,7 +861,7 @@ public class BanHang extends javax.swing.JPanel {
                 item.getLblGiaSp().getText(), 0, thanhTien});
         }
     }
-    
+
     private void showProductForSaleByChiNhanh(String idChiNhanh) {
         pnlListSp.removeAll();
         pnlListSp.revalidate();
@@ -897,12 +897,12 @@ public class BanHang extends javax.swing.JPanel {
                 pnlListSp.revalidate();
                 pnlListSp.repaint();
                 listItemSanPham.add(item);
-                
+
             }
         }
-        
+
     }
-    
+
     private void showKhuyenMai(String idChiNhanh) {
         List<KhuyenMaiDangHoatDong> listKmActive = banHangService.getAllKhuyenMaiByChiNhanh(idChiNhanh);
         String allKhuyenMai = "";
@@ -922,7 +922,7 @@ public class BanHang extends javax.swing.JPanel {
         hideInfoKhach();
 
     }//GEN-LAST:event_txtTimKhachMouseClicked
-    
+
     private void setHoverOfSearch() {
         Color color = new Color(225, 225, 225);
         txtTimSp.setText("Nhập tên sản phẩm cần tìm");
@@ -933,7 +933,7 @@ public class BanHang extends javax.swing.JPanel {
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
         setHoverOfSearch();
     }//GEN-LAST:event_formMouseClicked
-    
+
 
     private void tblSpChonKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblSpChonKeyReleased
         int row = tblSpChon.getSelectedRow();
@@ -958,7 +958,7 @@ public class BanHang extends javax.swing.JPanel {
     private void pnlHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlHoaDonMouseClicked
         setHoverOfSearch();
     }//GEN-LAST:event_pnlHoaDonMouseClicked
-    
+
     private void resetPanelBanAndShow() {
         pnlBan.removeAll();
         pnlBan.revalidate();
@@ -966,7 +966,7 @@ public class BanHang extends javax.swing.JPanel {
         Area area = (Area) modelComboArea.getSelectedItem();
         showTableOfArea(area);
     }
-    
+
     private void addEventMouseClickToItemBan(ItemBan itemBan) {
         itemBan.getLblAvatar().addMouseListener(new MouseAdapter() {
             @Override
@@ -983,7 +983,7 @@ public class BanHang extends javax.swing.JPanel {
                 } else {
                     lblSoBan.setText("-");
                 }
-                
+
             }
         });
         itemBan.getLblSoBan().addMouseListener(new MouseAdapter() {
@@ -1004,7 +1004,7 @@ public class BanHang extends javax.swing.JPanel {
             }
         });
     }
-    
+
     private void showTableOfArea(Area area) {
         List<Table> listTable = banHangService.getAllBanByKhuVuc(area);
         if (!listTable.isEmpty()) {
@@ -1021,13 +1021,13 @@ public class BanHang extends javax.swing.JPanel {
                 pnlBan.revalidate();
                 pnlBan.repaint();
                 addEventMouseClickToItemBan(itemBan);
-                
+
             }
         } else {
             JOptionPane.showMessageDialog(pnlBan, "Khu vực này không có bàn");
         }
     }
-    
+
 
     private void cboKhuVucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboKhuVucActionPerformed
         resetPanelBanAndShow();
@@ -1046,19 +1046,19 @@ public class BanHang extends javax.swing.JPanel {
         }
 
     }//GEN-LAST:event_tblSpChonMouseClicked
-    
+
     private void hideInfoKhach() {
         txtHienThiKhach.setText("");
         _khach = null;
     }
-    
+
 
     private void btnTimKhachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKhachActionPerformed
         _khach = banHangService.getKhachHangBySdt(txtTimKhach.getText());
         if (_khach != null) {
             txtHienThiKhach.setText("Mã khách hàng : " + _khach.getMa() + "\n" + "Tên khách hàng : " + _khach.getHoTen() + "\n"
                     + "Số điện thoại : " + _khach.getSdt());
-            
+
         } else {
             JOptionPane.showMessageDialog(this, "Thông tin không tồn tại. Vui lòng kiểm tra lại !");
             hideInfoKhach();
@@ -1070,7 +1070,7 @@ public class BanHang extends javax.swing.JPanel {
             hideInfoKhach();
         }
     }//GEN-LAST:event_txtTimKhachKeyReleased
-    
+
     private void setTraTien() {
         double tienTichLuy = 0;
         int diemTichLuy = 0;
@@ -1079,7 +1079,7 @@ public class BanHang extends javax.swing.JPanel {
             tienTichLuy = _khach.getDiemTichLuy() * banHangService.getGiaTriDiem();
             lblDiemTichLuy.setText(String.valueOf(diemTichLuy));
             lblTienTichLuy.setText(String.valueOf(new BigDecimal(tienTichLuy)));
-            
+
         }
         lblSoTienCanTra.setText(lblTienCanThanhToan.getText());
         if (cboDungDiem.isSelected()) {
@@ -1104,7 +1104,7 @@ public class BanHang extends javax.swing.JPanel {
             lblDiemTichLuy.setText(String.valueOf(diemTichLuy));
             lblTienTichLuy.setText(String.valueOf(new BigDecimal(tienTichLuy)));
         }
-        
+
     }
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
         if (tblSpChon.getRowCount() > 0 && !lblSoBan.getText().equalsIgnoreCase("-")) {
@@ -1117,10 +1117,16 @@ public class BanHang extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
+    private void clearFormTraTien() {
+        lblDiemTichLuy.setText("0");
+        lblTienTichLuy.setText("0");
+        lblSoTienCanTra.setText("0");
+        lblTienThua.setText("0");
+    }
     private void lblCloseLogMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCloseLogMouseClicked
         _ConfirmCloseDlong = true;
         if (_ConfirmCloseDlong == true) {
-            DlogTraTien.setVisible(false);/////chưa ổn
+            DlogTraTien.setVisible(false);
         }
     }//GEN-LAST:event_lblCloseLogMouseClicked
 
@@ -1140,7 +1146,7 @@ public class BanHang extends javax.swing.JPanel {
     }//GEN-LAST:event_lblCloseLogMouseEntered
 
     private void lblCloseLogMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCloseLogMouseExited
-        
+
         Color color = new Color(111, 80, 44);
         lblCloseLog.setBackground(color);
     }//GEN-LAST:event_lblCloseLogMouseExited
@@ -1150,7 +1156,7 @@ public class BanHang extends javax.swing.JPanel {
     }//GEN-LAST:event_cboDungDiemActionPerformed
 
     private void txtTienKhachDuaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTienKhachDuaKeyReleased
-        
+
         if (banHangService.checkSo(txtTienKhachDua.getText())) {
             double tienThua = Double.parseDouble(txtTienKhachDua.getText()) - Double.parseDouble(lblSoTienCanTra.getText());
             lblTienThua.setText(String.valueOf(new BigDecimal(tienThua)));
@@ -1182,7 +1188,7 @@ public class BanHang extends javax.swing.JPanel {
                 idHoaDon = banHangService.inserHoaDon(banHangService.autoGenMaHoaDon(), ngayTaoHD,
                         null, Integer.parseInt(lblSoBan.getText()));
             }
-            
+
             for (int i = 0; i < tblSpChon.getRowCount(); i++) {
                 banHangService.insertChiTietHoaDon(tblSpChon.getValueAt(i, 0).toString(),
                         idHoaDon, Integer.parseInt(tblSpChon.getValueAt(i, 4).toString()),
@@ -1207,7 +1213,8 @@ public class BanHang extends javax.swing.JPanel {
             }
             JOptionPane.showMessageDialog(this, "Thanh toán thành công");
             resetPanelBanAndShow();
-            
+            clearFormTraTien();
+
         }
 
     }//GEN-LAST:event_btnTraTienActionPerformed
