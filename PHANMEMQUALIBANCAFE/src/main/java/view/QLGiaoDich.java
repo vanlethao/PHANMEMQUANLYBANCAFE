@@ -23,6 +23,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Pattern;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -284,11 +285,17 @@ public class QLGiaoDich extends javax.swing.JPanel {
             new String [] {
                 "Mã sản phẩm", "Tên sản phẩm", "Số lượng mua", "Giá bán", "Thành tiền", "Thành tiền sau KM"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblHoaDonChiTiet.getTableHeader().setReorderingAllowed(false);
         jScrollPane5.setViewportView(tblHoaDonChiTiet);
-        if (tblHoaDonChiTiet.getColumnModel().getColumnCount() > 0) {
-            tblHoaDonChiTiet.getColumnModel().getColumn(0).setResizable(false);
-        }
 
         btnLocHoaDon.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnLocHoaDon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_conversion_30px.png"))); // NOI18N
@@ -379,7 +386,16 @@ public class QLGiaoDich extends javax.swing.JPanel {
             new String [] {
                 "Mã hóa đơn", "Ngày tạo", "Mã nhân viên", "Tên nhân viên", "Trạng thái"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblHoaDon.getTableHeader().setReorderingAllowed(false);
         tblHoaDon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblHoaDonMouseClicked(evt);
@@ -521,6 +537,7 @@ public class QLGiaoDich extends javax.swing.JPanel {
                 "ID", "Mã phiếu nhập", "Mã nhà cung cấp", "Tên nhà cung cấp", "Mã nhân viên", "Tên nhân viên", "Ngày nhập", "Trạng thái"
             }
         ));
+        tblPhieuNhap.getTableHeader().setReorderingAllowed(false);
         tblPhieuNhap.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblPhieuNhapMouseClicked(evt);
@@ -547,6 +564,7 @@ public class QLGiaoDich extends javax.swing.JPanel {
                 "Id phiếu nhập", "Id nguyên liệu", "Mã nguyên liệu", "Tên nguyên liệu", "Số lượng nhập", "Đơn vị tính", "Đơn giá", "Thành tiền"
             }
         ));
+        tblPhieuNhapChiTiet.getTableHeader().setReorderingAllowed(false);
         jScrollPane8.setViewportView(tblPhieuNhapChiTiet);
         if (tblPhieuNhapChiTiet.getColumnModel().getColumnCount() > 0) {
             tblPhieuNhapChiTiet.getColumnModel().getColumn(0).setMinWidth(0);
@@ -699,9 +717,15 @@ public class QLGiaoDich extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tblNguyenLieu.getTableHeader().setReorderingAllowed(false);
         tblNguyenLieu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblNguyenLieuMouseClicked(evt);
+            }
+        });
+        tblNguyenLieu.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tblNguyenLieuKeyReleased(evt);
             }
         });
         jScrollPane9.setViewportView(tblNguyenLieu);
@@ -711,6 +735,8 @@ public class QLGiaoDich extends javax.swing.JPanel {
             tblNguyenLieu.getColumnModel().getColumn(6).setMinWidth(30);
             tblNguyenLieu.getColumnModel().getColumn(6).setMaxWidth(30);
         }
+
+        dateNgayNhap.setDateFormatString("dd-MM-yyyy");
 
         javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
         jPanel18.setLayout(jPanel18Layout);
@@ -845,12 +871,16 @@ public class QLGiaoDich extends javax.swing.JPanel {
             new String [] {
                 "IdPhieuTra", "IdNguyenLieu", "Mã nguyên liệu", "Tên nguyên liệu", "Số lượng trả", "Đơn vị tính", "Đơn giá", "Thành tiền", "Lý do"
             }
-        ));
-        tblChiTietPhieuTra.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblChiTietPhieuTraMouseClicked(evt);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, true, true, true, true, true, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
+        tblChiTietPhieuTra.getTableHeader().setReorderingAllowed(false);
         jScrollPane3.setViewportView(tblChiTietPhieuTra);
         if (tblChiTietPhieuTra.getColumnModel().getColumnCount() > 0) {
             tblChiTietPhieuTra.getColumnModel().getColumn(0).setMinWidth(0);
@@ -956,7 +986,16 @@ public class QLGiaoDich extends javax.swing.JPanel {
             new String [] {
                 "ID", "Mã phiếu trả", "Mã nhà cung cấp", "Nhà cung cấp", "Mã nhân viên", "Tên nhân viên", "Ngày trả", "Trạng thái"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblPhieuTra.getTableHeader().setReorderingAllowed(false);
         tblPhieuTra.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblPhieuTraMouseClicked(evt);
@@ -1093,7 +1132,7 @@ public class QLGiaoDich extends javax.swing.JPanel {
                 java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false, false, true, true, true, true
+                false, false, false, true, false, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1104,9 +1143,15 @@ public class QLGiaoDich extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tblNguyenLieuTra.getTableHeader().setReorderingAllowed(false);
         tblNguyenLieuTra.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblNguyenLieuTraMouseClicked(evt);
+            }
+        });
+        tblNguyenLieuTra.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tblNguyenLieuTraKeyReleased(evt);
             }
         });
         jScrollPane6.setViewportView(tblNguyenLieuTra);
@@ -1284,18 +1329,79 @@ public class QLGiaoDich extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_cboNguyenLieuNhapActionPerformed
-
-    private void btnTaoPhieuNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoPhieuNhapActionPerformed
-        String idPhieuNhap = null;
-        idPhieuNhap = phieuNhapSevice.insertPhieuNhap(txtMaPhieuNhap.getText(), ((NhaCungCapViewModel_Hoang) cboNhaCungCapNhap.getSelectedItem()).getId(), ((NhanVienViewModel_Hoang) cboNhanVienNhap.getSelectedItem()).getId(),
-                dateNgayNhap.getDate(), 1);
-        for (int i = 0; i < tblNguyenLieu.getRowCount(); i++) {
-            phieuNhapSevice.insertCTPhieuNhap(idPhieuNhap, tblNguyenLieu.getValueAt(i, 0).toString(), Float.parseFloat(tblNguyenLieu.getValueAt(i, 3).toString()), Float.parseFloat(tblNguyenLieu.getValueAt(i, 5).toString()));
+    private boolean checkEmpty() {
+        if (txtMaPhieuNhap.getText().isEmpty() || cboNhaCungCapNhap.getSelectedItem() == null || cboNguyenLieuNhap.getSelectedItem() == null || cboNhanVienNhap.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(this, "Dũ liệu trống");
+            return false;
+        } else if (tblNguyenLieu.getRowCount() <= 0) {
+            JOptionPane.showMessageDialog(this, "Vui lòng thêm nguyên liệu");
+            return false;
+        } else if (dateNgayNhap.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Sai định dạng ngày tháng");
+            return false;
+        } else if (txtMaPhieuNhap.getText().trim().length() == 0) {
+            JOptionPane.showMessageDialog(this, "Ký tự không hợp lệ");
+            return false;
+        } else if (txtMaPhieuNhap.getText().length() > 10) {
+            JOptionPane.showMessageDialog(this, "Mã phiếu nhập không vượt quá 10 ký tự");
+            return false;
         }
+        return true;
+    }
 
-        JOptionPane.showMessageDialog(this, "Thêm thành công");
-        loadAll();
-        clearFormPhieuNhap();
+    private boolean checkEmptyPhieuTra() {
+        int row = tblNguyenLieuTra.getSelectedRow();
+        if (txtMaPhieuTra.getText().isEmpty() || cboNhaCungCapTra.getSelectedItem() == null || cboNguyenLieuTra.getSelectedItem() == null || cboNhanVienTra.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(this, "Dũ liệu trống");
+            return false;
+        } else if (tblNguyenLieuTra.getRowCount() <= 0) {
+            JOptionPane.showMessageDialog(this, "Vui lòng thêm nguyên liệu");
+            return false;
+        } else if (dateNgayTra.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Sai định dạng ngày tháng");
+            return false;
+        } else if (txtMaPhieuTra.getText().trim().length() == 0) {
+            JOptionPane.showMessageDialog(this, "Ký tự không hợp lệ");
+            return false;
+        } else if (txtMaPhieuTra.getText().length() > 10) {
+            JOptionPane.showMessageDialog(this, "Mã phiếu nhập không vượt quá 10 ký tự");
+            return false;
+        } else if (tblNguyenLieuTra.getValueAt(row, 5).toString().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "null");
+            return false;
+        }
+        return true;
+    }
+
+    public boolean checkMaPhieuTra(String maPT) {
+        if (phieuTraService.getPhieuTraByMa(maPT) != null) {
+            JOptionPane.showMessageDialog(this, "Mã phiếu trả đã tồn tại");
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkMaPhieuNhap(String maPN) {
+        if (phieuNhapSevice.getPhieuNhapByMa(maPN) != null) {
+            JOptionPane.showMessageDialog(this, "Mã phiếu nhập đã tồn tại");
+            return true;
+        }
+        return false;
+    }
+    private void btnTaoPhieuNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoPhieuNhapActionPerformed
+
+        if (checkEmpty() && !checkMaPhieuNhap(txtMaPhieuNhap.getText())) {
+            String idPhieuNhap = null;
+            idPhieuNhap = phieuNhapSevice.insertPhieuNhap(txtMaPhieuNhap.getText(), ((NhaCungCapViewModel_Hoang) cboNhaCungCapNhap.getSelectedItem()).getId(), ((NhanVienViewModel_Hoang) cboNhanVienNhap.getSelectedItem()).getId(),
+                    dateNgayNhap.getDate(), 1);
+            for (int i = 0; i < tblNguyenLieu.getRowCount(); i++) {
+                phieuNhapSevice.insertCTPhieuNhap(idPhieuNhap, tblNguyenLieu.getValueAt(i, 0).toString(), Float.parseFloat(tblNguyenLieu.getValueAt(i, 3).toString()), Float.parseFloat(tblNguyenLieu.getValueAt(i, 5).toString()));
+            }
+
+            JOptionPane.showMessageDialog(this, "Tạo phiếu nhập thành công");
+            loadAll();
+            clearFormPhieuNhap();
+        }
     }//GEN-LAST:event_btnTaoPhieuNhapActionPerformed
 
     private void btnHuyPhieuNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyPhieuNhapActionPerformed
@@ -1324,27 +1430,25 @@ public class QLGiaoDich extends javax.swing.JPanel {
 
     private void btnCapNhatPhieuNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatPhieuNhapActionPerformed
         // TODO add your handling code here:
-        int row = tblPhieuNhap.getSelectedRow();
-
-        //        lstPhieuNhap = phieuNhapSevice.getAllPhieuNhap();
-//        PhieuNhapViewModel pnView = new PhieuNhapViewModel();
-//        pnView = lstPhieuNhap.get(row);
-        if (tblPhieuNhap.getValueAt(row, 3) != null && tblPhieuNhap.getValueAt(row, 5) != null && tblPhieuNhap.getValueAt(row, 6) != null) {
-            if (txtMaPhieuNhap.getText().equalsIgnoreCase(tblPhieuNhap.getValueAt(row, 1).toString())) {
-                phieuNhapSevice.updatePhieuNhap(tblPhieuNhap.getValueAt(row, 0).toString(), tblPhieuNhap.getValueAt(row, 1).toString(), ((NhaCungCapViewModel_Hoang) cboNhaCungCapNhap.getSelectedItem()).getId(), ((NhanVienViewModel_Hoang) cboNhanVienNhap.getSelectedItem()).getId(),
-                        dateNgayNhap.getDate());
+        if (checkEmpty()) {
+            int row = tblPhieuNhap.getSelectedRow();
+            if (tblPhieuNhap.getValueAt(row, 3) != null && tblPhieuNhap.getValueAt(row, 5) != null && tblPhieuNhap.getValueAt(row, 6) != null) {
+                if (txtMaPhieuNhap.getText().equalsIgnoreCase(tblPhieuNhap.getValueAt(row, 1).toString())) {
+                    phieuNhapSevice.updatePhieuNhap(tblPhieuNhap.getValueAt(row, 0).toString(), tblPhieuNhap.getValueAt(row, 1).toString(), ((NhaCungCapViewModel_Hoang) cboNhaCungCapNhap.getSelectedItem()).getId(), ((NhanVienViewModel_Hoang) cboNhanVienNhap.getSelectedItem()).getId(),
+                            dateNgayNhap.getDate());
 //            phieuNhapSevice.deleteChiTietPnbyidPn(tblPhieuNhap.getValueAt(row, 0).toString());
 //            for (int i = 0; i < tblNguyenLieu.getRowCount(); i++) {
 //                phieuNhapSevice.insertCTPhieuNhap(tblPhieuNhap.getValueAt(row, 0).toString(), tblNguyenLieu.getValueAt(i, 0).toString(), Float.parseFloat(tblNguyenLieu.getValueAt(i, 3).toString()), Float.parseFloat(tblNguyenLieu.getValueAt(row, 5).toString()));
 //            }
-                clearFormPhieuNhap();
-                loadAll();
-                JOptionPane.showMessageDialog(this, "Cập nhật thành công");
+                    clearFormPhieuNhap();
+                    loadAll();
+                    JOptionPane.showMessageDialog(this, "Cập nhật thành công");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Không được sửa mã phiếu nhập");
+                }
             } else {
-                JOptionPane.showMessageDialog(this, "Không được sửa mã phiếu nhập");
+                JOptionPane.showMessageDialog(this, "Dữ liệu trống");
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "Dữ liệu trống");
         }
 
     }//GEN-LAST:event_btnCapNhatPhieuNhapActionPerformed
@@ -1362,7 +1466,7 @@ public class QLGiaoDich extends javax.swing.JPanel {
                 }
             }
             if (count == 0) {
-                modelNguyenLieuTra.addRow(new Object[]{nguyenLieu.getId(), nguyenLieu.getMa(), nguyenLieu.getTen(), 1, nguyenLieu.getDonVitinh()});
+                modelNguyenLieuTra.addRow(new Object[]{nguyenLieu.getId(), nguyenLieu.getMa(), nguyenLieu.getTen(), 1, nguyenLieu.getDonVitinh(), "Nhập lý do"});
             }
         }
     }//GEN-LAST:event_cboNguyenLieuTraActionPerformed
@@ -1400,19 +1504,21 @@ public class QLGiaoDich extends javax.swing.JPanel {
     }
     private void btnCapNhatPhieuTraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatPhieuTraActionPerformed
         // TODO add your handling code here:
-        int row = tblPhieuTra.getSelectedRow();
-        if (tblPhieuTra.getValueAt(row, 2) != null && tblPhieuTra.getValueAt(row, 3) != null && tblPhieuTra.getValueAt(row, 5) != null && tblPhieuTra.getValueAt(row, 6) != null) {
-            phieuTraService.updatePhieuTra(tblPhieuTra.getValueAt(row, 0).toString(), tblPhieuTra.getValueAt(row, 1).toString(), ((NhaCungCapViewModel_Hoang) cboNhaCungCapTra.getSelectedItem()).getId(), ((NhanVienViewModel_Hoang) cboNhanVienTra.getSelectedItem()).getId(),
-                    dateNgayTra.getDate());
-            phieuTraService.deleteChiTietPnbyidPT(tblPhieuTra.getValueAt(row, 0).toString());
-            for (int i = 0; i < tblNguyenLieuTra.getRowCount(); i++) {
-                phieuTraService.insertCTPhieuTra(tblPhieuTra.getValueAt(row, 0).toString(), tblNguyenLieuTra.getValueAt(i, 0).toString(), Float.parseFloat(tblNguyenLieuTra.getValueAt(i, 3).toString()), tblNguyenLieuTra.getValueAt(row, 5).toString());
+        if (checkEmptyPhieuTra()) {
+            int row = tblPhieuTra.getSelectedRow();
+            if (tblPhieuTra.getValueAt(row, 2) != null && tblPhieuTra.getValueAt(row, 3) != null && tblPhieuTra.getValueAt(row, 5) != null && tblPhieuTra.getValueAt(row, 6) != null) {
+                phieuTraService.updatePhieuTra(tblPhieuTra.getValueAt(row, 0).toString(), tblPhieuTra.getValueAt(row, 1).toString(), ((NhaCungCapViewModel_Hoang) cboNhaCungCapTra.getSelectedItem()).getId(), ((NhanVienViewModel_Hoang) cboNhanVienTra.getSelectedItem()).getId(),
+                        dateNgayTra.getDate());
+                phieuTraService.deleteChiTietPnbyidPT(tblPhieuTra.getValueAt(row, 0).toString());
+                for (int i = 0; i < tblNguyenLieuTra.getRowCount(); i++) {
+                    phieuTraService.insertCTPhieuTra(tblPhieuTra.getValueAt(row, 0).toString(), tblNguyenLieuTra.getValueAt(i, 0).toString(), Float.parseFloat(tblNguyenLieuTra.getValueAt(i, 3).toString()), tblNguyenLieuTra.getValueAt(row, 5).toString());
+                }
+                clearPhieuTra();
+                loadAll();
+                JOptionPane.showMessageDialog(this, "Cập nhật thành công");
+            } else {
+                JOptionPane.showMessageDialog(this, "Dữ liệu trống");
             }
-            clearPhieuTra();
-            loadAll();
-            JOptionPane.showMessageDialog(this, "Cập nhật thành công");
-        } else {
-            JOptionPane.showMessageDialog(this, "Dữ liệu trống");
         }
     }//GEN-LAST:event_btnCapNhatPhieuTraActionPerformed
     private void loadTableHoaDonChiTiet(List<ChitietHoaDonViewModel> lstChiTietHD) {
@@ -1473,7 +1579,11 @@ public class QLGiaoDich extends javax.swing.JPanel {
             loadTablePhieuNhap(phieuNhapSevice.getAllPhieuNhap());
         } else {
             List<PhieuNhapViewModel> lstSearch = phieuNhapSevice.searchPhieuNhap(txtTimKiemPhieuNhap.getText());
-            loadTablePhieuNhap(lstSearch);
+            if (lstSearch.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Không tồn tại phiếu nhập");
+            } else {
+                loadTablePhieuNhap(lstSearch);
+            }
         }
     }//GEN-LAST:event_btnTimKiemPhieuNhapActionPerformed
     private void loadTablePhieuTraTam(List<PhieuTraViewModel> lstPhieuTra) {
@@ -1521,7 +1631,11 @@ public class QLGiaoDich extends javax.swing.JPanel {
             loadTablePhieuTra(phieuTraService.getAllPhieuTra());
         } else {
             List<PhieuTraViewModel> lstSearchPhieuTra = phieuTraService.searchPhieuTra(txtTimKiemPhieuTra.getText());
-            loadTablePhieuTra(lstSearchPhieuTra);
+            if (lstSearchPhieuTra.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Không tồn tại mã phiếu này");
+            } else {
+                loadTablePhieuTra(lstSearchPhieuTra);
+            }
         }
     }//GEN-LAST:event_btnTimKiemPhieuTraActionPerformed
 
@@ -1576,10 +1690,16 @@ public class QLGiaoDich extends javax.swing.JPanel {
                 int chon = JOptionPane.showConfirmDialog(this, "Xác nhận hủy phiếu", "Xác nhận", JOptionPane.YES_NO_OPTION);
                 if (chon == JOptionPane.YES_OPTION) {
                     JOptionPane.showMessageDialog(this, phieuTraService.updateTrangThaiPhieuTra(tblPhieuTra.getValueAt(row, 0).toString(), 3));
+                    for (int i = 0; i < tblNguyenLieuTra.getRowCount(); i++) {
+                        phieuTraService.updateSoluongNguyenLieuTra(tblNguyenLieuTra.getValueAt(i, 0).toString(), Float.parseFloat(tblNguyenLieuTra.getValueAt(i, 3).toString()));
+                    }
+
                     ptView = lstPhieuTra.get(row);
                     lstPhieuTra = phieuTraService.getAllPhieuTra();
                     loadTablePhieuTraHoanThanh(lstPhieuTra);
                     rdoHoanThanhPhieuTra.setSelected(true);
+                    JOptionPane.showMessageDialog(this, "Đã hoàn thành phiếu và cập nhật số lượng trong kho");
+                    loadAll();
                     clearPhieuTra();
                 }
             } else {
@@ -1820,24 +1940,19 @@ public class QLGiaoDich extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnImport1ActionPerformed
 
-    private void tblChiTietPhieuTraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblChiTietPhieuTraMouseClicked
-        // TODO add your handling code here:
-        int row = tblChiTietPhieuTra.getSelectedRow();
-
-    }//GEN-LAST:event_tblChiTietPhieuTraMouseClicked
-
     private void btnTaoPhieuTraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoPhieuTraActionPerformed
         // TODO add your handling code here:
-        String idPhieuTra = null;
-        idPhieuTra = phieuTraService.insertPhieuTra(txtMaPhieuTra.getText(), ((NhaCungCapViewModel_Hoang) cboNhaCungCapTra.getSelectedItem()).getId(), ((NhanVienViewModel_Hoang) cboNhanVienTra.getSelectedItem()).getId(),
-                dateNgayTra.getDate(), 1);
-        for (int i = 0; i < tblNguyenLieuTra.getRowCount(); i++) {
-            phieuTraService.insertCTPhieuTra(idPhieuTra, tblNguyenLieuTra.getValueAt(i, 0).toString(), Float.parseFloat(tblNguyenLieuTra.getValueAt(i, 3).toString()), tblNguyenLieuTra.getValueAt(i, 5).toString());
+        if (checkEmptyPhieuTra() && !checkMaPhieuTra(txtMaPhieuTra.getText())) {
+            String idPhieuTra = null;
+            idPhieuTra = phieuTraService.insertPhieuTra(txtMaPhieuTra.getText(), ((NhaCungCapViewModel_Hoang) cboNhaCungCapTra.getSelectedItem()).getId(), ((NhanVienViewModel_Hoang) cboNhanVienTra.getSelectedItem()).getId(),
+                    dateNgayTra.getDate(), 1);
+            for (int i = 0; i < tblNguyenLieuTra.getRowCount(); i++) {
+                phieuTraService.insertCTPhieuTra(idPhieuTra, tblNguyenLieuTra.getValueAt(i, 0).toString(), Float.parseFloat(tblNguyenLieuTra.getValueAt(i, 3).toString()), tblNguyenLieuTra.getValueAt(i, 5).toString());
+            }
+            JOptionPane.showMessageDialog(this, "Thêm phiếu trả thành công");
+            loadAll();
+            clearPhieuTra();
         }
-
-        JOptionPane.showMessageDialog(this, "Thêm thành công");
-        loadAll();
-        clearPhieuTra();
     }//GEN-LAST:event_btnTaoPhieuTraActionPerformed
     private void fillDataPhieuNhap(int index) {
         int row = tblPhieuNhap.getSelectedRow();
@@ -1921,6 +2036,70 @@ public class QLGiaoDich extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_tblNguyenLieuTraMouseClicked
+    private boolean checkSoluong() {
+        int row = tblNguyenLieu.getSelectedRow();
+        float soLuong;
+        try {
+            soLuong = Float.parseFloat(tblNguyenLieu.getValueAt(row, 3).toString());
+            if (soLuong <= 0) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập lại số lượng");
+                return false;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập lại số lượng");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean checkSoluongTra() {
+        int row = tblNguyenLieuTra.getSelectedRow();
+        float soLuong;
+        try {
+            soLuong = Float.parseFloat(tblNguyenLieuTra.getValueAt(row, 3).toString());
+            if (soLuong <= 0) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập lại số lượng");
+                return false;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập lại số lượng");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean checkDonGia() {
+        int row = tblNguyenLieu.getSelectedRow();
+        float donGia;
+        try {
+            donGia = Float.parseFloat(tblNguyenLieu.getValueAt(row, 5).toString());
+            if (donGia <= 0) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập lại đơn giá");
+                return false;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập lại đơn giá");
+        }
+        return false;
+    }
+    private void tblNguyenLieuKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblNguyenLieuKeyReleased
+        // TODO add your handling code here:
+        int row = tblNguyenLieu.getSelectedRow();
+        if (!checkSoluong()) {
+            tblNguyenLieu.setValueAt(1, row, 3);
+
+        } else if (!checkDonGia()) {
+            tblNguyenLieu.setValueAt(1, row, 5);
+        }
+    }//GEN-LAST:event_tblNguyenLieuKeyReleased
+
+    private void tblNguyenLieuTraKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblNguyenLieuTraKeyReleased
+        // TODO add your handling code here:
+        int row = tblNguyenLieuTra.getSelectedRow();
+        if (!checkSoluongTra()) {
+            tblNguyenLieuTra.setValueAt(1, row, 3);
+        }
+    }//GEN-LAST:event_tblNguyenLieuTraKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
