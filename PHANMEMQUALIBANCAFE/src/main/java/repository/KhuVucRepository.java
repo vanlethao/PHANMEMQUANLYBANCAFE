@@ -60,6 +60,20 @@ public class KhuVucRepository {
         return kv;
     }
 
+    public KhuVuc getKhuVucFromMa(String makv) {
+        KhuVuc kv = null;
+        try (Session session = Hibernateutility.getFactory().openSession()) {
+            Query query = session.createQuery("FROM KhuVuc WHERE ma=:makv");
+            query.setParameter("ma", makv);
+            List<KhuVuc> list = query.getResultList();
+            if (list.size() > 0) {
+                kv = list.get(0);
+            }
+            session.close();
+        }
+        return kv;
+    }
+
     public void deleteKhuVuc(String idKhuVuc) {
         try (Session session = Hibernateutility.getFactory().openSession()) {
             Transaction trans = session.beginTransaction();

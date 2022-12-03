@@ -13,6 +13,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import repository.BanRepository;
 import repository.KhuVucRepository;
 import service.implement.BanService;
 import service.IBanService;
@@ -33,7 +34,8 @@ public class Ban extends javax.swing.JPanel {
     private DefaultComboBoxModel<ChiNhanhViewModel_Hoang> comboChiNhanh;
     private IBanService ibanService;
     private IKhuVucService iKhuVucService;
-    private KhuVucRepository khuVucRepository;
+    private KhuVucRepository khuVucRepo;
+    private BanRepository banRepo;
     private TaiKhoanAdmin taiKhoanAdmin;
     private TaiKhoanNguoiDung taiKhoanNguoiDung;
 
@@ -45,10 +47,10 @@ public class Ban extends javax.swing.JPanel {
 
     public Ban(TaiKhoanAdmin admin, TaiKhoanNguoiDung nguoiDung) {
         initComponents();
+        banRepo = new BanRepository();
         ibanService = new BanService();
         iKhuVucService = new KhuVucService();
-        khuVucRepository = new KhuVucRepository();
-
+        khuVucRepo = new KhuVucRepository();
         taiKhoanAdmin = admin;
         taiKhoanNguoiDung = nguoiDung;
         if (taiKhoanAdmin != null) {
@@ -64,7 +66,6 @@ public class Ban extends javax.swing.JPanel {
                     iKhuVucService.getAllKhuVucByChiNhanh(ibanService.getChiNhanhByTaiKhoan(nguoiDung.getId()).getId()).toArray());
             loadData(ibanService.getChiNhanhByTaiKhoan(nguoiDung.getId()).getId());
         }
-
     }
 
     @SuppressWarnings("unchecked")
@@ -155,11 +156,6 @@ public class Ban extends javax.swing.JPanel {
             }
         });
 
-        cbKhuVuc.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cbKhuVucItemStateChanged(evt);
-            }
-        });
         cbKhuVuc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbKhuVucActionPerformed(evt);
@@ -373,6 +369,12 @@ public class Ban extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        cboChiNhanh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboChiNhanhActionPerformed(evt);
+            }
+        });
+
         jLabel4.setText("Chi nhánh");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -383,10 +385,10 @@ public class Ban extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Ban, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cboChiNhanh, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cboChiNhanh, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(KhuVuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -398,16 +400,14 @@ public class Ban extends javax.swing.JPanel {
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(Ban, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(KhuVuc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(KhuVuc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Ban, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
      private void loadData(String idChiNhanh) {
-        load_Ban(ibanService.getAllBanByKhuVuc(((KhuVucViewModel) comboKhuVuc.getSelectedItem()).getIdKhuVuc()));
-        load_KhuVuc(iKhuVucService.getAllKhuVucByChiNhanh(idChiNhanh));
-        addCbKhuVucByChiNhah(idChiNhanh);
-        addChiNhanh();
-
+        load_KhuVuc_By_ChiNhanh(iKhuVucService.getAllKhuVucByChiNhanh(idChiNhanh));
+        load_Ban_By_KhuVuc(ibanService.getAllBanByKhuVuc(((KhuVucViewModel) comboKhuVuc.getSelectedItem()).getIdKhuVuc()));
+        addComboKhuVucByChiNhah(idChiNhanh);
     }
 
     private void fillDataToFormBan(int row) {
@@ -435,7 +435,7 @@ public class Ban extends javax.swing.JPanel {
 
     }
 
-    private void load_Ban(List<BanViewModel> list) {
+    private void load_Ban_By_KhuVuc(List<BanViewModel> list) {
         defaultTableModel = (DefaultTableModel) tblBan.getModel();
         defaultTableModel.setRowCount(0);
         for (BanViewModel x : list) {
@@ -444,7 +444,7 @@ public class Ban extends javax.swing.JPanel {
 
     }
 
-    private void load_KhuVuc(List<KhuVucViewModel> list) {
+    private void load_KhuVuc_By_ChiNhanh(List<KhuVucViewModel> list) {
         defaultTableModel = (DefaultTableModel) tblKhuVuc.getModel();
         defaultTableModel.setRowCount(0);
         for (KhuVucViewModel x : list) {
@@ -452,21 +452,16 @@ public class Ban extends javax.swing.JPanel {
         }
     }
 
-    private void addCbKhuVucByChiNhah(String idChiNhanh) {
+    private void addComboKhuVucByChiNhah(String idChiNhanh) {
         listkvView = iKhuVucService.getAllKhuVucByChiNhanh(idChiNhanh);
         comboKhuVuc = (DefaultComboBoxModel) (new DefaultComboBoxModel<>(listkvView.toArray()));
         cbKhuVuc.setModel((DefaultComboBoxModel) comboKhuVuc);
-
     }
 
-    private void addChiNhanh() {
-        listcnView = iKhuVucService.getAllChiNhanh();
-        comboChiNhanh = (DefaultComboBoxModel) (new DefaultComboBoxModel<>(listcnView.toArray()));
-        cboChiNhanh.setModel((DefaultComboBoxModel) comboChiNhanh);
 
-    }
     private void btnThemKhuVucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemKhuVucActionPerformed
-        if (checkFormEmpty(txtMaKhuVuc) && checkVuotquakitu1(txtMaKhuVuc.getText())) {
+        if (checkFormEmptyBan(txtMaKhuVuc) && checkVuotquakituKhuVuc(txtMaKhuVuc.getText())
+                && checkMaKhuVuc(txtMaKhuVuc.getText())) {
             if (taiKhoanNguoiDung == null) {
                 iKhuVucService.insertKhuVucToChiNhanh(txtMaKhuVuc.getText(),
                         ((ChiNhanhViewModel_Hoang) comboChiNhanh.getSelectedItem()).getId());
@@ -475,10 +470,10 @@ public class Ban extends javax.swing.JPanel {
                         ibanService.getChiNhanhByTaiKhoan(taiKhoanNguoiDung.getId()).getId());
             }
             JOptionPane.showMessageDialog(this, "Thêm Khu Vực thành công");
-            addCbKhuVucByChiNhah(((ChiNhanhViewModel_Hoang) comboChiNhanh.getSelectedItem()).getId());
-            load_KhuVuc(iKhuVucService.getAllKhuVucByChiNhanh(((ChiNhanhViewModel_Hoang) comboChiNhanh.getSelectedItem()).getId()));
+            addComboKhuVucByChiNhah(((ChiNhanhViewModel_Hoang) comboChiNhanh.getSelectedItem()).getId());
+            load_KhuVuc_By_ChiNhanh(iKhuVucService.getAllKhuVucByChiNhanh(((ChiNhanhViewModel_Hoang) comboChiNhanh.getSelectedItem()).getId()));
         } else {
-            JOptionPane.showMessageDialog(this, "Khu Vực đã tồn tại");
+            JOptionPane.showMessageDialog(this, "Thêm khu vực thất bại");
         }
 
     }//GEN-LAST:event_btnThemKhuVucActionPerformed
@@ -486,9 +481,8 @@ public class Ban extends javax.swing.JPanel {
     private void btnCapNhatKhuVucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatKhuVucActionPerformed
         int row = tblKhuVuc.getSelectedRow();
         if (row == -1) {
-            JOptionPane.showMessageDialog(this, "Click on table,please");
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn khu vực trên bảng");
         } else {
-
             if (checkFormEmpty1(txtMaKhuVuc)) {
                 KhuVucViewModel khuVucViewModel = new KhuVucViewModel();
                 khuVucViewModel.setMakhuvuc(tblKhuVuc.getValueAt(row, 1).toString());
@@ -498,8 +492,8 @@ public class Ban extends javax.swing.JPanel {
                     khuVucViewModel.setTrangthai(0);
                 }
                 iKhuVucService.updateKhuVuc(khuVucViewModel, txtMaKhuVuc.getText(), cbTrangThaiKhuVuc.getSelectedIndex() == 1 ? 1 : 0);
-                JOptionPane.showMessageDialog(this, "Update Success");
-                load_KhuVuc(iKhuVucService.getAllKhuVucByChiNhanh(((ChiNhanhViewModel_Hoang) comboChiNhanh.getSelectedItem()).getId()));
+                JOptionPane.showMessageDialog(this, "Cập nhật thành công  ");
+                load_KhuVuc_By_ChiNhanh(iKhuVucService.getAllKhuVucByChiNhanh(((ChiNhanhViewModel_Hoang) comboChiNhanh.getSelectedItem()).getId()));
 
             }
         }
@@ -508,21 +502,18 @@ public class Ban extends javax.swing.JPanel {
 
     private void btnThemBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemBanActionPerformed
 
-        if (checkFormEmpty(txtSoBan) && checkNumber(txtSoBan.getText()) && checkVuotquakitu(txtSoBan.getText())) {
+        if (checkFormEmptyBan(txtSoBan) && checkNumber(txtSoBan.getText())
+                && checkVuotquakituBan(txtSoBan.getText()) && checkSoBan(Integer.parseInt(txtSoBan.getText()))) {
             KhuVucViewModel kvView = (KhuVucViewModel) comboKhuVuc.getSelectedItem();
             ibanService.insertBan(Integer.parseInt(txtSoBan.getText()), kvView);
             JOptionPane.showMessageDialog(this, "Thêm Bàn thành công");
-            load_Ban(ibanService.getAllBanByKhuVuc(((KhuVucViewModel) comboKhuVuc.getSelectedItem()).getIdKhuVuc()));
+            load_Ban_By_KhuVuc(ibanService.getAllBanByKhuVuc(((KhuVucViewModel) comboKhuVuc.getSelectedItem()).getIdKhuVuc()));
         }
     }//GEN-LAST:event_btnThemBanActionPerformed
 
     private void cbKhuVucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbKhuVucActionPerformed
-
+        load_Ban_By_KhuVuc(ibanService.getAllBanByKhuVuc(((KhuVucViewModel) comboKhuVuc.getSelectedItem()).getIdKhuVuc()));
     }//GEN-LAST:event_cbKhuVucActionPerformed
-
-    private void cbKhuVucItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbKhuVucItemStateChanged
-
-    }//GEN-LAST:event_cbKhuVucItemStateChanged
 
     private void cbTrangThaiKhuVucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTrangThaiKhuVucActionPerformed
         // TODO add your handling code here:
@@ -542,8 +533,14 @@ public class Ban extends javax.swing.JPanel {
         int row = tblBan.getSelectedRow();
         ibanService.deleteBan(tblBan.getValueAt(row, 0).toString());
         JOptionPane.showMessageDialog(this, "Xoa Thành Công");
-        load_Ban(ibanService.getAllBanByKhuVuc(((KhuVucViewModel) comboKhuVuc.getSelectedItem()).getIdKhuVuc()));
+        load_Ban_By_KhuVuc(ibanService.getAllBanByKhuVuc(((KhuVucViewModel) comboKhuVuc.getSelectedItem()).getIdKhuVuc()));
     }//GEN-LAST:event_btnXoaBanActionPerformed
+
+    private void cboChiNhanhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboChiNhanhActionPerformed
+        comboKhuVuc = (DefaultComboBoxModel) new DefaultComboBoxModel<>(
+                iKhuVucService.getAllKhuVucByChiNhanh(((ChiNhanhViewModel_Hoang) comboChiNhanh.getSelectedItem()).getId()).toArray());
+        loadData(((ChiNhanhViewModel_Hoang) comboChiNhanh.getSelectedItem()).getId());
+    }//GEN-LAST:event_cboChiNhanhActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -570,7 +567,7 @@ public class Ban extends javax.swing.JPanel {
     private javax.swing.JTextField txtMaKhuVuc;
     private javax.swing.JTextField txtSoBan;
     // End of variables declaration//GEN-END:variables
-private boolean checkFormEmpty(JTextField soban) {
+private boolean checkFormEmptyBan(JTextField soban) {
         if (soban.getText().isBlank()) {
             JOptionPane.showMessageDialog(this, "Không được trống");
             return false;
@@ -582,25 +579,27 @@ private boolean checkFormEmpty(JTextField soban) {
     private boolean checkNumber(String num) {
         Pattern regexInt = Pattern.compile("^[0-9]+$");
         if (!regexInt.matcher(num).find()) {
-            JOptionPane.showMessageDialog(this, "Số không hợp lệ", "Number Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Số không hợp lệ(0-9)", "Number Error", JOptionPane.ERROR_MESSAGE);
             return false;
         } else {
             return true;
         }
     }
-    private boolean checkVuotquakitu(String soban) {
+
+    private boolean checkVuotquakituBan(String soban) {
         Pattern regex = Pattern.compile("^\\w{1,5}+$");
         if (!regex.matcher(soban).find()) {
-            JOptionPane.showMessageDialog(this, "Vượt quá kí tự", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Tối đa 5 kí tự", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         } else {
             return true;
         }
     }
-    private boolean checkVuotquakitu1(String makv) {
+
+    private boolean checkVuotquakituKhuVuc(String makv) {
         Pattern regex = Pattern.compile("^\\w{1,5}+$");
         if (!regex.matcher(makv).find()) {
-            JOptionPane.showMessageDialog(this, "Vượt quá kí tự", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Tối đa 5 kí tự", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         } else {
             return true;
@@ -614,5 +613,23 @@ private boolean checkFormEmpty(JTextField soban) {
         } else {
             return true;
         }
+    }
+
+    private boolean checkSoBan(Integer soBan) {
+        domainmodel.Ban ban = banRepo.getBanFormSoBan(soBan);
+        if (ban != null) {
+            JOptionPane.showMessageDialog(this, "Số bàn này đã tồn tại");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean checkMaKhuVuc(String maKhuVuc) {
+        domainmodel.KhuVuc khuVuc = khuVucRepo.getKhuVucFromMa(maKhuVuc);
+        if (khuVuc != null) {
+            JOptionPane.showMessageDialog(this, "Mã khu vực này đã tồn tại");
+            return false;
+        }
+        return true;
     }
 }

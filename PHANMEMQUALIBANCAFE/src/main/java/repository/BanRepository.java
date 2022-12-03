@@ -66,7 +66,7 @@ public class BanRepository {
         }
     }
 
-    public Integer getBanFormSoBan(Integer soBan) {
+    public Ban getBanFormSoBan(Integer soBan) {
         Ban ban = null;
         try (Session session = Hibernateutility.getFactory().openSession()) {
             Transaction trans = session.beginTransaction();
@@ -80,7 +80,7 @@ public class BanRepository {
             trans.commit();
             session.close();
         }
-        return soBan;
+        return ban;
     }
 
     public static ChiNhanh getChiNhanhByTaiKhoan(String idTaiKhoan) {

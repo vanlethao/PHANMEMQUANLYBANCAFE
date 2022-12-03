@@ -4,10 +4,8 @@
  */
 package view;
 
-import domainmodel.NhanVien;
 import domainmodel.TaiKhoanAdmin;
 import domainmodel.TaiKhoanNguoiDung;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
@@ -15,16 +13,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-import service.implement.BanService;
-import service.IBanService;
-import service.IKhuVucService;
 import service.ITaiKhoanNguoiDungService;
-import service.implement.KhuVucService;
 import service.implement.TaiKhoanNguoiDungService;
-import viewmodel.BanViewModel;
-import viewmodel.KhuVucViewModel;
 import viewmodel.NhanVienViewModel_Van;
-import viewmodel.SanPhamViewModel;
 import viewmodel.TaiKhoanNguoiDungViewModel;
 
 /**
@@ -82,7 +73,7 @@ public class QLNguoiDung extends javax.swing.JPanel {
                 }
             }
         }
-       // comboBoxNV.setSelectedItem((findbyName(tblNguoiDung.getModel().getValueAt(row, 3).toString())));
+        // comboBoxNV.setSelectedItem((findbyName(tblNguoiDung.getModel().getValueAt(row, 3).toString())));
 
     }
 
@@ -95,7 +86,6 @@ public class QLNguoiDung extends javax.swing.JPanel {
 //        }
 //        return null;
 //    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -139,7 +129,6 @@ public class QLNguoiDung extends javax.swing.JPanel {
 
         cbNhanVien.setBackground(new java.awt.Color(225, 218, 197));
         cbNhanVien.setForeground(new java.awt.Color(108, 83, 54));
-        cbNhanVien.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbNhanVien.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbNhanVienItemStateChanged(evt);
@@ -160,7 +149,7 @@ public class QLNguoiDung extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Id", "Tên Tài Khoản", "Mật Khẩu", "Nhân Viên"
+                "Id", "Tên Tài Khoản", "Mật Khẩu", "Mã Nhân Viên"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -244,28 +233,28 @@ public class QLNguoiDung extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnThemTK, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(85, 85, 85)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(pw, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
                             .addComponent(txtTenTaiKhoan)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(cbNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(lblHienThi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(cbNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblHienThi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(32, 32, 32))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnThemTK, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(26, 26, 26)
                         .addComponent(btnCapNhapTK)
                         .addGap(18, 18, 18)
                         .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(32, 32, 32)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                        .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -283,18 +272,19 @@ public class QLNguoiDung extends javax.swing.JPanel {
                 .addGap(32, 32, 32)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblHienThi))
-                .addGap(18, 18, 18)
+                    .addComponent(cbNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(3, 3, 3)
+                .addComponent(lblHienThi, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnLamMoi)
-                    .addComponent(btnXoa)
+                    .addComponent(btnThemTK)
                     .addComponent(btnCapNhapTK)
-                    .addComponent(btnThemTK))
-                .addGap(105, 216, Short.MAX_VALUE))
+                    .addComponent(btnXoa)
+                    .addComponent(btnLamMoi))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -311,12 +301,13 @@ public class QLNguoiDung extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cbNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbNhanVienActionPerformed
-         
+
     }//GEN-LAST:event_cbNhanVienActionPerformed
 
     private void btnThemTKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemTKActionPerformed
         NhanVienViewModel_Van nvView1 = new NhanVienViewModel_Van();
-        if (checkFormEmpty(txtTenTaiKhoan, pw)) {
+        if (checkFormEmpty(txtTenTaiKhoan, pw) && checkTenTK(txtTenTaiKhoan.getText())
+                && checkTaiKhoanCuaNhanVien(((NhanVienViewModel_Van) cbNhanVien.getSelectedItem()).getMaNhanVien())) {
             NhanVienViewModel_Van nvView = (NhanVienViewModel_Van) comboBoxNV.getSelectedItem();
             iTaiKhoanNguoiDungService.inserttkNguoiDung(txtTenTaiKhoan.getText(), pw.getText(), nvView);
             JOptionPane.showMessageDialog(this, "Thêm Tai Khoan thành công");
@@ -329,11 +320,23 @@ public class QLNguoiDung extends javax.swing.JPanel {
         if (row == -1) {
             JOptionPane.showMessageDialog(this, "Click on table,please");
         } else {
-            NhanVienViewModel_Van nvView = (NhanVienViewModel_Van) comboBoxNV.getSelectedItem();
-            iTaiKhoanNguoiDungService.updateTKNguoiDung(tblNguoiDung.getValueAt(row, 0).toString(), txtTenTaiKhoan.getText(), pw.getText(), nvView);
-            JOptionPane.showMessageDialog(this, "Update Success");
-            load_TK(iTaiKhoanNguoiDungService.getAllTkNguoiDung());
-            btnLamMoiActionPerformed(evt);
+            if (tblNguoiDung.getValueAt(row, 3).toString().
+                    equalsIgnoreCase(((NhanVienViewModel_Van) cbNhanVien.getSelectedItem()).getMaNhanVien())) {
+                NhanVienViewModel_Van nvView = (NhanVienViewModel_Van) comboBoxNV.getSelectedItem();
+                iTaiKhoanNguoiDungService.updateTKNguoiDung(tblNguoiDung.getValueAt(row, 0).toString(), txtTenTaiKhoan.getText(), pw.getText(), nvView);
+                JOptionPane.showMessageDialog(this, "Update Success");
+                load_TK(iTaiKhoanNguoiDungService.getAllTkNguoiDung());
+                btnLamMoiActionPerformed(evt);
+            } else {
+                if (checkTaiKhoanCuaNhanVien(((NhanVienViewModel_Van) cbNhanVien.getSelectedItem()).getMaNhanVien())) {
+                    NhanVienViewModel_Van nvView = (NhanVienViewModel_Van) comboBoxNV.getSelectedItem();
+                    iTaiKhoanNguoiDungService.updateTKNguoiDung(tblNguoiDung.getValueAt(row, 0).toString(), txtTenTaiKhoan.getText(), pw.getText(), nvView);
+                    JOptionPane.showMessageDialog(this, "Update Success");
+                    load_TK(iTaiKhoanNguoiDungService.getAllTkNguoiDung());
+                    btnLamMoiActionPerformed(evt);
+                }
+            }
+
         }
     }//GEN-LAST:event_btnCapNhapTKActionPerformed
 
@@ -395,6 +398,7 @@ private boolean checkFormEmpty(JTextField tentkField, JPasswordField pw) {
             return true;
         }
     }
+
     private boolean checkMatcher(String Ma) {
         List<NhanVienViewModel_Van> list = new ArrayList<>();
         list = iTaiKhoanNguoiDungService.getAllNV();
@@ -406,12 +410,25 @@ private boolean checkFormEmpty(JTextField tentkField, JPasswordField pw) {
         }
         return true;
     }
-    private boolean checkMatcher1(String Tentk) {
+
+    private boolean checkTenTK(String Tentk) {
         List<TaiKhoanNguoiDungViewModel> list = new ArrayList<>();
         list = iTaiKhoanNguoiDungService.getAllTkNguoiDung();
         for (TaiKhoanNguoiDungViewModel tk : list) {
-            if (tk.equals(tk.getTenTk())) {
+            if (Tentk.equals(tk.getTenTk())) {
                 JOptionPane.showMessageDialog(this, "Tên tài khoản đã tồn tại");
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean checkTaiKhoanCuaNhanVien(String maNhanVien) {
+        List<TaiKhoanNguoiDungViewModel> list = new ArrayList<>();
+        list = iTaiKhoanNguoiDungService.getAllTkNguoiDung();
+        for (TaiKhoanNguoiDungViewModel tk : list) {
+            if (maNhanVien.equals(tk.getMaNhanVien())) {
+                JOptionPane.showMessageDialog(this, "Nhân viên này đã có tài khoản");
                 return false;
             }
         }
