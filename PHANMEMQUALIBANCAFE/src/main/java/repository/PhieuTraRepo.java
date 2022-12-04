@@ -196,9 +196,9 @@ public class PhieuTraRepo {
         }
     }
 
-    public List<ChiTietPhieuTra> searchPhieuTra(String maPN) {
+    public Set<ChiTietPhieuTra> searchPhieuTra(String maPN) {
         Transaction trans = null;
-        List<ChiTietPhieuTra> listChiTiet = new ArrayList<>();
+        Set<ChiTietPhieuTra> listChiTiet = new HashSet<>();
         try ( Session session = Hibernateutility.getFactory().openSession()) {
             trans = session.beginTransaction();
             Query query = session.createQuery("FROM PhieuTraHang WHERE Ma like :Ma");

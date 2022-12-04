@@ -100,32 +100,7 @@ public class PhieuNhapService implements IPhieuNhap {
         return lstView;
     }
 
-    @Override
-    public List<NguyenLieuViewModel_Hoang> getAllNguyenLieu() {
-        List<NguyenLieuViewModel_Hoang> lstViewNL = new ArrayList<>();
-        var lstNguyenLieu = phieuNhapRepo.getAllNguyenLieu();
-        for (NguyenLieu x : lstNguyenLieu) {
-            NguyenLieuViewModel_Hoang nlView = new NguyenLieuViewModel_Hoang();
-            nlView.setId(x.getId());
-            nlView.setMa(x.getMa());
-            if (x.getTen() != null) {
-                nlView.setTen(x.getTen());
-            }
-            if (x.getDonViTinh() != null) {
-                nlView.setDonVitinh(x.getDonViTinh());
-            }
-            lstViewNL.add(nlView);
-        }
-        return lstViewNL;
-    }
-    public static void main(String[] args) {
-        PhieuNhapService pn = new PhieuNhapService();
-        List<NguyenLieuViewModel_Hoang> lst = pn.getAllNguyenLieu();
-        for (NguyenLieuViewModel_Hoang nguyenLieuViewModel_Hoang : lst) {
-            System.out.println(nguyenLieuViewModel_Hoang.getDonVitinh());
-            System.out.println(nguyenLieuViewModel_Hoang.getTen());
-        }
-    }
+ 
     @Override
     public List<NhaCungCapViewModel_Hoang> getAllNhaCungCap() {
         List<NhaCungCapViewModel_Hoang> lstViewNCC = new ArrayList<>();

@@ -35,8 +35,6 @@ public interface IPhieuNhap {
 
     PhieuNhapViewModel getPhieuNhapById(String idPhieuNhap);
 
-    List<NguyenLieuViewModel_Hoang> getAllNguyenLieu();
-
     List<NhaCungCapViewModel_Hoang> getAllNhaCungCap();
 
     List<NhanVienViewModel_Hoang> getAllNhanVien();

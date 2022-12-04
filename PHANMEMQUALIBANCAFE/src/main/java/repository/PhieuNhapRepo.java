@@ -66,26 +66,8 @@ public class PhieuNhapRepo {
         }
         return setCTPN;
     }
-//    public Set<ChiTietPhieuNhap> getNguyenLieuByChiTietPhieuNhap(String id) {
-//        Set<ChiTietPhieuNhap> setCTPN = null;
-//        try ( Session session = Hibernateutility.getFactory().openSession()) {
-//            NguyenLieu nl = session.get(NguyenLieu.class, id);
-//            setCTPN = nl.get();
-//            session.close();
-//        }
-//        return setCTPN;
-//    }
 
-    public List<NguyenLieu> getAllNguyenLieu() {
-        List<NguyenLieu> lstNguyenLieu = null;
-        try ( Session session = Hibernateutility.getFactory().openSession()) {
-            lstNguyenLieu = session.createQuery("from NguyenLieu").list();
-            session.close();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return lstNguyenLieu;
-    }
+    
 
     public List<NhaCungCap> getAllNhaCungCap() {
         List<NhaCungCap> lstNhaCungCap = null;

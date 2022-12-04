@@ -133,7 +133,6 @@ public class QLGiaoDich extends javax.swing.JPanel {
             comboNguyenLieuTra = (DefaultComboBoxModel) new DefaultComboBoxModel<>(phieuNhapSevice.getAllNguyenLieuByChiNhanh(((ChiNhanhViewModel_Hoang) comboChiNhanhTra.getSelectedItem()).getId()).toArray());
             cboNguyenLieuTra.setModel((DefaultComboBoxModel) comboNguyenLieuTra);
             loadAll((((ChiNhanhViewModel_Hoang) comboChiNhanhTra.getSelectedItem()).getId()));
-           
 
         } else {
             lblCNNhap.setVisible(false);
@@ -142,13 +141,13 @@ public class QLGiaoDich extends javax.swing.JPanel {
             cboChiNhanhTra.setVisible(false);
             comboNhanVien = (DefaultComboBoxModel) new DefaultComboBoxModel<>(phieuNhapSevice.getAllNhanVienByChiNhanh(iBanService.getChiNhanhByTaiKhoan(nguoiDung.getId()).getId()).toArray());
             cboNhanVienNhap.setModel((DefaultComboBoxModel) comboNhanVien);
-            
+
             comboNhanVienTra = (DefaultComboBoxModel) new DefaultComboBoxModel<>(phieuNhapSevice.getAllNhanVienByChiNhanh(iBanService.getChiNhanhByTaiKhoan(nguoiDung.getId()).getId()).toArray());
             cboNhanVienTra.setModel((DefaultComboBoxModel) comboNhanVienTra);
-            
+
             comboNguyenLieu = (DefaultComboBoxModel) new DefaultComboBoxModel<>(phieuNhapSevice.getAllNguyenLieuByChiNhanh(iBanService.getChiNhanhByTaiKhoan(nguoiDung.getId()).getId()).toArray());
             cboNguyenLieuNhap.setModel((DefaultComboBoxModel) comboNguyenLieu);
-            
+
             comboNguyenLieuTra = (DefaultComboBoxModel) new DefaultComboBoxModel<>(phieuNhapSevice.getAllNguyenLieuByChiNhanh(iBanService.getChiNhanhByTaiKhoan(nguoiDung.getId()).getId()).toArray());
             cboNguyenLieuTra.setModel((DefaultComboBoxModel) comboNguyenLieuTra);
             loadAll(iBanService.getChiNhanhByTaiKhoan(nguoiDung.getId()).getId());
@@ -188,30 +187,35 @@ public class QLGiaoDich extends javax.swing.JPanel {
         }
     }
 
-    private void fillTablePhieuTra(int index) {
+    private NhanVienViewModel_Hoang findbyName(String MaNV) {
+        for (int i = 0; i < comboNhanVien.getSize(); i++) {
+            NhanVienViewModel_Hoang nv = comboNhanVien.getElementAt(i);
+            if (MaNV.equalsIgnoreCase(nv.getMa())) {
+                return nv;
+            }
+        }
+        return null;
+    }
 
+    private NhanVienViewModel_Hoang findbyNameTra(String MaNV) {
+        for (int i = 0; i < comboNhanVienTra.getSize(); i++) {
+            NhanVienViewModel_Hoang nv = comboNhanVienTra.getElementAt(i);
+            if (MaNV.equalsIgnoreCase(nv.getMa())) {
+                return nv;
+            }
+        }
+        return null;
+    }
+
+    private void fillTablePhieuTra(int index) {
         if (tblPhieuTra.getRowCount() >= 0) {
-            txtMaPhieuTra.setText((String) tblPhieuTra.getValueAt(index, 1).toString());
+            txtMaPhieuTra.setText(tblPhieuTra.getValueAt(index, 1).toString());
             for (int i = 0; i < phieuNhapSevice.getAllNhaCungCap().size(); i++) {
                 if (phieuNhapSevice.getAllNhaCungCap().get(i).getMa().equals(tblPhieuTra.getValueAt(index, 2))) {
                     cboNhaCungCapTra.setSelectedIndex(i);
                 }
             }
-            for (int i = 0; i < phieuNhapSevice.getAllNhaCungCap().size(); i++) {
-                if (phieuNhapSevice.getAllNhaCungCap().get(i).getTen().equals(tblPhieuTra.getValueAt(index, 3))) {
-                    cboNhaCungCapTra.setSelectedIndex(i);
-                }
-            }
-            for (int i = 0; i < phieuNhapSevice.getAllNhanVien().size(); i++) {
-                if (phieuNhapSevice.getAllNhanVien().get(i).getMa().equals(tblPhieuTra.getValueAt(index, 4))) {
-                    cboNhanVienTra.setSelectedIndex(i);
-                }
-            }
-            for (int i = 0; i < phieuNhapSevice.getAllNhanVien().size(); i++) {
-                if (phieuNhapSevice.getAllNhanVien().get(i).getHoTen().equals(tblPhieuTra.getValueAt(index, 5))) {
-                    cboNhanVienTra.setSelectedIndex(i);
-                }
-            }
+            cboNhanVienTra.setSelectedItem(findbyNameTra(tblPhieuTra.getValueAt(index, 4).toString()));
             dateNgayTra.setDate((Date) tblPhieuTra.getValueAt(index, 6));
         }
     }
@@ -787,7 +791,6 @@ public class QLGiaoDich extends javax.swing.JPanel {
         dateNgayNhap.setDateFormatString("dd-MM-yyyy");
 
         cboChiNhanhNhap.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        cboChiNhanhNhap.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cboChiNhanhNhap.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboChiNhanhNhapActionPerformed(evt);
@@ -919,7 +922,7 @@ public class QLGiaoDich extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 8, Short.MAX_VALUE))
+                .addGap(0, 6, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Phiếu nhập hàng", jPanel2);
@@ -1148,7 +1151,6 @@ public class QLGiaoDich extends javax.swing.JPanel {
         jLabel29.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel29.setText("Ngày trả:");
 
-        cboNguyenLieuTra.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cboNguyenLieuTra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboNguyenLieuTraActionPerformed(evt);
@@ -1235,7 +1237,6 @@ public class QLGiaoDich extends javax.swing.JPanel {
         lblCNTra.setText("Chi nhánh");
 
         cboChiNhanhTra.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        cboChiNhanhTra.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cboChiNhanhTra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboChiNhanhTraActionPerformed(evt);
@@ -2044,28 +2045,8 @@ public class QLGiaoDich extends javax.swing.JPanel {
                     cboNhaCungCapNhap.setSelectedIndex(i);
                 }
             }
-            for (int i = 0; i < phieuNhapSevice.getAllNhaCungCap().size(); i++) {
-                if (phieuNhapSevice.getAllNhaCungCap().get(i).getTen().equals(tblPhieuNhap.getValueAt(index, 3))) {
-                    cboNhaCungCapNhap.setSelectedIndex(i);
-                }
-            }
-            for (int i = 0; i < phieuNhapSevice.getAllNhanVien().size(); i++) {
-                if (phieuNhapSevice.getAllNhanVien().get(i).getMa().equals(tblPhieuNhap.getValueAt(index, 4))) {
-                    cboNhanVienNhap.setSelectedIndex(i);
-                }
-            }
-            for (int i = 0; i < phieuNhapSevice.getAllNhanVien().size(); i++) {
-                if (phieuNhapSevice.getAllNhanVien().get(i).getHoTen().equals(tblPhieuNhap.getValueAt(index, 5))) {
-                    cboNhanVienNhap.setSelectedIndex(i);
-                }
-            }
+            cboNhanVienNhap.setSelectedItem(findbyName(tblPhieuNhap.getValueAt(index, 4).toString()));
             dateNgayNhap.setDate((Date) tblPhieuNhap.getValueAt(index, 6));
-//            try {
-//                String dates = tblPhieuNhap.getValueAt(index, 6).toString();
-//                Date date = new SimpleDateFormat("dd-MM-yyyy").parse(dates);
-//                dateNgayNhap.setDate(date);
-//            } catch (ParseException ex) {
-//            }
         }
     }
 
@@ -2191,7 +2172,7 @@ public class QLGiaoDich extends javax.swing.JPanel {
                 phieuNhapSevice.getAllNguyenLieuByChiNhanh(((ChiNhanhViewModel_Hoang) comboChiNhanh.getSelectedItem()).getId()).toArray());
         cboNguyenLieuNhap.setModel((DefaultComboBoxModel) comboNguyenLieu);
         comboNhanVien = (DefaultComboBoxModel) new DefaultComboBoxModel<>(phieuNhapSevice.getAllNhanVienByChiNhanh(((ChiNhanhViewModel_Hoang) comboChiNhanh.getSelectedItem()).getId()).toArray());
-            cboNhanVienNhap.setModel((DefaultComboBoxModel) comboNhanVien);
+        cboNhanVienNhap.setModel((DefaultComboBoxModel) comboNhanVien);
         loadTablePhieuNhap(phieuNhapSevice.getAllPhieuNhapByChiNhanh(((ChiNhanhViewModel_Hoang) comboChiNhanh.getSelectedItem()).getId()));
     }//GEN-LAST:event_cboChiNhanhNhapActionPerformed
 
@@ -2204,7 +2185,7 @@ public class QLGiaoDich extends javax.swing.JPanel {
                 phieuNhapSevice.getAllNguyenLieuByChiNhanh(((ChiNhanhViewModel_Hoang) comboChiNhanhTra.getSelectedItem()).getId()).toArray());
         cboNguyenLieuTra.setModel((DefaultComboBoxModel) comboNguyenLieuTra);
         comboNhanVienTra = (DefaultComboBoxModel) new DefaultComboBoxModel<>(phieuNhapSevice.getAllNhanVienByChiNhanh(((ChiNhanhViewModel_Hoang) comboChiNhanhTra.getSelectedItem()).getId()).toArray());
-            cboNhanVienTra.setModel((DefaultComboBoxModel) comboNhanVienTra);
+        cboNhanVienTra.setModel((DefaultComboBoxModel) comboNhanVienTra);
         loadTablePhieuTra(phieuTraService.getAllPhieuTraByChiNhanh(((ChiNhanhViewModel_Hoang) comboChiNhanhTra.getSelectedItem()).getId()));
     }//GEN-LAST:event_cboChiNhanhTraActionPerformed
 
