@@ -34,18 +34,28 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import repository.HoaDonChiTietRepo;
+import repository.KhuVucRepository;
+import service.IBanHangService;
+import service.IBanService;
 import service.IHoaDon;
 import service.IHoaDonChiTiet;
+import service.IKhuVucService;
+import service.ILogin;
 import service.IPhieuNhap;
 import service.IPhieuTra;
+import service.implement.BanHangService;
+import service.implement.BanService;
 import service.implement.ChiTietHoaDonService;
 import service.implement.HoaDonService;
+import service.implement.LoginSerVice;
 import service.implement.PhieuNhapService;
 import service.implement.PhieuTraService;
+import viewmodel.ChiNhanhViewModel_Hoang;
 import viewmodel.ChiTietPhieuNhapViewModel;
 import viewmodel.ChiTietPhieuTraViewModel;
 import viewmodel.ChitietHoaDonViewModel;
 import viewmodel.HoaDonViewModel;
+import viewmodel.KhuVucViewModel;
 import viewmodel.NguyenLieuViewModel_Hoang;
 import viewmodel.NhaCungCapViewModel_Hoang;
 import viewmodel.NhanVienViewModel_Hoang;
@@ -75,6 +85,8 @@ public class QLGiaoDich extends javax.swing.JPanel {
     DefaultComboBoxModel<NhaCungCapViewModel_Hoang> comboNhaCungCapTra;
     DefaultComboBoxModel<NhanVienViewModel_Hoang> comboNhanVienTra;
     DefaultComboBoxModel<NguyenLieuViewModel_Hoang> comboNguyenLieuTra;
+    DefaultComboBoxModel<ChiNhanhViewModel_Hoang> comboChiNhanh;
+    DefaultComboBoxModel<ChiNhanhViewModel_Hoang> comboChiNhanhTra;
     IHoaDon hoaDonService = new HoaDonService();
     IHoaDonChiTiet hoaDonChiTietService = new ChiTietHoaDonService();
     List<HoaDonViewModel> lstHoaDon = new ArrayList<>();
@@ -82,42 +94,74 @@ public class QLGiaoDich extends javax.swing.JPanel {
 
     IPhieuNhap phieuNhapSevice = new PhieuNhapService();
     Set<ChiTietPhieuNhapViewModel> lstChiTietPhieuNhap = new HashSet<>();
-    List<PhieuNhapViewModel> lstPhieuNhap = new ArrayList<>();
+    Set<PhieuNhapViewModel> lstPhieuNhap = new HashSet<>();
 
     IPhieuTra phieuTraService = new PhieuTraService();
-    List<PhieuTraViewModel> lstPhieuTra = new ArrayList<>();
+    Set<PhieuTraViewModel> lstPhieuTra = new HashSet<>();
+    IBanHangService iBanHang = new BanHangService();
+    IBanService iBanService = new BanService();
+    private TaiKhoanAdmin taiKhoanAdmin;
+    private TaiKhoanNguoiDung taiKhoanNguoiDung;
+    Set<ChiNhanhViewModel_Hoang> lstChiNhanh = new HashSet<>();
 
     public QLGiaoDich(TaiKhoanAdmin admin, TaiKhoanNguoiDung nguoiDung) {
         initComponents();
-        loadAll();
-    }
-
-    private void loadAll() {
-        lstHoaDon = hoaDonService.getAllHoaDon();
-        loadTableHoaDon(lstHoaDon);
-        lstPhieuNhap = phieuNhapSevice.getAllPhieuNhap();
-        loadTablePhieuNhap(lstPhieuNhap);
-        lstPhieuTra = phieuTraService.getAllPhieuTra();
-        loadTablePhieuTra(lstPhieuTra);
+        taiKhoanAdmin = admin;
+        taiKhoanNguoiDung = nguoiDung;
         modelNguyenLieu = (DefaultTableModel) tblNguyenLieu.getModel();
         modelNguyenLieuTra = (DefaultTableModel) tblNguyenLieuTra.getModel();
-        comboNguyenLieu = (DefaultComboBoxModel) new DefaultComboBoxModel<>(phieuNhapSevice.getAllNguyenLieu().toArray());
-        cboNguyenLieuNhap.setModel((DefaultComboBoxModel) comboNguyenLieu);
 
         comboNhaCungCap = (DefaultComboBoxModel) new DefaultComboBoxModel<>(phieuNhapSevice.getAllNhaCungCap().toArray());
         cboNhaCungCapNhap.setModel((DefaultComboBoxModel) comboNhaCungCap);
 
-        comboNhanVien = (DefaultComboBoxModel) new DefaultComboBoxModel(phieuNhapSevice.getAllNhanVien().toArray());
-        cboNhanVienNhap.setModel((DefaultComboBoxModel) comboNhanVien);
-
-        comboNguyenLieuTra = (DefaultComboBoxModel) new DefaultComboBoxModel<>(phieuNhapSevice.getAllNguyenLieu().toArray());
-        cboNguyenLieuTra.setModel((DefaultComboBoxModel) comboNguyenLieuTra);
-
         comboNhaCungCapTra = (DefaultComboBoxModel) new DefaultComboBoxModel<>(phieuNhapSevice.getAllNhaCungCap().toArray());
         cboNhaCungCapTra.setModel((DefaultComboBoxModel) comboNhaCungCapTra);
+        if (taiKhoanAdmin != null) {
+            //Chi nhánh
+            comboChiNhanh = (DefaultComboBoxModel) new DefaultComboBoxModel<>(iBanHang.getAllChiNhanh().toArray());
+            cboChiNhanhNhap.setModel((DefaultComboBoxModel) comboChiNhanh);
+            comboChiNhanhTra = (DefaultComboBoxModel) new DefaultComboBoxModel<>(iBanHang.getAllChiNhanh().toArray());
+            cboChiNhanhTra.setModel((DefaultComboBoxModel) comboChiNhanhTra);
+            //Nhân viên
+            comboNhanVien = (DefaultComboBoxModel) new DefaultComboBoxModel<>(phieuNhapSevice.getAllNhanVienByChiNhanh(((ChiNhanhViewModel_Hoang) comboChiNhanh.getSelectedItem()).getId()).toArray());
+            cboNhanVienNhap.setModel((DefaultComboBoxModel) comboNhanVien);
+            comboNhanVienTra = (DefaultComboBoxModel) new DefaultComboBoxModel<>(phieuNhapSevice.getAllNhanVienByChiNhanh(((ChiNhanhViewModel_Hoang) comboChiNhanhTra.getSelectedItem()).getId()).toArray());
+            cboNhanVienTra.setModel((DefaultComboBoxModel) comboNhanVienTra);
+            //Nguyên liệu
+            comboNguyenLieu = (DefaultComboBoxModel) new DefaultComboBoxModel<>(phieuNhapSevice.getAllNguyenLieuByChiNhanh(((ChiNhanhViewModel_Hoang) comboChiNhanh.getSelectedItem()).getId()).toArray());
+            cboNguyenLieuNhap.setModel((DefaultComboBoxModel) comboNguyenLieu);
+            comboNguyenLieuTra = (DefaultComboBoxModel) new DefaultComboBoxModel<>(phieuNhapSevice.getAllNguyenLieuByChiNhanh(((ChiNhanhViewModel_Hoang) comboChiNhanhTra.getSelectedItem()).getId()).toArray());
+            cboNguyenLieuTra.setModel((DefaultComboBoxModel) comboNguyenLieuTra);
+            loadAll((((ChiNhanhViewModel_Hoang) comboChiNhanhTra.getSelectedItem()).getId()));
+           
 
-        comboNhanVienTra = (DefaultComboBoxModel) new DefaultComboBoxModel(phieuNhapSevice.getAllNhanVien().toArray());
-        cboNhanVienTra.setModel((DefaultComboBoxModel) comboNhanVienTra);
+        } else {
+            lblCNNhap.setVisible(false);
+            cboChiNhanhNhap.setVisible(false);
+            lblCNTra.setVisible(false);
+            cboChiNhanhTra.setVisible(false);
+            comboNhanVien = (DefaultComboBoxModel) new DefaultComboBoxModel<>(phieuNhapSevice.getAllNhanVienByChiNhanh(iBanService.getChiNhanhByTaiKhoan(nguoiDung.getId()).getId()).toArray());
+            cboNhanVienNhap.setModel((DefaultComboBoxModel) comboNhanVien);
+            
+            comboNhanVienTra = (DefaultComboBoxModel) new DefaultComboBoxModel<>(phieuNhapSevice.getAllNhanVienByChiNhanh(iBanService.getChiNhanhByTaiKhoan(nguoiDung.getId()).getId()).toArray());
+            cboNhanVienTra.setModel((DefaultComboBoxModel) comboNhanVienTra);
+            
+            comboNguyenLieu = (DefaultComboBoxModel) new DefaultComboBoxModel<>(phieuNhapSevice.getAllNguyenLieuByChiNhanh(iBanService.getChiNhanhByTaiKhoan(nguoiDung.getId()).getId()).toArray());
+            cboNguyenLieuNhap.setModel((DefaultComboBoxModel) comboNguyenLieu);
+            
+            comboNguyenLieuTra = (DefaultComboBoxModel) new DefaultComboBoxModel<>(phieuNhapSevice.getAllNguyenLieuByChiNhanh(iBanService.getChiNhanhByTaiKhoan(nguoiDung.getId()).getId()).toArray());
+            cboNguyenLieuTra.setModel((DefaultComboBoxModel) comboNguyenLieuTra);
+            loadAll(iBanService.getChiNhanhByTaiKhoan(nguoiDung.getId()).getId());
+        }
+    }
+
+    private void loadAll(String idChiNhanh) {
+        lstHoaDon = hoaDonService.getAllHoaDon();
+        loadTableHoaDon(lstHoaDon);
+        lstPhieuNhap = phieuNhapSevice.getAllPhieuNhapByChiNhanh(idChiNhanh);
+        loadTablePhieuNhap(lstPhieuNhap);
+        lstPhieuTra = phieuTraService.getAllPhieuTraByChiNhanh(idChiNhanh);
+        loadTablePhieuTra(lstPhieuTra);
     }
 
     private void loadTableHoaDon(List<HoaDonViewModel> lstHoaDon) {
@@ -128,7 +172,7 @@ public class QLGiaoDich extends javax.swing.JPanel {
         }
     }
 
-    private void loadTablePhieuNhap(List<PhieuNhapViewModel> lstPhieuNhap) {
+    private void loadTablePhieuNhap(Set<PhieuNhapViewModel> lstPhieuNhap) {
         modelPhieuNhap = (DefaultTableModel) tblPhieuNhap.getModel();
         modelPhieuNhap.setRowCount(0);
         for (PhieuNhapViewModel x : lstPhieuNhap) {
@@ -136,7 +180,7 @@ public class QLGiaoDich extends javax.swing.JPanel {
         }
     }
 
-    private void loadTablePhieuTra(List<PhieuTraViewModel> lstPhieuTra) {
+    private void loadTablePhieuTra(Set<PhieuTraViewModel> lstPhieuTra) {
         modelPhieuTra = (DefaultTableModel) tblPhieuTra.getModel();
         modelPhieuTra.setRowCount(0);
         for (PhieuTraViewModel x : lstPhieuTra) {
@@ -231,6 +275,8 @@ public class QLGiaoDich extends javax.swing.JPanel {
         jScrollPane9 = new javax.swing.JScrollPane();
         tblNguyenLieu = new javax.swing.JTable();
         dateNgayNhap = new com.toedter.calendar.JDateChooser();
+        cboChiNhanhNhap = new javax.swing.JComboBox<>();
+        lblCNNhap = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -264,6 +310,8 @@ public class QLGiaoDich extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
         tblNguyenLieuTra = new javax.swing.JTable();
+        lblCNTra = new javax.swing.JLabel();
+        cboChiNhanhTra = new javax.swing.JComboBox<>();
 
         jTabbedPane1.setBackground(new java.awt.Color(228, 212, 189));
         jTabbedPane1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -738,6 +786,17 @@ public class QLGiaoDich extends javax.swing.JPanel {
 
         dateNgayNhap.setDateFormatString("dd-MM-yyyy");
 
+        cboChiNhanhNhap.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        cboChiNhanhNhap.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboChiNhanhNhap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboChiNhanhNhapActionPerformed(evt);
+            }
+        });
+
+        lblCNNhap.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblCNNhap.setText("Chi nhánh");
+
         javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
         jPanel18.setLayout(jPanel18Layout);
         jPanel18Layout.setHorizontalGroup(
@@ -753,23 +812,27 @@ public class QLGiaoDich extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(btnTaoPhieuNhap))
                     .addGroup(jPanel18Layout.createSequentialGroup()
-                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(cboNhaCungCapNhap, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel33, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel18Layout.createSequentialGroup()
+                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cboNhaCungCapNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel33)
+                            .addGroup(jPanel18Layout.createSequentialGroup()
                                 .addComponent(jLabel39)
                                 .addGap(18, 18, 18)
                                 .addComponent(txtMaPhieuNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel34, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel36, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel18Layout.createSequentialGroup()
+                            .addComponent(jLabel34)
+                            .addComponent(jLabel36)
+                            .addGroup(jPanel18Layout.createSequentialGroup()
                                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(dateNgayNhap, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
                                     .addComponent(cboNguyenLieuNhap, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(82, 82, 82)
                                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel35)
-                                    .addComponent(cboNhanVienNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(cboNhanVienNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel18Layout.createSequentialGroup()
+                                .addComponent(lblCNNhap)
+                                .addGap(18, 18, 18)
+                                .addComponent(cboChiNhanhNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -777,6 +840,10 @@ public class QLGiaoDich extends javax.swing.JPanel {
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel18Layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cboChiNhanhNhap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblCNNhap))
+                .addGap(4, 4, 4)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -852,7 +919,7 @@ public class QLGiaoDich extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 23, Short.MAX_VALUE))
+                .addGap(0, 8, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Phiếu nhập hàng", jPanel2);
@@ -1164,10 +1231,32 @@ public class QLGiaoDich extends javax.swing.JPanel {
             tblNguyenLieuTra.getColumnModel().getColumn(6).setMaxWidth(30);
         }
 
+        lblCNTra.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblCNTra.setText("Chi nhánh");
+
+        cboChiNhanhTra.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        cboChiNhanhTra.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboChiNhanhTra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboChiNhanhTraActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
         jPanel16.setLayout(jPanel16Layout);
         jPanel16Layout.setHorizontalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createSequentialGroup()
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnHuyPhieuTra)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnTaoPhieuTra, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
             .addGroup(jPanel16Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1195,23 +1284,22 @@ public class QLGiaoDich extends javax.swing.JPanel {
                                         .addGap(64, 64, 64))
                                     .addGroup(jPanel16Layout.createSequentialGroup()
                                         .addComponent(jLabel28)
-                                        .addContainerGap(174, Short.MAX_VALUE))))))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createSequentialGroup()
-                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnHuyPhieuTra)
+                                        .addContainerGap(174, Short.MAX_VALUE))))))
+                    .addGroup(jPanel16Layout.createSequentialGroup()
+                        .addComponent(lblCNTra)
                         .addGap(18, 18, 18)
-                        .addComponent(btnTaoPhieuTra, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addComponent(cboChiNhanhTra, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel16Layout.setVerticalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel16Layout.createSequentialGroup()
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cboChiNhanhTra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblCNTra))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel40, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1257,9 +1345,9 @@ public class QLGiaoDich extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, 825, Short.MAX_VALUE)
                     .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Phiếu trả hàng", jPanel3);
@@ -1324,7 +1412,6 @@ public class QLGiaoDich extends javax.swing.JPanel {
                 }
             }
             if (count == 0) {
-                System.out.println(nguyenLieu.getId() + nguyenLieu.getMa() + nguyenLieu.getTen() + 1 + nguyenLieu.getDonVitinh());
                 modelNguyenLieu.addRow(new Object[]{nguyenLieu.getId(), nguyenLieu.getMa(), nguyenLieu.getTen(), 1, nguyenLieu.getDonVitinh(), 1});
             }
         }
@@ -1399,24 +1486,24 @@ public class QLGiaoDich extends javax.swing.JPanel {
             }
 
             JOptionPane.showMessageDialog(this, "Tạo phiếu nhập thành công");
-            loadAll();
+            loadAll((((ChiNhanhViewModel_Hoang) comboChiNhanh.getSelectedItem()).getId()));
             clearFormPhieuNhap();
         }
     }//GEN-LAST:event_btnTaoPhieuNhapActionPerformed
 
     private void btnHuyPhieuNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyPhieuNhapActionPerformed
         int row = tblPhieuNhap.getSelectedRow();
-        PhieuNhapViewModel pnView = new PhieuNhapViewModel();
-        lstPhieuNhap = phieuNhapSevice.getAllPhieuNhap();
+//        PhieuNhapViewModel pnView = new PhieuNhapViewModel();
+        lstPhieuNhap = phieuNhapSevice.getAllPhieuNhapByChiNhanh(((ChiNhanhViewModel_Hoang) comboChiNhanh.getSelectedItem()).getId());
         if (row == -1) {
             JOptionPane.showMessageDialog(this, "Bạn chưa chọn phiếu nhập");
         } else {
-            pnView = lstPhieuNhap.get(row);
+//            pnView = lstPhieuNhap.get(row);
             int chon = JOptionPane.showConfirmDialog(this, "Xác nhận hủy phiếu", "Xác nhận", JOptionPane.YES_NO_OPTION);
             if (chon == JOptionPane.YES_OPTION) {
-                if (pnView.getTrangThai() == 1) {
+                if (tblPhieuNhap.getValueAt(row, 7).toString().equalsIgnoreCase("Phiếu tạm")) {
                     JOptionPane.showMessageDialog(this, phieuNhapSevice.updateTrangThaiPhieuNhap(tblPhieuNhap.getValueAt(row, 1).toString(), 0));
-                    loadAll();
+                    loadAll((((ChiNhanhViewModel_Hoang) comboChiNhanh.getSelectedItem()).getId()));
                     rdoHuyPhieuNhap.setSelected(true);
                     loadHuyPhieuNhap(lstPhieuNhap);
                     clearFormPhieuNhap();
@@ -1441,7 +1528,7 @@ public class QLGiaoDich extends javax.swing.JPanel {
 //                phieuNhapSevice.insertCTPhieuNhap(tblPhieuNhap.getValueAt(row, 0).toString(), tblNguyenLieu.getValueAt(i, 0).toString(), Float.parseFloat(tblNguyenLieu.getValueAt(i, 3).toString()), Float.parseFloat(tblNguyenLieu.getValueAt(row, 5).toString()));
 //            }
                     clearFormPhieuNhap();
-                    loadAll();
+                    loadAll(((ChiNhanhViewModel_Hoang) cboChiNhanhNhap.getSelectedItem()).getId());
                     JOptionPane.showMessageDialog(this, "Cập nhật thành công");
                 } else {
                     JOptionPane.showMessageDialog(this, "Không được sửa mã phiếu nhập");
@@ -1473,18 +1560,15 @@ public class QLGiaoDich extends javax.swing.JPanel {
 
     private void btnHuyPhieuTraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyPhieuTraActionPerformed
         int row = tblPhieuTra.getSelectedRow();
-        PhieuTraViewModel ptView = new PhieuTraViewModel();
-        lstPhieuTra = phieuTraService.getAllPhieuTra();
         if (row == -1) {
             JOptionPane.showMessageDialog(this, "Bạn chưa chọn phiếu trả");
         } else {
-            ptView = lstPhieuTra.get(row);
-            if (ptView.getTrangThai() == 1) {
+            if (tblPhieuTra.getValueAt(row, 7).toString().equalsIgnoreCase("Phiếu tạm")) {
                 int chon = JOptionPane.showConfirmDialog(this, "Xác nhận hủy phiếu", "Xác nhận", JOptionPane.YES_NO_OPTION);
                 if (chon == JOptionPane.YES_OPTION) {
-                    JOptionPane.showMessageDialog(this, phieuTraService.updateTrangThaiPhieuTra(tblPhieuTra.getValueAt(row, 0).toString(), 0));
-                    lstPhieuTra = phieuTraService.getAllPhieuTra();
-                    loadAll();
+                    JOptionPane.showMessageDialog(this, phieuTraService.updateTrangThaiPhieuTra(tblPhieuTra.getValueAt(row, 1).toString(), 0));
+                    lstPhieuTra = phieuTraService.getAllPhieuTraByChiNhanh(((ChiNhanhViewModel_Hoang) cboChiNhanhTra.getSelectedItem()).getId());
+                    loadAll(((ChiNhanhViewModel_Hoang) cboChiNhanhTra.getSelectedItem()).getId());
                     loadTableHuyPhieuTra(lstPhieuTra);
                     rdoHuyPhieuTra.setSelected(true);
                 }
@@ -1514,7 +1598,7 @@ public class QLGiaoDich extends javax.swing.JPanel {
                     phieuTraService.insertCTPhieuTra(tblPhieuTra.getValueAt(row, 0).toString(), tblNguyenLieuTra.getValueAt(i, 0).toString(), Float.parseFloat(tblNguyenLieuTra.getValueAt(i, 3).toString()), tblNguyenLieuTra.getValueAt(row, 5).toString());
                 }
                 clearPhieuTra();
-                loadAll();
+                loadAll(((ChiNhanhViewModel_Hoang) cboChiNhanhNhap.getSelectedItem()).getId());
                 JOptionPane.showMessageDialog(this, "Cập nhật thành công");
             } else {
                 JOptionPane.showMessageDialog(this, "Dữ liệu trống");
@@ -1534,7 +1618,7 @@ public class QLGiaoDich extends javax.swing.JPanel {
         lstChiTietHD = hoaDonChiTietService.getHoaDonChiTietByMaHoaDon(tblHoaDon.getValueAt(row, 0).toString());
         loadTableHoaDonChiTiet(lstChiTietHD);
     }//GEN-LAST:event_tblHoaDonMouseClicked
-    private void loadHuyPhieuNhap(List<PhieuNhapViewModel> lstPhieuNhap) {
+    private void loadHuyPhieuNhap(Set<PhieuNhapViewModel> lstPhieuNhap) {
         modelPhieuNhap = (DefaultTableModel) tblPhieuNhap.getModel();
         modelPhieuNhap.setRowCount(0);
         for (PhieuNhapViewModel x : lstPhieuNhap) {
@@ -1547,7 +1631,7 @@ public class QLGiaoDich extends javax.swing.JPanel {
         loadHuyPhieuNhap(lstPhieuNhap);
         clearFormPhieuNhap();
     }//GEN-LAST:event_rdoHuyPhieuNhapActionPerformed
-    private void loadDaHoanThanh(List<PhieuNhapViewModel> lstPhieuNhap) {
+    private void loadDaHoanThanh(Set<PhieuNhapViewModel> lstPhieuNhap) {
         modelPhieuNhap = (DefaultTableModel) tblPhieuNhap.getModel();
         modelPhieuNhap.setRowCount(0);
         for (PhieuNhapViewModel x : lstPhieuNhap) {
@@ -1560,7 +1644,7 @@ public class QLGiaoDich extends javax.swing.JPanel {
         loadDaHoanThanh(lstPhieuNhap);
         clearFormPhieuNhap();
     }//GEN-LAST:event_rdoHoanThanhPhieuNhapActionPerformed
-    private void loadPhieuTam(List<PhieuNhapViewModel> lstPhieuNhap) {
+    private void loadPhieuTam(Set<PhieuNhapViewModel> lstPhieuNhap) {
         modelPhieuNhap = (DefaultTableModel) tblPhieuNhap.getModel();
         modelPhieuNhap.setRowCount(0);
         for (PhieuNhapViewModel x : lstPhieuNhap) {
@@ -1576,9 +1660,9 @@ public class QLGiaoDich extends javax.swing.JPanel {
 
     private void btnTimKiemPhieuNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemPhieuNhapActionPerformed
         if (txtTimKiemPhieuNhap.getText().isEmpty()) {
-            loadTablePhieuNhap(phieuNhapSevice.getAllPhieuNhap());
+            loadTablePhieuNhap(phieuNhapSevice.getAllPhieuNhapByChiNhanh(((ChiNhanhViewModel_Hoang) cboChiNhanhNhap.getSelectedItem()).getId()));
         } else {
-            List<PhieuNhapViewModel> lstSearch = phieuNhapSevice.searchPhieuNhap(txtTimKiemPhieuNhap.getText());
+            Set<PhieuNhapViewModel> lstSearch = phieuNhapSevice.searchPhieuNhap(txtTimKiemPhieuNhap.getText());
             if (lstSearch.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Không tồn tại phiếu nhập");
             } else {
@@ -1586,7 +1670,7 @@ public class QLGiaoDich extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_btnTimKiemPhieuNhapActionPerformed
-    private void loadTablePhieuTraTam(List<PhieuTraViewModel> lstPhieuTra) {
+    private void loadTablePhieuTraTam(Set<PhieuTraViewModel> lstPhieuTra) {
         modelPhieuTra = (DefaultTableModel) tblPhieuTra.getModel();
         modelPhieuTra.setRowCount(0);
         for (PhieuTraViewModel x : lstPhieuTra) {
@@ -1597,25 +1681,24 @@ public class QLGiaoDich extends javax.swing.JPanel {
     }
     private void rdoPhieuTraTamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoPhieuTraTamActionPerformed
         loadTablePhieuTraTam(lstPhieuTra);
+        clearPhieuTra();
     }//GEN-LAST:event_rdoPhieuTraTamActionPerformed
 
     private void btnHoanThanhPhieuNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHoanThanhPhieuNhapActionPerformed
         int row = tblPhieuNhap.getSelectedRow();
-        PhieuNhapViewModel pnView = new PhieuNhapViewModel();
-        lstPhieuNhap = phieuNhapSevice.getAllPhieuNhap();
+        lstPhieuNhap = phieuNhapSevice.getAllPhieuNhapByChiNhanh(((ChiNhanhViewModel_Hoang) cboChiNhanhNhap.getSelectedItem()).getId());
         if (row == -1) {
             JOptionPane.showMessageDialog(this, "Bạn chưa chọn phiếu nhập");
         } else {
-            pnView = lstPhieuNhap.get(row);
             int chon = JOptionPane.showConfirmDialog(this, "Xác nhận hoàn thành phiếu", "Xác nhận", JOptionPane.YES_NO_OPTION);
             if (chon == JOptionPane.YES_OPTION) {
-                if (pnView.getTrangThai() == 1) {
+                if (tblPhieuNhap.getValueAt(row, 7).toString().equalsIgnoreCase("Phiếu tạm")) {
                     JOptionPane.showMessageDialog(this, phieuNhapSevice.updateTrangThaiPhieuNhap(tblPhieuNhap.getValueAt(row, 1).toString(), 3));
                     for (int i = 0; i < tblNguyenLieu.getRowCount(); i++) {
                         phieuNhapSevice.updateSoluongNguyenLieu(tblNguyenLieu.getValueAt(i, 0).toString(), Float.parseFloat(tblNguyenLieu.getValueAt(i, 3).toString()));
                     }
                     JOptionPane.showMessageDialog(this, "Đã hoàn thành phiếu và cập nhật số lượng trong kho");
-                    loadAll();
+                    loadAll(((ChiNhanhViewModel_Hoang) comboChiNhanh.getSelectedItem()).getId());
                     loadDaHoanThanh(lstPhieuNhap);
                     rdoHoanThanhPhieuNhap.setSelected(true);
                     clearFormPhieuNhap();
@@ -1628,9 +1711,9 @@ public class QLGiaoDich extends javax.swing.JPanel {
 
     private void btnTimKiemPhieuTraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemPhieuTraActionPerformed
         if (txtTimKiemPhieuTra.getText().isEmpty()) {
-            loadTablePhieuTra(phieuTraService.getAllPhieuTra());
+            loadTablePhieuTra(phieuTraService.getAllPhieuTraByChiNhanh(((ChiNhanhViewModel_Hoang) cboChiNhanhTra.getSelectedItem()).getId()));
         } else {
-            List<PhieuTraViewModel> lstSearchPhieuTra = phieuTraService.searchPhieuTra(txtTimKiemPhieuTra.getText());
+            Set<PhieuTraViewModel> lstSearchPhieuTra = phieuTraService.searchPhieuTra(txtTimKiemPhieuTra.getText());
             if (lstSearchPhieuTra.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Không tồn tại mã phiếu này");
             } else {
@@ -1646,8 +1729,9 @@ public class QLGiaoDich extends javax.swing.JPanel {
 
     private void rdoTatCaPhieuTraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoTatCaPhieuTraActionPerformed
         loadTablePhieuTra(lstPhieuTra);
+        clearPhieuTra();
     }//GEN-LAST:event_rdoTatCaPhieuTraActionPerformed
-    private void loadTableHuyPhieuTra(List<PhieuTraViewModel> lstPhieuTra) {
+    private void loadTableHuyPhieuTra(Set<PhieuTraViewModel> lstPhieuTra) {
         modelPhieuTra = (DefaultTableModel) tblPhieuTra.getModel();
         modelPhieuTra.setRowCount(0);
         for (PhieuTraViewModel x : lstPhieuTra) {
@@ -1659,7 +1743,7 @@ public class QLGiaoDich extends javax.swing.JPanel {
     private void rdoHuyPhieuTraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoHuyPhieuTraActionPerformed
         loadTableHuyPhieuTra(lstPhieuTra);
     }//GEN-LAST:event_rdoHuyPhieuTraActionPerformed
-    private void loadTablePhieuTraHoanThanh(List<PhieuTraViewModel> lstPhieuTra) {
+    private void loadTablePhieuTraHoanThanh(Set<PhieuTraViewModel> lstPhieuTra) {
         modelPhieuTra = (DefaultTableModel) tblPhieuTra.getModel();
         modelPhieuTra.setRowCount(0);
         for (PhieuTraViewModel x : lstPhieuTra) {
@@ -1681,25 +1765,22 @@ public class QLGiaoDich extends javax.swing.JPanel {
     }
     private void btnHoanThanhPhieuTraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHoanThanhPhieuTraActionPerformed
         int row = tblPhieuTra.getSelectedRow();
-        PhieuTraViewModel ptView = new PhieuTraViewModel();
-        lstPhieuTra = phieuTraService.getAllPhieuTra();
+        lstPhieuTra = phieuTraService.getAllPhieuTraByChiNhanh(((ChiNhanhViewModel_Hoang) cboChiNhanhTra.getSelectedItem()).getId());
         if (row == -1) {
             JOptionPane.showMessageDialog(this, "Bạn chưa chọn phiếu trả");
         } else {
-            if (ptView.getTrangThai() == 1) {
-                int chon = JOptionPane.showConfirmDialog(this, "Xác nhận hủy phiếu", "Xác nhận", JOptionPane.YES_NO_OPTION);
+            if (tblPhieuTra.getValueAt(row, 7).toString().equalsIgnoreCase("Phiếu tạm")) {
+                int chon = JOptionPane.showConfirmDialog(this, "Xác nhận hoàn thành phiếu", "Xác nhận", JOptionPane.YES_NO_OPTION);
                 if (chon == JOptionPane.YES_OPTION) {
-                    JOptionPane.showMessageDialog(this, phieuTraService.updateTrangThaiPhieuTra(tblPhieuTra.getValueAt(row, 0).toString(), 3));
+                    JOptionPane.showMessageDialog(this, phieuTraService.updateTrangThaiPhieuTra(tblPhieuTra.getValueAt(row, 1).toString(), 3));
                     for (int i = 0; i < tblNguyenLieuTra.getRowCount(); i++) {
                         phieuTraService.updateSoluongNguyenLieuTra(tblNguyenLieuTra.getValueAt(i, 0).toString(), Float.parseFloat(tblNguyenLieuTra.getValueAt(i, 3).toString()));
                     }
-
-                    ptView = lstPhieuTra.get(row);
-                    lstPhieuTra = phieuTraService.getAllPhieuTra();
+                    loadAll(((ChiNhanhViewModel_Hoang) comboChiNhanhTra.getSelectedItem()).getId());
                     loadTablePhieuTraHoanThanh(lstPhieuTra);
                     rdoHoanThanhPhieuTra.setSelected(true);
                     JOptionPane.showMessageDialog(this, "Đã hoàn thành phiếu và cập nhật số lượng trong kho");
-                    loadAll();
+
                     clearPhieuTra();
                 }
             } else {
@@ -1950,7 +2031,7 @@ public class QLGiaoDich extends javax.swing.JPanel {
                 phieuTraService.insertCTPhieuTra(idPhieuTra, tblNguyenLieuTra.getValueAt(i, 0).toString(), Float.parseFloat(tblNguyenLieuTra.getValueAt(i, 3).toString()), tblNguyenLieuTra.getValueAt(i, 5).toString());
             }
             JOptionPane.showMessageDialog(this, "Thêm phiếu trả thành công");
-            loadAll();
+            loadAll(((ChiNhanhViewModel_Hoang) comboChiNhanhTra.getSelectedItem()).getId());
             clearPhieuTra();
         }
     }//GEN-LAST:event_btnTaoPhieuTraActionPerformed
@@ -2101,6 +2182,32 @@ public class QLGiaoDich extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_tblNguyenLieuTraKeyReleased
 
+    private void cboChiNhanhNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboChiNhanhNhapActionPerformed
+        // TODO add your handling code here:
+        modelNguyenLieu.setRowCount(0);
+        txtMaPhieuNhap.setText("");
+        dateNgayNhap.setDate(null);
+        comboNguyenLieu = (DefaultComboBoxModel) new DefaultComboBoxModel<>(
+                phieuNhapSevice.getAllNguyenLieuByChiNhanh(((ChiNhanhViewModel_Hoang) comboChiNhanh.getSelectedItem()).getId()).toArray());
+        cboNguyenLieuNhap.setModel((DefaultComboBoxModel) comboNguyenLieu);
+        comboNhanVien = (DefaultComboBoxModel) new DefaultComboBoxModel<>(phieuNhapSevice.getAllNhanVienByChiNhanh(((ChiNhanhViewModel_Hoang) comboChiNhanh.getSelectedItem()).getId()).toArray());
+            cboNhanVienNhap.setModel((DefaultComboBoxModel) comboNhanVien);
+        loadTablePhieuNhap(phieuNhapSevice.getAllPhieuNhapByChiNhanh(((ChiNhanhViewModel_Hoang) comboChiNhanh.getSelectedItem()).getId()));
+    }//GEN-LAST:event_cboChiNhanhNhapActionPerformed
+
+    private void cboChiNhanhTraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboChiNhanhTraActionPerformed
+        // TODO add your handling code here:
+        modelNguyenLieuTra.setRowCount(0);
+        txtMaPhieuTra.setText("");
+        dateNgayTra.setDate(null);
+        comboNguyenLieuTra = (DefaultComboBoxModel) new DefaultComboBoxModel<>(
+                phieuNhapSevice.getAllNguyenLieuByChiNhanh(((ChiNhanhViewModel_Hoang) comboChiNhanhTra.getSelectedItem()).getId()).toArray());
+        cboNguyenLieuTra.setModel((DefaultComboBoxModel) comboNguyenLieuTra);
+        comboNhanVienTra = (DefaultComboBoxModel) new DefaultComboBoxModel<>(phieuNhapSevice.getAllNhanVienByChiNhanh(((ChiNhanhViewModel_Hoang) comboChiNhanhTra.getSelectedItem()).getId()).toArray());
+            cboNhanVienTra.setModel((DefaultComboBoxModel) comboNhanVienTra);
+        loadTablePhieuTra(phieuTraService.getAllPhieuTraByChiNhanh(((ChiNhanhViewModel_Hoang) comboChiNhanhTra.getSelectedItem()).getId()));
+    }//GEN-LAST:event_cboChiNhanhTraActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCapNhatPhieuNhap;
@@ -2119,6 +2226,8 @@ public class QLGiaoDich extends javax.swing.JPanel {
     private javax.swing.JButton btnTimKiemPhieuNhap;
     private javax.swing.JButton btnTimKiemPhieuTra;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JComboBox<String> cboChiNhanhNhap;
+    private javax.swing.JComboBox<String> cboChiNhanhTra;
     private javax.swing.JComboBox<PhieuNhapViewModel> cboNguyenLieuNhap;
     private javax.swing.JComboBox<String> cboNguyenLieuTra;
     private javax.swing.JComboBox<NhaCungCap> cboNhaCungCapNhap;
@@ -2167,6 +2276,8 @@ public class QLGiaoDich extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JLabel lblCNNhap;
+    private javax.swing.JLabel lblCNTra;
     private javax.swing.JRadioButton rdoHoanThanhPhieuNhap;
     private javax.swing.JRadioButton rdoHoanThanhPhieuTra;
     private javax.swing.JRadioButton rdoHuyPhieuNhap;

@@ -4,6 +4,7 @@
  */
 package repository;
 
+import domainmodel.ChiNhanh;
 import domainmodel.ChiTietPhieuNhap;
 import domainmodel.HoaDonBanHang;
 import domainmodel.NguyenLieu;
@@ -12,6 +13,7 @@ import domainmodel.NhanVien;
 import domainmodel.PhieuNhapHang;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import org.hibernate.Session;
@@ -25,15 +27,23 @@ import utility.Hibernateutility;
  */
 public class PhieuNhapRepo {
 
-    public List<PhieuNhapHang> getAllPhieuNhap() {
-        List<PhieuNhapHang> lstPhieuNhap = null;
+    public Set<PhieuNhapHang> getAllPhieuNhapByChiNhanh(String idChiNhanh) {
+        Set<PhieuNhapHang> SetPhieuNhap = new HashSet<>();
+        Set<NguyenLieu> setNguyenLieu = null;
         try ( Session session = Hibernateutility.getFactory().openSession()) {
-            lstPhieuNhap = session.createQuery("from PhieuNhapHang").list();
+            ChiNhanh cn = session.get(ChiNhanh.class, idChiNhanh);
+           setNguyenLieu= cn.getListNguyenLieu();
+            for (NguyenLieu x : setNguyenLieu) {
+                Set<ChiTietPhieuNhap> setChiTiet= x.getChiTietPhieuNhap();
+                for (ChiTietPhieuNhap chiTietPhieuNhap : setChiTiet) {
+                    SetPhieuNhap.add(chiTietPhieuNhap.getPhieuNhapKey());
+                }
+            }
             session.close();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return lstPhieuNhap;
+        return SetPhieuNhap;
     }
 
     public List<ChiTietPhieuNhap> getAllChiTietPhieuNhap() {
@@ -243,6 +253,7 @@ public class PhieuNhapRepo {
             session.close();
         }
     }
+
     public void updateCTPhieuNhap(String idPn, String idNl, float soLuongNhap, float donGia) {
         try ( Session session = Hibernateutility.getFactory().openSession()) {
             Transaction trans = session.beginTransaction();
@@ -259,7 +270,7 @@ public class PhieuNhapRepo {
         }
     }
 
-    public  void deleteChiTietPnbyidPn(String idPn) {
+    public void deleteChiTietPnbyidPn(String idPn) {
         Set<ChiTietPhieuNhap> setChiTiet = null;
         try ( Session session = Hibernateutility.getFactory().openSession()) {
             Transaction trans = session.beginTransaction();
@@ -298,10 +309,31 @@ public class PhieuNhapRepo {
             session.close();
         }
     }
-
-    public List<ChiTietPhieuNhap> searchPhieuNhap(String maPN) {
+    public Set<NhanVien> getAllNhanVienByChiNhanh(String IdchiNhanh) {
+        Set<NhanVien> setNhanVien = null;
+        try (Session session = Hibernateutility.getFactory().openSession()) {
+            Transaction trans = session.beginTransaction();
+            ChiNhanh cn = session.get(ChiNhanh.class, IdchiNhanh);
+            setNhanVien = cn.getSetNhanVien();
+            trans.commit();
+            session.close();
+        }
+        return setNhanVien;
+    }
+     public Set<NguyenLieu> getAllNguyenLieuByChiNhanh(String IdchiNhanh) {
+        Set<NguyenLieu> setNguyenLieu = null;
+        try (Session session = Hibernateutility.getFactory().openSession()) {
+            Transaction trans = session.beginTransaction();
+            ChiNhanh cn = session.get(ChiNhanh.class, IdchiNhanh);
+            setNguyenLieu = cn.getListNguyenLieu();
+            trans.commit();
+            session.close();
+        }
+        return setNguyenLieu;
+    }
+    public Set<ChiTietPhieuNhap> searchPhieuNhap(String maPN) {
         Transaction trans = null;
-        List<ChiTietPhieuNhap> listChiTiet = new ArrayList<>();
+        Set<ChiTietPhieuNhap> listChiTiet = new HashSet<>();
         try ( Session session = Hibernateutility.getFactory().openSession()) {
             trans = session.beginTransaction();
             Query query = session.createQuery("FROM PhieuNhapHang WHERE Ma like :Ma");

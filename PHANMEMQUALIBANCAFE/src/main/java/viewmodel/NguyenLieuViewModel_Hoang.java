@@ -20,6 +20,16 @@ public class NguyenLieuViewModel_Hoang {
     public NguyenLieuViewModel_Hoang() {
     }
 
+    public NguyenLieuViewModel_Hoang(String id, String ma, String ten, Date hanSuDung, String donVitinh, float soLuongTon) {
+        this.id = id;
+        this.ma = ma;
+        this.ten = ten;
+        this.hanSuDung = hanSuDung;
+        this.donVitinh = donVitinh;
+        this.soLuongTon = soLuongTon;
+    }
+    
+
     public String getId() {
         return id;
     }

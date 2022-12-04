@@ -36,9 +36,9 @@ public class PhieuNhapService implements IPhieuNhap {
     }
 
     @Override
-    public List<PhieuNhapViewModel> getAllPhieuNhap() {
-        List<PhieuNhapViewModel> lstView = new ArrayList<>();
-        var lstPhieuNhap = phieuNhapRepo.getAllPhieuNhap();
+    public Set<PhieuNhapViewModel> getAllPhieuNhapByChiNhanh(String idChiNhanh) {
+        Set<PhieuNhapViewModel> lstView = new HashSet<>();
+        var lstPhieuNhap = phieuNhapRepo.getAllPhieuNhapByChiNhanh(idChiNhanh);
         for (PhieuNhapHang x : lstPhieuNhap) {
             PhieuNhapViewModel pnView = new PhieuNhapViewModel();
             pnView.setId(x.getId());
@@ -118,7 +118,14 @@ public class PhieuNhapService implements IPhieuNhap {
         }
         return lstViewNL;
     }
-
+    public static void main(String[] args) {
+        PhieuNhapService pn = new PhieuNhapService();
+        List<NguyenLieuViewModel_Hoang> lst = pn.getAllNguyenLieu();
+        for (NguyenLieuViewModel_Hoang nguyenLieuViewModel_Hoang : lst) {
+            System.out.println(nguyenLieuViewModel_Hoang.getDonVitinh());
+            System.out.println(nguyenLieuViewModel_Hoang.getTen());
+        }
+    }
     @Override
     public List<NhaCungCapViewModel_Hoang> getAllNhaCungCap() {
         List<NhaCungCapViewModel_Hoang> lstViewNCC = new ArrayList<>();
@@ -201,18 +208,18 @@ public class PhieuNhapService implements IPhieuNhap {
 
     }
 
-    public static void main(String[] args) {
-        PhieuNhapService hds = new PhieuNhapService();
-        List<PhieuNhapViewModel> list = hds.getAllPhieuNhap();
-        for (PhieuNhapViewModel x : list) {
-            System.out.println(x.getMaNhanVien());
-        }
-    }
+//    public static void main(String[] args) {
+//        PhieuNhapService hds = new PhieuNhapService();
+//        List<PhieuNhapViewModel> list = hds.getAllPhieuNhap();
+//        for (PhieuNhapViewModel x : list) {
+//            System.out.println(x.getMaNhanVien());
+//        }
+//    }
 
     @Override
-    public List<PhieuNhapViewModel> searchPhieuNhap(String maPN) {
+    public Set<PhieuNhapViewModel> searchPhieuNhap(String maPN) {
         var chiTietPhieuNhap = phieuNhapRepo.searchPhieuNhap(maPN);
-        List<PhieuNhapViewModel> lstSearchView = new ArrayList<>();
+        Set<PhieuNhapViewModel> lstSearchView = new HashSet<>();
         for (ChiTietPhieuNhap x : chiTietPhieuNhap) {
 
             PhieuNhapViewModel chiTietView = new PhieuNhapViewModel();
@@ -274,7 +281,7 @@ public class PhieuNhapService implements IPhieuNhap {
 
     @Override
     public void updatePhieuNhap(String idPN, String maPN, String idNCC, String idNV, Date ngayNhap) {
-       phieuNhapRepo.updatePhieuNhap(idPN, maPN, idNCC, idNV, ngayNhap);
+        phieuNhapRepo.updatePhieuNhap(idPN, maPN, idNCC, idNV, ngayNhap);
     }
 
     @Override
@@ -287,6 +294,28 @@ public class PhieuNhapService implements IPhieuNhap {
         phieuNhapRepo.updateCTPhieuNhap(idPn, idNl, soLuongNhap, donGia);
     }
 
-    
+    @Override
+    public Set<NhanVienViewModel_Hoang> getAllNhanVienByChiNhanh(String IdchiNhanh) {
+        var nhanVien = phieuNhapRepo.getAllNhanVienByChiNhanh(IdchiNhanh);
+        Set<NhanVienViewModel_Hoang> lstVIew = new HashSet<>();
+        for (NhanVien x : nhanVien) {
+            lstVIew.add(new NhanVienViewModel_Hoang(x.getId(), x.getMa(), x.getHoTen()));
+        }
+        return lstVIew;
+    }
 
+    @Override
+    public Set<NguyenLieuViewModel_Hoang> getAllNguyenLieuByChiNhanh(String IdchiNhanh) {
+        var nguyenLieu = phieuNhapRepo.getAllNguyenLieuByChiNhanh(IdchiNhanh);
+        Set<NguyenLieuViewModel_Hoang> lstVIew = new HashSet<>();
+        for (NguyenLieu x : nguyenLieu) {
+                NguyenLieuViewModel_Hoang nl = new NguyenLieuViewModel_Hoang();
+                nl.setId(x.getId());
+                nl.setMa(x.getMa());
+                nl.setTen(x.getTen());
+                nl.setDonVitinh(x.getDonViTinh());
+                lstVIew.add(nl);
+        }
+        return lstVIew;
+    }
 }

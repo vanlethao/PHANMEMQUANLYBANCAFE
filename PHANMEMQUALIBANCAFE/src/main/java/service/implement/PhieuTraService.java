@@ -42,10 +42,9 @@ public class PhieuTraService implements IPhieuTra {
     }
 
     @Override
-    public List<PhieuTraViewModel> getAllPhieuTra() {
-
-        List<PhieuTraViewModel> lstView = new ArrayList<>();
-        var lstPhieuTra = phieuTraRepo.getAllPhieuTra();
+    public Set<PhieuTraViewModel> getAllPhieuTraByChiNhanh(String idChiNhanh) {
+        Set<PhieuTraViewModel> lstView = new HashSet<>();
+        var lstPhieuTra = phieuTraRepo.getAllPhieuTraByChiNhanh(idChiNhanh);
 
         for (PhieuTraHang x : lstPhieuTra) {
             PhieuTraViewModel ptView = new PhieuTraViewModel();
@@ -87,8 +86,8 @@ public class PhieuTraService implements IPhieuTra {
     }
 
     @Override
-    public List<PhieuTraViewModel> searchPhieuTra(String maPN) {
-        List<PhieuTraViewModel> lstView = new ArrayList<>();
+    public Set<PhieuTraViewModel> searchPhieuTra(String maPN) {
+        Set<PhieuTraViewModel> lstView = new HashSet<>();
         var lstCtPhieuTra = phieuTraRepo.searchPhieuTra(maPN);
         for (ChiTietPhieuTra x : lstCtPhieuTra) {
             PhieuTraViewModel ptView = new PhieuTraViewModel();

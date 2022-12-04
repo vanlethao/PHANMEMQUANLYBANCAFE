@@ -18,7 +18,7 @@ import viewmodel.PhieuTraViewModel;
  */
 public interface IPhieuTra {
 
-    List<PhieuTraViewModel> getAllPhieuTra();
+    Set<PhieuTraViewModel> getAllPhieuTraByChiNhanh(String idChiNhanh);
 
 //    List<ChiTietPhieuTraViewModel> getAllChiTietPhieuTra();
     Set<ChiTietPhieuTraViewModel> getPhieuTraByChiTietPhieuTra(String id);
@@ -39,5 +39,5 @@ public interface IPhieuTra {
 
     String updateTrangThaiPhieuTra(String maPT, Integer trangThai);
 
-    List<PhieuTraViewModel> searchPhieuTra(String maPN);
+    Set<PhieuTraViewModel> searchPhieuTra(String maPN);
 }

@@ -4,6 +4,7 @@
  */
 package repository;
 
+import domainmodel.ChiNhanh;
 import domainmodel.ChiTietPhieuTra;
 import domainmodel.NguyenLieu;
 import domainmodel.NhaCungCap;
@@ -11,6 +12,7 @@ import domainmodel.NhanVien;
 import domainmodel.PhieuTraHang;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import org.hibernate.Session;
@@ -25,15 +27,23 @@ import utility.Hibernateutility;
  */
 public class PhieuTraRepo {
 
-    public List<PhieuTraHang> getAllPhieuTra() {
-        List<PhieuTraHang> lstPhieuTra = null;
+    public Set<PhieuTraHang> getAllPhieuTraByChiNhanh(String idChiNhanh) {
+        Set<PhieuTraHang> setPhieuTra = new HashSet<>();
+        Set<NguyenLieu> setNguyenLieu = null;
         try ( Session session = Hibernateutility.getFactory().openSession()) {
-            lstPhieuTra = session.createQuery("from PhieuTraHang").list();
+            ChiNhanh cn = session.get(ChiNhanh.class, idChiNhanh);
+            setNguyenLieu = cn.getListNguyenLieu();
+            for (NguyenLieu x : setNguyenLieu) {
+                Set<ChiTietPhieuTra> setChiTiet = x.getChiTietPhieuTra();
+                for (ChiTietPhieuTra y : setChiTiet) {
+                    setPhieuTra.add(y.getPhieuTraKey());
+                }
+            }
             session.close();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return lstPhieuTra;
+        return setPhieuTra;
     }
 
     public List<ChiTietPhieuTra> getAllChiTietPhieuTra() {

@@ -24,7 +24,7 @@ import viewmodel.PhieuNhapViewModel;
  */
 public interface IPhieuNhap {
 
-    List<PhieuNhapViewModel> getAllPhieuNhap();
+    Set<PhieuNhapViewModel> getAllPhieuNhapByChiNhanh(String idChiNhanh);
 
 //    Set<ChiTietPhieuNhapViewModel> getPhieuNhapByChiTietPhieuNhap(String maPN);
     void updatePhieuNhap(String idPN, String maPN, String idNCC, String idNV, Date ngayNhap);
@@ -51,7 +51,7 @@ public interface IPhieuNhap {
 
     NguyenLieuViewModel_Hoang getNguyenLieuByMa(String maNguyenLieu);
 
-    List<PhieuNhapViewModel> searchPhieuNhap(String maPN);
+    Set<PhieuNhapViewModel> searchPhieuNhap(String maPN);
 
     String insertPhieuNhap(String maPN, String idNcc, String idNv, Date ngayNhap, int trangThai);
 
@@ -60,4 +60,8 @@ public interface IPhieuNhap {
     void updateCTPhieuNhap(String idPn, String idNl, float soLuongNhap, float donGia);
 
     void updateSoluongNguyenLieu(String idNguyenLieu, float soLuongNhap);
+
+    Set<NhanVienViewModel_Hoang> getAllNhanVienByChiNhanh(String IdchiNhanh);
+
+    Set<NguyenLieuViewModel_Hoang> getAllNguyenLieuByChiNhanh(String IdchiNhanh);
 }
