@@ -100,14 +100,10 @@ public class QLGiaoDich extends javax.swing.JPanel {
     Set<PhieuTraViewModel> lstPhieuTra = new HashSet<>();
     IBanHangService iBanHang = new BanHangService();
     IBanService iBanService = new BanService();
-    private TaiKhoanAdmin taiKhoanAdmin;
-    private TaiKhoanNguoiDung taiKhoanNguoiDung;
     Set<ChiNhanhViewModel_Hoang> lstChiNhanh = new HashSet<>();
 
     public QLGiaoDich(TaiKhoanAdmin admin, TaiKhoanNguoiDung nguoiDung) {
         initComponents();
-        taiKhoanAdmin = admin;
-        taiKhoanNguoiDung = nguoiDung;
         modelNguyenLieu = (DefaultTableModel) tblNguyenLieu.getModel();
         modelNguyenLieuTra = (DefaultTableModel) tblNguyenLieuTra.getModel();
 
@@ -116,7 +112,9 @@ public class QLGiaoDich extends javax.swing.JPanel {
 
         comboNhaCungCapTra = (DefaultComboBoxModel) new DefaultComboBoxModel<>(phieuNhapSevice.getAllNhaCungCap().toArray());
         cboNhaCungCapTra.setModel((DefaultComboBoxModel) comboNhaCungCapTra);
-        if (taiKhoanAdmin != null) {
+        lstHoaDon = hoaDonService.getAllHoaDon();
+        loadTableHoaDon(lstHoaDon);
+        if (admin != null) {
             //Chi nhánh
             comboChiNhanh = (DefaultComboBoxModel) new DefaultComboBoxModel<>(iBanHang.getAllChiNhanh().toArray());
             cboChiNhanhNhap.setModel((DefaultComboBoxModel) comboChiNhanh);
@@ -155,8 +153,6 @@ public class QLGiaoDich extends javax.swing.JPanel {
     }
 
     private void loadAll(String idChiNhanh) {
-        lstHoaDon = hoaDonService.getAllHoaDon();
-        loadTableHoaDon(lstHoaDon);
         lstPhieuNhap = phieuNhapSevice.getAllPhieuNhapByChiNhanh(idChiNhanh);
         loadTablePhieuNhap(lstPhieuNhap);
         lstPhieuTra = phieuTraService.getAllPhieuTraByChiNhanh(idChiNhanh);
@@ -588,7 +584,15 @@ public class QLGiaoDich extends javax.swing.JPanel {
             new String [] {
                 "ID", "Mã phiếu nhập", "Mã nhà cung cấp", "Tên nhà cung cấp", "Mã nhân viên", "Tên nhân viên", "Ngày nhập", "Trạng thái"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tblPhieuNhap.getTableHeader().setReorderingAllowed(false);
         tblPhieuNhap.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -600,6 +604,12 @@ public class QLGiaoDich extends javax.swing.JPanel {
             tblPhieuNhap.getColumnModel().getColumn(0).setMinWidth(0);
             tblPhieuNhap.getColumnModel().getColumn(0).setMaxWidth(0);
             tblPhieuNhap.getColumnModel().getColumn(1).setResizable(false);
+            tblPhieuNhap.getColumnModel().getColumn(2).setResizable(false);
+            tblPhieuNhap.getColumnModel().getColumn(3).setResizable(false);
+            tblPhieuNhap.getColumnModel().getColumn(4).setResizable(false);
+            tblPhieuNhap.getColumnModel().getColumn(5).setResizable(false);
+            tblPhieuNhap.getColumnModel().getColumn(6).setResizable(false);
+            tblPhieuNhap.getColumnModel().getColumn(7).setResizable(false);
         }
 
         jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Chi tiết phiếu nhập", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 18))); // NOI18N
@@ -615,7 +625,15 @@ public class QLGiaoDich extends javax.swing.JPanel {
             new String [] {
                 "Id phiếu nhập", "Id nguyên liệu", "Mã nguyên liệu", "Tên nguyên liệu", "Số lượng nhập", "Đơn vị tính", "Đơn giá", "Thành tiền"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tblPhieuNhapChiTiet.getTableHeader().setReorderingAllowed(false);
         jScrollPane8.setViewportView(tblPhieuNhapChiTiet);
         if (tblPhieuNhapChiTiet.getColumnModel().getColumnCount() > 0) {
@@ -623,6 +641,10 @@ public class QLGiaoDich extends javax.swing.JPanel {
             tblPhieuNhapChiTiet.getColumnModel().getColumn(0).setMaxWidth(0);
             tblPhieuNhapChiTiet.getColumnModel().getColumn(1).setMinWidth(0);
             tblPhieuNhapChiTiet.getColumnModel().getColumn(1).setMaxWidth(0);
+            tblPhieuNhapChiTiet.getColumnModel().getColumn(2).setResizable(false);
+            tblPhieuNhapChiTiet.getColumnModel().getColumn(3).setResizable(false);
+            tblPhieuNhapChiTiet.getColumnModel().getColumn(4).setResizable(false);
+            tblPhieuNhapChiTiet.getColumnModel().getColumn(6).setResizable(false);
         }
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
@@ -943,7 +965,7 @@ public class QLGiaoDich extends javax.swing.JPanel {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true, true, true, true, true, true, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -959,6 +981,11 @@ public class QLGiaoDich extends javax.swing.JPanel {
             tblChiTietPhieuTra.getColumnModel().getColumn(1).setMaxWidth(0);
             tblChiTietPhieuTra.getColumnModel().getColumn(2).setResizable(false);
             tblChiTietPhieuTra.getColumnModel().getColumn(3).setResizable(false);
+            tblChiTietPhieuTra.getColumnModel().getColumn(4).setResizable(false);
+            tblChiTietPhieuTra.getColumnModel().getColumn(5).setResizable(false);
+            tblChiTietPhieuTra.getColumnModel().getColumn(6).setResizable(false);
+            tblChiTietPhieuTra.getColumnModel().getColumn(7).setResizable(false);
+            tblChiTietPhieuTra.getColumnModel().getColumn(8).setResizable(false);
         }
 
         jLabel41.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -1075,6 +1102,13 @@ public class QLGiaoDich extends javax.swing.JPanel {
         if (tblPhieuTra.getColumnModel().getColumnCount() > 0) {
             tblPhieuTra.getColumnModel().getColumn(0).setMinWidth(0);
             tblPhieuTra.getColumnModel().getColumn(0).setMaxWidth(0);
+            tblPhieuTra.getColumnModel().getColumn(1).setResizable(false);
+            tblPhieuTra.getColumnModel().getColumn(2).setResizable(false);
+            tblPhieuTra.getColumnModel().getColumn(3).setResizable(false);
+            tblPhieuTra.getColumnModel().getColumn(4).setResizable(false);
+            tblPhieuTra.getColumnModel().getColumn(5).setResizable(false);
+            tblPhieuTra.getColumnModel().getColumn(6).setResizable(false);
+            tblPhieuTra.getColumnModel().getColumn(7).setResizable(false);
         }
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
@@ -1397,6 +1431,7 @@ public class QLGiaoDich extends javax.swing.JPanel {
         dateNgayNhap.setDate(null);
         modelNguyenLieu.setRowCount(0);
         modelChiTietPhieuNhap.setRowCount(0);
+        txtTimKiemPhieuNhap.setText("");
     }
     private void cboNguyenLieuNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboNguyenLieuNhapActionPerformed
         int count = 0;
@@ -1763,6 +1798,7 @@ public class QLGiaoDich extends javax.swing.JPanel {
         dateNgayTra.setDate(null);
         modelNguyenLieuTra.setRowCount(0);
         modelChiTietPhieuTra.setRowCount(0);
+        txtTimKiemPhieuTra.setText("");
     }
     private void btnHoanThanhPhieuTraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHoanThanhPhieuTraActionPerformed
         int row = tblPhieuTra.getSelectedRow();
