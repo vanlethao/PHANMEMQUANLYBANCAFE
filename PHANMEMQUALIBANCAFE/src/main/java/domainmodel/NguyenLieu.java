@@ -51,10 +51,18 @@ public class NguyenLieu implements Serializable {
     @OneToMany(mappedBy = "nguyenLieukey", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<ChiTietSP> chiTietSp;
 
+    @OneToMany(mappedBy = "nguyenLieuKey", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private Set<ChiTietPhieuNhap> chiTietPhieuNhap;
+
+    @OneToMany(mappedBy = "nguyenLieuKey", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private Set<ChiTietPhieuTra> chiTietPhieuTra;
+
     public NguyenLieu() {
     }
 
-    public NguyenLieu(String id, String ma, String ten, Date hanSuDung, String donViTinh, Float soLuongTon, Set<ChiTietSP> chiTietSp) {
+    public NguyenLieu(String id, String ma, String ten, Date hanSuDung,
+            String donViTinh, Float soLuongTon, Set<ChiTietSP> chiTietSp,
+            Set<ChiTietPhieuNhap> chiTietPhieuNhap, Set<ChiTietPhieuTra> chiTietPhieuTra) {
         this.id = id;
         this.ma = ma;
         this.ten = ten;
@@ -62,6 +70,8 @@ public class NguyenLieu implements Serializable {
         this.donViTinh = donViTinh;
         this.soLuongTon = soLuongTon;
         this.chiTietSp = chiTietSp;
+        this.chiTietPhieuNhap = chiTietPhieuNhap;
+        this.chiTietPhieuTra = chiTietPhieuTra;
     }
 
     public String getId() {
@@ -127,6 +137,34 @@ public class NguyenLieu implements Serializable {
 
     public Object[] toDataRow() {
         return new Object[]{id, ma, ten, soLuongTon, hanSuDung, donViTinh};
+    }
+
+    /**
+     * @return the chiTietPhieuNhap
+     */
+    public Set<ChiTietPhieuNhap> getChiTietPhieuNhap() {
+        return chiTietPhieuNhap;
+    }
+
+    /**
+     * @param chiTietPhieuNhap the chiTietPhieuNhap to set
+     */
+    public void setChiTietPhieuNhap(Set<ChiTietPhieuNhap> chiTietPhieuNhap) {
+        this.chiTietPhieuNhap = chiTietPhieuNhap;
+    }
+
+    /**
+     * @return the chiTietPhieuTra
+     */
+    public Set<ChiTietPhieuTra> getChiTietPhieuTra() {
+        return chiTietPhieuTra;
+    }
+
+    /**
+     * @param chiTietPhieuTra the chiTietPhieuTra to set
+     */
+    public void setChiTietPhieuTra(Set<ChiTietPhieuTra> chiTietPhieuTra) {
+        this.chiTietPhieuTra = chiTietPhieuTra;
     }
 
 }
