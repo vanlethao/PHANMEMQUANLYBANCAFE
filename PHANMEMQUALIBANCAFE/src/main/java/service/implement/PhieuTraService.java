@@ -127,10 +127,7 @@ public class PhieuTraService implements IPhieuTra {
                 ctView.setSoLuongTra(BigDecimal.valueOf(x.getSoLuongTra()));
                 ctView.setDonViTinh(x.getNguyenLieuKey().getDonViTinh());
                 for (ChiTietPhieuNhap y : chitietPhieuNhap) {
-                    var chiTietPhieuNhap1 = phieuNhapRepo.getPhieuNhapByChiTietPhieuNhap(y.getPhieuNhapKey().getId());
-                    for (ChiTietPhieuNhap z : chiTietPhieuNhap1) {
-                        ctView.setDonGia(BigDecimal.valueOf(z.getDonGia()));
-                    }
+                    ctView.setDonGia(BigDecimal.valueOf(y.getDonGia()));
                 }
                 ctView.setLyDo(x.getLiDo());
                 chitietView.add(ctView);
@@ -175,7 +172,7 @@ public class PhieuTraService implements IPhieuTra {
 
     @Override
     public void updatePhieuTra(String idPT, String maPT, String idNCC, String idNV, Date ngayTra) {
-       phieuTraRepo.updatePhieuTra(idPT, maPT, idNCC, idNV, ngayTra);
+        phieuTraRepo.updatePhieuTra(idPT, maPT, idNCC, idNV, ngayTra);
     }
 
     @Override

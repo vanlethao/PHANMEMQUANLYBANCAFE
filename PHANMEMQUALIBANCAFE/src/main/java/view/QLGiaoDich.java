@@ -131,6 +131,7 @@ public class QLGiaoDich extends javax.swing.JPanel {
             comboNguyenLieuTra = (DefaultComboBoxModel) new DefaultComboBoxModel<>(phieuNhapSevice.getAllNguyenLieuByChiNhanh(((ChiNhanhViewModel_Hoang) comboChiNhanhTra.getSelectedItem()).getId()).toArray());
             cboNguyenLieuTra.setModel((DefaultComboBoxModel) comboNguyenLieuTra);
             loadAll((((ChiNhanhViewModel_Hoang) comboChiNhanhTra.getSelectedItem()).getId()));
+            loadAllTra((((ChiNhanhViewModel_Hoang) comboChiNhanhTra.getSelectedItem()).getId()));
 
         } else {
             lblCNNhap.setVisible(false);
@@ -149,13 +150,17 @@ public class QLGiaoDich extends javax.swing.JPanel {
             comboNguyenLieuTra = (DefaultComboBoxModel) new DefaultComboBoxModel<>(phieuNhapSevice.getAllNguyenLieuByChiNhanh(iBanService.getChiNhanhByTaiKhoan(nguoiDung.getId()).getId()).toArray());
             cboNguyenLieuTra.setModel((DefaultComboBoxModel) comboNguyenLieuTra);
             loadAll(iBanService.getChiNhanhByTaiKhoan(nguoiDung.getId()).getId());
+            loadAllTra(iBanService.getChiNhanhByTaiKhoan(nguoiDung.getId()).getId());
         }
     }
 
     private void loadAll(String idChiNhanh) {
         lstPhieuNhap = phieuNhapSevice.getAllPhieuNhapByChiNhanh(idChiNhanh);
         loadTablePhieuNhap(lstPhieuNhap);
-        lstPhieuTra = phieuTraService.getAllPhieuTraByChiNhanh(idChiNhanh);
+    }
+
+    private void loadAllTra(String idCN) {
+        lstPhieuTra = phieuTraService.getAllPhieuTraByChiNhanh(idCN);
         loadTablePhieuTra(lstPhieuTra);
     }
 
@@ -1607,7 +1612,7 @@ public class QLGiaoDich extends javax.swing.JPanel {
                 if (chon == JOptionPane.YES_OPTION) {
                     JOptionPane.showMessageDialog(this, phieuTraService.updateTrangThaiPhieuTra(tblPhieuTra.getValueAt(row, 1).toString(), 0));
                     lstPhieuTra = phieuTraService.getAllPhieuTraByChiNhanh(((ChiNhanhViewModel_Hoang) cboChiNhanhTra.getSelectedItem()).getId());
-                    loadAll(((ChiNhanhViewModel_Hoang) cboChiNhanhTra.getSelectedItem()).getId());
+                    loadAllTra(((ChiNhanhViewModel_Hoang) cboChiNhanhTra.getSelectedItem()).getId());
                     loadTableHuyPhieuTra(lstPhieuTra);
                     rdoHuyPhieuTra.setSelected(true);
                 }
@@ -1619,7 +1624,6 @@ public class QLGiaoDich extends javax.swing.JPanel {
     private void showChiTietPhieuTraByPhieuTra(String idPhieuTra) {
         modelChiTietPhieuTra = (DefaultTableModel) tblChiTietPhieuTra.getModel();
         modelChiTietPhieuTra.setRowCount(0);
-        PhieuTraViewModel ptView = phieuTraService.getPhieuTraByID(idPhieuTra);
         Set<ChiTietPhieuTraViewModel> chiTietView = phieuTraService.getPhieuTraByChiTietPhieuTra(idPhieuTra);
         for (ChiTietPhieuTraViewModel ctView : chiTietView) {
             modelChiTietPhieuTra.addRow(ctView.getChiTietPhieuTrahangView());
@@ -1637,7 +1641,7 @@ public class QLGiaoDich extends javax.swing.JPanel {
                     phieuTraService.insertCTPhieuTra(tblPhieuTra.getValueAt(row, 0).toString(), tblNguyenLieuTra.getValueAt(i, 0).toString(), Float.parseFloat(tblNguyenLieuTra.getValueAt(i, 3).toString()), tblNguyenLieuTra.getValueAt(row, 5).toString());
                 }
                 clearPhieuTra();
-                loadAll(((ChiNhanhViewModel_Hoang) cboChiNhanhNhap.getSelectedItem()).getId());
+                loadAllTra(((ChiNhanhViewModel_Hoang) cboChiNhanhNhap.getSelectedItem()).getId());
                 JOptionPane.showMessageDialog(this, "Cập nhật thành công");
             } else {
                 JOptionPane.showMessageDialog(this, "Dữ liệu trống");
@@ -1819,7 +1823,7 @@ public class QLGiaoDich extends javax.swing.JPanel {
                         break;
                     }
                     JOptionPane.showMessageDialog(this, phieuTraService.updateTrangThaiPhieuTra(tblPhieuTra.getValueAt(row, 1).toString(), 3));
-                    loadAll(((ChiNhanhViewModel_Hoang) comboChiNhanhTra.getSelectedItem()).getId());
+                    loadAllTra(((ChiNhanhViewModel_Hoang) comboChiNhanhTra.getSelectedItem()).getId());
                     loadTablePhieuTraHoanThanh(lstPhieuTra);
                     rdoHoanThanhPhieuTra.setSelected(true);
                 }
@@ -2071,7 +2075,7 @@ public class QLGiaoDich extends javax.swing.JPanel {
                 phieuTraService.insertCTPhieuTra(idPhieuTra, tblNguyenLieuTra.getValueAt(i, 0).toString(), Float.parseFloat(tblNguyenLieuTra.getValueAt(i, 3).toString()), tblNguyenLieuTra.getValueAt(i, 5).toString());
             }
             JOptionPane.showMessageDialog(this, "Thêm phiếu trả thành công");
-            loadAll(((ChiNhanhViewModel_Hoang) comboChiNhanhTra.getSelectedItem()).getId());
+            loadAllTra(((ChiNhanhViewModel_Hoang) comboChiNhanhTra.getSelectedItem()).getId());
             clearPhieuTra();
         }
     }//GEN-LAST:event_btnTaoPhieuTraActionPerformed
@@ -2092,7 +2096,6 @@ public class QLGiaoDich extends javax.swing.JPanel {
     private void showNguyenLieuPhieuTraByPhieuTra(String idPt) {
         modelChiTietPhieuTra = (DefaultTableModel) tblNguyenLieuTra.getModel();
         modelChiTietPhieuTra.setRowCount(0);
-        PhieuTraViewModel ptView = phieuTraService.getPhieuTraByID(idPt);
         Set<ChiTietPhieuTraViewModel> chiTietView = phieuTraService.getPhieuTraByChiTietPhieuTra(idPt);
         for (ChiTietPhieuTraViewModel ctView : chiTietView) {
             modelChiTietPhieuTra.addRow(ctView.getNguyenLieuByPhieuTrahangView());
