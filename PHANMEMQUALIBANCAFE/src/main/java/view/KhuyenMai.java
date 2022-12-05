@@ -53,7 +53,7 @@ public class KhuyenMai extends javax.swing.JPanel {
         this.cn = null;
         initComponents();
         init();
-        cbbFilterChiNhanh.setModel(new DefaultComboBoxModel(concatenate(new Object[]{"-Chon chi nhanh-"}, iKhuyenMai.getAllChiNhanhON().toArray())));// viet lai repo ChiNhanh thi sua doan nay
+        cbbFilterChiNhanh.setModel(new DefaultComboBoxModel(concatenate(new Object[]{"-Tat ca chi nhanh-"}, iKhuyenMai.getAllChiNhanhON().toArray())));// viet lai repo ChiNhanh thi sua doan nay
         khuyenMaiViews = iKhuyenMai.getAllKhuyenMai();
         sanPhamAddKM = iKhuyenMai.getAllSP();
         loadDataKhuyenMai();
