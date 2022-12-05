@@ -424,8 +424,13 @@ public class KhuyenMai extends javax.swing.JPanel {
             String id = (String) tblKhuyenMai.getValueAt(row, 0);
             JOptionPane.showMessageDialog(null, iKhuyenMai.deleteKhuyenMai(id));
             int trangThai = rdoFillTatCa.isSelected() ? -1 : (rdoFillConHan.isSelected() ? 1 : 0);
-            String search = txtSearchKM.getText().trim();
-            searchAndFilterKM(search, trangThai);
+            Color color = txtSearchKM.getForeground();
+            if (!color.equals(Color.GRAY)) {
+                String search = txtSearchKM.getText().trim();
+                searchAndFilterKM(search, trangThai);
+            } else {
+                searchAndFilterKM("", trangThai);
+            }
             loadDataKhuyenMai();
         } else {
             JOptionPane.showMessageDialog(null, "Ban can chon 1 hang trong bang truoc!");
