@@ -80,7 +80,7 @@ public class PhieuKiemKeViewModel_Long {
 
     @Override
     public String toString() {
-        return ma+ tenNhanVien;
+        return ma ;
     }
     
         public String getStatus() {

@@ -37,67 +37,67 @@ import viewmodel.NhanVienViewModel_Van;
  */
 public class QLCa extends javax.swing.JPanel {
 
-    private DefaultTableModel dtm = new DefaultTableModel();
-    private DefaultTableModel dtm1 = new DefaultTableModel();
-    private List<Ca> lstc = new ArrayList<>();
-    private ICa caS = new CaService();
-
-       private DefaultComboBoxModel<NhanVienViewModel_Van> modelComBoChiNhanh;
-    private List<ChiTietCaVM_Long> lstCTCa = new ArrayList<>();
-    
-     private DefaultComboBoxModel<Ca> modelComBoca;
-//    private List<Ca> lstCTCa = new ArrayList<>();
-   private IPhieuKiemKe  nvS = new PhieuKiemKeService();
+//    private DefaultTableModel dtm = new DefaultTableModel();
+//    private DefaultTableModel dtm1 = new DefaultTableModel();
+//    private List<Ca> lstc = new ArrayList<>();
+//    private ICa caS = new CaService();
+//
+//       private DefaultComboBoxModel<NhanVienViewModel_Van> modelComBoChiNhanh;
+//    private List<ChiTietCaVM_Long> lstCTCa = new ArrayList<>();
+//    
+//     private DefaultComboBoxModel<Ca> modelComBoca;
+////    private List<Ca> lstCTCa = new ArrayList<>();
+//   private IPhieuKiemKe  nvS = new PhieuKiemKeService();
     /**
      * Creates new form QLCa
      */
     public QLCa(TaiKhoanAdmin admin, TaiKhoanNguoiDung nguoiDung) {
         initComponents();
-        tblBang.setModel(dtm);
-        String[] header = {"MA", "GioBD", "GioKT", "TrangThai"};
-        dtm.setColumnIdentifiers(header);
-        lstc = caS.getAll();
+//        tblBang.setModel(dtm);
+//        String[] header = {"MA", "GioBD", "GioKT", "TrangThai"};
+//        dtm.setColumnIdentifiers(header);
+//        lstc = caS.getAll();
+//        
+//        
+//        
+//        tblBangDD.setModel(dtm1);
+//         String[] header1 = {"MA", "GioBD", "GioKT", "TrangThai"};
+//        dtm1.setColumnIdentifiers(header);
+//        lstCTCa = caS.getAllCTCa();
         
         
-        
-        tblBangDD.setModel(dtm1);
-         String[] header1 = {"MA", "GioBD", "GioKT", "TrangThai"};
-        dtm1.setColumnIdentifiers(header);
-        lstCTCa = caS.getAllCTCa();
-        
-        
-         modelComBoChiNhanh = (DefaultComboBoxModel) new DefaultComboBoxModel<>(nvS.getAllNV().toArray());
-        cbbNV.setModel((DefaultComboBoxModel) modelComBoChiNhanh);
-        
-          
-         modelComBoca= (DefaultComboBoxModel) new DefaultComboBoxModel<>(caS.getAll().toArray());
-        cbbCa.setModel((DefaultComboBoxModel) modelComBoca);
-        show(lstc);
+//         modelComBoChiNhanh = (DefaultComboBoxModel) new DefaultComboBoxModel<>(nvS.getAllNV().toArray());
+//        cbbNV.setModel((DefaultComboBoxModel) modelComBoChiNhanh);
+//        
+//          
+//         modelComBoca= (DefaultComboBoxModel) new DefaultComboBoxModel<>(caS.getAll().toArray());
+//        cbbCa.setModel((DefaultComboBoxModel) modelComBoca);
+//        show(lstc);
     }
 
-    private void show(List<Ca> lst) {
-        dtm.setRowCount(0);
-        for (Ca cn : lst) {
-            dtm.addRow(cn.toDataRow());
-        }
-    }
-    
-    
-     private void show1(List<ChiTietCaVM_Long> lst) {
-        dtm.setRowCount(0);
-        for (ChiTietCaVM_Long cn : lst) {
-            dtm.addRow(new Object[]{cn.getGioDen()});
-        }
-    }
-
-    private boolean checkFormEmpty(JTextField ma, JTextField ten) {
-        if (ma.getText().isBlank() || ten.getText().isBlank()) {
-            JOptionPane.showMessageDialog(this, "Không được trống");
-            return false;
-        } else {
-            return true;
-        }
-    }
+//    private void show(List<Ca> lst) {
+//        dtm.setRowCount(0);
+//        for (Ca cn : lst) {
+//            dtm.addRow(cn.toDataRow());
+//        }
+//    }
+//    
+//    
+//     private void show1(List<ChiTietCaVM_Long> lst) {
+//        dtm.setRowCount(0);
+//        for (ChiTietCaVM_Long cn : lst) {
+//            dtm.addRow(new Object[]{cn.getGioDen()});
+//        }
+//    }
+//
+//    private boolean checkFormEmpty(JTextField ma, JTextField ten) {
+//        if (ma.getText().isBlank() || ten.getText().isBlank()) {
+//            JOptionPane.showMessageDialog(this, "Không được trống");
+//            return false;
+//        } else {
+//            return true;
+//        }
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -388,23 +388,23 @@ public class QLCa extends javax.swing.JPanel {
 //            JOptionPane.showMessageDialog(this, "Bip");
 //        }
 
-        if (checkFormEmpty(txtGBD, txtGKT)) {
-            String gioBD = txtGBD.getText();
-            String gioKT = txtGKT.getText();
-            int trangThai;
-            if (rdoCon.isSelected()) {
-                trangThai = 1;
-            } else {
-                trangThai = 0;
-            }
-             NhanVienViewModel_Hoang nv = (NhanVienViewModel_Hoang) cbbNV.getSelectedItem();
-            caS.insertCa(txtMa.getText(), gioBD, gioKT, trangThai);
-            JOptionPane.showMessageDialog(this, "Thêm thành công");
-            lstc = caS.getAll();
-            show(lstc);
-        } else {
-            JOptionPane.showMessageDialog(this, "Bip");
-        }
+//        if (checkFormEmpty(txtGBD, txtGKT)) {
+//            String gioBD = txtGBD.getText();
+//            String gioKT = txtGKT.getText();
+//            int trangThai;
+//            if (rdoCon.isSelected()) {
+//                trangThai = 1;
+//            } else {
+//                trangThai = 0;
+//            }
+//             NhanVienViewModel_Hoang nv = (NhanVienViewModel_Hoang) cbbNV.getSelectedItem();
+//            caS.insertCa(txtMa.getText(), gioBD, gioKT, trangThai);
+//            JOptionPane.showMessageDialog(this, "Thêm thành công");
+//            lstc = caS.getAll();
+//            show(lstc);
+//        } else {
+//            JOptionPane.showMessageDialog(this, "Bip");
+//        }
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -435,12 +435,12 @@ public class QLCa extends javax.swing.JPanel {
 //        } else {
 //            JOptionPane.showMessageDialog(this, "Bip");
 //        }        
-LocalTime LC = LocalTime.now();
-        NhanVienViewModel_Hoang nv = (NhanVienViewModel_Hoang) cbbNV.getSelectedItem();
-              Ca ca = (Ca) cbbCa.getSelectedItem();
-caS.insertCTCa(String.valueOf(ca),String.valueOf(LC), String.valueOf(nv.getId()) );
-lstCTCa = caS.getAllCTCa();
-        show1(lstCTCa);
+//LocalTime LC = LocalTime.now();
+//        NhanVienViewModel_Hoang nv = (NhanVienViewModel_Hoang) cbbNV.getSelectedItem();
+//              Ca ca = (Ca) cbbCa.getSelectedItem();
+//caS.insertCTCa(String.valueOf(ca),String.valueOf(LC), String.valueOf(nv.getId()) );
+//lstCTCa = caS.getAllCTCa();
+//        show1(lstCTCa);
 
 // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
