@@ -13,7 +13,7 @@ public class KhuVucRepository {
 
     public Set<KhuVuc> getAllKhuVucByChiNhanh(String IdchiNhanh) {
         Set<KhuVuc> setKhuVuc = null;
-        try (Session session = Hibernateutility.getFactory().openSession()) {
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
             Transaction trans = session.beginTransaction();
             ChiNhanh cn = session.get(ChiNhanh.class, IdchiNhanh);
             setKhuVuc = cn.getSetKhuVuc();
@@ -25,7 +25,7 @@ public class KhuVucRepository {
 
     public String insertKhuVucToChiNhanh(String maKV, String idChiNhanh) {
         String id = null;
-        try (Session session = Hibernateutility.getFactory().openSession()) {
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
             Transaction trans = session.beginTransaction();
             ChiNhanh cn = session.get(ChiNhanh.class, idChiNhanh);
             KhuVuc kv = new KhuVuc();
@@ -41,7 +41,7 @@ public class KhuVucRepository {
     }
 
     public void updateKhuVuc(KhuVuc kv, String maKv, Integer TrangThai) {
-        try (Session session = Hibernateutility.getFactory().openSession()) {
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
             Transaction trans = session.beginTransaction();
             kv.setMa(maKv);
             kv.setTrangThai(TrangThai);
@@ -53,7 +53,7 @@ public class KhuVucRepository {
 
     public KhuVuc getKhuVucFromID(String idKhuVuc) {
         KhuVuc kv = null;
-        try (Session session = Hibernateutility.getFactory().openSession()) {
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
             kv = session.get(KhuVuc.class, idKhuVuc);
             session.close();
         }
@@ -62,9 +62,9 @@ public class KhuVucRepository {
 
     public KhuVuc getKhuVucFromMa(String makv) {
         KhuVuc kv = null;
-        try (Session session = Hibernateutility.getFactory().openSession()) {
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
             Query query = session.createQuery("FROM KhuVuc WHERE ma=:makv");
-            query.setParameter("ma", makv);
+            query.setParameter("makv", makv);
             List<KhuVuc> list = query.getResultList();
             if (list.size() > 0) {
                 kv = list.get(0);
@@ -75,7 +75,7 @@ public class KhuVucRepository {
     }
 
     public void deleteKhuVuc(String idKhuVuc) {
-        try (Session session = Hibernateutility.getFactory().openSession()) {
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
             Transaction trans = session.beginTransaction();
             KhuVuc kv = session.get(KhuVuc.class, idKhuVuc);
             kv.setTrangThai(0);
@@ -87,7 +87,7 @@ public class KhuVucRepository {
 
     public List<ChiNhanh> getAllChiNhanh() {
         List<ChiNhanh> list = null;
-        try (Session session = Hibernateutility.getFactory().openSession()) {
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
             Transaction trans = session.beginTransaction();
             list = session.createQuery("FROM ChiNhanh where trangThai=1").list();
             trans.commit();
