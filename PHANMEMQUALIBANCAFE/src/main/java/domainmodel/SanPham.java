@@ -54,11 +54,13 @@ public class SanPham implements Serializable {
     @OneToMany(mappedBy = "sanPhamKey", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<ChiTietSP> chiTietSp;
 
+    @OneToMany(mappedBy = "sanPhamKey", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private Set<ChiTietHoaDon> chiTietHoaDon;
+
     public SanPham() {
     }
 
-    public SanPham(String id, String ma, String ten, Float giaBan, Integer trangThai, byte[] avatar,
-            KhuyenMai khuyenMai, Set<ChiTietSP> chiTietSp) {
+    public SanPham(String id, String ma, String ten, Float giaBan, Integer trangThai, byte[] avatar, KhuyenMai khuyenMai, Set<ChiTietSP> chiTietSp, Set<ChiTietHoaDon> chiTietHoaDon) {
         this.id = id;
         this.ma = ma;
         this.ten = ten;
@@ -67,6 +69,7 @@ public class SanPham implements Serializable {
         this.avatar = avatar;
         this.khuyenMai = khuyenMai;
         this.chiTietSp = chiTietSp;
+        this.chiTietHoaDon = chiTietHoaDon;
     }
 
     public String getId() {
@@ -131,6 +134,14 @@ public class SanPham implements Serializable {
 
     public void setChiTietSp(Set<ChiTietSP> chiTietSp) {
         this.chiTietSp = chiTietSp;
+    }
+
+    public Set<ChiTietHoaDon> getChiTietHoaDon() {
+        return chiTietHoaDon;
+    }
+
+    public void setChiTietHoaDon(Set<ChiTietHoaDon> chiTietHoaDon) {
+        this.chiTietHoaDon = chiTietHoaDon;
     }
 
 }

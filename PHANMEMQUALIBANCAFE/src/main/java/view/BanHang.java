@@ -1192,7 +1192,7 @@ public class BanHang extends javax.swing.JPanel {
             for (int i = 0; i < tblSpChon.getRowCount(); i++) {
                 banHangService.insertChiTietHoaDon(tblSpChon.getValueAt(i, 0).toString(),
                         idHoaDon, Integer.parseInt(tblSpChon.getValueAt(i, 4).toString()),
-                        new BigDecimal(lblTongTien.getText()), new BigDecimal(lblTienCanThanhToan.getText()));
+                        new BigDecimal(lblTongTien.getText()), new BigDecimal(lblSoTienCanTra.getText()));
                 banHangService.updateNguyenLieuAfterSellSanPham(tblSpChon.
                         getValueAt(i, 0).toString(), Integer.parseInt(tblSpChon.getValueAt(i, 4).toString()));
             }
@@ -1223,6 +1223,7 @@ public class BanHang extends javax.swing.JPanel {
         modelComboArea = (DefaultComboBoxModel) new DefaultComboBoxModel<>(banHangService.
                 getAllKhuVucByChiNhanh(((ChiNhanhViewModel_Hoang) modelComboChiNhanh.getSelectedItem()).getId()).toArray());
         cboKhuVuc.setModel((DefaultComboBoxModel) modelComboArea);
+        modelTableChonSp.setRowCount(0);
         resetPanelBanAndShow();
         showProductForSaleByChiNhanh(((ChiNhanhViewModel_Hoang) modelComboChiNhanh.getSelectedItem()).getId());
         setEventClickForItemSanPham();
