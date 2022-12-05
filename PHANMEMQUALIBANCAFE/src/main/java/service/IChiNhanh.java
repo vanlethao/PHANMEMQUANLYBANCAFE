@@ -5,8 +5,15 @@
 package service;
 
 import domainmodel.ChiNhanh;
+import domainmodel.KhuVuc;
+import domainmodel.NhanVien;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+import viewmodel.ChiNhanhVM_Long;
+import viewmodel.ChiNhanhViewModel_Long;
+import viewmodel.KhuVucViewModel;
+import viewmodel.NhanVienViewModel_Hoang;
 
 
 /**
@@ -15,8 +22,8 @@ import java.util.List;
  */
 public interface IChiNhanh {
 
-    List<ChiNhanh> getAll();
-    void insertChiNhanh(String ma, String quocGia, String thanhPho, Date ngayKhaiTruong, int trangThai);
+    List<ChiNhanhVM_Long> getAll();
+   String insertChiNhanh(String ma, String quocGia, String thanhPho, Date ngayKhaiTruong, float giaTriDiem, float giaTriDoiDiem, int trangThai);
  void update(ChiNhanh cnV, String ma, String thanhpho, String quocgia);
  void deleteMauSac(String maMau);
   String getChiNhanh(String ma);

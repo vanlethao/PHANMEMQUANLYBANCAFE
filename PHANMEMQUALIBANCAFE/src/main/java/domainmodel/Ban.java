@@ -5,6 +5,7 @@
 package domainmodel;
 
 import java.io.Serializable;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -38,15 +40,19 @@ public class Ban implements Serializable {
     @JoinColumn(name = "IdKhuVuc")
     private KhuVuc khuVuc;
 
+    @OneToMany(mappedBy = "ban", fetch = FetchType.LAZY)
+    private Set<HoaDonBanHang> setHoaDon;
+
     public Ban() {
     }
 
-    public Ban(String id, Integer soBan, Integer trangThai, Integer trangThaiSuDung, KhuVuc khuVuc) {
+    public Ban(String id, Integer soBan, Integer trangThai, Integer trangThaiSuDung, KhuVuc khuVuc, Set<HoaDonBanHang> setHoaDon) {
         this.id = id;
         this.soBan = soBan;
         this.trangThai = trangThai;
         this.trangThaiSuDung = trangThaiSuDung;
         this.khuVuc = khuVuc;
+        this.setHoaDon = setHoaDon;
     }
 
     public String getId() {
@@ -87,6 +93,14 @@ public class Ban implements Serializable {
 
     public void setKhuVuc(KhuVuc khuVuc) {
         this.khuVuc = khuVuc;
+    }
+
+    public Set<HoaDonBanHang> getSetHoaDon() {
+        return setHoaDon;
+    }
+
+    public void setSetHoaDon(Set<HoaDonBanHang> setHoaDon) {
+        this.setHoaDon = setHoaDon;
     }
 
 }

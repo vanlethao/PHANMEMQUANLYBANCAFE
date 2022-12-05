@@ -1212,7 +1212,7 @@
                   <Component id="btnDangXuat" min="-2" pref="42" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
-              <Component id="jPanel1" alignment="0" pref="0" max="32767" attributes="0"/>
+              <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
               <Component id="jLabel13" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>

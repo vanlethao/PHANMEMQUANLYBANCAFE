@@ -5,8 +5,11 @@
 package service;
 
 import domainmodel.Ca;
+import domainmodel.ChiTietCa;
 import java.time.LocalTime;
 import java.util.List;
+import viewmodel.CaViewModel_Long;
+import viewmodel.ChiTietCaVM_Long;
 
 /**
  *
@@ -14,5 +17,8 @@ import java.util.List;
  */
 public interface ICa {
     List<Ca> getAll();
-   void insertCa(String ma, LocalTime gioBD, LocalTime gioKT, int trangThai);
+   void insertCa(String ma, String gioBD, String gioKT, int trangThai);
+  CaViewModel_Long getSanPhamById(String id);
+  String insertCTCa(String idMa,String gioDen,  String idNhanVien);
+  List<ChiTietCaVM_Long> getAllCTCa();
 }
