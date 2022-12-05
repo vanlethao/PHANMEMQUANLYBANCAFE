@@ -993,7 +993,7 @@ public class OverView extends javax.swing.JFrame {
     private void thongKeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_thongKeMouseClicked
         if (chucVu.equalsIgnoreCase("Ông chủ") || chucVu.equalsIgnoreCase("Quản lý")) {
             ThongKe tk = new ThongKe(_admin, _nguoiDung);
-            setMainPanel(_thongKe);
+            setMainPanel(tk);
         } else {
             JOptionPane.showMessageDialog(this, "Bạn không đủ thẩm quyền");
         }
