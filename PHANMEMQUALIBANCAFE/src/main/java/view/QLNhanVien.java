@@ -322,9 +322,9 @@ public class QLNhanVien extends javax.swing.JPanel {
             int trangThai = rdoAllNV.isSelected() ? -1 : (rdoNVOn.isSelected() ? 1 : 0);
             searchAndFilterNV("", trangThai);
             fillNVToTable();
-            if(iNhanVien.addNhanVien(getNVFromControls()). equalsIgnoreCase("Them thanh cong!")){
+//            if(iNhanVien.addNhanVien(getNVFromControls()). equalsIgnoreCase("Them thanh cong!")){
                  resetControls();
-            }   
+//            }   
         } else {
             JOptionPane.showMessageDialog(null, iNhanVien.validateDataInput(getDataFormControls()));
         }
