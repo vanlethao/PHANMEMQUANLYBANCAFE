@@ -20,7 +20,7 @@ import utility.Hibernateutility;
 public class KhuyenMaiRepo {
 
     public KhuyenMaiRepo() {
-
+       
     }
     public KhuyenMai getKMById(String id) {
         try ( Session session = Hibernateutility.getFactory().openSession()) {
@@ -346,7 +346,7 @@ public class KhuyenMaiRepo {
         List<SanPham> sanPhams = new ArrayList<>();
         try ( Session session = Hibernateutility.getFactory().openSession()) {
             Query query = session.createQuery("FROM SanPham WHERE ma like :ma");
-            query.setParameter("ten", "%" + maSP + "%");
+            query.setParameter("ma", "%" + maSP + "%");
             sanPhams = query.getResultList();
             session.close();
         } catch (Exception e) {
