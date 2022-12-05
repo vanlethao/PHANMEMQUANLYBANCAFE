@@ -164,8 +164,8 @@ public class PhieuTraService implements IPhieuTra {
     }
 
     @Override
-    public void updateSoluongNguyenLieuTra(String idNguyenLieu, float soLuongTra) {
-        phieuTraRepo.updateSoluongNguyenLieuTra(idNguyenLieu, soLuongTra);
+    public String updateSoluongNguyenLieuTra(String idNguyenLieu, float soLuongTra) {
+        return phieuTraRepo.updateSoluongNguyenLieuTra(idNguyenLieu, soLuongTra);
     }
 
     @Override

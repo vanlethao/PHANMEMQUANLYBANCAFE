@@ -5,11 +5,13 @@
 package service;
 
 import domainmodel.ChiTietPhieuTra;
+import domainmodel.NguyenLieu;
 import domainmodel.PhieuTraHang;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import viewmodel.ChiTietPhieuTraViewModel;
+import viewmodel.NguyenLieuViewModel_Hoang;
 import viewmodel.PhieuTraViewModel;
 
 /**
@@ -29,7 +31,7 @@ public interface IPhieuTra {
 
     String insertPhieuTra(String maPT, String idNcc, String idNv, Date ngayTra, int trangThai);
 
-    void updateSoluongNguyenLieuTra(String idNguyenLieu, float soLuongTra);
+    String updateSoluongNguyenLieuTra(String idNguyenLieu, float soLuongTra);
 
     void updatePhieuTra(String idPT, String maPT, String idNCC, String idNV, Date ngayTra);
 

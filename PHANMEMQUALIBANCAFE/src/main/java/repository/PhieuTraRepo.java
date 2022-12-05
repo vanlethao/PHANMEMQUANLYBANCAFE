@@ -10,6 +10,7 @@ import domainmodel.NguyenLieu;
 import domainmodel.NhaCungCap;
 import domainmodel.NhanVien;
 import domainmodel.PhieuTraHang;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -126,16 +127,19 @@ public class PhieuTraRepo {
         return id;
     }
 
-    public void updateSoluongNguyenLieuTra(String idNguyenLieu, float soLuongTra) {
+    public String updateSoluongNguyenLieuTra(String idNguyenLieu, float soLuongTra) {
         try ( Session session = Hibernateutility.getFactory().openSession()) {
             Transaction trans = session.beginTransaction();
             NguyenLieu nl = session.get(NguyenLieu.class, idNguyenLieu);
-            float soLuongNL = nl.getSoLuongTon() - soLuongTra;
-            nl.setSoLuongTon(soLuongNL);
+            if (soLuongTra > nl.getSoLuongTon()) {
+                float soLuongNL = nl.getSoLuongTon() - soLuongTra;
+                nl.setSoLuongTon(soLuongNL);
+            }
             session.update(nl);
             trans.commit();
             session.close();
         }
+        return "Thành công";
     }
 
     public void insertCTPhieuTra(String idPt, String idNL, float soLuongTra, String lyDo) {
@@ -153,6 +157,7 @@ public class PhieuTraRepo {
             session.close();
         }
     }
+
     public void updatePhieuTra(String idPT, String maPT, String idNCC, String idNV, Date ngayTra) {
         try ( Session session = Hibernateutility.getFactory().openSession()) {
             Transaction trans = session.beginTransaction();
@@ -168,7 +173,8 @@ public class PhieuTraRepo {
             session.close();
         }
     }
-     public void updateCTPhieuTra(String idPt, String idNl, float soLuongTra, String lyDo) {
+
+    public void updateCTPhieuTra(String idPt, String idNl, float soLuongTra, String lyDo) {
         try ( Session session = Hibernateutility.getFactory().openSession()) {
             Transaction trans = session.beginTransaction();
             PhieuTraHang pt = session.get(PhieuTraHang.class, idPt);
@@ -184,7 +190,7 @@ public class PhieuTraRepo {
         }
     }
 
-    public  void deleteChiTietPnbyidPT(String idPT) {
+    public void deleteChiTietPnbyidPT(String idPT) {
         Set<ChiTietPhieuTra> setChiTiet = null;
         try ( Session session = Hibernateutility.getFactory().openSession()) {
             Transaction trans = session.beginTransaction();
