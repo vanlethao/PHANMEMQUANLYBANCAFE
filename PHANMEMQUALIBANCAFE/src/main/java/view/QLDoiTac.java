@@ -5,6 +5,7 @@ import domainmodel.KhachHang;
 import domainmodel.NhaCungCap;
 import domainmodel.TaiKhoanAdmin;
 import domainmodel.TaiKhoanNguoiDung;
+import java.awt.Color;
 import java.io.BufferedOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -74,6 +75,8 @@ public class QLDoiTac extends javax.swing.JPanel {
         rdoAllNCC.setSelected(true);
         rdoAllKH.setSelected(true);
         txtIdNCC.setEnabled(false);
+        txtSearchKH.setForeground(Color.GRAY);
+        txtSearchNCC.setForeground(Color.GRAY);
         //
         iKhuyenMai = new KhuyenMaiService();
         iNhaCungCap = new NhaCungCapService();
