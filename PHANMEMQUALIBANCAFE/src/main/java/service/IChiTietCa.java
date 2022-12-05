@@ -8,17 +8,14 @@ import domainmodel.Ca;
 import domainmodel.ChiTietCa;
 import java.time.LocalTime;
 import java.util.List;
-import viewmodel.CaViewModel_Long;
-import viewmodel.ChiTietCaVM_Long;
+import java.util.Set;
+//import viewmodel.ChiTietCaViewModel_long;
 
 /**
  *
  * @author PC
  */
-public interface ICa {
-    List<Ca> getAll();
-   void insertCa(String ma, String gioBD, String gioKT, int trangThai);
-  CaViewModel_Long getSanPhamById(String id);
-  String insertCTCa(String idMa,String gioDen,  String idNhanVien);
-  List<ChiTietCaVM_Long> getAllCTCa();
+public interface IChiTietCa {
+//    Set<ChiTietCaViewModel_long> getChiTietSpByIdSanPham(String id);
+     void insertChiTietCa(LocalTime gioDen, LocalTime gioVe, String idCa);
 }

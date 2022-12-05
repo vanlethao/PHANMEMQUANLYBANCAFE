@@ -8,15 +8,20 @@ import domainmodel.ChiNhanh;
 import domainmodel.NguyenLieu;
 import java.util.Date;
 import java.util.List;
+import viewmodel.ChiNhanhVM_Long;
+import viewmodel.NguyenLieuViewModel_Long;
 
 /**
  *
  * @author PC
  */
 public interface INguyenLieu {
-    List<NguyenLieu> getAll();
-    String insertNguyenLieu(String ma, String ten, Date hsd, String dvt, Float slt);
-     void deleteNguyenLieu(String maNL);
-   void update(String id, String ma, String ten, String donViTinh);
+    List<NguyenLieuViewModel_Long> getAll();
+//      void insertNguyenLieuToChiNhanh(String idChiNhanh, NguyenLieu nguyenLieu, String ma, String ten, Date hsd, String dvt, Float slt);
+    String insertNguyenLieu(String ma, String ten, Date hsd, String dvt, Float slt, String idChiNhanh);
+    
+     void deleteMauSac(String idnguyenLieu, String idChiNhanh);
+void deleteNguyenLieu(String idNguyenLieu);
+     void update(String id, String ma, String ten, String donViTinh);
   String getNguyeLieu(String ma);
 }
