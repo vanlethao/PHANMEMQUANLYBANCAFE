@@ -947,6 +947,8 @@ public class BanHang extends javax.swing.JPanel {
             } else {
                 thanhTien = Double.parseDouble(tblSpChon.getValueAt(row, 4).toString()) * Double.valueOf(tblSpChon.getValueAt(row, 3).toString());
                 tblSpChon.setValueAt(new BigDecimal(thanhTien), row, 5);
+                totalMoney();
+                totalMoneyAfterSale();
             }
         }
     }//GEN-LAST:event_tblSpChonKeyReleased
@@ -1044,6 +1046,7 @@ public class BanHang extends javax.swing.JPanel {
                 totalMoneyAfterSale();
             }
         }
+
 
     }//GEN-LAST:event_tblSpChonMouseClicked
 

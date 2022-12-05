@@ -26,8 +26,7 @@ public class ThongKeRepository {
     public static List<HoaDonBanHang> getAllHoaDonBanHangByDate(String date) {
         List<HoaDonBanHang> listHoaDon = null;
         try ( Session session = Hibernateutility.getFactory().openSession()) {
-            Query query = session.createQuery("FROM HoaDonBanHang WHERE ngayTao=:date");
-            query.setParameter("date", date);
+            Query query = session.createQuery("FROM HoaDonBanHang WHERE ngayTao=" + "'" + date + "'");
             listHoaDon = query.getResultList();
             session.close();
         }

@@ -5,6 +5,8 @@
 package viewmodel;
 
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -61,6 +63,8 @@ public class ThongKeTheoThoiGianViewModel {
     }
 
     public Object[] getThongKeTheoThoiGian() {
-        return new Object[]{ngay, soLuongDonHang, tongTienHang, tongTienChietKhau, tongTienHang.subtract(tongTienChietKhau)};
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String date = dateFormat.format(ngay);
+        return new Object[]{date, soLuongDonHang, tongTienHang, tongTienChietKhau, tongTienHang.subtract(tongTienChietKhau)};
     }
 }

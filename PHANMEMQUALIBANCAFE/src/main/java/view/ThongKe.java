@@ -7,6 +7,8 @@ package view;
 import domainmodel.TaiKhoanAdmin;
 import domainmodel.TaiKhoanNguoiDung;
 import java.awt.Color;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -86,11 +88,11 @@ public class ThongKe extends javax.swing.JPanel {
 
             },
             new String [] {
-                "SL đơn hàng", "Tổng tiền hàng", "Tổng chiết khấu", "Tổng doanh thu"
+                "Thời gian", "SL đơn hàng", "Tổng tiền hàng", "Tổng chiết khấu", "Tổng doanh thu"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -104,6 +106,7 @@ public class ThongKe extends javax.swing.JPanel {
             tblThongKeTheoThoiGian.getColumnModel().getColumn(1).setResizable(false);
             tblThongKeTheoThoiGian.getColumnModel().getColumn(2).setResizable(false);
             tblThongKeTheoThoiGian.getColumnModel().getColumn(3).setResizable(false);
+            tblThongKeTheoThoiGian.getColumnModel().getColumn(4).setResizable(false);
         }
 
         dateChooserStart.setBorder(null);
@@ -293,25 +296,31 @@ public class ThongKe extends javax.swing.JPanel {
 
 
     private void btnLocDoanhThuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLocDoanhThuActionPerformed
-//        if (dateChooserStart.getDate() != null && dateChooserEnd != null) {
-//            lblCanhBaoLoc.setText("");
-//            showDoanhThuTheoThoiGian(dateChooserStart.getDate(), dateChooserEnd.getDate());
-//        } else {
-//            lblCanhBaoLoc.setText("Vui lòng chọn thời gian");
-//        }
+        if (dateChooserStart.getDate() != null && dateChooserEnd != null) {
+            lblCanhBaoLoc.setText("");
+            showDoanhThuTheoThoiGian(dateChooserStart.getDate(), dateChooserEnd.getDate());
+        } else {
+            lblCanhBaoLoc.setText("Vui lòng chọn thời gian");
+        }
 
     }//GEN-LAST:event_btnLocDoanhThuActionPerformed
 
     private void showChartDoanhThuTheoThoiGian(List<ThongKeTheoThoiGianViewModel> listThongKe) {
+        pnlBieuDoDoanhThuThoiGian.removeAll();
+        pnlBieuDoDoanhThuThoiGian.revalidate();
+        pnlBieuDoDoanhThuThoiGian.repaint();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         for (ThongKeTheoThoiGianViewModel thoiGian : listThongKe) {
+            String date = dateFormat.format(thoiGian.getNgay());
             dataset.setValue(thoiGian.getTongTienHang().subtract(thoiGian.getTongTienChietKhau()),
-                    "Tổng tiền hàng", thoiGian.getNgay().toString());
+                    "Tổng tiền hàng", date);
         }
         JFreeChart jFreeChart = ChartFactory.createBarChart("THỐNG KÊ DOANH THU THEO THỜI GIAN", null, "TỔNG DOANH THU",
                 dataset, PlotOrientation.VERTICAL, false, true, false);
-        CategoryPlot p = jFreeChart.getCategoryPlot();
-        p.setRangeGridlinePaint(Color.BLACK);
+        CategoryPlot plot = jFreeChart.getCategoryPlot();
+        plot.setRangeGridlinePaint(Color.ORANGE);
+        plot.setBackgroundPaint(Color.WHITE);
         ChartPanel chartPanel = new ChartPanel(jFreeChart);
         pnlBieuDoDoanhThuThoiGian.add(chartPanel);
         pnlBieuDoDoanhThuThoiGian.revalidate();

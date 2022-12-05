@@ -79,6 +79,7 @@ public class Hibernateutility {
         config.addAnnotatedClass(TaiKhoanAdmin.class);
         config.addAnnotatedClass(TaiKhoanNguoiDung.class);
         config.addAnnotatedClass(ThuongHieu.class);
+
         _factory = config.buildSessionFactory();
 
     }

@@ -49,11 +49,10 @@ public class ThongKeService implements IThongKeService {
         return calendar;
     }
 
-    public static List getDatesBetween(Date startDate, Date endDate) {
-        List datesInRange = new ArrayList<>();
+    public static List<Date> getDatesBetween(Date startDate, Date endDate) {
+        List<Date> datesInRange = new ArrayList<>();
         Calendar calendar = getCalendarWithoutTime(startDate);
         Calendar endCalendar = getCalendarWithoutTime(endDate);
-
         while (calendar.before(endCalendar)) {
             Date result = calendar.getTime();
             datesInRange.add(result);
@@ -66,10 +65,10 @@ public class ThongKeService implements IThongKeService {
     @Override
     public List<ThongKeTheoThoiGianViewModel> getAllThongKeByDate(Date dateStart, Date dateEnd) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        List allDate = getDatesBetween(dateStart, dateEnd);
+        List<Date> allDate = getDatesBetween(dateStart, dateEnd);
         List<ThongKeTheoThoiGianViewModel> listThongKe = new ArrayList<>();
-        for (Object object : allDate) {
-            String date = dateFormat.format(object);
+        for (Date time : allDate) {
+            String date = dateFormat.format(time);
             var listHoaDon = ThongKeRepository.getAllHoaDonBanHangByDate(date);
             ThongKeTheoThoiGianViewModel thongKeView = new ThongKeTheoThoiGianViewModel();
             double tongTienHang = 0;
