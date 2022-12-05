@@ -355,9 +355,9 @@ public class KhuyenMai extends javax.swing.JPanel {
     private void addKhuyenMai() {
         if (iKhuyenMai.validateDataInput(getDataFromControls()).isBlank()) {
             JOptionPane.showMessageDialog(null, iKhuyenMai.addKhuyenMai(getKMFromControls(), getSPAdd()));
-            if (iKhuyenMai.addKhuyenMai(getKMFromControls(), getSPAdd()).equalsIgnoreCase("Them thanh cong!")) {
+//            if (iKhuyenMai.addKhuyenMai(getKMFromControls(), getSPAdd()).equalsIgnoreCase("Them thanh cong!")) {
                 resetControl();
-            }
+//            }
             int trangThai = rdoFillTatCa.isSelected() ? -1 : (rdoFillConHan.isSelected() ? 1 : 0);
             String search = txtSearchKM.getText().trim();
             searchAndFilterKM(search, trangThai);
