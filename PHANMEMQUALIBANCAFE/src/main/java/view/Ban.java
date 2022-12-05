@@ -462,16 +462,24 @@ public class Ban extends javax.swing.JPanel {
     private void btnThemKhuVucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemKhuVucActionPerformed
         if (checkFormEmptyBan(txtMaKhuVuc) && checkVuotquakituKhuVuc(txtMaKhuVuc.getText())
                 && checkMaKhuVuc(txtMaKhuVuc.getText())) {
-            if (taiKhoanNguoiDung == null) {
+            if (taiKhoanAdmin != null) {
                 iKhuVucService.insertKhuVucToChiNhanh(txtMaKhuVuc.getText(),
                         ((ChiNhanhViewModel_Hoang) comboChiNhanh.getSelectedItem()).getId());
+                JOptionPane.showMessageDialog(this, "Thêm Khu Vực thành công");
+                addComboKhuVucByChiNhah(((ChiNhanhViewModel_Hoang) comboChiNhanh.getSelectedItem()).getId());
+                load_KhuVuc_By_ChiNhanh(iKhuVucService.getAllKhuVucByChiNhanh(
+                        ((ChiNhanhViewModel_Hoang) comboChiNhanh.getSelectedItem()).getId()));
             } else {
                 iKhuVucService.insertKhuVucToChiNhanh(txtMaKhuVuc.getText(),
                         ibanService.getChiNhanhByTaiKhoan(taiKhoanNguoiDung.getId()).getId());
+                JOptionPane.showMessageDialog(this, "Thêm Khu Vực thành công");
+                addComboKhuVucByChiNhah(
+                        ((ChiNhanhViewModel_Hoang) ibanService.getChiNhanhByTaiKhoan(taiKhoanNguoiDung.getId())).getId());
+                load_KhuVuc_By_ChiNhanh(iKhuVucService.getAllKhuVucByChiNhanh(
+                        ((ChiNhanhViewModel_Hoang) ibanService.getChiNhanhByTaiKhoan(taiKhoanNguoiDung.getId())).getId()));
+
             }
-            JOptionPane.showMessageDialog(this, "Thêm Khu Vực thành công");
-            addComboKhuVucByChiNhah(((ChiNhanhViewModel_Hoang) comboChiNhanh.getSelectedItem()).getId());
-            load_KhuVuc_By_ChiNhanh(iKhuVucService.getAllKhuVucByChiNhanh(((ChiNhanhViewModel_Hoang) comboChiNhanh.getSelectedItem()).getId()));
+
         } else {
             JOptionPane.showMessageDialog(this, "Thêm khu vực thất bại");
         }
@@ -493,15 +501,19 @@ public class Ban extends javax.swing.JPanel {
                 }
                 iKhuVucService.updateKhuVuc(khuVucViewModel, txtMaKhuVuc.getText(), cbTrangThaiKhuVuc.getSelectedIndex() == 1 ? 1 : 0);
                 JOptionPane.showMessageDialog(this, "Cập nhật thành công  ");
-                load_KhuVuc_By_ChiNhanh(iKhuVucService.getAllKhuVucByChiNhanh(((ChiNhanhViewModel_Hoang) comboChiNhanh.getSelectedItem()).getId()));
+                if (taiKhoanAdmin != null) {
+                    load_KhuVuc_By_ChiNhanh(iKhuVucService.getAllKhuVucByChiNhanh(
+                            ((ChiNhanhViewModel_Hoang) comboChiNhanh.getSelectedItem()).getId()));
+                } else {
+                    load_KhuVuc_By_ChiNhanh(iKhuVucService.getAllKhuVucByChiNhanh(
+                            ((ChiNhanhViewModel_Hoang) ibanService.getChiNhanhByTaiKhoan(taiKhoanNguoiDung.getId())).getId()));
+                }
 
             }
         }
-
     }//GEN-LAST:event_btnCapNhatKhuVucActionPerformed
 
     private void btnThemBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemBanActionPerformed
-
         if (checkFormEmptyBan(txtSoBan) && checkNumber(txtSoBan.getText())
                 && checkVuotquakituBan(txtSoBan.getText()) && checkSoBan(Integer.parseInt(txtSoBan.getText()))) {
             KhuVucViewModel kvView = (KhuVucViewModel) comboKhuVuc.getSelectedItem();
