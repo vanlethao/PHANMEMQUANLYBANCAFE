@@ -2184,7 +2184,7 @@ public class QLGiaoDich extends javax.swing.JPanel {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập lại đơn giá");
         }
-        return false;
+        return true;
     }
     private void tblNguyenLieuKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblNguyenLieuKeyReleased
         // TODO add your handling code here:

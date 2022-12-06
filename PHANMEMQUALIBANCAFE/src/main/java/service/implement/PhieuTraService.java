@@ -115,7 +115,7 @@ public class PhieuTraService implements IPhieuTra {
     @Override
     public Set<ChiTietPhieuTraViewModel> getPhieuTraByChiTietPhieuTra(String idPhieuTra) {
         var chiTietPhieuTra = phieuTraRepo.getPhieuTraByChiTietPhieuTra(idPhieuTra);
-        var ncc = phieuTraRepo.getNhaCungCapByPhieuTra(idPhieuTra);
+        var ncc = phieuNhapRepo.getAllChiTietPhieuNhap();
         Set<ChiTietPhieuTraViewModel> chitietView = new HashSet<>();
         for (ChiTietPhieuTra x : chiTietPhieuTra) {
             if (chiTietPhieuTra != null) {
@@ -126,7 +126,9 @@ public class PhieuTraService implements IPhieuTra {
                 ctView.setTenNguyenLieu(x.getNguyenLieuKey().getTen());
                 ctView.setSoLuongTra(BigDecimal.valueOf(x.getSoLuongTra()));
                 ctView.setDonViTinh(x.getNguyenLieuKey().getDonViTinh());
-                
+                for (ChiTietPhieuNhap y : ncc) {
+                    ctView.setDonGia(BigDecimal.valueOf(y.getDonGia()));
+                }
                 ctView.setLyDo(x.getLiDo());
                 chitietView.add(ctView);
             }
