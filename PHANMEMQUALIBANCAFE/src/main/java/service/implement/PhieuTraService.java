@@ -113,9 +113,9 @@ public class PhieuTraService implements IPhieuTra {
     }
 
     @Override
-    public Set<ChiTietPhieuTraViewModel> getPhieuTraByChiTietPhieuTra(String id) {
-        var chiTietPhieuTra = phieuTraRepo.getPhieuTraByChiTietPhieuTra(id);
-        var chitietPhieuNhap = phieuNhapRepo.getAllChiTietPhieuNhap();
+    public Set<ChiTietPhieuTraViewModel> getPhieuTraByChiTietPhieuTra(String idPhieuTra) {
+        var chiTietPhieuTra = phieuTraRepo.getPhieuTraByChiTietPhieuTra(idPhieuTra);
+        var ncc = phieuTraRepo.getNhaCungCapByPhieuTra(idPhieuTra);
         Set<ChiTietPhieuTraViewModel> chitietView = new HashSet<>();
         for (ChiTietPhieuTra x : chiTietPhieuTra) {
             if (chiTietPhieuTra != null) {
@@ -126,9 +126,7 @@ public class PhieuTraService implements IPhieuTra {
                 ctView.setTenNguyenLieu(x.getNguyenLieuKey().getTen());
                 ctView.setSoLuongTra(BigDecimal.valueOf(x.getSoLuongTra()));
                 ctView.setDonViTinh(x.getNguyenLieuKey().getDonViTinh());
-                for (ChiTietPhieuNhap y : chitietPhieuNhap) {
-                    ctView.setDonGia(BigDecimal.valueOf(y.getDonGia()));
-                }
+                
                 ctView.setLyDo(x.getLiDo());
                 chitietView.add(ctView);
             }
@@ -136,13 +134,7 @@ public class PhieuTraService implements IPhieuTra {
         return chitietView;
     }
 
-    public static void main(String[] args) {
-        PhieuTraService pt = new PhieuTraService();
-        Set<ChiTietPhieuTraViewModel> set = pt.getPhieuTraByChiTietPhieuTra("30A4647E-6637-4960-A6D3-8567499B17CF");
-        for (ChiTietPhieuTraViewModel x : set) {
-            System.out.println(x.getDonGia());
-        }
-    }
+
 
     @Override
     public PhieuTraViewModel getPhieuTraByID(String id) {

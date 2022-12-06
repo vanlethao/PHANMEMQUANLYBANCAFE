@@ -92,7 +92,7 @@
               <Color blue="0" green="33" red="66" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Ph&#x1ea7;n m&#x1ec1;m qu&#x1ea3;n l&#xfd; b&#xe1;n c&#xe0; ph&#xea;"/>
+            <Property name="text" type="java.lang.String" value="Ph&#x1ea7;n m&#x1ec1;m qu&#x1ea3;n l&#xfd; b&#xe1;n &#x111;&#x1ed3; u&#x1ed1;ng"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">

@@ -23,7 +23,7 @@ public interface IPhieuTra {
     Set<PhieuTraViewModel> getAllPhieuTraByChiNhanh(String idChiNhanh);
 
 //    List<ChiTietPhieuTraViewModel> getAllChiTietPhieuTra();
-    Set<ChiTietPhieuTraViewModel> getPhieuTraByChiTietPhieuTra(String id);
+    Set<ChiTietPhieuTraViewModel> getPhieuTraByChiTietPhieuTra(String idPhieuTra);
 
     PhieuTraViewModel getPhieuTraByMa(String maPT);
 

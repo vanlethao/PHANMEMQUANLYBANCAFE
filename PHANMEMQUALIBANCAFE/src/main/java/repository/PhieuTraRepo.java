@@ -9,6 +9,7 @@ import domainmodel.ChiTietPhieuTra;
 import domainmodel.NguyenLieu;
 import domainmodel.NhaCungCap;
 import domainmodel.NhanVien;
+import domainmodel.PhieuNhapHang;
 import domainmodel.PhieuTraHang;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -57,11 +58,19 @@ public class PhieuTraRepo {
         }
         return lstChiTietPhieuTra;
     }
-
-    public Set<ChiTietPhieuTra> getPhieuTraByChiTietPhieuTra(String id) {
+ public NhaCungCap getNhaCungCapByPhieuTra(String idPhieuTra){
+        NhaCungCap ncc = null;
+        try( Session session = Hibernateutility.getFactory().openSession()){
+            PhieuTraHang pn = session.get(PhieuTraHang.class , idPhieuTra);
+            ncc = pn.getNhaCungCap();
+            session.close();
+        }
+        return ncc;
+    }
+    public Set<ChiTietPhieuTra> getPhieuTraByChiTietPhieuTra(String idPhieuTra) {
         Set<ChiTietPhieuTra> setCtpt = null;
         try ( Session session = Hibernateutility.getFactory().openSession()) {
-            PhieuTraHang pt = session.get(PhieuTraHang.class, id);
+            PhieuTraHang pt = session.get(PhieuTraHang.class, idPhieuTra);
             setCtpt = pt.getChiTietPhieuTra();
             session.close();
         }

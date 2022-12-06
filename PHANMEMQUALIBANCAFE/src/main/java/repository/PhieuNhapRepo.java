@@ -32,9 +32,9 @@ public class PhieuNhapRepo {
         Set<NguyenLieu> setNguyenLieu = null;
         try ( Session session = Hibernateutility.getFactory().openSession()) {
             ChiNhanh cn = session.get(ChiNhanh.class, idChiNhanh);
-           setNguyenLieu= cn.getListNguyenLieu();
+            setNguyenLieu = cn.getListNguyenLieu();
             for (NguyenLieu x : setNguyenLieu) {
-                Set<ChiTietPhieuNhap> setChiTiet= x.getChiTietPhieuNhap();
+                Set<ChiTietPhieuNhap> setChiTiet = x.getChiTietPhieuNhap();
                 for (ChiTietPhieuNhap chiTietPhieuNhap : setChiTiet) {
                     SetPhieuNhap.add(chiTietPhieuNhap.getPhieuNhapKey());
                 }
@@ -44,6 +44,15 @@ public class PhieuNhapRepo {
             ex.printStackTrace();
         }
         return SetPhieuNhap;
+    }
+
+    public NhaCungCap getAllNhaCungCapByPhieuNhap(String idPhieuNhap) {
+        NhaCungCap ncc = null;
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            PhieuNhapHang pn = session.get(PhieuNhapHang.class, idPhieuNhap);
+            ncc = pn.getNhaCungCap();
+        }
+        return ncc;
     }
 
     public List<ChiTietPhieuNhap> getAllChiTietPhieuNhap() {
@@ -66,8 +75,6 @@ public class PhieuNhapRepo {
         }
         return setCTPN;
     }
-
-    
 
     public List<NhaCungCap> getAllNhaCungCap() {
         List<NhaCungCap> lstNhaCungCap = null;
@@ -291,9 +298,10 @@ public class PhieuNhapRepo {
             session.close();
         }
     }
+
     public Set<NhanVien> getAllNhanVienByChiNhanh(String IdchiNhanh) {
         Set<NhanVien> setNhanVien = null;
-        try (Session session = Hibernateutility.getFactory().openSession()) {
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
             Transaction trans = session.beginTransaction();
             ChiNhanh cn = session.get(ChiNhanh.class, IdchiNhanh);
             setNhanVien = cn.getSetNhanVien();
@@ -302,9 +310,10 @@ public class PhieuNhapRepo {
         }
         return setNhanVien;
     }
-     public Set<NguyenLieu> getAllNguyenLieuByChiNhanh(String IdchiNhanh) {
+
+    public Set<NguyenLieu> getAllNguyenLieuByChiNhanh(String IdchiNhanh) {
         Set<NguyenLieu> setNguyenLieu = null;
-        try (Session session = Hibernateutility.getFactory().openSession()) {
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
             Transaction trans = session.beginTransaction();
             ChiNhanh cn = session.get(ChiNhanh.class, IdchiNhanh);
             setNguyenLieu = cn.getListNguyenLieu();
@@ -313,6 +322,7 @@ public class PhieuNhapRepo {
         }
         return setNguyenLieu;
     }
+
     public Set<ChiTietPhieuNhap> searchPhieuNhap(String maPN) {
         Transaction trans = null;
         Set<ChiTietPhieuNhap> listChiTiet = new HashSet<>();

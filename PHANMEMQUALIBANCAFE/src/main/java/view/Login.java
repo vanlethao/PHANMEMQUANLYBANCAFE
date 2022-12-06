@@ -96,7 +96,7 @@ public class Login extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("sansserif", 1, 20)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(102, 51, 0));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Phần mềm quản lý bán cà phê");
+        jLabel6.setText("Phần mềm quản lý bán đồ uống");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 340, 30));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, 480));
