@@ -103,6 +103,6 @@ public class KhachHangView {
     }
     
     public Object[] toDataRow() {
-        return new Object[] {id, ma, hoTen, gioiTinh, sdt, thanhPho, quocGia, trangThai, diemTichLuy};
+        return new Object[] {id, ma, hoTen, gioiTinh, sdt, thanhPho, quocGia, trangThai == 1?"Con hoat dong":"Ngung hoat dong", diemTichLuy};
     }
 }
