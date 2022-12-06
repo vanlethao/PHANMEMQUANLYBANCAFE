@@ -193,11 +193,11 @@ public class KhuyenMaiService implements IKhuyenMai {
             try {
                 float diem = Float.parseFloat((String) data[4]);
                 if (diem < 0) {
-                    message += "\"Chiet khau\" phai lon hon hoac bang 0!";
+                    message += "\"Chiet khau\" phai lon hon hoac bang 0!\n";
                 }
             } catch (NumberFormatException e) {
                 e.printStackTrace(System.err);
-                message += "\"Chiet khau\" phai la so, khong chua chu hoac ky tu dac biet!";
+                message += "\"Chiet khau\" phai la so, khong chua chu hoac ky tu dac biet!\n";
             }
         }
         return message;

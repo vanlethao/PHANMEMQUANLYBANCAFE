@@ -41,7 +41,7 @@
                   <Component id="jPanel2" max="32767" attributes="0"/>
                   <Component id="jPanel1" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -70,14 +70,14 @@
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Group type="102" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
                                           <Component id="txtSearchKH" min="-2" pref="222" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="98" max="-2" attributes="0"/>
                                           <Component id="rdoAllKH" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
                                           <Component id="rdoOnKH" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                                          <Component id="rdoOffKH" max="32767" attributes="0"/>
+                                          <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                                          <Component id="rdoOffKH" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
                                   </Group>
@@ -210,6 +210,8 @@
           </Properties>
           <Events>
             <EventHandler event="caretUpdate" listener="javax.swing.event.CaretListener" parameters="javax.swing.event.CaretEvent" handler="txtSearchKHCaretUpdate"/>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtSearchKHFocusGained"/>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtSearchKHFocusLost"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel12">
@@ -221,6 +223,11 @@
           </Properties>
         </Component>
         <Container class="javax.swing.JPanel" name="jPanel3">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ba" green="cc" red="dc" type="rgb"/>
+            </Property>
+          </Properties>
 
           <Layout>
             <DimensionLayout dim="0">
@@ -374,8 +381,8 @@
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="3">
                     <StringItem index="0" value="-Chon trang thai-"/>
-                    <StringItem index="1" value="Trang thai 1"/>
-                    <StringItem index="2" value="Trang thai 2"/>
+                    <StringItem index="1" value="Con hoat dong"/>
+                    <StringItem index="2" value="Ngung hoat dong"/>
                   </StringArray>
                 </Property>
               </Properties>
@@ -408,6 +415,11 @@
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="jPanel4">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ba" green="cc" red="dc" type="rgb"/>
+            </Property>
+          </Properties>
 
           <Layout>
             <DimensionLayout dim="0">
@@ -415,7 +427,7 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="btnExcelKH" pref="120" max="32767" attributes="0"/>
+                          <Component id="btnExcelKH" max="32767" attributes="0"/>
                           <Component id="btnUpdateKH" alignment="0" max="32767" attributes="0"/>
                           <Component id="btnXoaKH" alignment="0" max="32767" attributes="0"/>
                       </Group>
@@ -440,6 +452,12 @@
           <SubComponents>
             <Component class="javax.swing.JButton" name="btnUpdateKH">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="12" style="1"/>
+                </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icon/icons8_sync_30px.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Cap Nhat KH"/>
               </Properties>
               <Events>
@@ -448,6 +466,12 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnXoaKH">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="12" style="1"/>
+                </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icon/icons8_remove_30px.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Xoa KH"/>
               </Properties>
               <Events>
@@ -456,6 +480,12 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnExcelKH">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="12" style="1"/>
+                </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icon/icons8_microsoft_excel_30px.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Xuat file excel"/>
               </Properties>
               <Events>
@@ -480,7 +510,7 @@
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="buttonGroup3"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Trang thai 1"/>
+            <Property name="text" type="java.lang.String" value="Con hoat dong"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rdoOnKHActionPerformed"/>
@@ -491,7 +521,7 @@
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="buttonGroup3"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Trang thai 2"/>
+            <Property name="text" type="java.lang.String" value="Ngung hoat dong"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rdoOffKHActionPerformed"/>
@@ -541,32 +571,22 @@
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="jLabel1" alignment="0" min="-2" pref="70" max="-2" attributes="0"/>
-                                  <Component id="jLabel2" alignment="0" min="-2" pref="70" max="-2" attributes="0"/>
-                                  <Component id="jLabel3" alignment="0" min="-2" pref="70" max="-2" attributes="0"/>
-                                  <Component id="jLabel4" alignment="0" min="-2" pref="70" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Component id="jLabel1" alignment="0" min="-2" pref="70" max="-2" attributes="0"/>
+                                          <Component id="jLabel2" alignment="0" min="-2" pref="70" max="-2" attributes="0"/>
+                                          <Component id="jLabel3" alignment="0" min="-2" pref="70" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jLabel4" min="-2" pref="70" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="txtMaNCC" min="-2" pref="200" max="-2" attributes="0"/>
-                                          <Component id="txtIdNCC" min="-2" pref="200" max="-2" attributes="0"/>
-                                          <Component id="txtTenNCC" min="-2" pref="200" max="-2" attributes="0"/>
-                                          <Component id="cbbTrangThaiNCC" alignment="0" min="-2" pref="201" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="btnExcelNCC" min="-2" pref="127" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                              <Component id="btnUpdateNCC" alignment="0" pref="127" max="32767" attributes="0"/>
-                                              <Component id="btnXoaNCC" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="btnAddNCC" alignment="0" max="32767" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                  </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="-2" pref="101" max="-2" attributes="0"/>
                                       <Component id="rdoAllNCC" min="-2" max="-2" attributes="0"/>
@@ -574,6 +594,24 @@
                                       <Component id="rdoOnNCC" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="rdoOffNCC" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="txtMaNCC" min="-2" pref="200" max="-2" attributes="0"/>
+                                          <Component id="txtIdNCC" min="-2" pref="200" max="-2" attributes="0"/>
+                                          <Component id="txtTenNCC" min="-2" pref="200" max="-2" attributes="0"/>
+                                          <Component id="cbbTrangThaiNCC" alignment="0" min="-2" pref="201" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <Component id="btnExcelNCC" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="btnUpdateNCC" min="-2" max="-2" attributes="0"/>
+                                          <Component id="btnAddNCC" alignment="1" min="-2" pref="143" max="-2" attributes="0"/>
+                                          <Component id="btnXoaNCC" alignment="1" min="-2" pref="143" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
@@ -596,35 +634,35 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                   <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="txtIdNCC" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnAddNCC" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="txtMaNCC" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <Component id="btnUpdateNCC" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="txtIdNCC" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnAddNCC" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txtTenNCC" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtMaNCC" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnXoaNCC" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="cbbTrangThaiNCC" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnExcelNCC" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="btnUpdateNCC" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="txtTenNCC" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="btnExcelNCC" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cbbTrangThaiNCC" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="txtSearchNCC" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="rdoAllNCC" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -725,8 +763,8 @@
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="3">
                 <StringItem index="0" value="-Chon trang thai-"/>
-                <StringItem index="1" value="Trang thai 1"/>
-                <StringItem index="2" value="Trang thai 2"/>
+                <StringItem index="1" value="Con hoat dong"/>
+                <StringItem index="2" value="Ngung hoat dong"/>
               </StringArray>
             </Property>
           </Properties>
@@ -736,6 +774,12 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnAddNCC">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="12" style="1"/>
+            </Property>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/icon/add_20px.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Them NCC"/>
           </Properties>
           <Events>
@@ -744,6 +788,12 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnUpdateNCC">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="12" style="1"/>
+            </Property>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/icon/icons8_sync_30px.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Cap Nhat NCC"/>
           </Properties>
           <Events>
@@ -756,6 +806,8 @@
           </Properties>
           <Events>
             <EventHandler event="caretUpdate" listener="javax.swing.event.CaretListener" parameters="javax.swing.event.CaretEvent" handler="txtSearchNCCCaretUpdate"/>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtSearchNCCFocusGained"/>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtSearchNCCFocusLost"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel13">
@@ -768,6 +820,12 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnXoaNCC">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="12" style="1"/>
+            </Property>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/icon/icons8_remove_30px.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="X&#xf3;a NCC"/>
           </Properties>
           <Events>
@@ -776,6 +834,12 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnExcelNCC">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="12" style="1"/>
+            </Property>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/icon/icons8_microsoft_excel_30px.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Xuat file excel"/>
           </Properties>
           <Events>

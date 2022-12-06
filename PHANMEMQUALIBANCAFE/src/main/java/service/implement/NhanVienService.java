@@ -272,29 +272,29 @@ public class NhanVienService implements INhanVien {
         }
 
         if (((String) data[3]).isBlank()) {
-            message += "\"Thanh pho\" khong duoc de trong!";
+            message += "\"Thanh pho\" khong duoc de trong!\n";
         }
 
         if (((String) data[4]).isBlank()) {
-            message += "\"Quoc gia\" khong duoc de trong!";
+            message += "\"Quoc gia\" khong duoc de trong!\n";
         }
 
         if (((String) data[5]).isBlank()) {
-            message += "\"Tien luong\" khong duoc de trong!";
+            message += "\"Tien luong\" khong duoc de trong!\n";
         } else {
             try {
                 float diem = Float.parseFloat((String) data[5]);
                 if (diem < 0) {
-                    message += "\"Tien luong\" phai lon hon hoac bang 0!";
+                    message += "\"Tien luong\" phai lon hon hoac bang 0!\n";
                 }
             } catch (NumberFormatException e) {
                 e.printStackTrace(System.err);
-                message += "\"Tien luong\" phai la so, khong chua chu hoac ky tu dac biet!";
+                message += "\"Tien luong\" phai la so, khong chua chu hoac ky tu dac biet!\n";
             }
         }
 
         if (((Integer) data[6]) == 0) {
-            message += "\"Trang thai\" phai duoc chon!";
+            message += "\"Trang thai\" phai duoc chon!\n";
         }
         
         return message;

@@ -56,7 +56,7 @@ public class NhaCungCapService implements INhaCungCap {
     /// CUD
     @Override
     public String addNhaCungCap(NhaCungCap ncc) {
-        if (isNCCExists(ncc.getMa())) {
+        if (!isNCCExists(ncc.getMa())) {
             if (nhaCungCapRepo.addNhaCungCap(ncc)) {
                 return "Them thanh cong!";
             } else {
