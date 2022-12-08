@@ -49,11 +49,11 @@ public class ChiNhanh implements Serializable {
     @Column(name = "GiaTriDiem")
     private Float giaTriDiem;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "IdThuongHieu")
     private ThuongHieu thuongHieu;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "NGUYENLIEUCHINHANH",
             joinColumns = {
                 @JoinColumn(name = "IdChiNhanh")},
@@ -61,10 +61,10 @@ public class ChiNhanh implements Serializable {
                 @JoinColumn(name = "IdNguyenLieu")})
     private Set<NguyenLieu> listNguyenLieu;
 
-    @OneToMany(mappedBy = "chiNhanh", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "chiNhanh", fetch = FetchType.LAZY)
     private Set<KhuVuc> setKhuVuc;
 
-    @OneToMany(mappedBy = "chiNhanh", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "chiNhanh", fetch = FetchType.LAZY)
     private Set<NhanVien> setNhanVien;
 
     public ChiNhanh() {

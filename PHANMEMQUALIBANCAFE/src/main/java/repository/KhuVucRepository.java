@@ -2,6 +2,7 @@ package repository;
 
 import domainmodel.KhuVuc;
 import domainmodel.ChiNhanh;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import org.hibernate.Session;
@@ -11,13 +12,14 @@ import utility.Hibernateutility;
 
 public class KhuVucRepository {
 
-    public Set<KhuVuc> getAllKhuVucByChiNhanh(String IdchiNhanh) {
-        Set<KhuVuc> setKhuVuc = null;
+    public static Set<KhuVuc> getAllKhuVucByChiNhanh(String IdchiNhanh) {
+        Set<KhuVuc> setKhuVuc = new HashSet<>();
         try ( Session session = Hibernateutility.getFactory().openSession()) {
-            Transaction trans = session.beginTransaction();
             ChiNhanh cn = session.get(ChiNhanh.class, IdchiNhanh);
-            setKhuVuc = cn.getSetKhuVuc();
-            trans.commit();
+            Set<KhuVuc> allKhuVuc = cn.getSetKhuVuc();
+            for (KhuVuc khuVuc : allKhuVuc) {
+                setKhuVuc.add(khuVuc);
+            }
             session.close();
         }
         return setKhuVuc;
