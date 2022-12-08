@@ -129,14 +129,12 @@ public class SanPhamService implements ISanPhamService {
     public List<NguyenLieuDangSuDung> getAllNguyenLieuByChiNhanh(String idChiNhanh) {
         List<NguyenLieuDangSuDung> listNguyenLieu = new ArrayList<>();
         var ListNl = sanPhamRepo.getAllNguyenLieuByChiNhanh(idChiNhanh);
-        if (ListNl != null) {
-            for (NguyenLieu nguyenLieu : ListNl) {
-                NguyenLieuDangSuDung nl = new NguyenLieuDangSuDung();
-                nl.setId(nguyenLieu.getId());
-                nl.setMa(nguyenLieu.getMa());
-                nl.setTen(nguyenLieu.getTen());
-                listNguyenLieu.add(nl);
-            }
+        for (NguyenLieu nguyenLieu : ListNl) {
+            NguyenLieuDangSuDung nl = new NguyenLieuDangSuDung();
+            nl.setId(nguyenLieu.getId());
+            nl.setMa(nguyenLieu.getMa());
+            nl.setTen(nguyenLieu.getTen());
+            listNguyenLieu.add(nl);
         }
         return listNguyenLieu;
     }

@@ -120,10 +120,13 @@ public class SanPhamRespository {
     }
 
     public Set<NguyenLieu> getAllNguyenLieuByChiNhanh(String idChiNhanh) {
-        Set<NguyenLieu> setNguyenLieu = null;
+        Set<NguyenLieu> setNguyenLieu = new HashSet<>();
         try ( Session session = Hibernateutility.getFactory().openSession()) {
             ChiNhanh chiNhanh = session.get(ChiNhanh.class, idChiNhanh);
-            setNguyenLieu = chiNhanh.getListNguyenLieu();
+            Set<NguyenLieu> allNguyenLieu = chiNhanh.getListNguyenLieu();
+            for (NguyenLieu nguyenLieu : allNguyenLieu) {
+                setNguyenLieu.add(nguyenLieu);
+            }
             session.close();
         }
         return setNguyenLieu;

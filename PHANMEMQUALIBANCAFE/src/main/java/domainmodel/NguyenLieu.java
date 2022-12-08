@@ -48,13 +48,13 @@ public class NguyenLieu implements Serializable {
     @Column(name = "SoLuongTon")
     private Float soLuongTon;
 
-    @OneToMany(mappedBy = "nguyenLieukey", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(mappedBy = "nguyenLieukey", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<ChiTietSP> chiTietSp;
 
-    @OneToMany(mappedBy = "nguyenLieuKey", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(mappedBy = "nguyenLieuKey", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<ChiTietPhieuNhap> chiTietPhieuNhap;
 
-    @OneToMany(mappedBy = "nguyenLieuKey", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(mappedBy = "nguyenLieuKey", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<ChiTietPhieuTra> chiTietPhieuTra;
 
     public NguyenLieu() {
