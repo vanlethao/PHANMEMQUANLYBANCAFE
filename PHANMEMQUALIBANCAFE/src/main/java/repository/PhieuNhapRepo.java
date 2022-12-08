@@ -300,11 +300,14 @@ public class PhieuNhapRepo {
     }
 
     public Set<NhanVien> getAllNhanVienByChiNhanh(String IdchiNhanh) {
-        Set<NhanVien> setNhanVien = null;
+        Set<NhanVien> setNhanVien = new HashSet<>();
         try ( Session session = Hibernateutility.getFactory().openSession()) {
             Transaction trans = session.beginTransaction();
             ChiNhanh cn = session.get(ChiNhanh.class, IdchiNhanh);
-            setNhanVien = cn.getSetNhanVien();
+            Set<NhanVien> setAllNhanVien = cn.getSetNhanVien();
+            for (NhanVien nhanVien : setAllNhanVien) {
+                setAllNhanVien.add(nhanVien);
+            }
             trans.commit();
             session.close();
         }
@@ -312,11 +315,14 @@ public class PhieuNhapRepo {
     }
 
     public Set<NguyenLieu> getAllNguyenLieuByChiNhanh(String IdchiNhanh) {
-        Set<NguyenLieu> setNguyenLieu = null;
+        Set<NguyenLieu> setNguyenLieu = new HashSet<>();
         try ( Session session = Hibernateutility.getFactory().openSession()) {
             Transaction trans = session.beginTransaction();
             ChiNhanh cn = session.get(ChiNhanh.class, IdchiNhanh);
-            setNguyenLieu = cn.getListNguyenLieu();
+            Set<NguyenLieu> setAllNguyenLieu = cn.getListNguyenLieu();
+            for (NguyenLieu nguyenLieu : setAllNguyenLieu) {
+                setAllNguyenLieu.add(nguyenLieu);
+            }
             trans.commit();
             session.close();
         }

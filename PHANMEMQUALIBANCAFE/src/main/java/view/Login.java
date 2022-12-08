@@ -23,10 +23,10 @@ public class Login extends javax.swing.JFrame {
     ILogin logService = new LoginSerVice();
     private ChiNhanhViewModel_Hoang chiNhanh;
     private TaiKhoanNguoiDung nguoiDung;
+    
 
     public Login() {
         initComponents();
-
     }
 
     public TaiKhoanNguoiDung getNguoiDung() {
@@ -155,11 +155,12 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        lblExit.setBackground(new java.awt.Color(102, 0, 0));
+        lblExit.setBackground(new java.awt.Color(228, 212, 189));
         lblExit.setFont(new java.awt.Font("sansserif", 1, 40)); // NOI18N
         lblExit.setForeground(new java.awt.Color(102, 51, 0));
         lblExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_cancel_30px.png"))); // NOI18N
         lblExit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblExit.setOpaque(true);
         lblExit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblExitMouseClicked(evt);
@@ -229,7 +230,6 @@ public class Login extends javax.swing.JFrame {
             if (taiKhoanAdmin != null) {
                 this.setNguoiDung(null);
                 this.setChiNhanh(null);
-                JOptionPane.showMessageDialog(this, "Đăng nhập thành công");
                 OverView ov = new OverView(taiKhoanAdmin, taiKhoanND);
                 ov.setVisible(true);
                 this.dispose();
@@ -237,7 +237,6 @@ public class Login extends javax.swing.JFrame {
                 this.setNguoiDung(taiKhoanND);
                 NhanVien nv = logService.getNhanVienbyTaiKhoan(taiKhoanND.getId());
                 this.setChiNhanh(logService.getChiNhanhByNhanVien(nv.getId()));
-                JOptionPane.showMessageDialog(this, "Đăng nhập thành công");
                 OverView ov = new OverView(taiKhoanAdmin, taiKhoanND);
                 ov.setVisible(true);
                 this.dispose();

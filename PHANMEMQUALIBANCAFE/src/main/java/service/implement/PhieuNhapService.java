@@ -43,10 +43,6 @@ public class PhieuNhapService implements IPhieuNhap {
             PhieuNhapViewModel pnView = new PhieuNhapViewModel();
             pnView.setId(x.getId());
             pnView.setMaPhieuNhap(x.getMa());
-//            pnView.setMaNguyenLieu(x.getNguyenLieuKey().getMa());
-//            if (x.getNguyenLieuKey().getTen() != null) {
-//                pnView.setTenNguyenLieu(x.getNguyenLieuKey().getTen());
-//            }
             pnView.setMaNhaCungCap(x.getNhaCungCap().getMa());
             if (x.getNhaCungCap().getTen() != null) {
                 pnView.setTenNhaCungCap(x.getNhaCungCap().getTen());
@@ -58,12 +54,6 @@ public class PhieuNhapService implements IPhieuNhap {
             if (x.getNgayNhap() != null) {
                 pnView.setNgayNhap(x.getNgayNhap());
             }
-//            if (x.getSoLuongNhap() != null) {
-//                pnView.setSoLuongNhap(new BigDecimal(x.getSoLuongNhap()));
-//            }
-//            if (x.getDonGia() != null) {
-//                pnView.setDonGia(new BigDecimal(x.getDonGia()));
-//            }
             if (x.getTrangThai() != null) {
                 pnView.setTrangThai(x.getTrangThai());
             }

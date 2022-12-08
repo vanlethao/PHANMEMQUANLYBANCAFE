@@ -66,11 +66,13 @@ import viewmodel.PhieuTraViewModel;
  *
  * @author trant
  */
-public class QLGiaoDich extends javax.swing.JPanel {
+public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
 
     /**
      * Creates new form QLGiaoDich
      */
+    TaiKhoanAdmin _admin;
+    TaiKhoanNguoiDung _nguoiDung;
     DefaultTableModel modelPhieuNhap = new DefaultTableModel();
     DefaultTableModel modelChiTietPhieuNhap = new DefaultTableModel();
     DefaultTableModel modelPhieuTra = new DefaultTableModel();
@@ -104,6 +106,8 @@ public class QLGiaoDich extends javax.swing.JPanel {
 
     public QLGiaoDich(TaiKhoanAdmin admin, TaiKhoanNguoiDung nguoiDung) {
         initComponents();
+        _admin = admin;
+        _nguoiDung = nguoiDung;
         modelNguyenLieu = (DefaultTableModel) tblNguyenLieu.getModel();
         modelNguyenLieuTra = (DefaultTableModel) tblNguyenLieuTra.getModel();
 
@@ -114,7 +118,13 @@ public class QLGiaoDich extends javax.swing.JPanel {
         cboNhaCungCapTra.setModel((DefaultComboBoxModel) comboNhaCungCapTra);
         lstHoaDon = hoaDonService.getAllHoaDon();
         loadTableHoaDon(lstHoaDon);
-        if (admin != null) {
+        Thread loadGIaoDich = new Thread(this);
+        loadGIaoDich.start();
+    }
+
+    @Override
+    public void run() {
+        if (_admin != null) {
             //Chi nhánh
             comboChiNhanh = (DefaultComboBoxModel) new DefaultComboBoxModel<>(iBanHang.getAllChiNhanh().toArray());
             cboChiNhanhNhap.setModel((DefaultComboBoxModel) comboChiNhanh);
@@ -138,19 +148,19 @@ public class QLGiaoDich extends javax.swing.JPanel {
             cboChiNhanhNhap.setVisible(false);
             lblCNTra.setVisible(false);
             cboChiNhanhTra.setVisible(false);
-            comboNhanVien = (DefaultComboBoxModel) new DefaultComboBoxModel<>(phieuNhapSevice.getAllNhanVienByChiNhanh(iBanService.getChiNhanhByTaiKhoan(nguoiDung.getId()).getId()).toArray());
+            comboNhanVien = (DefaultComboBoxModel) new DefaultComboBoxModel<>(phieuNhapSevice.getAllNhanVienByChiNhanh(iBanService.getChiNhanhByTaiKhoan(_nguoiDung.getId()).getId()).toArray());
             cboNhanVienNhap.setModel((DefaultComboBoxModel) comboNhanVien);
 
-            comboNhanVienTra = (DefaultComboBoxModel) new DefaultComboBoxModel<>(phieuNhapSevice.getAllNhanVienByChiNhanh(iBanService.getChiNhanhByTaiKhoan(nguoiDung.getId()).getId()).toArray());
+            comboNhanVienTra = (DefaultComboBoxModel) new DefaultComboBoxModel<>(phieuNhapSevice.getAllNhanVienByChiNhanh(iBanService.getChiNhanhByTaiKhoan(_nguoiDung.getId()).getId()).toArray());
             cboNhanVienTra.setModel((DefaultComboBoxModel) comboNhanVienTra);
 
-            comboNguyenLieu = (DefaultComboBoxModel) new DefaultComboBoxModel<>(phieuNhapSevice.getAllNguyenLieuByChiNhanh(iBanService.getChiNhanhByTaiKhoan(nguoiDung.getId()).getId()).toArray());
+            comboNguyenLieu = (DefaultComboBoxModel) new DefaultComboBoxModel<>(phieuNhapSevice.getAllNguyenLieuByChiNhanh(iBanService.getChiNhanhByTaiKhoan(_nguoiDung.getId()).getId()).toArray());
             cboNguyenLieuNhap.setModel((DefaultComboBoxModel) comboNguyenLieu);
 
-            comboNguyenLieuTra = (DefaultComboBoxModel) new DefaultComboBoxModel<>(phieuNhapSevice.getAllNguyenLieuByChiNhanh(iBanService.getChiNhanhByTaiKhoan(nguoiDung.getId()).getId()).toArray());
+            comboNguyenLieuTra = (DefaultComboBoxModel) new DefaultComboBoxModel<>(phieuNhapSevice.getAllNguyenLieuByChiNhanh(iBanService.getChiNhanhByTaiKhoan(_nguoiDung.getId()).getId()).toArray());
             cboNguyenLieuTra.setModel((DefaultComboBoxModel) comboNguyenLieuTra);
-            loadAll(iBanService.getChiNhanhByTaiKhoan(nguoiDung.getId()).getId());
-            loadAllTra(iBanService.getChiNhanhByTaiKhoan(nguoiDung.getId()).getId());
+            loadAll(iBanService.getChiNhanhByTaiKhoan(_nguoiDung.getId()).getId());
+            loadAllTra(iBanService.getChiNhanhByTaiKhoan(_nguoiDung.getId()).getId());
         }
     }
 
