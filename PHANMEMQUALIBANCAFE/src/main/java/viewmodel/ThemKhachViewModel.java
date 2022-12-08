@@ -23,8 +23,7 @@ public class ThemKhachViewModel {
     public ThemKhachViewModel() {
     }
 
-    public ThemKhachViewModel(String id, String ma, String hoTen, String quocGia,
-            String thanhPho, String sdt, String gioiTinh, Integer trangThai, Integer diemTichLuy) {
+    public ThemKhachViewModel(String id, String ma, String hoTen, String quocGia, String thanhPho, String sdt, String gioiTinh, Integer trangThai, Integer diemTichLuy) {
         this.id = id;
         this.ma = ma;
         this.hoTen = hoTen;

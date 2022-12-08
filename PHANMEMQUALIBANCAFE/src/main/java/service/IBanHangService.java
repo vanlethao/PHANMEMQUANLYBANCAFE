@@ -25,6 +25,8 @@ public interface IBanHangService {
 
     boolean checkSo(String soLuong);
 
+    boolean checkFormatSdt(String sdt);
+
     List<Area> getAllKhuVucByChiNhanh(String idChiNhanh);
 
     List<KhuyenMaiDangHoatDong> getAllKhuyenMaiByChiNhanh(String idChiNhanh);
@@ -36,6 +38,8 @@ public interface IBanHangService {
     String insertKhachHang(ThemKhachViewModel khachHang);
 
     ThemKhachViewModel getKhachHangBySdt(String sdt);
+
+    boolean checkMaKhach(String maKhach);
 
     Float getGiaTriDoiDiem();
 

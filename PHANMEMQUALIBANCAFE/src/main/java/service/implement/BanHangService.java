@@ -7,6 +7,7 @@ package service.implement;
 import domainmodel.Ban;
 import domainmodel.ChiNhanh;
 import domainmodel.HoaDonBanHang;
+import domainmodel.KhachHang;
 import domainmodel.KhuVuc;
 import domainmodel.KhuyenMai;
 import domainmodel.NhanVien;
@@ -71,6 +72,15 @@ public class BanHangService implements IBanHangService {
     public boolean checkSo(String soLuong) {
         Pattern checkInt = Pattern.compile("^[0-9]+$");
         if (!checkInt.matcher(soLuong).find()) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean checkFormatSdt(String sdt) {
+        Pattern checksdt = Pattern.compile("^[0][0-9]{9}$");
+        if (!checksdt.matcher(sdt).find()) {
             return false;
         }
         return true;
@@ -143,8 +153,32 @@ public class BanHangService implements IBanHangService {
     }
 
     @Override
-    public String insertKhachHang(ThemKhachViewModel khachHang) {
-        return null;
+    public String insertKhachHang(ThemKhachViewModel khachView) {
+        KhachHang khach = new KhachHang();
+        khach.setMa(khachView.getMa());
+        if (khachView.getHoTen() != null) {
+            khach.setHoTen(khachView.getHoTen());
+        }
+        if (khachView.getThanhPho() != null) {
+            khach.setThanhPho(khachView.getThanhPho());
+        }
+        if (khachView.getSdt() != null) {
+            khach.setSdt(khachView.getSdt());
+        }
+        khach.setQuocGia(khachView.getQuocGia());
+        khach.setGioiTinh(khachView.getGioiTinh());
+        khach.setTrangThai(1);
+        khach.setDiemTichLuy(0);
+        return _BanHangRepo.insertKhachHang(khach);
+    }
+
+    @Override
+    public boolean checkMaKhach(String maKhach) {
+        var khachHang = _BanHangRepo.getKhachHangByMa(maKhach);
+        if (khachHang != null) {
+            return true;
+        }
+        return false;
     }
 
     @Override

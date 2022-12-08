@@ -172,6 +172,20 @@ public class BanHangRepo {
 
     }
 
+    public static KhachHang getKhachHangByMa(String maKhach) {
+        KhachHang kh = null;
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            Query query = session.createQuery("FROM KhachHang WHERE ma=:maKhach");
+            query.setParameter("maKhach", maKhach);
+            List<KhachHang> list = query.getResultList();
+            if (list.size() > 0) {
+                kh = list.get(0);
+            }
+            session.close();
+        }
+        return kh;
+    }
+
     public static KhachHang getKhachHangBySdt(String sdt) {
         KhachHang kh = null;
         try ( Session session = Hibernateutility.getFactory().openSession()) {
