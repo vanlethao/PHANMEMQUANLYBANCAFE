@@ -147,8 +147,10 @@ public class Ban extends javax.swing.JPanel {
         btnThemBan.setBackground(new java.awt.Color(108, 83, 54));
         btnThemBan.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnThemBan.setForeground(new java.awt.Color(225, 218, 197));
+        btnThemBan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/add_20px.png"))); // NOI18N
         btnThemBan.setText("Thêm");
         btnThemBan.setBorderPainted(false);
+        btnThemBan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnThemBan.setFocusPainted(false);
         btnThemBan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -165,8 +167,10 @@ public class Ban extends javax.swing.JPanel {
         btnXoaBan.setBackground(new java.awt.Color(108, 83, 54));
         btnXoaBan.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnXoaBan.setForeground(new java.awt.Color(225, 218, 197));
+        btnXoaBan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_remove_30px.png"))); // NOI18N
         btnXoaBan.setText("Xóa");
         btnXoaBan.setBorderPainted(false);
+        btnXoaBan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnXoaBan.setFocusPainted(false);
         btnXoaBan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -201,8 +205,8 @@ public class Ban extends javax.swing.JPanel {
                                         .addComponent(cbKhuVuc, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(BanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btnXoaBan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnThemBan, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)))))
+                                    .addComponent(btnXoaBan, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
+                                    .addComponent(btnThemBan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                     .addGroup(BanLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 584, Short.MAX_VALUE)))
@@ -217,13 +221,13 @@ public class Ban extends javax.swing.JPanel {
                     .addComponent(txtSoBan, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(BanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(BanLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(btnThemBan))
-                    .addGroup(BanLayout.createSequentialGroup()
                         .addGap(35, 35, 35)
                         .addGroup(BanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbKhuVuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(cbKhuVuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(BanLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(btnThemBan, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(BanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(BanLayout.createSequentialGroup()
                         .addGap(33, 33, 33)
@@ -253,8 +257,10 @@ public class Ban extends javax.swing.JPanel {
         btnThemKhuVuc.setBackground(new java.awt.Color(108, 83, 54));
         btnThemKhuVuc.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnThemKhuVuc.setForeground(new java.awt.Color(225, 218, 197));
+        btnThemKhuVuc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/add_20px.png"))); // NOI18N
         btnThemKhuVuc.setText("Thêm");
         btnThemKhuVuc.setBorderPainted(false);
+        btnThemKhuVuc.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnThemKhuVuc.setFocusPainted(false);
         btnThemKhuVuc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -265,8 +271,10 @@ public class Ban extends javax.swing.JPanel {
         btnCapNhatKhuVuc.setBackground(new java.awt.Color(108, 83, 54));
         btnCapNhatKhuVuc.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnCapNhatKhuVuc.setForeground(new java.awt.Color(225, 218, 197));
+        btnCapNhatKhuVuc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_sync_30px.png"))); // NOI18N
         btnCapNhatKhuVuc.setText("Cập Nhật");
         btnCapNhatKhuVuc.setBorderPainted(false);
+        btnCapNhatKhuVuc.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCapNhatKhuVuc.setFocusPainted(false);
         btnCapNhatKhuVuc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -327,26 +335,25 @@ public class Ban extends javax.swing.JPanel {
                         .addContainerGap()
                         .addComponent(jScrollPane2))
                     .addGroup(KhuVucLayout.createSequentialGroup()
-                        .addGroup(KhuVucLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(KhuVucLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(KhuVucLayout.createSequentialGroup()
-                                .addGap(116, 116, 116)
-                                .addComponent(btnThemKhuVuc, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnCapNhatKhuVuc, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(13, Short.MAX_VALUE)
+                                .addComponent(jLabel1)
+                                .addGap(30, 30, 30))
                             .addGroup(KhuVucLayout.createSequentialGroup()
-                                .addGroup(KhuVucLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(KhuVucLayout.createSequentialGroup()
-                                        .addContainerGap(13, Short.MAX_VALUE)
-                                        .addComponent(jLabel1)
-                                        .addGap(30, 30, 30))
-                                    .addGroup(KhuVucLayout.createSequentialGroup()
-                                        .addContainerGap()
-                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                .addGroup(KhuVucLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtMaKhuVuc, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbTrangThaiKhuVuc, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(104, 104, 104)))
+                                .addContainerGap()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(KhuVucLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtMaKhuVuc, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbTrangThaiKhuVuc, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(104, 104, 104))
+                    .addGroup(KhuVucLayout.createSequentialGroup()
+                        .addGap(116, 116, 116)
+                        .addComponent(btnThemKhuVuc, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnCapNhatKhuVuc)
+                        .addGap(79, 79, 79)))
                 .addContainerGap())
         );
         KhuVucLayout.setVerticalGroup(
@@ -362,7 +369,7 @@ public class Ban extends javax.swing.JPanel {
                     .addComponent(cbTrangThaiKhuVuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(54, 54, 54)
                 .addGroup(KhuVucLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnThemKhuVuc)
+                    .addComponent(btnThemKhuVuc, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCapNhatKhuVuc))
                 .addGap(38, 38, 38)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)

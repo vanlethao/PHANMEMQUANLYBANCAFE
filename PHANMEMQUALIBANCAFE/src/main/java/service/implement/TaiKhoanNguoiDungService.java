@@ -30,7 +30,7 @@ public class TaiKhoanNguoiDungService implements ITaiKhoanNguoiDungService {
                 } else {
                     tkView.setMaNhanVien("chưa có thông tin");
                 }
-                listView.add(new TaiKhoanNguoiDungViewModel(tk.getId(), tk.getTenTK(), tk.getMatKhau(), tk.getNhanVien().getMa(),tk.getNhanVien().getHoTen()));
+                listView.add(new TaiKhoanNguoiDungViewModel(tk.getId(), tk.getTenTK(), tk.getMatKhau(), tk.getNhanVien().getMa(),tk.getNhanVien().getHoTen(),tk.getTrangThai()));
             }
 
         }
