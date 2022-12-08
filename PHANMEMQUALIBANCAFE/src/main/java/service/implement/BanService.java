@@ -26,23 +26,26 @@ public class BanService implements IBanService {
     public List<BanViewModel> getAllBanByKhuVuc(String idKhuVuc) {
         var allBan = banRepository.getAllBanByKhuVuc(idKhuVuc);
         List<BanViewModel> listView = new ArrayList<>();
-        for (Ban ban : allBan) {
-            BanViewModel banView = new BanViewModel();
-            if (ban.getTrangThaiSuDung() == 1) {
-                if (ban.getKhuVuc() != null) {
-                    banView.setMakhuvuc(ban.getKhuVuc().getMa());
-                } else {
-                    banView.setMakhuvuc("chưa có thông tin");
+        if (allBan != null) {
+            for (Ban ban : allBan) {
+                BanViewModel banView = new BanViewModel();
+                if (ban.getTrangThaiSuDung() == 1) {
+                    if (ban.getKhuVuc() != null) {
+                        banView.setMakhuvuc(ban.getKhuVuc().getMa());
+                    } else {
+                        banView.setMakhuvuc("chưa có thông tin");
+                    }
+                    if (ban.getId() != null) {
+                        banView.setIdban(ban.getId());
+                    } else {
+                        banView.setIdban("chưa có thông tin");
+                    }
+                    listView.add(new BanViewModel(ban.getId(), ban.getSoBan(), ban.getKhuVuc().getMa()));
                 }
-                if (ban.getId() != null) {
-                    banView.setIdban(ban.getId());
-                } else {
-                    banView.setIdban("chưa có thông tin");
-                }
-                listView.add(new BanViewModel(ban.getId(), ban.getSoBan(), ban.getKhuVuc().getMa()));
-            }
 
+            }
         }
+
         return listView;
     }
 

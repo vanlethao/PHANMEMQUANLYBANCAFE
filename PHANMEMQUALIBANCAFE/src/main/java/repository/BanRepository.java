@@ -2,7 +2,6 @@ package repository;
 
 import domainmodel.Ban;
 import domainmodel.ChiNhanh;
-import domainmodel.HoaDonBanHang;
 import domainmodel.KhuVuc;
 import domainmodel.NhanVien;
 import domainmodel.TaiKhoanNguoiDung;
@@ -17,7 +16,7 @@ public class BanRepository {
 
     public Set<Ban> getAllBanByKhuVuc(String idKhuVuc) {
         Set<Ban> setBan = null;
-        try (Session session = Hibernateutility.getFactory().openSession()) {
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
             Transaction trans = session.beginTransaction();
             KhuVuc kv = session.get(KhuVuc.class, idKhuVuc);
             setBan = kv.getListBan();
@@ -29,7 +28,7 @@ public class BanRepository {
 
     public String insertBan(Integer SoBan, KhuVuc kv) {
         String id = null;
-        try (Session session = Hibernateutility.getFactory().openSession()) {
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
             Transaction trans = session.beginTransaction();
             Ban ban = new Ban();
             ban.setSoBan(SoBan);
@@ -45,7 +44,7 @@ public class BanRepository {
     }
 
     public void updateBan(String idBan, KhuVuc kv) {
-        try (Session session = Hibernateutility.getFactory().openSession()) {
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
             Transaction trans = session.beginTransaction();
             Ban ban = session.get(Ban.class, idBan);
             ban.setKhuVuc(kv);
@@ -56,7 +55,7 @@ public class BanRepository {
     }
 
     public void deleteBan(String idBan) {
-        try (Session session = Hibernateutility.getFactory().openSession()) {
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
             Transaction trans = session.beginTransaction();
             Ban ban = session.get(Ban.class, idBan);
             ban.setTrangThaiSuDung(0);
@@ -68,7 +67,7 @@ public class BanRepository {
 
     public Ban getBanFormSoBan(Integer soBan) {
         Ban ban = null;
-        try (Session session = Hibernateutility.getFactory().openSession()) {
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
             Transaction trans = session.beginTransaction();
             Query query = session.createQuery("FROM Ban Where soBan=:soBan");
             query.setParameter("soBan", soBan);
@@ -85,7 +84,7 @@ public class BanRepository {
 
     public static ChiNhanh getChiNhanhByTaiKhoan(String idTaiKhoan) {
         ChiNhanh chiNhanh = null;
-        try (Session session = Hibernateutility.getFactory().openSession()) {
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
             TaiKhoanNguoiDung tk = session.get(TaiKhoanNguoiDung.class, idTaiKhoan);
             NhanVien nv = tk.getNhanVien();
             chiNhanh = nv.getChiNhanh();

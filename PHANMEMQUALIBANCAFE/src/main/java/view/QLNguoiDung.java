@@ -104,22 +104,22 @@ public class QLNguoiDung extends javax.swing.JPanel {
         rdoDangHD = new javax.swing.JRadioButton();
         rdoDungHD = new javax.swing.JRadioButton();
 
-        jPanel1.setBackground(new java.awt.Color(108, 83, 54));
+        jPanel1.setBackground(new java.awt.Color(228, 212, 189));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(225, 218, 197));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Tên Tài Khoản");
+        jLabel2.setForeground(new java.awt.Color(102, 51, 0));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel2.setText("Tên Tài Khoản :");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(225, 218, 197));
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Mật Khẩu");
+        jLabel4.setForeground(new java.awt.Color(102, 51, 0));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel4.setText("Mật Khẩu :");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(225, 218, 197));
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Nhân Viên");
+        jLabel5.setForeground(new java.awt.Color(102, 51, 0));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel5.setText("Nhân Viên :");
 
         cbNhanVien.setBackground(new java.awt.Color(225, 218, 197));
         cbNhanVien.setForeground(new java.awt.Color(108, 83, 54));
@@ -166,9 +166,9 @@ public class QLNguoiDung extends javax.swing.JPanel {
             tblNguoiDung.getColumnModel().getColumn(0).setMaxWidth(0);
         }
 
-        btnThemTK.setBackground(new java.awt.Color(225, 218, 197));
+        btnThemTK.setBackground(new java.awt.Color(108, 83, 54));
         btnThemTK.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnThemTK.setForeground(new java.awt.Color(108, 83, 54));
+        btnThemTK.setForeground(new java.awt.Color(255, 255, 255));
         btnThemTK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/add_20px.png"))); // NOI18N
         btnThemTK.setText("Thêm");
         btnThemTK.setBorderPainted(false);
@@ -179,9 +179,9 @@ public class QLNguoiDung extends javax.swing.JPanel {
             }
         });
 
-        btnCapNhapTK.setBackground(new java.awt.Color(225, 218, 197));
+        btnCapNhapTK.setBackground(new java.awt.Color(108, 83, 54));
         btnCapNhapTK.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnCapNhapTK.setForeground(new java.awt.Color(108, 83, 54));
+        btnCapNhapTK.setForeground(new java.awt.Color(255, 255, 255));
         btnCapNhapTK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_sync_30px.png"))); // NOI18N
         btnCapNhapTK.setText("Cập Nhật");
         btnCapNhapTK.setBorderPainted(false);
@@ -196,9 +196,9 @@ public class QLNguoiDung extends javax.swing.JPanel {
 
         txtTenTaiKhoan.setBackground(new java.awt.Color(225, 218, 197));
 
-        btnXoa.setBackground(new java.awt.Color(225, 218, 197));
+        btnXoa.setBackground(new java.awt.Color(108, 83, 54));
         btnXoa.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnXoa.setForeground(new java.awt.Color(108, 83, 54));
+        btnXoa.setForeground(new java.awt.Color(255, 255, 255));
         btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_remove_30px.png"))); // NOI18N
         btnXoa.setText("Xóa");
         btnXoa.setBorderPainted(false);
@@ -209,9 +209,9 @@ public class QLNguoiDung extends javax.swing.JPanel {
             }
         });
 
-        btnLamMoi.setBackground(new java.awt.Color(225, 218, 197));
+        btnLamMoi.setBackground(new java.awt.Color(108, 83, 54));
         btnLamMoi.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnLamMoi.setForeground(new java.awt.Color(108, 83, 54));
+        btnLamMoi.setForeground(new java.awt.Color(255, 255, 255));
         btnLamMoi.setText("Làm Mới");
         btnLamMoi.setBorderPainted(false);
         btnLamMoi.setFocusPainted(false);
@@ -222,7 +222,7 @@ public class QLNguoiDung extends javax.swing.JPanel {
         });
 
         lblHienThi.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblHienThi.setForeground(new java.awt.Color(255, 255, 255));
+        lblHienThi.setForeground(new java.awt.Color(102, 51, 0));
 
         buttonGroup1.add(rdoDangHD);
         rdoDangHD.setText("Đang hoạt động");
@@ -251,8 +251,8 @@ public class QLNguoiDung extends javax.swing.JPanel {
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnThemTK, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addComponent(btnThemTK, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnCapNhapTK)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -261,20 +261,19 @@ public class QLNguoiDung extends javax.swing.JPanel {
                         .addComponent(cbNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(lblHienThi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(6, 6, 6)
+                        .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(32, 32, 32)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
-                        .addContainerGap())
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(rdoDangHD)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(rdoDungHD)
-                        .addGap(57, 57, 57))))
+                        .addGap(0, 95, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -303,7 +302,7 @@ public class QLNguoiDung extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(btnThemTK, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnThemTK, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(btnCapNhapTK)
                                 .addComponent(btnXoa))
                             .addComponent(btnLamMoi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
