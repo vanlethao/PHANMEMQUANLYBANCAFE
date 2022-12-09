@@ -68,6 +68,8 @@ public class ItemBan extends javax.swing.JPanel {
         pnlAvatar = new javax.swing.JPanel();
         lblAvatar = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
         lblSoBan.setFont(new java.awt.Font("sansserif", 1, 20)); // NOI18N
         lblSoBan.setForeground(new java.awt.Color(255, 0, 204));
         lblSoBan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

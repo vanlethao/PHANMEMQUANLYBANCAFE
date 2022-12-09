@@ -5,6 +5,7 @@
 package domainmodel;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -35,10 +36,10 @@ public class Ca implements Serializable {
     private String ma;
 
     @Column(name = "GioBatDau")
-    private LocalTime gioBatDau;
+    private LocalDateTime gioBatDau;
 
     @Column(name = "GioKetThuc")
-    private LocalTime gioKetThuc;
+    private LocalDateTime gioKetThuc;
 
     @Column(name = "TrangThai")
     private Integer trangThai;
@@ -48,7 +49,8 @@ public class Ca implements Serializable {
     public Ca() {
     }
 
-    public Ca(String id, String ma, LocalTime gioBatDau, LocalTime gioKetThuc, Integer trangThai, Set<ChiTietCa> chiTietCa) {
+    public Ca(String id, String ma, LocalDateTime gioBatDau, LocalDateTime gioKetThuc,
+            Integer trangThai, Set<ChiTietCa> chiTietCa) {
         this.id = id;
         this.ma = ma;
         this.gioBatDau = gioBatDau;
@@ -65,19 +67,19 @@ public class Ca implements Serializable {
         this.id = id;
     }
 
-    public LocalTime getGioBatDau() {
+    public LocalDateTime getGioBatDau() {
         return gioBatDau;
     }
 
-    public void setGioBatDau(LocalTime gioBatDau) {
+    public void setGioBatDau(LocalDateTime gioBatDau) {
         this.gioBatDau = gioBatDau;
     }
 
-    public LocalTime getGioKetThuc() {
+    public LocalDateTime getGioKetThuc() {
         return gioKetThuc;
     }
 
-    public void setGioKetThuc(LocalTime gioKetThuc) {
+    public void setGioKetThuc(LocalDateTime gioKetThuc) {
         this.gioKetThuc = gioKetThuc;
     }
 
@@ -109,17 +111,6 @@ public class Ca implements Serializable {
      */
     public void setMa(String ma) {
         this.ma = ma;
-    }
-    
-    
-        @Override
-    public String toString() {
-        return "Ca{" + "id=" + id + ", ma=" + ma + ", gioBatDau=" + gioBatDau + ", gioKetThuc=" + gioKetThuc + ", trangThai=" + trangThai + ", chiTietCa=" + chiTietCa + '}';
-    }
-    
-    
-    public Object[] toDataRow() {
-        return new Object[]{ma, gioBatDau,gioKetThuc, trangThai==1?"con":"ko"};
     }
 
 }

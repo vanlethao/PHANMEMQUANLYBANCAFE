@@ -1,10 +1,6 @@
 package service;
 
-import domainmodel.Ban;
-import domainmodel.ChiNhanh;
-import domainmodel.KhuVuc;
 import java.util.List;
-import java.util.Set;
 import viewmodel.BanViewModel;
 import viewmodel.ChiNhanhViewModel_Hoang;
 import viewmodel.KhuVucViewModel;
