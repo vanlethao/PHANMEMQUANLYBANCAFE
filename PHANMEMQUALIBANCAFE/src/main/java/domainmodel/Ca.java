@@ -36,10 +36,10 @@ public class Ca implements Serializable {
     private String ma;
 
     @Column(name = "GioBatDau")
-    private LocalDateTime gioBatDau;
+    private LocalTime gioBatDau;
 
     @Column(name = "GioKetThuc")
-    private LocalDateTime gioKetThuc;
+    private LocalTime gioKetThuc;
 
     @Column(name = "TrangThai")
     private Integer trangThai;
@@ -49,7 +49,7 @@ public class Ca implements Serializable {
     public Ca() {
     }
 
-    public Ca(String id, String ma, LocalDateTime gioBatDau, LocalDateTime gioKetThuc,
+    public Ca(String id, String ma, LocalTime gioBatDau, LocalTime gioKetThuc,
             Integer trangThai, Set<ChiTietCa> chiTietCa) {
         this.id = id;
         this.ma = ma;
@@ -67,19 +67,19 @@ public class Ca implements Serializable {
         this.id = id;
     }
 
-    public LocalDateTime getGioBatDau() {
+    public LocalTime getGioBatDau() {
         return gioBatDau;
     }
 
-    public void setGioBatDau(LocalDateTime gioBatDau) {
+    public void setGioBatDau(LocalTime gioBatDau) {
         this.gioBatDau = gioBatDau;
     }
 
-    public LocalDateTime getGioKetThuc() {
+    public LocalTime getGioKetThuc() {
         return gioKetThuc;
     }
 
-    public void setGioKetThuc(LocalDateTime gioKetThuc) {
+    public void setGioKetThuc(LocalTime gioKetThuc) {
         this.gioKetThuc = gioKetThuc;
     }
 
