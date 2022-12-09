@@ -5,7 +5,7 @@
 package domainmodel;
 
 import java.io.Serializable;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -34,15 +34,15 @@ public class ChiTietCa implements Serializable {
     private NhanVien nhanVienKey;
 
     @Column(name = "GioDen")
-    private LocalTime gioDen;
+    private LocalDateTime gioDen;
 
     @Column(name = "GioVe")
-    private LocalTime gioVe;
+    private LocalDateTime gioVe;
 
     public ChiTietCa() {
     }
 
-    public ChiTietCa(Ca caKey, NhanVien nhanVienKey, LocalTime gioDen, LocalTime gioVe) {
+    public ChiTietCa(Ca caKey, NhanVien nhanVienKey, LocalDateTime gioDen, LocalDateTime gioVe) {
         this.caKey = caKey;
         this.nhanVienKey = nhanVienKey;
         this.gioDen = gioDen;
@@ -65,19 +65,19 @@ public class ChiTietCa implements Serializable {
         this.nhanVienKey = nhanVienKey;
     }
 
-    public LocalTime getGioDen() {
+    public LocalDateTime getGioDen() {
         return gioDen;
     }
 
-    public void setGioDen(LocalTime gioDen) {
+    public void setGioDen(LocalDateTime gioDen) {
         this.gioDen = gioDen;
     }
 
-    public LocalTime getGioVe() {
+    public LocalDateTime getGioVe() {
         return gioVe;
     }
 
-    public void setGioVe(LocalTime gioVe) {
+    public void setGioVe(LocalDateTime gioVe) {
         this.gioVe = gioVe;
     }
 
