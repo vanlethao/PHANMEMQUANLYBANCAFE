@@ -306,7 +306,7 @@ public class PhieuNhapRepo {
             ChiNhanh cn = session.get(ChiNhanh.class, IdchiNhanh);
             Set<NhanVien> setAllNhanVien = cn.getSetNhanVien();
             for (NhanVien nhanVien : setAllNhanVien) {
-                setAllNhanVien.add(nhanVien);
+                setNhanVien.add(nhanVien);
             }
             trans.commit();
             session.close();
@@ -321,7 +321,7 @@ public class PhieuNhapRepo {
             ChiNhanh cn = session.get(ChiNhanh.class, IdchiNhanh);
             Set<NguyenLieu> setAllNguyenLieu = cn.getListNguyenLieu();
             for (NguyenLieu nguyenLieu : setAllNguyenLieu) {
-                setAllNguyenLieu.add(nguyenLieu);
+                setNguyenLieu.add(nguyenLieu);
             }
             trans.commit();
             session.close();

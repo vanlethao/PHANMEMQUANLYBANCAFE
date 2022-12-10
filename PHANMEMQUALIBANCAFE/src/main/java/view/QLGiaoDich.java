@@ -451,6 +451,7 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
         btnLocHoaDon.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnLocHoaDon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_conversion_30px.png"))); // NOI18N
         btnLocHoaDon.setText("Lọc hóa đơn");
+        btnLocHoaDon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLocHoaDon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLocHoaDonActionPerformed(evt);
@@ -470,7 +471,7 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39)
+                        .addGap(40, 40, 40)
                         .addComponent(btnLocHoaDon)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -537,6 +538,7 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
         btnHoanThanhPhieuNhap.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnHoanThanhPhieuNhap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_ok_30px.png"))); // NOI18N
         btnHoanThanhPhieuNhap.setText("Hoàn thành");
+        btnHoanThanhPhieuNhap.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnHoanThanhPhieuNhap.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHoanThanhPhieuNhapActionPerformed(evt);
@@ -549,6 +551,7 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
         btnTimKiemPhieuNhap.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnTimKiemPhieuNhap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/search_20px.png"))); // NOI18N
         btnTimKiemPhieuNhap.setText("Tìm kiếm");
+        btnTimKiemPhieuNhap.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnTimKiemPhieuNhap.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTimKiemPhieuNhapActionPerformed(evt);
@@ -576,6 +579,7 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
         btnCapNhatPhieuNhap.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnCapNhatPhieuNhap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_sync_30px.png"))); // NOI18N
         btnCapNhatPhieuNhap.setText("Cập nhật phiếu nhập");
+        btnCapNhatPhieuNhap.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCapNhatPhieuNhap.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCapNhatPhieuNhapActionPerformed(evt);
@@ -585,6 +589,7 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
         btnExport.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnExport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_microsoft_excel_30px.png"))); // NOI18N
         btnExport.setText("Xuất excel");
+        btnExport.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnExport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExportActionPerformed(evt);
@@ -594,6 +599,7 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
         btnImport.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnImport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_microsoft_excel_30px.png"))); // NOI18N
         btnImport.setText("Mở excel");
+        btnImport.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnImport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnImportActionPerformed(evt);
@@ -795,15 +801,19 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
         jLabel36.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel36.setText("Ngày nhập:");
 
+        cboNguyenLieuNhap.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cboNguyenLieuNhap.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboNguyenLieuNhapActionPerformed(evt);
             }
         });
 
+        cboNhanVienNhap.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
         btnTaoPhieuNhap.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnTaoPhieuNhap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/add_20px.png"))); // NOI18N
         btnTaoPhieuNhap.setText("Tạo phiếu nhập");
+        btnTaoPhieuNhap.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnTaoPhieuNhap.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTaoPhieuNhapActionPerformed(evt);
@@ -813,6 +823,7 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
         btnHuyPhieuNhap.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnHuyPhieuNhap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_remove_30px.png"))); // NOI18N
         btnHuyPhieuNhap.setText("Hủy");
+        btnHuyPhieuNhap.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnHuyPhieuNhap.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHuyPhieuNhapActionPerformed(evt);
@@ -869,8 +880,11 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
         }
 
         dateNgayNhap.setDateFormatString("dd-MM-yyyy");
+        dateNgayNhap.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        dateNgayNhap.setIcon(null);
 
         cboChiNhanhNhap.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        cboChiNhanhNhap.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cboChiNhanhNhap.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboChiNhanhNhapActionPerformed(evt);
@@ -905,9 +919,9 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
                             .addComponent(jLabel34)
                             .addComponent(jLabel36)
                             .addGroup(jPanel18Layout.createSequentialGroup()
-                                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(dateNgayNhap, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
-                                    .addComponent(cboNguyenLieuNhap, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(cboNguyenLieuNhap, 0, 156, Short.MAX_VALUE)
+                                    .addComponent(dateNgayNhap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(82, 82, 82)
                                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel35)
@@ -1044,6 +1058,7 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
         btnTimKiemPhieuTra.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnTimKiemPhieuTra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/search_20px.png"))); // NOI18N
         btnTimKiemPhieuTra.setText("Tìm kiếm");
+        btnTimKiemPhieuTra.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnTimKiemPhieuTra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTimKiemPhieuTraActionPerformed(evt);
@@ -1053,6 +1068,7 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
         btnHoanThanhPhieuTra.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnHoanThanhPhieuTra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_ok_30px.png"))); // NOI18N
         btnHoanThanhPhieuTra.setText("Hoàn thành");
+        btnHoanThanhPhieuTra.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnHoanThanhPhieuTra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHoanThanhPhieuTraActionPerformed(evt);
@@ -1080,6 +1096,7 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
         btnCapNhatPhieuTra.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnCapNhatPhieuTra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_sync_30px.png"))); // NOI18N
         btnCapNhatPhieuTra.setText("Cập nhật phiếu trả");
+        btnCapNhatPhieuTra.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCapNhatPhieuTra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCapNhatPhieuTraActionPerformed(evt);
@@ -1089,6 +1106,7 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
         btnExport1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnExport1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_microsoft_excel_30px.png"))); // NOI18N
         btnExport1.setText("Xuất excel");
+        btnExport1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnExport1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExport1ActionPerformed(evt);
@@ -1098,6 +1116,7 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
         btnImport1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnImport1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_microsoft_excel_30px.png"))); // NOI18N
         btnImport1.setText("Mở excel");
+        btnImport1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnImport1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnImport1ActionPerformed(evt);
@@ -1217,6 +1236,7 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
         jLabel29.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel29.setText("Ngày trả:");
 
+        cboNguyenLieuTra.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cboNguyenLieuTra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboNguyenLieuTraActionPerformed(evt);
@@ -1224,12 +1244,15 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
         });
 
         cboNhaCungCapTra.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboNhaCungCapTra.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         cboNhanVienTra.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboNhanVienTra.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         btnTaoPhieuTra.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnTaoPhieuTra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/add_20px.png"))); // NOI18N
         btnTaoPhieuTra.setText("Tạo phiếu trả");
+        btnTaoPhieuTra.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnTaoPhieuTra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTaoPhieuTraActionPerformed(evt);
@@ -1239,6 +1262,7 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
         btnHuyPhieuTra.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnHuyPhieuTra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_remove_30px.png"))); // NOI18N
         btnHuyPhieuTra.setText("Hủy");
+        btnHuyPhieuTra.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnHuyPhieuTra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHuyPhieuTraActionPerformed(evt);
@@ -1303,6 +1327,7 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
         lblCNTra.setText("Chi nhánh");
 
         cboChiNhanhTra.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        cboChiNhanhTra.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cboChiNhanhTra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboChiNhanhTraActionPerformed(evt);
@@ -1461,8 +1486,6 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
     }
     private void cboNguyenLieuNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboNguyenLieuNhapActionPerformed
         int count = 0;
-//        comboNguyenLieu = (DefaultComboBoxModel) new DefaultComboBoxModel<>(phieuNhapSevice.getAllNguyenLieu().toArray());
-//        cboNguyenLieuNhap.setModel((DefaultComboBoxModel) comboNguyenLieu);
         if (cboNguyenLieuNhap.getItemCount() <= 0) {
             JOptionPane.showMessageDialog(this, "Chưa có nguyên liệu");
         } else {
@@ -1516,9 +1539,9 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
             JOptionPane.showMessageDialog(this, "Mã phiếu nhập không vượt quá 10 ký tự");
             return false;
         } else if (tblNguyenLieuTra.getValueAt(row, 5).toString().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "null");
-            return false;
-        }
+            JOptionPane.showMessageDialog(this, "Chưa nhập lý do");
+           return false;
+       }
         return true;
     }
 
@@ -1549,18 +1572,18 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
 
             JOptionPane.showMessageDialog(this, "Tạo phiếu nhập thành công");
             loadAll((((ChiNhanhViewModel_Hoang) comboChiNhanh.getSelectedItem()).getId()));
+            rdoPhieuNhapTamActionPerformed(evt);
+            rdoPhieuNhapTam.setSelected(true);
             clearFormPhieuNhap();
         }
     }//GEN-LAST:event_btnTaoPhieuNhapActionPerformed
 
     private void btnHuyPhieuNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyPhieuNhapActionPerformed
         int row = tblPhieuNhap.getSelectedRow();
-//        PhieuNhapViewModel pnView = new PhieuNhapViewModel();
         lstPhieuNhap = phieuNhapSevice.getAllPhieuNhapByChiNhanh(((ChiNhanhViewModel_Hoang) comboChiNhanh.getSelectedItem()).getId());
         if (row == -1) {
             JOptionPane.showMessageDialog(this, "Bạn chưa chọn phiếu nhập");
         } else {
-//            pnView = lstPhieuNhap.get(row);
             int chon = JOptionPane.showConfirmDialog(this, "Xác nhận hủy phiếu", "Xác nhận", JOptionPane.YES_NO_OPTION);
             if (chon == JOptionPane.YES_OPTION) {
                 if (tblPhieuNhap.getValueAt(row, 7).toString().equalsIgnoreCase("Phiếu tạm")) {
@@ -2086,15 +2109,17 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
     private void btnTaoPhieuTraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoPhieuTraActionPerformed
         // TODO add your handling code here:
         if (checkEmptyPhieuTra() && !checkMaPhieuTra(txtMaPhieuTra.getText())) {
-            String idPhieuTra = null;
-            idPhieuTra = phieuTraService.insertPhieuTra(txtMaPhieuTra.getText(), ((NhaCungCapViewModel_Hoang) cboNhaCungCapTra.getSelectedItem()).getId(), ((NhanVienViewModel_Hoang) cboNhanVienTra.getSelectedItem()).getId(),
-                    dateNgayTra.getDate(), 1);
-            for (int i = 0; i < tblNguyenLieuTra.getRowCount(); i++) {
-                phieuTraService.insertCTPhieuTra(idPhieuTra, tblNguyenLieuTra.getValueAt(i, 0).toString(), Float.parseFloat(tblNguyenLieuTra.getValueAt(i, 3).toString()), tblNguyenLieuTra.getValueAt(i, 5).toString());
-            }
-            JOptionPane.showMessageDialog(this, "Thêm phiếu trả thành công");
-            loadAllTra(((ChiNhanhViewModel_Hoang) comboChiNhanhTra.getSelectedItem()).getId());
-            clearPhieuTra();
+                String idPhieuTra = null;
+                idPhieuTra = phieuTraService.insertPhieuTra(txtMaPhieuTra.getText(), ((NhaCungCapViewModel_Hoang) cboNhaCungCapTra.getSelectedItem()).getId(), ((NhanVienViewModel_Hoang) cboNhanVienTra.getSelectedItem()).getId(),
+                        dateNgayTra.getDate(), 1);
+                for (int i = 0; i < tblNguyenLieuTra.getRowCount(); i++) {
+                    phieuTraService.insertCTPhieuTra(idPhieuTra, tblNguyenLieuTra.getValueAt(i, 0).toString(), Float.parseFloat(tblNguyenLieuTra.getValueAt(i, 3).toString()), tblNguyenLieuTra.getValueAt(i, 5).toString());
+                }
+                JOptionPane.showMessageDialog(this, "Thêm phiếu trả thành công");
+                loadAllTra(((ChiNhanhViewModel_Hoang) comboChiNhanhTra.getSelectedItem()).getId());
+                rdoPhieuTraTamActionPerformed(evt);
+                rdoPhieuTraTam.setSelected(true);
+                clearPhieuTra();
         }
     }//GEN-LAST:event_btnTaoPhieuTraActionPerformed
     private void fillDataPhieuNhap(int index) {
