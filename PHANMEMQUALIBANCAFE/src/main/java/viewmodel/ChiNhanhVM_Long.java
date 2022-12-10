@@ -28,7 +28,6 @@ public class ChiNhanhVM_Long {
 
     private Float giaTriDiem;
     private String idKhuVuc;
-    
 
     public ChiNhanhVM_Long() {
     }
@@ -117,20 +116,13 @@ public class ChiNhanhVM_Long {
         this.idKhuVuc = idKhuVuc;
     }
 
-
     @Override
     public String toString() {
         return ma;
     }
-    
-     public Object[] getDataNguyenLieuView() {
-        return new Object[]{  id,
 
-     ma
-
-     };
+    public Object[] getDataNguyenLieuView() {
+        return new Object[]{id,ma};
     }
-    
-    
 
 }

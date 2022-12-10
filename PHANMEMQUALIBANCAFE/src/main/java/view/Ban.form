@@ -31,7 +31,7 @@
           <Group type="102" alignment="0" attributes="0">
               <Component id="KhuVuc" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="Ban" min="-2" pref="614" max="-2" attributes="0"/>
+              <Component id="Ban" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -94,7 +94,7 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="makhuvuc" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="15" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -131,10 +131,8 @@
                                   </Group>
                                   <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel5" alignment="0" min="-2" pref="40" max="-2" attributes="0"/>
-                                  <Component id="cbKhuVuc" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="jLabel5" alignment="0" min="-2" pref="40" max="-2" attributes="0"/>
+                              <Component id="cbKhuVuc" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>

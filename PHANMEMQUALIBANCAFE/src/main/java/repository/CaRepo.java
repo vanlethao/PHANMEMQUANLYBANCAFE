@@ -79,25 +79,25 @@ public class CaRepo {
 //        return id;
 //
 //    }
-    public String insertCTCa(String idMa, String gioDen, String idNhanVien) {
-        String id = null;
-        try ( Session session = Hibernateutility.getFactory().openSession()) {
-            Transaction trans = session.beginTransaction();
-            ChiTietCa ctCa = new ChiTietCa();
-
-            NhanVien nv = session.get(NhanVien.class, idNhanVien);
-            nv.getChiTietCa().add(ctCa);
-            Ca ca = session.get(Ca.class, idMa);
-//NhanVien nv = session.get(NhanVien.class, idNhanVien);
-            ctCa.setGioDen(LocalTime.parse(gioDen));
-            ctCa.setCaKey(ca);
-            ctCa.setNhanVienKey(nv);
-            id = (String) session.save(ctCa);
-            trans.commit();
-            session.close();
-        }
-        return id;
-    }
+//    public String insertCTCa(String idMa, String gioDen, String idNhanVien) {
+//        String id = null;
+//        try ( Session session = Hibernateutility.getFactory().openSession()) {
+//            Transaction trans = session.beginTransaction();
+//            ChiTietCa ctCa = new ChiTietCa();
+//
+//            NhanVien nv = session.get(NhanVien.class, idNhanVien);
+//            nv.getChiTietCa().add(ctCa);
+//            Ca ca = session.get(Ca.class, idMa);
+////NhanVien nv = session.get(NhanVien.class, idNhanVien);
+//            ctCa.setGioDen(LocalTime.parse(gioDen));
+//            ctCa.setCaKey(ca);
+//            ctCa.setNhanVienKey(nv);
+//            id = (String) session.save(ctCa);
+//            trans.commit();
+//            session.close();
+//        }
+//        return id;
+//    }
 
     public String insertCa(String ma, String gioBD, String gioKT, int trangThai) {
         String id = null;
@@ -124,6 +124,15 @@ public class CaRepo {
             session.close();
         }
         return sp;
+    }
+    
+     public NhanVien getNhanVienFromID(String idNhanVien) {
+        NhanVien Nv = null;
+        try (Session session = Hibernateutility.getFactory().openSession()) {
+            Nv = session.get(NhanVien.class, idNhanVien);
+            session.close();
+        }
+        return Nv;
     }
 
 }

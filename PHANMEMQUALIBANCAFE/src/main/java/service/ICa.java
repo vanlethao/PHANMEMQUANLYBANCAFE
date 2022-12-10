@@ -10,15 +10,17 @@ import java.time.LocalTime;
 import java.util.List;
 import viewmodel.CaViewModel_Long;
 import viewmodel.ChiTietCaVM_Long;
+import viewmodel.NhanVienViewModel_Hoang;
 
 /**
  *
  * @author PC
  */
 public interface ICa {
-    List<Ca> getAll();
+    List<CaViewModel_Long> getAll();
    void insertCa(String ma, String gioBD, String gioKT, int trangThai);
   CaViewModel_Long getSanPhamById(String id);
-  String insertCTCa(String idMa,String gioDen,  String idNhanVien);
+ 
+
   List<ChiTietCaVM_Long> getAllCTCa();
 }

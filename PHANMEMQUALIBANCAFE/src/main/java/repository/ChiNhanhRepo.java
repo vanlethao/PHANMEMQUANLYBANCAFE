@@ -32,7 +32,7 @@ public class ChiNhanhRepo {
        
     public List<ChiNhanh> getAll() {
         Session session = Hibernateutility.getFactory().openSession();
-        Query q = session.createQuery("From ChiNhanh where trangThai =1");
+        Query q = session.createQuery("From ChiNhanh");
         List<ChiNhanh> lst = q.getResultList();
         return lst;
 

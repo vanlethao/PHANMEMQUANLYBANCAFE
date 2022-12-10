@@ -4,6 +4,7 @@
  */
 package viewmodel;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 /**
@@ -13,15 +14,15 @@ import java.time.LocalTime;
 public class ChiTietCaVM_Long {
       private String id;
     private String ma;
-    private LocalTime gioDen;
-    private LocalTime gioVe;
+    private LocalDateTime gioDen;
+    private LocalDateTime gioVe;
     private String maNV;
     private String tenNV;
 
     public ChiTietCaVM_Long() {
     }
 
-    public ChiTietCaVM_Long(String id, String ma, LocalTime gioDen, LocalTime gioVe, String maNV, String tenNV) {
+    public ChiTietCaVM_Long(String id, String ma, LocalDateTime gioDen, LocalDateTime gioVe, String maNV, String tenNV) {
         this.id = id;
         this.ma = ma;
         this.gioDen = gioDen;
@@ -46,19 +47,19 @@ public class ChiTietCaVM_Long {
         this.ma = ma;
     }
 
-    public LocalTime getGioDen() {
+    public LocalDateTime getGioDen() {
         return gioDen;
     }
 
-    public void setGioDen(LocalTime gioDen) {
+    public void setGioDen(LocalDateTime gioDen) {
         this.gioDen = gioDen;
     }
 
-    public LocalTime getGioVe() {
+    public LocalDateTime getGioVe() {
         return gioVe;
     }
 
-    public void setGioVe(LocalTime gioVe) {
+    public void setGioVe(LocalDateTime gioVe) {
         this.gioVe = gioVe;
     }
 

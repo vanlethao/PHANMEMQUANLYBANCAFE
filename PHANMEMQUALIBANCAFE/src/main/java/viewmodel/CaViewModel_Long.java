@@ -60,7 +60,7 @@ public class CaViewModel_Long {
 
     @Override
     public String toString() {
-        return "CaViewModel_Long{" + "id=" + id + ", ma=" + ma + ", gioBD=" + gioBD + ", gioKT=" + gioKT + '}';
+        return ma;
     }
     
     

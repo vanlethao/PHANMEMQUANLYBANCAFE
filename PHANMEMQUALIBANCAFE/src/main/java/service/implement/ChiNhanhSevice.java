@@ -31,11 +31,6 @@ public class ChiNhanhSevice implements IChiNhanh {
     private ChiNhanhRepo chinhanhRepo = new ChiNhanhRepo();
     KhuVucRepository kr = new KhuVucRepository();
     
-
-//    @Override
-//    public void insertChiNhanh(String ma, String quocGia, String thanhPho, Date ngayKhaiTruong, int trangThai) {
-//        chinhanhRepo.insertChiNhanh(ma, quocGia, thanhPho, ngayKhaiTruong, trangThai);
-//    }
     @Override
     public String getChiNhanh(String ma) {
         String id = null;
@@ -52,62 +47,47 @@ public class ChiNhanhSevice implements IChiNhanh {
         chinhanhRepo.update(chinhanh, ma, thanhpho, quocgia);
     }
 
-//    @Override
-//    public List<ChiNhanhViewModel_Long> getAll() {
-//        var lst = chinhanhRepo.getAll();
-//        List<ChiNhanhViewModel_Long> lstVM = new ArrayList<>();
-//      if(lst!=null){
-//          for (ChiNhanh chiNhanh : lst) {
-//              ChiNhanhViewModel_Long cnVM = new ChiNhanhViewModel_Long();
-//              if(chiNhanh.getQuocGia()!=null){
-//                  cnVM.setQuocGia(chiNhanh.getQuocGia());
-//              }
-//              if(chiNhanh.getThanhPho()!=null){
-//                  cnVM.setThanhPho(chiNhanh.getThanhPho());
-//              }
-//             lstVM.add(cnVM);
-//          }
-//          
-//      }
-//
-//        for (ChiNhanhViewModel_Long cnVM : lstVM) {
-//            lstVM.add(new ChiNhanhViewModel_Long(cnVM.getId(), cnVM.getMa(), cnVM.getQuocGia(), cnVM.getThanhPho(), cnVM.getNgayKhaiTruong(), cnVM.getGiaTriDiem(), cnVM.getGiaTriDoiDiem(), cnVM.getIdThuongHieu()));
-//        }
-//
-//        return lstVM;
-////return chinhanhRepo.getAll();
-//
-//    }
+
     @Override
     public List<ChiNhanhVM_Long> getAll() {
-//        return toDataView(chinhanhRepo.getAll());
+
         var allCN = chinhanhRepo.getAll();
         List<ChiNhanhVM_Long> lstViewMD = new ArrayList<>();
-        for (ChiNhanh cn : allCN) {
+        if(allCN !=null){
+            for (ChiNhanh cn : allCN) {
+                ChiNhanhVM_Long cnView = new ChiNhanhVM_Long();
+                if(cn.getMa() != null){
+                    
+                }
             lstViewMD.add(new ChiNhanhVM_Long(cn.getId(), cn.getMa(), cn.getQuocGia(), cn.getThanhPho(), cn.getNgayKhaiTruong(), cn.getTrangThai(), cn.getGiaTriDoiDiem(), cn.getGiaTriDiem(),""));
         }
+        }
+        
         return lstViewMD;
 
     }
 
-//       @Override
+//     @Override
 //    public List<BanViewModel> getAllBanByKhuVuc(String idKhuVuc) {
 //        var allBan = banRepository.getAllBanByKhuVuc(idKhuVuc);
 //        List<BanViewModel> listView = new ArrayList<>();
-//        for (Ban ban : allBan) {
-//            BanViewModel banView = new BanViewModel();
-//            if (ban.getTrangThaiSuDung() == 1) {
-//                if (ban.getKhuVuc() != null) {
-//                    banView.setMakhuvuc(ban.getKhuVuc().getMa());
-//                } else {
-//                    banView.setMakhuvuc("chưa có thông tin");
+//        if (allBan != null) {
+//            for (Ban ban : allBan) {
+//                BanViewModel banView = new BanViewModel();
+//                if (ban.getTrangThaiSuDung() == 1) {
+//                    if (ban.getKhuVuc() != null) {
+//                        banView.setMakhuvuc(ban.getKhuVuc().getMa());
+//                    } else {
+//                        banView.setMakhuvuc("chưa có thông tin");
+//                    }
+//                    if (ban.getId() != null) {
+//                        banView.setIdban(ban.getId());
+//                    } else {
+//                        banView.setIdban("chưa có thông tin");
+//                    }
+//                    listView.add(new BanViewModel(ban.getId(), ban.getSoBan(), ban.getKhuVuc().getMa()));
 //                }
-//                listView.add(new BanViewModel(ban.getId(), ban.getSoBan(), ban.getKhuVuc().getMa()));
-//            }
-//
-//        }
-//        return listView;
-//    }
+
     private List<ChiNhanhVM_Long> toDataView(List<ChiNhanh> chiNhanhs) {
         List<ChiNhanhVM_Long> chiNhanhVs = new ArrayList<>();
         for (ChiNhanh cn : chiNhanhs) {
@@ -122,12 +102,7 @@ public class ChiNhanhSevice implements IChiNhanh {
         return new ChiNhanhVM_Long(cn.getId(), cn.getMa(), cn.getQuocGia(), cn.getThanhPho(), cn.getNgayKhaiTruong(), cn.getTrangThai(), cn.getGiaTriDoiDiem(), cn.getGiaTriDiem(),"");
     }
 
-//      var allPKK = pkkRepo.getAllPKK();
-//       List<PhieuKiemKeViewModel_Long> lstViewMD= new ArrayList<>();
-//       for(PhieuKiemKe pk : allPKK){
-//           lstViewMD.add(new PhieuKiemKeViewModel_Long(pk.getId(),pk.getMa(),pk.getNgayKiemKe(),pk.getTrangThai()));
-//       }
-//       return lstViewMD;
+
     @Override
     public void deleteMauSac(String maMau) {
         ChiNhanh chinhanh = chinhanhRepo.getChiNhanh(maMau);
@@ -143,15 +118,9 @@ public class ChiNhanhSevice implements IChiNhanh {
         System.out.println(new ChiNhanhRepo().findByMa("CN1"));
     }
 
-//    @Override
-//    public void insertChiNhanh(String ma, String quocGia, String thanhPho, Date ngayKhaiTruong, float giaTriDiem, float giaTriDoiDiem, int trangThai) {
-//        chinhanhRepo.insertChiNhanh(ma, quocGia, thanhPho, ngayKhaiTruong, giaTriDiem, giaTriDoiDiem, trangThai);
-//    }
+
     @Override
     public String insertChiNhanh(String ma, String quocGia, String thanhPho, Date ngayKhaiTruong, float giaTriDiem, float giaTriDoiDiem, int trangThai) {
-//            KhuVuc kv = khuVucRepository.getKhuVucFromID(kvView.getIdKhuVuc());
-//        return banRepository.insertBan(SoBan, kv);
-
         return chinhanhRepo.insertChiNhanh(ma, quocGia, thanhPho, ngayKhaiTruong, giaTriDiem, giaTriDoiDiem, trangThai);
     }
 
