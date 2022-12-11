@@ -9,6 +9,8 @@ import viewmodel.NhaCungCapView;
  * @author duong
  */
 public interface INhaCungCap {
+    NhaCungCapView getNCCById(String id);
+    int countNCCByMa(String maNCC);
     /// READ
     List<NhaCungCapView> getAllNhaCungCap();
     // Search: ten + ma

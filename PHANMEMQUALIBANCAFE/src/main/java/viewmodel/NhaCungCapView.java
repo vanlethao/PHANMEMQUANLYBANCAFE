@@ -53,7 +53,7 @@ public class NhaCungCapView {
     }
     
     public Object[] toDataRow() {
-        return new Object[] {id, ma, ten, trangThai==1?"Dang hoat dong":"Ngung hoat dong"};
+        return new Object[] {id, ma, ten, trangThai==1?"Còn hoạt động":"Ngừng hoạt động"};
     }
     
 }

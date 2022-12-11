@@ -19,6 +19,16 @@ public class NhaCungCapService implements INhaCungCap {
         nhaCungCapRepo = new NhaCungCapRepo();
     }
 
+    @Override
+    public NhaCungCapView getNCCById(String id) {
+        return toNCCView(nhaCungCapRepo.getNCCById(id));
+    }
+
+    @Override
+    public int countNCCByMa(String maNCC) {
+        return nhaCungCapRepo.countNCCByMa(maNCC);
+    }
+
     /// READ
     @Override
     public List<NhaCungCapView> getAllNhaCungCap() {
@@ -120,7 +130,11 @@ public class NhaCungCapService implements INhaCungCap {
     }
 
     private NhaCungCapView toNCCView(NhaCungCap ncc) {
-        return new NhaCungCapView(ncc.getId(), ncc.getMa(), ncc.getTen(), ncc.getTrangThai());
+        if (ncc != null) {
+            return new NhaCungCapView(ncc.getId(), ncc.getMa(), ncc.getTen(), ncc.getTrangThai());
+        } else {
+            return null;
+        }
     }
 
     // Validate data input
@@ -129,6 +143,8 @@ public class NhaCungCapService implements INhaCungCap {
         String message = "";
         if (((String) data[0]).isBlank()) {
             message += "\"Ma NCC\" khong de trong!\n";
+        }else if (((String) data[0]).length() > 15) {
+            message += "\"Ma NCC\" khong duoc qua 15 ky tu! Ban dang nhap: " + ((String) data[0]).length() + "ky tu\n";
         }
 
         if (((String) data[1]).isBlank()) {
@@ -143,7 +159,6 @@ public class NhaCungCapService implements INhaCungCap {
 
     // Check exists NCC
     private boolean isNCCExists(String maNCC) {
-//        return getAllNCCByName(maNCC).isEmpty()?false:true;
-        return !getAllNCCByName(maNCC).isEmpty(); // true la ton tai, false la khong ton tai
+        return countNCCByMa(maNCC)==1;
     }
 }

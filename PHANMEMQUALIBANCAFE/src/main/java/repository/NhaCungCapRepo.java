@@ -19,7 +19,31 @@ public class NhaCungCapRepo {
     public NhaCungCapRepo() {
 
     }
-
+    // lay doi tuong de fill len controls
+    public NhaCungCap getNCCById(String id) {
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            NhaCungCap ncc = session.get(NhaCungCap.class, id);
+            session.close();
+            return ncc;
+        } catch (Exception e) {
+            e.printStackTrace(System.err);
+        }
+        return null;
+    }
+    // check nhan vien trung ma, neu trung thi list co 1 phan tu
+    public int countNCCByMa(String maNCC) {
+        List<NhaCungCap> nhaCungCaps = new ArrayList<>();
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            Query query = session.createQuery("FROM NhaCungCap WHERE ma like :ma");
+            query.setParameter("ma", maNCC);
+            nhaCungCaps = query.getResultList();
+            session.close();
+        } catch (Exception e) {
+            e.printStackTrace(System.err);
+        }
+        return nhaCungCaps.size();
+    }
+    
     /// READ
     public List<NhaCungCap> getAllNhaCungcap() {
         List<NhaCungCap> nhaCungCaps = new ArrayList<>();
@@ -174,7 +198,7 @@ public class NhaCungCapRepo {
         try ( Session session = Hibernateutility.getFactory().openSession()) {
             Transaction tran = session.beginTransaction();
             NhaCungCap nhaCungCap = session.get(NhaCungCap.class, id);
-            session.delete(nhaCungCap);
+            
             if (!phieuNhapHangs.isEmpty()) {
                 for (PhieuNhapHang pnh : phieuNhapHangs) {
                     pnh.setNhaCungCap(null);
