@@ -10,6 +10,8 @@ import viewmodel.KhachHangView;
  * @author duong
  */
 public interface IKhachHang {
+    KhachHangView getKHById(String id);
+    int countKHByMa(String maKH);
     // READ
     List<KhachHangView> getAllKhachHang();
     List<KhachHangView> getAllKHByChiNhanh(ChiNhanh cn);

@@ -20,6 +20,16 @@ public class KhachHangService implements IKhachHang {
         khachHangRepo = new KhachHangRepo();
     }
 
+    @Override
+    public KhachHangView getKHById(String id) {
+        return toKhachHangView(khachHangRepo.getKHById(id));
+    }
+
+    @Override
+    public int countKHByMa(String maKH) {
+        return khachHangRepo.countKHByMa(maKH);
+    }
+
     /// READ
     @Override
     public List<KhachHangView> getAllKhachHang() {
@@ -167,17 +177,23 @@ public class KhachHangService implements IKhachHang {
     }
 
     private KhachHangView toKhachHangView(KhachHang kh) {
-        return new KhachHangView(kh.getId(), kh.getMa(), kh.getHoTen(), kh.getGioiTinh(),
-                kh.getSdt(), kh.getThanhPho(), kh.getQuocGia(), kh.getTrangThai(), kh.getDiemTichLuy());
+        if (kh != null) {
+            return new KhachHangView(kh.getId(), kh.getMa(), kh.getHoTen(), kh.getGioiTinh(),
+                    kh.getSdt(), kh.getThanhPho(), kh.getQuocGia(), kh.getTrangThai(), kh.getDiemTichLuy());
+        } else {
+            return null;
+        }
     }
 
     // validate data input
     @Override
     public String validateDataInput(Object[] data) {
         String message = "";
-        
+
         if (((String) data[0]).isBlank()) {
             message += "\"Ma KH\" khong duoc de trong!\n";
+        }else if (((String) data[0]).length() > 5) {
+            message += "\"Ma KH\" khong duoc qua 5 ky tu! Ban dang nhap: " + ((String) data[0]).length() + "ky tu\n";
         }
 
         if (((String) data[1]).isBlank()) {
@@ -186,18 +202,22 @@ public class KhachHangService implements IKhachHang {
 
         if (((String) data[2]).isBlank()) {
             message += "\"SDT\" khong duoc de trong!\n";
-        } else if(!((String) data[2]).matches("^[0-9]*$")) {
+        } else if (!((String) data[2]).matches("^[0-9]*$")) {
             message += "\"SDT\" khong duoc chua chu va ky tu dac biet!\n";
-        } else if(((String) data[2]).length()<10 || ((String) data[2]).length() > 12) {
+        } else if (((String) data[2]).length() < 10 || ((String) data[2]).length() > 12) {
             message += "\"SDT\" chi tu 10-12 ky tu! So ban nhap hien co:" + ((String) data[2]).length() + " ky tu\n";
         }
 
         if (((String) data[3]).isBlank()) {
             message += "\"Thanh pho\" khong duoc de trong!";
+        } else if (((String) data[3]).length() > 20) {
+            message += "\"Thanh pho\" khong duoc qua 20 ky tu! Ban dang nhap: " + ((String) data[3]).length() + "ky tu\n";
         }
 
         if (((String) data[4]).isBlank()) {
             message += "\"Quoc gia\" khong duoc de trong!";
+        } else if (((String) data[4]).length() > 15) {
+            message += "\"Quoc gia\" khong duoc qua 15 ky tu! Ban dang nhap: " + ((String) data[4]).length() + "ky tu\n";
         }
 
         if (((String) data[5]).isBlank()) {
@@ -217,14 +237,13 @@ public class KhachHangService implements IKhachHang {
         if (((Integer) data[6]) == 0) {
             message += "\"Trang thai\" phai duoc chon!";
         }
-        
+
         return message;
     }
 
     // check KH exists
-    private boolean isKHExists(String maKH) {
-//        return getAllNCCByName(maNCC).isEmpty()?false:true;
-        return !getAllKHByMa(maKH).isEmpty(); // true la ton tai, false la khong ton tai
+    private boolean isKHExists(String maKH) {// ham nay se loi neu ma KH05 va KH055 thi se bao
+        return countKHByMa(maKH) == 1; // true la ton tai, false la khong ton tai
     }
 
 }

@@ -10,7 +10,6 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import utility.Hibernateutility;
 
-
 /**
  *
  * @author duong
@@ -19,6 +18,31 @@ public class KhachHangRepo {
 
     public KhachHangRepo() {
 
+    }
+
+    public KhachHang getKHById(String id) {
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            KhachHang kh = session.get(KhachHang.class, id);
+            session.close();
+            return kh;
+        } catch (Exception e) {
+            e.printStackTrace(System.err);
+        }
+        return null;
+    }
+
+    public int countKHByMa(String maKH) {
+        List<KhachHang> khachHangs = new ArrayList<>();
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            Query query = session.createQuery("FROM KhachHang WHERE ma like :ma");
+            query.setParameter("ma", maKH);
+            khachHangs = query.getResultList();
+            session.close();
+
+        } catch (Exception e) {
+            e.printStackTrace(System.err);
+        }
+        return khachHangs.size();
     }
 
     /// READ
@@ -73,6 +97,7 @@ public class KhachHangRepo {
         }
         return khachHangs;
     }
+
     public List<KhachHang> getAllKHBySDT(String sdt) {
         List<KhachHang> khachHangs = new ArrayList<>();
         try ( Session session = Hibernateutility.getFactory().openSession()) {
@@ -85,6 +110,7 @@ public class KhachHangRepo {
         }
         return khachHangs;
     }
+
     public List<KhachHang> getAllKHByTrangThai(int trangThai) {
         List<KhachHang> khachHangs = new ArrayList<>();
         try ( Session session = Hibernateutility.getFactory().openSession()) {
@@ -112,7 +138,7 @@ public class KhachHangRepo {
         return khachHangs;
     }
 
-    public List<KhachHang> getAllKHByNameAndTrangThai(int trangThai, String tenKH){
+    public List<KhachHang> getAllKHByNameAndTrangThai(int trangThai, String tenKH) {
         List<KhachHang> khachHangs = new ArrayList<>();
         try ( Session session = Hibernateutility.getFactory().openSession()) {
             Query query = session.createQuery("FROM KhachHang WHERE trangThai = :trangThai AND hoTen like :ten");
@@ -125,6 +151,7 @@ public class KhachHangRepo {
         }
         return khachHangs;
     }
+
     public List<KhachHang> getAllKHBySDTAndTrangThai(int trangThai, String sdt) {
         List<KhachHang> khachHangs = new ArrayList<>();
         try ( Session session = Hibernateutility.getFactory().openSession()) {
@@ -138,6 +165,7 @@ public class KhachHangRepo {
         }
         return khachHangs;
     }
+
     // Filter and search by chi nhanh
     public List<KhachHang> getAllKHByChiNhanhAndMa(ChiNhanh cn, String maKH) {
         List<KhachHang> khachHangs = new ArrayList<>();
@@ -166,6 +194,7 @@ public class KhachHangRepo {
         }
         return khachHangs;
     }
+
     public List<KhachHang> getAllKHByChiNhanhAndSDT(ChiNhanh cn, String sdt) {
         List<KhachHang> khachHangs = new ArrayList<>();
         try ( Session session = Hibernateutility.getFactory().openSession()) {
@@ -179,7 +208,7 @@ public class KhachHangRepo {
         }
         return khachHangs;
     }
-    
+
     public List<KhachHang> getAllKHByChiNhanhAndTrangThai(ChiNhanh cn, int trangThai) {
         List<KhachHang> khachHangs = new ArrayList<>();
         try ( Session session = Hibernateutility.getFactory().openSession()) {
@@ -223,6 +252,7 @@ public class KhachHangRepo {
         }
         return khachHangs;
     }
+
     public List<KhachHang> getAllKHByChiNhanhAndTrangThaiAndSDT(ChiNhanh cn, int trangThai, String sdt) {
         List<KhachHang> khachHangs = new ArrayList<>();
         try ( Session session = Hibernateutility.getFactory().openSession()) {
@@ -275,6 +305,30 @@ public class KhachHangRepo {
             return false;
         }
     }
+    
+//    public boolean updateKH(String id, KhachHang kh) { // co update chi nhanh
+//        try ( Session session = Hibernateutility.getFactory().openSession()) {
+//            Transaction tran = session.beginTransaction();
+////            KhachHang khachHang = session.get(KhachHang.class, kh.getId());
+//            KhachHang khachHang = session.get(KhachHang.class, id);
+//            khachHang.setMa(kh.getMa());
+//            khachHang.setHoTen(kh.getHoTen());
+//            khachHang.setGioiTinh(kh.getGioiTinh());
+//            khachHang.setSdt(kh.getSdt());
+//            khachHang.setThanhPho(kh.getThanhPho());
+//            khachHang.setQuocGia(kh.getQuocGia());
+//            khachHang.setTrangThai(kh.getTrangThai());
+//            khachHang.setDiemTichLuy(kh.getDiemTichLuy());
+////            khachHang.setListChiNhanh(kh.getListChiNhanh()); // neu update chi nhanh thi phai lay dc chi nhanh khach muon update trong listChiNhanh, de nghi them
+//            session.update(khachHang);
+//            tran.commit();
+//            session.close();
+//            return true;
+//        } catch (Exception e) {
+//            e.printStackTrace(System.err);
+//            return false;
+//        }
+//    }
 
     public boolean deleteKhachHang(String id) { // chuyen trang thai
         try ( Session session = Hibernateutility.getFactory().openSession()) {
