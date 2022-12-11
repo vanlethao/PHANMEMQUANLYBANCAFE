@@ -13,6 +13,8 @@ import viewmodel.NhanVienView;
  */
 public interface INhanVien {
 
+    NhanVienView getNhanVienById(String id);
+    int countNVByMa(String maNV);
     // READ
     List<NhanVienView> getAllNhanVien();
 

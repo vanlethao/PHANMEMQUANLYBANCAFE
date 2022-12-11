@@ -137,6 +137,6 @@ public class NhanVienView {
     }
     
     public Object[] toDataRow() {
-        return new Object[] {id, ma, hoTen, gioTinh, sdt, thanhPho, quocGia, luong, chiNhanh.getMa(), chucVu.getTen(), trangThai==1?"Con lam":"Da nghi"};
+        return new Object[] {id, ma, hoTen, gioTinh, sdt, thanhPho, quocGia, luong, chiNhanh.getMa(), chucVu.getTen(), trangThai==1?"Đang làm":"Đã nghỉ"};
     }
 }

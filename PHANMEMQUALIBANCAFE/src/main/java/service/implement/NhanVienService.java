@@ -22,58 +22,16 @@ public class NhanVienService implements INhanVien {
         nhanVienRepo = new NhanVienRepo();
     }
 
-//    @Override
-//    public List<NhanVienView> getAllNhanVien() {
-//        return toDataView(nhanVienRepo.getAllNhanVien());
-//    }
-//
-//    @Override
-//    public String adddNhanVien(NhanVien nv) {
-//        if (nhanVienRepo.addNhanVien(nv)) {
-//            return "Them thanh cong!";
-//        } else {
-//            return "Them that bai!";
-//        }
-//    }
-//
-//    @Override
-//    public String updateNhanVien(String id, NhanVien nv) {
-//        if (nhanVienRepo.updateNhanVien(id, nv)) {
-//            return "Sua thanh cong!";
-//        } else {
-//            return "Sua that bai!";
-//        }
-//    }
-//
-//    @Override
-//    public String deleteNhanVien(String id) {
-//        if (nhanVienRepo.deleteNhanVien(id)) {
-//            return "Xoa thanh cong!";
-//        } else {
-//            return "Xoa that bai!";
-//        }
-//    }
-//
-//    @Override
-//    public List<NhanVienView> findNhanVienByName(String name) {
-//        return null;
-//    }
-//
-//    @Override
-//    public List<NhanVienView> findNhanVienByMa(String ma) {
-//        return null;
-//    }
-//
-//
-//    @Override
-//    public NhanVien getNVByMa(String ma) {
-//        return nhanVienRepo.searchNVByMa(ma).get(0);
-//    }
-//
-//    @Override
-//    public List<NhanVienView> searchNVByMa(String ma) {
-//        return toDataView(nhanVienRepo.searchNVByMa(ma));
-//    }
+    @Override
+    public NhanVienView getNhanVienById(String id) {
+        return toNhanVienView(nhanVienRepo.getNhanVienById(id));
+    }
+
+    @Override
+    public int countNVByMa(String maNV) {
+        return nhanVienRepo.countNVByMa(maNV);
+    }
+
     @Override
     public List<NhanVienView> getAllNhanVien() {
         return toDataView(nhanVienRepo.getAllNhanVien());
@@ -200,7 +158,7 @@ public class NhanVienService implements INhanVien {
     public String updateNhanVienByAdmin(String id, NhanVien nv, boolean check) {
         if (!check) {
             if (!isNVExists(nv.getMa())) {
-                if (nhanVienRepo.updateNhanVien(id, nv)) {
+                if (nhanVienRepo.updateNhanVienByAdmin(id, nv)) {
                     return "Cap nhat thanh cong!";
                 } else {
                     return "Cap nhat that bai!";
@@ -209,7 +167,7 @@ public class NhanVienService implements INhanVien {
                 return "\"Ma nhan vien\" khong the cap nhat vi ton tai nhan vien co ma nay!";
             }
         } else {
-            if (nhanVienRepo.updateNhanVien(id, nv)) {
+            if (nhanVienRepo.updateNhanVienByAdmin(id, nv)) { // that ra la sai dong nay =)), quen chua doi lai ham khi copy
                 return "Cap nhat thanh cong!";
             } else {
                 return "Cap nhat that bai!";
@@ -246,17 +204,23 @@ public class NhanVienService implements INhanVien {
     }
 
     private NhanVienView toNhanVienView(NhanVien nv) {
-        return new NhanVienView(nv.getId(), nv.getMa(), nv.getHoTen(), nv.getGioiTinh(), nv.getSdt(),
-                nv.getThanhPho(), nv.getQuocGia(), nv.getLuong(), nv.getChiNhanh(), nv.getChucVu(), nv.getTrangThai(), nv.getAvatar());
+        if (nv != null) {
+            return new NhanVienView(nv.getId(), nv.getMa(), nv.getHoTen(), nv.getGioiTinh(), nv.getSdt(),
+                    nv.getThanhPho(), nv.getQuocGia(), nv.getLuong(), nv.getChiNhanh(), nv.getChucVu(), nv.getTrangThai(), nv.getAvatar());
+        } else {
+            return null;
+        }
     }
 
     // validate data input
     @Override
     public String validateDataInput(Object[] data) {
         String message = "";
-        
+
         if (((String) data[0]).isBlank()) {
             message += "\"Ma NV\" khong duoc de trong!\n";
+        } else if (((String) data[0]).length() > 5) {
+            message += "\"Ma NV\" khong duoc qua 5 ky tu! Ban dang nhap: " + ((String) data[0]).length() + "ky tu\n";
         }
 
         if (((String) data[1]).isBlank()) {
@@ -265,18 +229,22 @@ public class NhanVienService implements INhanVien {
 
         if (((String) data[2]).isBlank()) {
             message += "\"SDT\" khong duoc de trong!\n";
-        } else if(!((String) data[2]).matches("^[0-9]*$")) {
+        } else if (!((String) data[2]).matches("^[0-9]*$")) {
             message += "\"SDT\" khong duoc chua chu va ky tu dac biet!\n";
-        } else if(((String) data[2]).length()<10 || ((String) data[2]).length() > 12) {
+        } else if (((String) data[2]).length() < 10 || ((String) data[2]).length() > 12) {
             message += "\"SDT\" chi tu 10-12 ky tu! So ban nhap hien co:" + ((String) data[2]).length() + " ky tu\n";
         }
 
         if (((String) data[3]).isBlank()) {
             message += "\"Thanh pho\" khong duoc de trong!\n";
+        } else if (((String) data[3]).length() > 20) {
+            message += "\"Thanh pho\" khong duoc qua 20 ky tu! Ban dang nhap: " + ((String) data[3]).length() + "ky tu\n";
         }
 
         if (((String) data[4]).isBlank()) {
             message += "\"Quoc gia\" khong duoc de trong!\n";
+        } else if (((String) data[4]).length() > 15) {
+            message += "\"Quoc gia\" khong duoc qua 15 ky tu! Ban dang nhap: " + ((String) data[4]).length() + "ky tu\n";
         }
 
         if (((String) data[5]).isBlank()) {
@@ -296,14 +264,13 @@ public class NhanVienService implements INhanVien {
         if (((Integer) data[6]) == 0) {
             message += "\"Trang thai\" phai duoc chon!\n";
         }
-        
+
         return message;
     }
 
     // check exists nhan vien
     private boolean isNVExists(String maNV) {
-//        return getAllNCCByName(maNCC).isEmpty()?false:true;
-        return !getAllNVByMa(maNV).isEmpty(); // true la ton tai, false la khong ton tai
+        return countNVByMa(maNV) == 1;
     }
 
     /// Repo Chuc Vu

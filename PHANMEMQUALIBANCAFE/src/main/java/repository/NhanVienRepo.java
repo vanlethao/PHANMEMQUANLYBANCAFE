@@ -19,7 +19,31 @@ public class NhanVienRepo {
 
     public NhanVienRepo() {
     }
-
+    // get Nhan vien
+    public NhanVien getNhanVienById(String id) {
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            NhanVien nv = session.get(NhanVien.class, id);
+            session.close();
+            return nv;
+        } catch (Exception e) {
+            e.printStackTrace(System.err);
+        }
+        return null;
+    }
+    
+    public int countNVByMa(String maNV) {
+        List<NhanVien> nhanViens = new ArrayList<>();
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            Query query = session.createQuery("FROM NhanVien WHERE ma like :ma");
+            query.setParameter("ma", maNV);
+            nhanViens = query.getResultList();
+            session.close();
+        } catch (Exception e) {
+            e.printStackTrace(System.err);
+        }
+        return nhanViens.size();
+    }
+    
     // READ
     public List<NhanVien> getAllNhanVien() {
         List<NhanVien> nhanViens = new ArrayList<>();
@@ -297,10 +321,10 @@ public class NhanVienRepo {
 //            return false;
 //        }
 //    }
-    public boolean updateNhanVienByAdmin(String id, NhanVien nv) { // khong update chi nhanh, khong update ca
+    public boolean updateNhanVienByAdmin(String id, NhanVien nv) { // co update chi nhanh, khong update ca
         try ( Session session = Hibernateutility.getFactory().openSession()) {
             Transaction tran = session.beginTransaction();
-            NhanVien nhanVien = session.get(NhanVien.class, id);
+            NhanVien nhanVien = session.get(NhanVien.class, id); // test trong main thi update dc, khi goi thi lai khong, khong suat ra loi gi ca
             nhanVien.setMa(nv.getMa());
             nhanVien.setAvatar(nv.getAvatar());
             nhanVien.setHoTen(nv.getHoTen());
@@ -309,8 +333,8 @@ public class NhanVienRepo {
             nhanVien.setLuong(nv.getLuong());
             nhanVien.setThanhPho(nv.getThanhPho());
             nhanVien.setQuocGia(nv.getQuocGia());
-            nhanVien.setChiNhanh(nv.getChiNhanh());
             nhanVien.setChucVu(nv.getChucVu());
+            nhanVien.setChiNhanh(nv.getChiNhanh());
 //            nhanVien.setChiTietCa(nv.getChiTietCa());
             nhanVien.setTrangThai(nv.getTrangThai());
             session.update(nhanVien);
@@ -322,7 +346,33 @@ public class NhanVienRepo {
             return false;
         }
     }
-
+    // viet ham update moi
+    public boolean updateNVByAdmin(String id, NhanVien nv, ChiNhanh cn) {
+         try ( Session session = Hibernateutility.getFactory().openSession()) {
+            Transaction tran = session.beginTransaction();
+            NhanVien nhanVien = session.get(NhanVien.class, id); 
+            nhanVien.setMa(nv.getMa());
+            nhanVien.setAvatar(nv.getAvatar());
+            nhanVien.setHoTen(nv.getHoTen());
+            nhanVien.setGioiTinh(nv.getGioiTinh());
+            nhanVien.setSdt(nv.getSdt());
+            nhanVien.setLuong(nv.getLuong());
+            nhanVien.setThanhPho(nv.getThanhPho());
+            nhanVien.setQuocGia(nv.getQuocGia());
+            nhanVien.setChucVu(nv.getChucVu());
+            nhanVien.setChiNhanh(cn);
+//            nhanVien.setChiTietCa(nv.getChiTietCa());
+            nhanVien.setTrangThai(nv.getTrangThai());
+            session.update(nhanVien);
+            tran.commit();
+            session.close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace(System.err);
+            return false;
+        }
+    }
+    
     public boolean deleteNhanVien(String id) { // chuyen trang thai
         try ( Session session = Hibernateutility.getFactory().openSession()) {
             Transaction tran = session.beginTransaction();
@@ -378,7 +428,7 @@ public class NhanVienRepo {
         return null;
     }
 
-//    public static void main(String[] args) {
-//        System.out.println(new NhanVienRepo().getChucVuById("7E512AA8-795E-4BD2-B484-7C7A43E609C1"));
-//    }
+    public static void main(String[] args) {
+        System.out.println(new NhanVienRepo().updateNhanVienByAdmin("05F084D1-5B28-45F9-9EEB-1D64E0F27EC8", new NhanVien(null, "NV3", null, null, null, null, null, null, null, null, new ChiNhanh("D165AD38-14ED-4515-AC3C-373D13E47BC8", null, null, null, null, null, null, null, null, null, null, null), null, null)));
+    }
 }
