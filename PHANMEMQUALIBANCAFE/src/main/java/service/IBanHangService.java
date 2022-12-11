@@ -6,7 +6,7 @@ package service;
 
 import domainmodel.NhanVien;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import viewmodel.Area;
 import viewmodel.ChiNhanhViewModel_Hoang;
@@ -22,6 +22,8 @@ import viewmodel.ThemKhachViewModel;
 public interface IBanHangService {
 
     List<ProductForSale> getAllProductForSaleByChiNhanh(String idChiNhanh);
+
+    List<ProductForSale> searchProductForSaleByTenSpAndChiNhanh(String tenSp, String idChiNhanh);
 
     boolean checkSo(String soLuong);
 
@@ -45,7 +47,7 @@ public interface IBanHangService {
 
     Float getGiaTriDiem();
 
-    String inserHoaDon(String ma, Date ngayTao, String idNhanVien,
+    String inserHoaDon(String ma, LocalDateTime ngayTao, String idNhanVien,
             Integer soBan);
 
     void insertChiTietHoaDon(String idSanPham, String idHoaDon, int soLuongMua,

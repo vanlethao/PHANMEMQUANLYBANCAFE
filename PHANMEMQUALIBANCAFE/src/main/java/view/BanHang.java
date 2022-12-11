@@ -12,10 +12,10 @@ import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -47,7 +47,7 @@ public class BanHang extends javax.swing.JPanel implements Runnable {
     private boolean _ConfirmCloseThemKhach = false;
     TaiKhoanAdmin _admin;
     TaiKhoanNguoiDung _nguoiDung;
-    ChiNhanhViewModel_Hoang _chiNhanhView;
+    ChiNhanhViewModel_Hoang _chiNhanhNguoiDung;
 
     public BanHang(TaiKhoanAdmin admin, TaiKhoanNguoiDung nguoiDung) {
         initComponents();
@@ -67,19 +67,21 @@ public class BanHang extends javax.swing.JPanel implements Runnable {
     @Override
     public void run() {
         if (_nguoiDung != null) {
-            _chiNhanhView = banHangService.getChiNhanhbyTaiKhoan(_nguoiDung.getId());
+            _chiNhanhNguoiDung = banHangService.getChiNhanhbyTaiKhoan(_nguoiDung.getId());
             modelComboArea = (DefaultComboBoxModel) new DefaultComboBoxModel<>(banHangService.
-                    getAllKhuVucByChiNhanh(_chiNhanhView.getId()).toArray());
+                    getAllKhuVucByChiNhanh(_chiNhanhNguoiDung.getId()).toArray());
             cboChiNhanh.setVisible(false);
-            showProductForSaleByChiNhanh(_chiNhanhView.getId());
-            showKhuyenMai(_chiNhanhView.getId());
+            showProductForSale(banHangService.getAllProductForSaleByChiNhanh(_chiNhanhNguoiDung.getId()));
+            showKhuyenMai(_chiNhanhNguoiDung.getId());
         } else {
             cboChiNhanh.setVisible(true);
             modelComboChiNhanh = (DefaultComboBoxModel) new DefaultComboBoxModel<>(banHangService.getAllChiNhanh().toArray());
             cboChiNhanh.setModel((DefaultComboBoxModel) modelComboChiNhanh);
             modelComboArea = (DefaultComboBoxModel) new DefaultComboBoxModel<>(banHangService.
                     getAllKhuVucByChiNhanh(((ChiNhanhViewModel_Hoang) modelComboChiNhanh.getSelectedItem()).getId()).toArray());
-            showProductForSaleByChiNhanh(((ChiNhanhViewModel_Hoang) modelComboChiNhanh.getElementAt(0)).getId());
+            showProductForSale(banHangService.getAllProductForSaleByChiNhanh(
+                    ((ChiNhanhViewModel_Hoang) modelComboChiNhanh.getElementAt(0)).getId())
+            );
             showKhuyenMai(((ChiNhanhViewModel_Hoang) modelComboChiNhanh.getSelectedItem()).getId());
         }
         cboKhuVuc.setModel((DefaultComboBoxModel) modelComboArea);
@@ -616,6 +618,11 @@ public class BanHang extends javax.swing.JPanel implements Runnable {
                 txtTimSpMouseClicked(evt);
             }
         });
+        txtTimSp.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTimSpKeyReleased(evt);
+            }
+        });
 
         btnTimSp.setBackground(new java.awt.Color(255, 255, 255));
         btnTimSp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/search_20px.png"))); // NOI18N
@@ -1109,12 +1116,11 @@ public class BanHang extends javax.swing.JPanel implements Runnable {
         }
     }
 
-    private void showProductForSaleByChiNhanh(String idChiNhanh) {
+    private void showProductForSale(List<ProductForSale> listProductForSale) {
         pnlListSp.removeAll();
         pnlListSp.revalidate();
         pnlListSp.repaint();
         listItemSanPham.clear();
-        List<ProductForSale> listProductForSale = banHangService.getAllProductForSaleByChiNhanh(idChiNhanh);
         if (listProductForSale != null) {
             for (ProductForSale product : listProductForSale) {
                 ItemSanPham item = new ItemSanPham();
@@ -1431,9 +1437,10 @@ public class BanHang extends javax.swing.JPanel implements Runnable {
             lblCanhBaoTien.setText("Số tiền chưa đủ thanh toán");
         } else {
             lblCanhBaoTien.setText("");
-            Date ngayTaoHD = new Date();
-            DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD");
-            dateFormat.format(ngayTaoHD);
+            LocalDateTime timeNow = LocalDateTime.now();
+            DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String strTimeNow = dateFormat.format(timeNow);
+            LocalDateTime ngayTaoHD = LocalDateTime.parse(strTimeNow, dateFormat);
             String idHoaDon = null;
             if (_nguoiDung != null) {
                 NhanVien nhanVien = banHangService.getNhanVienbyTaiKhoan(_nguoiDung.getId());
@@ -1475,13 +1482,14 @@ public class BanHang extends javax.swing.JPanel implements Runnable {
     }//GEN-LAST:event_btnTraTienActionPerformed
 
     private void cboChiNhanhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboChiNhanhActionPerformed
-
         modelComboArea = (DefaultComboBoxModel) new DefaultComboBoxModel<>(banHangService.
                 getAllKhuVucByChiNhanh(((ChiNhanhViewModel_Hoang) modelComboChiNhanh.getSelectedItem()).getId()).toArray());
         cboKhuVuc.setModel((DefaultComboBoxModel) modelComboArea);
         modelTableChonSp.setRowCount(0);
         resetPanelBanAndShow();
-        showProductForSaleByChiNhanh(((ChiNhanhViewModel_Hoang) modelComboChiNhanh.getSelectedItem()).getId());
+        showProductForSale(banHangService.getAllProductForSaleByChiNhanh(
+                ((ChiNhanhViewModel_Hoang) modelComboChiNhanh.getSelectedItem()).getId())
+        );
         setEventClickForItemSanPham();
         showKhuyenMai(((ChiNhanhViewModel_Hoang) modelComboChiNhanh.getSelectedItem()).getId());
     }//GEN-LAST:event_cboChiNhanhActionPerformed
@@ -1592,6 +1600,34 @@ public class BanHang extends javax.swing.JPanel implements Runnable {
             DlogThemKhach.setVisible(false);
         }
     }//GEN-LAST:event_lblCloseThemKhachMouseClicked
+
+    private void txtTimSpKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimSpKeyReleased
+        if (_nguoiDung != null) {
+            if (!txtTimSp.getText().isBlank()) {
+                showProductForSale(banHangService.searchProductForSaleByTenSpAndChiNhanh(
+                        txtTimSp.getText(), _chiNhanhNguoiDung.getId())
+                );
+                setEventClickForItemSanPham();
+            } else {
+                showProductForSale(banHangService.getAllProductForSaleByChiNhanh(_chiNhanhNguoiDung.getId()));
+                setEventClickForItemSanPham();
+            }
+
+        } else {
+            if (!txtTimSp.getText().isBlank()) {
+                showProductForSale(banHangService.searchProductForSaleByTenSpAndChiNhanh(
+                        txtTimSp.getText(), ((ChiNhanhViewModel_Hoang) modelComboChiNhanh.getSelectedItem()).getId())
+                );
+                setEventClickForItemSanPham();
+            } else {
+                showProductForSale(banHangService.getAllProductForSaleByChiNhanh(
+                        ((ChiNhanhViewModel_Hoang) modelComboChiNhanh.getSelectedItem()).getId())
+                );
+                setEventClickForItemSanPham();
+            }
+
+        }
+    }//GEN-LAST:event_txtTimSpKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

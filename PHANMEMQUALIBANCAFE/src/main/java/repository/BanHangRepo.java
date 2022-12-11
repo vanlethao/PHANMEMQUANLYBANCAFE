@@ -17,7 +17,7 @@ import domainmodel.NhanVien;
 import domainmodel.SanPham;
 import domainmodel.TaiKhoanNguoiDung;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 
 import java.util.List;
@@ -224,7 +224,7 @@ public class BanHangRepo {
         return chiNhanh;
     }
 
-    public static String inserHoaDon(String ma, Date ngayTao, String idNhanVien,
+    public static String inserHoaDon(String ma, LocalDateTime ngayTao, String idNhanVien,
             Integer soBan) {
         String id = null;
         try ( Session session = Hibernateutility.getFactory().openSession()) {

@@ -15,6 +15,7 @@ import domainmodel.ChiTietPhieuTra;
 import domainmodel.ChiTietSP;
 import domainmodel.ChucVu;
 import domainmodel.HoaDonBanHang;
+import domainmodel.HoatDongCa;
 import domainmodel.IdChiTietCa;
 import domainmodel.IdChiTietHoaDon;
 import domainmodel.IdChiTietPhieuKiemKe;
@@ -79,6 +80,7 @@ public class Hibernateutility {
         config.addAnnotatedClass(TaiKhoanAdmin.class);
         config.addAnnotatedClass(TaiKhoanNguoiDung.class);
         config.addAnnotatedClass(ThuongHieu.class);
+        config.addAnnotatedClass(HoatDongCa.class);
 
         _factory = config.buildSessionFactory();
 

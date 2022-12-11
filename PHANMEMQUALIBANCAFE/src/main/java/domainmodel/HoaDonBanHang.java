@@ -1,7 +1,7 @@
 package domainmodel;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,7 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
@@ -34,8 +33,7 @@ public class HoaDonBanHang implements Serializable {
     private String ma;
 
     @Column(name = "NgayTao")
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date ngayTao;
+    private LocalDateTime ngayTao;
 
     @Column(name = "TrangThai")
     private Integer trangThai;
@@ -54,7 +52,7 @@ public class HoaDonBanHang implements Serializable {
     public HoaDonBanHang() {
     }
 
-    public HoaDonBanHang(String id, String ma, Date ngayTao, Integer trangThai, NhanVien nhanVien, Ban ban,
+    public HoaDonBanHang(String id, String ma, LocalDateTime ngayTao, Integer trangThai, NhanVien nhanVien, Ban ban,
             Set<ChiTietHoaDon> chiTietHoaDon) {
         this.id = id;
         this.ma = ma;
@@ -81,11 +79,11 @@ public class HoaDonBanHang implements Serializable {
         this.ma = ma;
     }
 
-    public Date getNgayTao() {
+    public LocalDateTime getNgayTao() {
         return ngayTao;
     }
 
-    public void setNgayTao(Date ngayTao) {
+    public void setNgayTao(LocalDateTime ngayTao) {
         this.ngayTao = ngayTao;
     }
 

@@ -13,8 +13,8 @@ import domainmodel.KhuyenMai;
 import domainmodel.NhanVien;
 import domainmodel.SanPham;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
 import repository.BanHangRepo;
@@ -66,6 +66,38 @@ public class BanHangService implements IBanHangService {
             }
         }
         return listView;
+    }
+
+    @Override
+    public List<ProductForSale> searchProductForSaleByTenSpAndChiNhanh(String tenSp, String idChiNhanh) {
+        List<ProductForSale> listSearch = new ArrayList<>();
+        var product = _BanHangRepo.getAllSanPhamDangBanByChiNhanh(idChiNhanh);
+        if (product.size() > 0) {
+            for (SanPham sanPham : product) {
+                if (sanPham.getTen().contains(tenSp)) {
+                    ProductForSale productView = new ProductForSale();
+                    productView.setIdSp(sanPham.getId());
+                    productView.setMaSp(sanPham.getMa());
+                    if (sanPham.getTen() != null) {
+                        productView.setTenSp(sanPham.getTen());
+                    }
+                    if (sanPham.getGiaBan() != null) {
+                        productView.setGiaBan(new BigDecimal(sanPham.getGiaBan()));
+                    }
+                    if (sanPham.getTrangThai() != null) {
+                        productView.setTrangThai(sanPham.getTrangThai());
+                    }
+                    if (sanPham.getKhuyenMai() != null) {
+                        productView.setTenKhuyenMai(sanPham.getKhuyenMai().getTen());
+                    }
+                    if (sanPham.getAvatar() != null) {
+                        productView.setAvatar(sanPham.getAvatar());
+                    }
+                    listSearch.add(productView);
+                }
+            }
+        }
+        return listSearch;
     }
 
     @Override
@@ -215,7 +247,7 @@ public class BanHangService implements IBanHangService {
     }
 
     @Override
-    public String inserHoaDon(String ma, Date ngayTao, String idNhanVien, Integer soBan) {
+    public String inserHoaDon(String ma, LocalDateTime ngayTao, String idNhanVien, Integer soBan) {
         return _BanHangRepo.inserHoaDon(ma, ngayTao, idNhanVien, soBan);
     }
 
