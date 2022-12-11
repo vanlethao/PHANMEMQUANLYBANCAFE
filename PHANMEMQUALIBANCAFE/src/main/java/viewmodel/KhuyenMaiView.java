@@ -97,6 +97,6 @@ public class KhuyenMaiView {
     }
     
     public Object[] toDataRow() {
-        return new Object[] {id,tenKM, moTa, ngayBatDau, ngayKetThuc, chietKhau, trangThai==1?"Con han":"Het han"}; //new JCheckBox("", true):new JCheckBox("", false)
+        return new Object[] {id,tenKM, moTa, ngayBatDau, ngayKetThuc, chietKhau, trangThai==1?"Kích hoạt":"Dừng áp dụng"}; //new JCheckBox("", true):new JCheckBox("", false)
     }
 }

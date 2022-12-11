@@ -50,9 +50,11 @@ public interface IKhuyenMai {
     String updateKhuyenMai(String id, KhuyenMai khuyenMai, List<SanPham> sanPhamAdds, List<SanPham> sanPhamDels);
     String deleteKhuyenMai(String id); // chuyen trang thai
     String deleteKM(String id, List<SanPham> sanPhamDels); // xoa han luon
+    String deleteKM1(String id, List<SanPham> sanPhamDels); // xoa han luon
     
     // LOGIC
     String validateDataInput(Object[] data);
+    String validateDataInput1(Object[] data, KhuyenMai km);
     
     /// Repo ChiNhanh
     List<ChiNhanhView> getAllChiNhanhON();
@@ -60,6 +62,7 @@ public interface IKhuyenMai {
     ChiNhanh getChiNhanhById(String id);
     
     /// Repo SanPham
+    SanPham getSPById(String id);
     List<SanPham> getAllSP();
     List<SanPham> getAllSPByMa(String maSP);
     List<SanPham> getAllSPByName(String tenSP);

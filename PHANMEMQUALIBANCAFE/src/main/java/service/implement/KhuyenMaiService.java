@@ -130,6 +130,15 @@ public class KhuyenMaiService implements IKhuyenMai {
             return "Xoa that bai!";
         }
     }
+    
+    @Override
+    public String deleteKM1(String id, List<SanPham> sanPhamDels) {
+        if (khuyenMaiRepo.deleteKM1(id, sanPhamDels)) {
+            return "Xoa thanh cong!";
+        } else {
+            return "Xoa that bai!";
+        }
+    }
 
     /// LOGIC
     // Cast KhuyenMai to KhuyenMaiView
@@ -145,8 +154,12 @@ public class KhuyenMaiService implements IKhuyenMai {
     }
 
     private KhuyenMaiView toKhuyeMaiView(KhuyenMai km) {
-        return new KhuyenMaiView(km.getId(), km.getTen(), km.getNgayBatDau(),
-                km.getNgayKetThuc(), km.getGiaTriChietKhau(), km.getTrangThai(), km.getMota());
+        if (km != null) {
+            return new KhuyenMaiView(km.getId(), km.getTen(), km.getNgayBatDau(),
+                    km.getNgayKetThuc(), km.getGiaTriChietKhau(), km.getTrangThai(), km.getMota());
+        } else {
+            return null;
+        }
     }
 
     // Check KhuyenMai Exists
@@ -157,7 +170,7 @@ public class KhuyenMaiService implements IKhuyenMai {
 
     // Validate Data Input
     @Override
-    public String validateDataInput(Object[] data) {
+    public String validateDataInput(Object[] data) { // dung cho add du lieu
         Date now = new Date();
         String message = "";
 //        if (khuyenMai.getMa().isBlank()) {
@@ -176,6 +189,53 @@ public class KhuyenMaiService implements IKhuyenMai {
             message += "\"Ngay bat dau\" khong de trong!\n";
         } else if (((Date) data[2]).before(now)) {
             message += "\"Ngay bat dau\" khong duoc truoc ngay hien tai\n";
+        }
+
+        if ((Date) data[3] == null) {
+            message += "\"Ngay ket thuc\" khong de trong!\n";
+        } else if (((Date) data[3]).before((Date) data[2])) {
+            message += "\"Ngay ket thuc\" phai lon hon hoac bang \"Ngay bat dau\"!\n";
+        }
+
+//        if(khuyenMai.getTrangThai()) {
+//            message += "\"Ten khuyen mai\" khong de trong!\n";
+//        }
+        if (((String) data[4]).isBlank()) {
+            message += "\"Chiet khau\" khong de trong!\n";
+        } else {
+            try {
+                float diem = Float.parseFloat((String) data[4]);
+                if (diem < 0) {
+                    message += "\"Chiet khau\" phai lon hon hoac bang 0!\n";
+                }
+            } catch (NumberFormatException e) {
+                e.printStackTrace(System.err);
+                message += "\"Chiet khau\" phai la so, khong chua chu hoac ky tu dac biet!\n";
+            }
+        }
+        return message;
+    }
+    
+    @Override
+    public String validateDataInput1(Object[] data, KhuyenMai km) { // dung cho update du lieu, co the gop 2 cai validate nay cung dc, ma k thich =))
+        Date startDate = km.getNgayBatDau();
+        String message = "";
+//        if (khuyenMai.getMa().isBlank()) {
+//            message += "\"Ma khuyen mai\" khong de trong!\n";
+//        }
+
+        if (((String) data[0]).isBlank()) {
+            message += "\"Ten khuyen mai\" khong de trong!\n";
+        }
+
+        if (((String) data[1]).isBlank()) {
+            message += "\"Mo ta\" khong de trong!\n";
+        }
+
+        if ((Date) data[2] == null) {
+            message += "\"Ngay bat dau\" khong de trong!\n";
+        } else if (((Date) data[2]).before(startDate)) {
+            message += "\"Ngay bat dau\" khong duoc truoc ngay tao khuyen mai\n";
         }
 
         if ((Date) data[3] == null) {
@@ -227,7 +287,11 @@ public class KhuyenMaiService implements IKhuyenMai {
     }
 
     private ChiNhanhView toChiNhanhView(ChiNhanh cn) {
-        return new ChiNhanhView(cn.getId(), cn.getMa());
+        if (cn != null) {
+            return new ChiNhanhView(cn.getId(), cn.getMa());
+        } else {
+            return null;
+        }
     }
 
     //// Repo SanPham
@@ -241,8 +305,13 @@ public class KhuyenMaiService implements IKhuyenMai {
     }
 
     private SanPhamViewModel toSPView(SanPham sp) {
-        return new SanPhamViewModel(sp.getId(), sp.getMa(), sp.getTen(), BigDecimal.valueOf(sp.getGiaBan()), sp.getAvatar());
+        if (sp != null) {
+            return new SanPhamViewModel(sp.getId(), sp.getMa(), sp.getTen(), BigDecimal.valueOf(sp.getGiaBan()), sp.getAvatar());
+        } else {
+            return null;
+        }
     }
+    
     
     @Override
     public List<SanPham> getAllSPByChiNhanh(ChiNhanh cn) {
@@ -265,29 +334,34 @@ public class KhuyenMaiService implements IKhuyenMai {
 //        
 //    }
     @Override
+    public SanPham getSPById(String id) {
+        return khuyenMaiRepo.getSPById(id);
+    }
+    @Override
     public List<SanPham> getAllSP() {
         return khuyenMaiRepo.getAllSP();
     }
+
     @Override
     public List<SanPham> getAllSPByMa(String maSP) {
         return khuyenMaiRepo.getAllSPByMa(maSP);
     }
-    
+
     @Override
     public List<SanPham> getAllSPByName(String tenSP) {
         return khuyenMaiRepo.getAllSPByName(tenSP);
     }
-    
+
     @Override
     public List<SanPham> getAllSPByChiNhanhAndMa(ChiNhanh cn, String maSP) {
         return khuyenMaiRepo.getAllSPByChiNhanhAndMa(cn, maSP);
     }
-    
+
     @Override
     public List<SanPham> getAllSPByChiNhanhAndName(ChiNhanh cn, String tenSP) {
         return khuyenMaiRepo.getAllSPByChiNhanhAndName(cn, tenSP);
     }
-    
+
     @Override
     public SanPham getSanPhamByMa(String ma) {
         return khuyenMaiRepo.getSanPhamByMa(ma);
