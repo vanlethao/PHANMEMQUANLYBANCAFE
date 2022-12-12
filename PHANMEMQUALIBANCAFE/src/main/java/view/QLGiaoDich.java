@@ -443,11 +443,14 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
         jScrollPane7.setViewportView(tblHoaDon);
         if (tblHoaDon.getColumnModel().getColumnCount() > 0) {
             tblHoaDon.getColumnModel().getColumn(0).setResizable(false);
-            tblHoaDon.getColumnModel().getColumn(1).setResizable(false);
+            tblHoaDon.getColumnModel().getColumn(1).setMinWidth(150);
+            tblHoaDon.getColumnModel().getColumn(1).setMaxWidth(150);
             tblHoaDon.getColumnModel().getColumn(2).setResizable(false);
             tblHoaDon.getColumnModel().getColumn(3).setResizable(false);
-            tblHoaDon.getColumnModel().getColumn(4).setResizable(false);
-            tblHoaDon.getColumnModel().getColumn(5).setResizable(false);
+            tblHoaDon.getColumnModel().getColumn(4).setMinWidth(50);
+            tblHoaDon.getColumnModel().getColumn(4).setMaxWidth(50);
+            tblHoaDon.getColumnModel().getColumn(5).setMinWidth(100);
+            tblHoaDon.getColumnModel().getColumn(5).setMaxWidth(100);
         }
 
         jPanel5.setBackground(new java.awt.Color(228, 212, 189));
@@ -488,7 +491,9 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
+        btnLocHoaDon.setBackground(new java.awt.Color(108, 83, 54));
         btnLocHoaDon.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnLocHoaDon.setForeground(new java.awt.Color(255, 255, 255));
         btnLocHoaDon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_conversion_30px.png"))); // NOI18N
         btnLocHoaDon.setText("Lọc hóa đơn");
         btnLocHoaDon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -498,7 +503,12 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
             }
         });
 
+        btnExportPdf.setBackground(new java.awt.Color(108, 83, 54));
+        btnExportPdf.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnExportPdf.setForeground(new java.awt.Color(255, 255, 255));
+        btnExportPdf.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_print_35px.png"))); // NOI18N
         btnExportPdf.setText("Export PDF");
+        btnExportPdf.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnExportPdf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExportPdfActionPerformed(evt);
@@ -509,20 +519,20 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+            .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
                     .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnExportPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel10Layout.createSequentialGroup()
                         .addGap(19, 19, 19)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(40, 40, 40)
-                        .addComponent(btnLocHoaDon)
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnExportPdf)
+                            .addGroup(jPanel10Layout.createSequentialGroup()
+                                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(40, 40, 40)
+                                .addComponent(btnLocHoaDon)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -533,9 +543,9 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnLocHoaDon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addComponent(btnExportPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLocHoaDon, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnExportPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 705, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -587,7 +597,9 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
             }
         });
 
+        btnHoanThanhPhieuNhap.setBackground(new java.awt.Color(108, 83, 54));
         btnHoanThanhPhieuNhap.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnHoanThanhPhieuNhap.setForeground(new java.awt.Color(255, 255, 255));
         btnHoanThanhPhieuNhap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_ok_30px.png"))); // NOI18N
         btnHoanThanhPhieuNhap.setText("Hoàn thành");
         btnHoanThanhPhieuNhap.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -600,7 +612,9 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
         jLabel32.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel32.setText("Nhập mã phiếu:");
 
+        btnTimKiemPhieuNhap.setBackground(new java.awt.Color(108, 83, 54));
         btnTimKiemPhieuNhap.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnTimKiemPhieuNhap.setForeground(new java.awt.Color(255, 255, 255));
         btnTimKiemPhieuNhap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/search_20px.png"))); // NOI18N
         btnTimKiemPhieuNhap.setText("Tìm kiếm");
         btnTimKiemPhieuNhap.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -628,7 +642,9 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
             }
         });
 
+        btnCapNhatPhieuNhap.setBackground(new java.awt.Color(108, 83, 54));
         btnCapNhatPhieuNhap.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCapNhatPhieuNhap.setForeground(new java.awt.Color(255, 255, 255));
         btnCapNhatPhieuNhap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_sync_30px.png"))); // NOI18N
         btnCapNhatPhieuNhap.setText("Cập nhật phiếu nhập");
         btnCapNhatPhieuNhap.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -638,7 +654,9 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
             }
         });
 
+        btnExport.setBackground(new java.awt.Color(108, 83, 54));
         btnExport.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnExport.setForeground(new java.awt.Color(255, 255, 255));
         btnExport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_microsoft_excel_30px.png"))); // NOI18N
         btnExport.setText("Xuất excel");
         btnExport.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -648,7 +666,9 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
             }
         });
 
+        btnImport.setBackground(new java.awt.Color(108, 83, 54));
         btnImport.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnImport.setForeground(new java.awt.Color(255, 255, 255));
         btnImport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_microsoft_excel_30px.png"))); // NOI18N
         btnImport.setText("Mở excel");
         btnImport.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -862,7 +882,9 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
 
         cboNhanVienNhap.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
+        btnTaoPhieuNhap.setBackground(new java.awt.Color(108, 83, 54));
         btnTaoPhieuNhap.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnTaoPhieuNhap.setForeground(new java.awt.Color(255, 255, 255));
         btnTaoPhieuNhap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/add_20px.png"))); // NOI18N
         btnTaoPhieuNhap.setText("Tạo phiếu nhập");
         btnTaoPhieuNhap.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -872,7 +894,9 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
             }
         });
 
+        btnHuyPhieuNhap.setBackground(new java.awt.Color(108, 83, 54));
         btnHuyPhieuNhap.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnHuyPhieuNhap.setForeground(new java.awt.Color(255, 255, 255));
         btnHuyPhieuNhap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_remove_30px.png"))); // NOI18N
         btnHuyPhieuNhap.setText("Hủy");
         btnHuyPhieuNhap.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -1107,7 +1131,9 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
             }
         });
 
+        btnTimKiemPhieuTra.setBackground(new java.awt.Color(108, 83, 54));
         btnTimKiemPhieuTra.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnTimKiemPhieuTra.setForeground(new java.awt.Color(255, 255, 255));
         btnTimKiemPhieuTra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/search_20px.png"))); // NOI18N
         btnTimKiemPhieuTra.setText("Tìm kiếm");
         btnTimKiemPhieuTra.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -1117,7 +1143,9 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
             }
         });
 
+        btnHoanThanhPhieuTra.setBackground(new java.awt.Color(108, 83, 54));
         btnHoanThanhPhieuTra.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnHoanThanhPhieuTra.setForeground(new java.awt.Color(255, 255, 255));
         btnHoanThanhPhieuTra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_ok_30px.png"))); // NOI18N
         btnHoanThanhPhieuTra.setText("Hoàn thành");
         btnHoanThanhPhieuTra.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -1145,7 +1173,9 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
             }
         });
 
+        btnCapNhatPhieuTra.setBackground(new java.awt.Color(108, 83, 54));
         btnCapNhatPhieuTra.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCapNhatPhieuTra.setForeground(new java.awt.Color(255, 255, 255));
         btnCapNhatPhieuTra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_sync_30px.png"))); // NOI18N
         btnCapNhatPhieuTra.setText("Cập nhật phiếu trả");
         btnCapNhatPhieuTra.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -1155,7 +1185,9 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
             }
         });
 
+        btnExport1.setBackground(new java.awt.Color(108, 83, 54));
         btnExport1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnExport1.setForeground(new java.awt.Color(255, 255, 255));
         btnExport1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_microsoft_excel_30px.png"))); // NOI18N
         btnExport1.setText("Xuất excel");
         btnExport1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -1165,7 +1197,9 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
             }
         });
 
+        btnImport1.setBackground(new java.awt.Color(108, 83, 54));
         btnImport1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnImport1.setForeground(new java.awt.Color(255, 255, 255));
         btnImport1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_microsoft_excel_30px.png"))); // NOI18N
         btnImport1.setText("Mở excel");
         btnImport1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -1301,7 +1335,9 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
         cboNhanVienTra.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cboNhanVienTra.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
+        btnTaoPhieuTra.setBackground(new java.awt.Color(108, 83, 54));
         btnTaoPhieuTra.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnTaoPhieuTra.setForeground(new java.awt.Color(255, 255, 255));
         btnTaoPhieuTra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/add_20px.png"))); // NOI18N
         btnTaoPhieuTra.setText("Tạo phiếu trả");
         btnTaoPhieuTra.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -1311,7 +1347,9 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
             }
         });
 
+        btnHuyPhieuTra.setBackground(new java.awt.Color(108, 83, 54));
         btnHuyPhieuTra.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnHuyPhieuTra.setForeground(new java.awt.Color(255, 255, 255));
         btnHuyPhieuTra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_remove_30px.png"))); // NOI18N
         btnHuyPhieuTra.setText("Hủy");
         btnHuyPhieuTra.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
