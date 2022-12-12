@@ -11,10 +11,11 @@ import java.time.LocalTime;
  * @author PC
  */
 public class CaViewModel_Long {
+
     private String id;
     private String ma;
-    private LocalTime gioBD;
-    private LocalTime gioKT;
+    private LocalTime gioBatDau;
+    private LocalTime gioKetThuc;
 
     public CaViewModel_Long() {
     }
@@ -22,8 +23,8 @@ public class CaViewModel_Long {
     public CaViewModel_Long(String id, String ma, LocalTime gioBD, LocalTime gioKT) {
         this.id = id;
         this.ma = ma;
-        this.gioBD = gioBD;
-        this.gioKT = gioKT;
+        this.gioBatDau = gioBD;
+        this.gioKetThuc = gioKT;
     }
 
     public String getId() {
@@ -43,28 +44,22 @@ public class CaViewModel_Long {
     }
 
     public LocalTime getGioBD() {
-        return gioBD;
+        return gioBatDau;
     }
 
     public void setGioBD(LocalTime gioBD) {
-        this.gioBD = gioBD;
+        this.gioBatDau = gioBD;
     }
 
     public LocalTime getGioKT() {
-        return gioKT;
+        return gioKetThuc;
     }
 
     public void setGioKT(LocalTime gioKT) {
-        this.gioKT = gioKT;
+        this.gioKetThuc = gioKT;
     }
 
-    @Override
-    public String toString() {
-        return ma;
-    }
-    
-    
-     public Object[] toDataRow() {
-        return new Object[]{ma, gioBD,gioKT};
+    public Object[] toDataRow() {
+        return new Object[]{id, ma, gioBatDau, gioKetThuc};
     }
 }

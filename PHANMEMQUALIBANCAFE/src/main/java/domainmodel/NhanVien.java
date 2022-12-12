@@ -67,13 +67,10 @@ public class NhanVien implements Serializable {
     @JoinColumn(name = "IdChucVu")
     private ChucVu chucVu;
 
-    @OneToMany(mappedBy = "nhanVienKey", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<ChiTietCa> chiTietCa;
-
     public NhanVien() {
     }
 
-    public NhanVien(String id, String ma, String hoTen, String quocGia, String thanhPho, String sdt, String gioiTinh, Float luong, Integer trangThai, byte[] avatar, ChiNhanh chiNhanh, ChucVu chucVu, Set<ChiTietCa> chiTietCa) {
+    public NhanVien(String id, String ma, String hoTen, String quocGia, String thanhPho, String sdt, String gioiTinh, Float luong, Integer trangThai, byte[] avatar, ChiNhanh chiNhanh, ChucVu chucVu) {
         this.id = id;
         this.ma = ma;
         this.hoTen = hoTen;
@@ -86,7 +83,6 @@ public class NhanVien implements Serializable {
         this.avatar = avatar;
         this.chiNhanh = chiNhanh;
         this.chucVu = chucVu;
-        this.chiTietCa = chiTietCa;
     }
 
     public String getId() {
@@ -184,14 +180,5 @@ public class NhanVien implements Serializable {
     public void setChucVu(ChucVu chucVu) {
         this.chucVu = chucVu;
     }
-
-    public Set<ChiTietCa> getChiTietCa() {
-        return chiTietCa;
-    }
-
-    public void setChiTietCa(Set<ChiTietCa> chiTietCa) {
-        this.chiTietCa = chiTietCa;
-    }
-
 
 }

@@ -6,15 +6,36 @@ package view;
 
 import domainmodel.TaiKhoanAdmin;
 import domainmodel.TaiKhoanNguoiDung;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.table.DefaultTableModel;
+import viewmodel.ChiNhanhViewModel_Hoang;
 
 /**
  *
  * @author trant
  */
-public class QLCa extends javax.swing.JPanel {
+public class QLCa extends javax.swing.JPanel implements Runnable {
+
+    private TaiKhoanAdmin _admin;
+    private TaiKhoanNguoiDung _nguoiDung;
+    private DefaultTableModel modelTableNhanVien;
+    private DefaultTableModel modelTableCa;
+    private DefaultComboBoxModel<ChiNhanhViewModel_Hoang> modelComboChiNhanh;
 
     public QLCa(TaiKhoanAdmin admin, TaiKhoanNguoiDung nguoiDung) {
         initComponents();
+        _admin = admin;
+        _nguoiDung = nguoiDung;
+        modelTableNhanVien = new DefaultTableModel();
+        modelTableCa = new DefaultTableModel();
+
+        Thread loadData = new Thread(this);
+        loadData.start();
+
+    }
+
+    @Override
+    public void run() {
 
     }
 
@@ -52,12 +73,12 @@ public class QLCa extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         pnlMoCa = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtTienKetDauCa = new javax.swing.JTextField();
         btnMoCaHuyBo = new javax.swing.JButton();
         btnXacNhanMoCa = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         pnlDongCa = new javax.swing.JPanel();
-        jTextField2 = new javax.swing.JTextField();
+        txtTienKetCuoiCa = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         btnXacNhanDongCa = new javax.swing.JButton();
@@ -99,7 +120,7 @@ public class QLCa extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Mã ca", "Giờ bắt đầu", "Giờ kết thúc", "Id"
+                "Id", "Mã ca", "Giờ bắt đầu", "Giờ kết thúc"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -113,11 +134,11 @@ public class QLCa extends javax.swing.JPanel {
         tblCa.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tblCa);
         if (tblCa.getColumnModel().getColumnCount() > 0) {
-            tblCa.getColumnModel().getColumn(0).setResizable(false);
+            tblCa.getColumnModel().getColumn(0).setMinWidth(0);
+            tblCa.getColumnModel().getColumn(0).setMaxWidth(0);
             tblCa.getColumnModel().getColumn(1).setResizable(false);
             tblCa.getColumnModel().getColumn(2).setResizable(false);
-            tblCa.getColumnModel().getColumn(3).setMinWidth(0);
-            tblCa.getColumnModel().getColumn(3).setMaxWidth(0);
+            tblCa.getColumnModel().getColumn(3).setResizable(false);
         }
 
         javax.swing.GroupLayout pnlCaLayout = new javax.swing.GroupLayout(pnlCa);
@@ -139,11 +160,11 @@ public class QLCa extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Mã ca", "Mã nhân viên", "Tên nhân viên"
+                "Id", "Mã nhân viên", "Tên nhân viên", "Mã ca"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -153,9 +174,11 @@ public class QLCa extends javax.swing.JPanel {
         tblNhanVien.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tblNhanVien);
         if (tblNhanVien.getColumnModel().getColumnCount() > 0) {
-            tblNhanVien.getColumnModel().getColumn(0).setResizable(false);
+            tblNhanVien.getColumnModel().getColumn(0).setMinWidth(0);
+            tblNhanVien.getColumnModel().getColumn(0).setMaxWidth(0);
             tblNhanVien.getColumnModel().getColumn(1).setResizable(false);
             tblNhanVien.getColumnModel().getColumn(2).setResizable(false);
+            tblNhanVien.getColumnModel().getColumn(3).setResizable(false);
         }
 
         javax.swing.GroupLayout pnlNhanVienLayout = new javax.swing.GroupLayout(pnlNhanVien);
@@ -254,9 +277,9 @@ public class QLCa extends javax.swing.JPanel {
                     .addGroup(pnlCRUDCaLayout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addGroup(pnlCRUDCaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnXoaCa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnSuaCa, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
-                            .addComponent(btnThemCa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(btnSuaCa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnThemCa, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+                            .addComponent(btnXoaCa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         pnlCRUDCaLayout.setVerticalGroup(
@@ -281,9 +304,9 @@ public class QLCa extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnThemCa, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnSuaCa)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnXoaCa)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSuaCa)
                 .addContainerGap())
         );
 
@@ -332,7 +355,7 @@ public class QLCa extends javax.swing.JPanel {
                     .addGroup(pnlMoCaLayout.createSequentialGroup()
                         .addGroup(pnlMoCaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlMoCaLayout.createSequentialGroup()
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtTienKetDauCa, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel8))
                             .addComponent(jLabel3))
@@ -346,7 +369,7 @@ public class QLCa extends javax.swing.JPanel {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlMoCaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTienKetDauCa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addGroup(pnlMoCaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -438,7 +461,7 @@ public class QLCa extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(pnlDongCaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
-                            .addComponent(jTextField2))
+                            .addComponent(txtTienKetCuoiCa))
                         .addGroup(pnlDongCaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlDongCaLayout.createSequentialGroup()
                                 .addGap(18, 18, 18)
@@ -477,7 +500,7 @@ public class QLCa extends javax.swing.JPanel {
                 .addGroup(pnlDongCaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jLabel11)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTienKetCuoiCa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnlDongCaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
@@ -614,8 +637,6 @@ public class QLCa extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JPanel pnlCRUDCa;
     private javax.swing.JPanel pnlCa;
     private javax.swing.JPanel pnlDongCa;
@@ -629,5 +650,7 @@ public class QLCa extends javax.swing.JPanel {
     private javax.swing.JTable tblCa;
     private javax.swing.JTable tblNhanVien;
     private javax.swing.JTextField txtMa;
+    private javax.swing.JTextField txtTienKetCuoiCa;
+    private javax.swing.JTextField txtTienKetDauCa;
     // End of variables declaration//GEN-END:variables
 }

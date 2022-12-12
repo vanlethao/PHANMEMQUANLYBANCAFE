@@ -234,22 +234,22 @@ public class QLNhanVien extends javax.swing.JPanel {
                 return new NhanVien(null, txtMaNV.getText().trim(), txtHoTenNV.getText().trim(), txtQuocGia.getText().trim(),
                         txtThanhPho.getText().trim(), txtSDT.getText().trim(), rdoNam.isSelected() ? "Nam" : "Nữ",
                         Float.parseFloat(txtLuong.getText().trim()), cbbTrangThai.getSelectedIndex() == 1 ? 1 : 0,
-                        avatar, chiNhanh, chucVu, null);
+                        avatar, chiNhanh, chucVu);
             } else {
                 return new NhanVien(null, txtMaNV.getText().trim(), txtHoTenNV.getText().trim(), txtQuocGia.getText().trim(),
                         txtThanhPho.getText().trim(), txtSDT.getText().trim(), rdoNam.isSelected() ? "Nam" : "Nữ",
                         Float.parseFloat(txtLuong.getText().trim()), cbbTrangThai.getSelectedIndex() == 1 ? 1 : 0,
                         avatar, iKhuyenMai.getChiNhanhById(((ChiNhanhView) cbbFilterChiNhanh.getSelectedItem()).getId()),
-                        iNhanVien.getChucVuById(((ChucVuView) cbbChucVu.getSelectedItem()).getId()),
-                        null);
+                        iNhanVien.getChucVuById(((ChucVuView) cbbChucVu.getSelectedItem()).getId())
+                );
             }
         } else { // theo chi nhanh cu the voi chuc vu la quan ly
             return new NhanVien(null, txtMaNV.getText().trim(), txtHoTenNV.getText().trim(), txtQuocGia.getText().trim(),
                     txtThanhPho.getText().trim(), txtSDT.getText().trim(), rdoNam.isSelected() ? "Nam" : "Nữ",
                     Float.parseFloat(txtLuong.getText().trim()), cbbTrangThai.getSelectedIndex() == 1 ? 1 : 0,
                     avatar, cn,
-                    iNhanVien.getChucVuById(((ChucVuView) cbbChucVu.getSelectedItem()).getId()),
-                    null);
+                    iNhanVien.getChucVuById(((ChucVuView) cbbChucVu.getSelectedItem()).getId())
+            );
         }
 
     }

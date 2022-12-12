@@ -5,7 +5,6 @@
 package domainmodel;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -14,6 +13,9 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
@@ -43,20 +45,26 @@ public class Ca implements Serializable {
 
     @Column(name = "TrangThai")
     private Integer trangThai;
-    @OneToMany(mappedBy = "caKey", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<ChiTietCa> chiTietCa;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "CHITIETCA",
+            joinColumns = {
+                @JoinColumn(name = "IdCa")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "IdNv")}
+    )
+    private Set<NhanVien> setNhanVien;
 
     public Ca() {
     }
 
-    public Ca(String id, String ma, LocalTime gioBatDau, LocalTime gioKetThuc,
-            Integer trangThai, Set<ChiTietCa> chiTietCa) {
+    public Ca(String id, String ma, LocalTime gioBatDau, LocalTime gioKetThuc, Integer trangThai, Set<NhanVien> setNhanVien) {
         this.id = id;
         this.ma = ma;
         this.gioBatDau = gioBatDau;
         this.gioKetThuc = gioKetThuc;
         this.trangThai = trangThai;
-        this.chiTietCa = chiTietCa;
+        this.setNhanVien = setNhanVien;
     }
 
     public String getId() {
@@ -65,6 +73,14 @@ public class Ca implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getMa() {
+        return ma;
+    }
+
+    public void setMa(String ma) {
+        this.ma = ma;
     }
 
     public LocalTime getGioBatDau() {
@@ -91,26 +107,12 @@ public class Ca implements Serializable {
         this.trangThai = trangThai;
     }
 
-    public Set<ChiTietCa> getChiTietCa() {
-        return chiTietCa;
+    public Set<NhanVien> getSetNhanVien() {
+        return setNhanVien;
     }
 
-    public void setChiTietCa(Set<ChiTietCa> chiTietCa) {
-        this.chiTietCa = chiTietCa;
-    }
-
-    /**
-     * @return the ma
-     */
-    public String getMa() {
-        return ma;
-    }
-
-    /**
-     * @param ma the ma to set
-     */
-    public void setMa(String ma) {
-        this.ma = ma;
+    public void setSetNhanVien(Set<NhanVien> setNhanVien) {
+        this.setNhanVien = setNhanVien;
     }
 
 }
