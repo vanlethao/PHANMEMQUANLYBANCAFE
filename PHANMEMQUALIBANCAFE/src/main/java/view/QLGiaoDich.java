@@ -4,10 +4,36 @@
  */
 package view;
 
+//import com.lowagie.text.Document;
+//import com.lowagie.text.DocumentException;
+//import com.lowagie.text.pdf.PdfDocument;
+//import com.lowagie.text.pdf.PdfPTable;
+//import com.lowagie.text.pdf.PdfTable;
+//import com.lowagie.text.pdf.PdfWriter;
+//import com.itextpdf.kernel.color.Color;
+//import com.itextpdf.kernel.geom.PageSize;
+//import com.itextpdf.kernel.pdf.PdfDocument;
+//import com.itextpdf.kernel.pdf.PdfWriter;
+//import com.itextpdf.layout.Document;
+//import com.itextpdf.layout.border.Border;
+//import com.itextpdf.layout.border.SolidBorder;
+//import com.itextpdf.layout.element.Cell;
+//import com.itextpdf.layout.element.Paragraph;
+//import com.itextpdf.layout.element.Table;
+//import com.itextpdf.pdfa.PdfADocument;
 import domainmodel.NhaCungCap;
 import domainmodel.NhanVien;
 import domainmodel.TaiKhoanAdmin;
 import domainmodel.TaiKhoanNguoiDung;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
+import static java.awt.print.Printable.NO_SUCH_PAGE;
+import static java.awt.print.Printable.PAGE_EXISTS;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -18,6 +44,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -25,6 +52,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -254,6 +282,7 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
         jPanel7 = new javax.swing.JPanel();
         dateTo = new com.toedter.calendar.JDateChooser();
         btnLocHoaDon = new javax.swing.JButton();
+        btnExportPdf = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
@@ -458,15 +487,25 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
             }
         });
 
+        btnExportPdf.setText("Export PDF");
+        btnExportPdf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportPdfActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnExportPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel10Layout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -484,9 +523,11 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnLocHoaDon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 711, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addComponent(btnExportPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 705, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -1540,8 +1581,8 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
             return false;
         } else if (tblNguyenLieuTra.getValueAt(row, 5).toString().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Chưa nhập lý do");
-           return false;
-       }
+            return false;
+        }
         return true;
     }
 
@@ -2109,17 +2150,17 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
     private void btnTaoPhieuTraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoPhieuTraActionPerformed
         // TODO add your handling code here:
         if (checkEmptyPhieuTra() && !checkMaPhieuTra(txtMaPhieuTra.getText())) {
-                String idPhieuTra = null;
-                idPhieuTra = phieuTraService.insertPhieuTra(txtMaPhieuTra.getText(), ((NhaCungCapViewModel_Hoang) cboNhaCungCapTra.getSelectedItem()).getId(), ((NhanVienViewModel_Hoang) cboNhanVienTra.getSelectedItem()).getId(),
-                        dateNgayTra.getDate(), 1);
-                for (int i = 0; i < tblNguyenLieuTra.getRowCount(); i++) {
-                    phieuTraService.insertCTPhieuTra(idPhieuTra, tblNguyenLieuTra.getValueAt(i, 0).toString(), Float.parseFloat(tblNguyenLieuTra.getValueAt(i, 3).toString()), tblNguyenLieuTra.getValueAt(i, 5).toString());
-                }
-                JOptionPane.showMessageDialog(this, "Thêm phiếu trả thành công");
-                loadAllTra(((ChiNhanhViewModel_Hoang) comboChiNhanhTra.getSelectedItem()).getId());
-                rdoPhieuTraTamActionPerformed(evt);
-                rdoPhieuTraTam.setSelected(true);
-                clearPhieuTra();
+            String idPhieuTra = null;
+            idPhieuTra = phieuTraService.insertPhieuTra(txtMaPhieuTra.getText(), ((NhaCungCapViewModel_Hoang) cboNhaCungCapTra.getSelectedItem()).getId(), ((NhanVienViewModel_Hoang) cboNhanVienTra.getSelectedItem()).getId(),
+                    dateNgayTra.getDate(), 1);
+            for (int i = 0; i < tblNguyenLieuTra.getRowCount(); i++) {
+                phieuTraService.insertCTPhieuTra(idPhieuTra, tblNguyenLieuTra.getValueAt(i, 0).toString(), Float.parseFloat(tblNguyenLieuTra.getValueAt(i, 3).toString()), tblNguyenLieuTra.getValueAt(i, 5).toString());
+            }
+            JOptionPane.showMessageDialog(this, "Thêm phiếu trả thành công");
+            loadAllTra(((ChiNhanhViewModel_Hoang) comboChiNhanhTra.getSelectedItem()).getId());
+            rdoPhieuTraTamActionPerformed(evt);
+            rdoPhieuTraTam.setSelected(true);
+            clearPhieuTra();
         }
     }//GEN-LAST:event_btnTaoPhieuTraActionPerformed
     private void fillDataPhieuNhap(int index) {
@@ -2274,12 +2315,17 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
         loadTablePhieuTra(phieuTraService.getAllPhieuTraByChiNhanh(((ChiNhanhViewModel_Hoang) comboChiNhanhTra.getSelectedItem()).getId()));
     }//GEN-LAST:event_cboChiNhanhTraActionPerformed
 
+    private void btnExportPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportPdfActionPerformed
+
+    }//GEN-LAST:event_btnExportPdfActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCapNhatPhieuNhap;
     private javax.swing.JButton btnCapNhatPhieuTra;
     private javax.swing.JButton btnExport;
     private javax.swing.JButton btnExport1;
+    private javax.swing.JButton btnExportPdf;
     private javax.swing.JButton btnHoanThanhPhieuNhap;
     private javax.swing.JButton btnHoanThanhPhieuTra;
     private javax.swing.JButton btnHuyPhieuNhap;
@@ -2364,5 +2410,90 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
     private javax.swing.JTextField txtTimKiemPhieuNhap;
     private javax.swing.JTextField txtTimKiemPhieuTra;
     // End of variables declaration//GEN-END:variables
-
 }
+//  public class BillPrintable implements Printable {
+//        public int print(Graphics graphics, PageFormat pageFormat, int pageIndex)
+//                throws PrinterException {
+//            int rowHoaDon = tblHoaDon.getSelectedRow();
+//            int rowChiTietHD = tblHoaDonChiTiet.getSelectedRow();
+////            int r = itemName.size();
+//           
+//            int result = NO_SUCH_PAGE;
+//            if (pageIndex == 0) {
+//
+//                Graphics2D g2d = (Graphics2D) graphics;
+//                double width = pageFormat.getImageableWidth();
+//                g2d.translate((int) pageFormat.getImageableX(), (int) pageFormat.getImageableY());
+//
+//                //  FontMetrics metrics=g2d.getFontMetrics(new Font("Arial",Font.BOLD,7));
+//                try {
+//                    int y = 20;
+//                    int yShift = 10;
+//                    int headerRectHeight = 15;
+//                    // int headerRectHeighta=40;
+//
+//                    g2d.setFont(new Font("Monospaced", Font.PLAIN, 9));
+////                    g2d.drawImage(icon.getImage(), 50, 20, 90, 30, rootPane);
+//                    y += yShift + 30;
+//                    g2d.drawString("-------------------------------------", 12, y);
+//                    y += yShift;
+//                    g2d.drawString("         CodeGuid.com        ", 12, y);
+//                    y += yShift;
+//                    g2d.drawString("   No 00000 Address Line One ", 12, y);
+//                    y += yShift;
+//                    g2d.drawString("   Address Line 02 SRI LANKA ", 12, y);
+//                    y += yShift;
+//                    g2d.drawString("   www.facebook.com/CodeGuid ", 12, y);
+//                    y += yShift;
+//                    g2d.drawString("        +94700000000      ", 12, y);
+//                    y += yShift;
+//                    g2d.drawString("-------------------------------------", 12, y);
+//                    y += headerRectHeight;
+//
+//                    g2d.drawString(" Item Name                  Price   ", 10, y);
+//                    y += yShift;
+//                    g2d.drawString("-------------------------------------", 10, y);
+//                    y += headerRectHeight;
+//
+//                    for (int s = 0; s < tblHoaDon.getRowCount(); s++) {
+//                        g2d.drawString(" " + tblHoaDon.getValueAt(rowHoaDon, 0).toString() + "                            ", 10, y);
+//                        y += yShift;
+//                        g2d.drawString("      " + tblHoaDon.getValueAt(rowHoaDon, 1).toString() + " * " + tblHoaDon.getValueAt(rowHoaDon, 2).toString(), 10, y);
+//                        g2d.drawString(tblHoaDon.getValueAt(rowHoaDon, 3).toString(), 160, y);
+//                        y += yShift;
+//
+//                    }
+//
+//                    g2d.drawString("-------------------------------------", 10, y);
+//                    y += yShift;
+//                    g2d.drawString(" Total amount:               " + txttotalAmount.getText() + "   ", 10, y);
+//                    y += yShift;
+//                    g2d.drawString("-------------------------------------", 10, y);
+//                    y += yShift;
+//                    g2d.drawString(" Cash      :                 " + txtcash.getText() + "   ", 10, y);
+//                    y += yShift;
+//                    g2d.drawString("-------------------------------------", 10, y);
+//                    y += yShift;
+//                    g2d.drawString(" Balance   :                 " + txtbalance.getText() + "   ", 10, y);
+//                    y += yShift;
+//
+//                    g2d.drawString("*************************************", 10, y);
+//                    y += yShift;
+//                    g2d.drawString("       THANK YOU COME AGAIN            ", 10, y);
+//                    y += yShift;
+//                    g2d.drawString("*************************************", 10, y);
+//                    y += yShift;
+//                    g2d.drawString("       SOFTWARE BY:CODEGUID          ", 10, y);
+//                    y += yShift;
+//                    g2d.drawString("   CONTACT: contact@codeguid.com       ", 10, y);
+//                    y += yShift;
+//
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//
+//                result = PAGE_EXISTS;
+//            }
+//            return result;
+//        }
+

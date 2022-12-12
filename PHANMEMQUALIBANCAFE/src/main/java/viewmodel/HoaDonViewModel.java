@@ -4,6 +4,8 @@
  */
 package viewmodel;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 /**
@@ -13,7 +15,7 @@ import java.util.Date;
 public class HoaDonViewModel {
 
     private String id, maHoaDon;
-    private Date ngayTao;
+    private LocalDateTime ngayTao;
     private String maNhanVien;
     private String tenNhanVien;
     private int trangThai;
@@ -21,7 +23,7 @@ public class HoaDonViewModel {
     public HoaDonViewModel() {
     }
 
-    public HoaDonViewModel(String id, String maHoaDon, Date ngayTao, String maNhanVien, String tenNhanVien, int trangThai) {
+    public HoaDonViewModel(String id, String maHoaDon, LocalDateTime ngayTao, String maNhanVien, String tenNhanVien, int trangThai) {
         this.id = id;
         this.maHoaDon = maHoaDon;
         this.ngayTao = ngayTao;
@@ -50,11 +52,11 @@ public class HoaDonViewModel {
         this.maHoaDon = maHoaDon;
     }
 
-    public Date getNgayTao() {
+    public LocalDateTime getNgayTao() {
         return ngayTao;
     }
 
-    public void setNgayTao(Date ngayTao) {
+    public void setNgayTao(LocalDateTime ngayTao) {
         this.ngayTao = ngayTao;
     }
 
@@ -92,6 +94,8 @@ public class HoaDonViewModel {
     }
 
     public Object[] getDataHoaDonView() {
-        return new Object[]{maHoaDon, ngayTao, maNhanVien, tenNhanVien, getStatus()};
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String fomatString = ngayTao.format(dtf);
+        return new Object[]{maHoaDon, fomatString, maNhanVien, tenNhanVien, getStatus()};
     }
 }

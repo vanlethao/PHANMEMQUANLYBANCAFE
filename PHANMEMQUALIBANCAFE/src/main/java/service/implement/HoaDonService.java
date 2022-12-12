@@ -7,9 +7,12 @@ package service.implement;
 import viewmodel.HoaDonViewModel;
 import domainmodel.HoaDonBanHang;
 import domainmodel.NhanVien;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.hibernate.query.criteria.internal.expression.function.CurrentDateFunction;
 import repository.HoaDonRepo;
 import repository.PhieuNhapRepo;
 import service.IHoaDon;
@@ -56,7 +59,6 @@ public class HoaDonService implements IHoaDon {
         }
         return lstView;
     }
-
     @Override
     public HoaDonBanHang getHoaDonByMa(String maHD) {
         return hoaDonRepo.getHoaDonByMa(maHD);
