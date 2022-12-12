@@ -26,9 +26,12 @@ import domainmodel.NhanVien;
 import domainmodel.TaiKhoanAdmin;
 import domainmodel.TaiKhoanNguoiDung;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.image.ImageObserver;
 import java.awt.print.PageFormat;
+import java.awt.print.Paper;
 import java.awt.print.Printable;
 import static java.awt.print.Printable.NO_SUCH_PAGE;
 import static java.awt.print.Printable.PAGE_EXISTS;
@@ -414,17 +417,17 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
         tblHoaDon.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tblHoaDon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Mã hóa đơn", "Ngày tạo", "Mã nhân viên", "Tên nhân viên", "Trạng thái"
+                "Mã hóa đơn", "Ngày tạo", "Mã nhân viên", "Tên nhân viên", "Số bàn", "Trạng thái"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -438,6 +441,14 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
             }
         });
         jScrollPane7.setViewportView(tblHoaDon);
+        if (tblHoaDon.getColumnModel().getColumnCount() > 0) {
+            tblHoaDon.getColumnModel().getColumn(0).setResizable(false);
+            tblHoaDon.getColumnModel().getColumn(1).setResizable(false);
+            tblHoaDon.getColumnModel().getColumn(2).setResizable(false);
+            tblHoaDon.getColumnModel().getColumn(3).setResizable(false);
+            tblHoaDon.getColumnModel().getColumn(4).setResizable(false);
+            tblHoaDon.getColumnModel().getColumn(5).setResizable(false);
+        }
 
         jPanel5.setBackground(new java.awt.Color(228, 212, 189));
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Từ ngày", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
@@ -2314,9 +2325,145 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
         cboNhanVienTra.setModel((DefaultComboBoxModel) comboNhanVienTra);
         loadTablePhieuTra(phieuTraService.getAllPhieuTraByChiNhanh(((ChiNhanhViewModel_Hoang) comboChiNhanhTra.getSelectedItem()).getId()));
     }//GEN-LAST:event_cboChiNhanhTraActionPerformed
+    public PageFormat getPageFormat(PrinterJob pj) {
+        PageFormat pf = pj.defaultPage();
+        Paper paper = pf.getPaper();
+        double middleHeight = 8.0;
+        double headerHeight = 2.0;
+        double footerHeight = 2.0;
+        double width = convert_CM_To_PPI(8);      //printer know only point per inch.default value is 72ppi
+        double height = convert_CM_To_PPI(headerHeight + middleHeight + footerHeight);
+        paper.setSize(width, height);
+        paper.setImageableArea(
+                0,
+                10,
+                width,
+                height - convert_CM_To_PPI(1)
+        );   //define boarder size    after that print area width is about 180 points
+
+        pf.setOrientation(PageFormat.PORTRAIT);           //select orientation portrait or landscape but for this time portrait
+        pf.setPaper(paper);
+
+        return pf;
+    }
+
+    protected static double convert_CM_To_PPI(double cm) {
+        return toPPI(cm * 0.393600787);
+    }
+
+    protected static double toPPI(double inch) {
+        return inch * 72d;
+    }
+
+    public class BillPrintable implements Printable {
+
+        public int print(Graphics graphics, PageFormat pageFormat, int pageIndex)
+                throws PrinterException {
+            //CTHD
+            int row = tblHoaDonChiTiet.getSelectedRow();
+            String pn1a = tblHoaDonChiTiet.getValueAt(row, 1).toString();
+            int pn2a = Integer.valueOf(tblHoaDonChiTiet.getValueAt(row, 2).toString());
+            float pn3a = Float.valueOf(tblHoaDonChiTiet.getValueAt(row, 5).toString());
+            float dongia = Float.valueOf(tblHoaDonChiTiet.getValueAt(row, 3).toString());
+            float pp1a = pn2a * pn3a;
+            int sum = 0;
+            for (int i = 0; i < tblHoaDonChiTiet.getRowCount(); i++) {
+                sum += pp1a;
+            }
+            ImageIcon icon = new javax.swing.ImageIcon(getClass().getResource("/icon/download.png"));
+            int result = NO_SUCH_PAGE;
+            if (pageIndex == 0) {
+                Graphics2D g2d = (Graphics2D) graphics;
+                double width = pageFormat.getImageableWidth();
+                g2d.translate((int) pageFormat.getImageableX(), (int) pageFormat.getImageableY());
+
+                try {
+                    int y = 20;
+                    int yShift = 10;
+                    int headerRectHeight = 15;
+
+                    g2d.setFont(new Font("Monospaced", Font.PLAIN, 9));
+                    g2d.drawImage(icon.getImage(), 60, 20, 120, 30, null);
+                    y += yShift + 30;
+                    g2d.drawString("-------------------------------------", 12, y);
+                    y += yShift;
+                    g2d.drawString("               NHÓM 5        ", 12, y);
+                    y += yShift;
+                    g2d.drawString("      FPT POLYTECHNIC HÀ NỘI ", 12, y);
+                    y += yShift;
+                    g2d.drawString("   Địa chỉ: Nam Từ Liêm, Hà Nội ", 12, y);
+                    y += yShift;
+                    g2d.drawString("   www.facebook.com/quanlycoffee ", 12, y);
+                    y += yShift;
+                    g2d.drawString("        SĐT: +84345412376      ", 12, y);
+                    y += yShift;
+                    g2d.drawString("Thu ngân:", 12, y);
+                    y += yShift;
+                    g2d.drawString("Bàn:", 12, y);
+                    y += yShift;
+                    g2d.drawString("-------------------------------------", 12, y);
+                    y += headerRectHeight;
+
+                    g2d.drawString(" Tên sản phẩm              Thành tiền   ", 10, y);
+                    y += yShift;
+                    g2d.drawString("-------------------------------------", 10, y);
+                    y += headerRectHeight;
+
+                    for (int s = 0; s < tblHoaDonChiTiet.getRowCount(); s++) {
+                        g2d.drawString(" " + pn1a + "(" + pn2a + ")                            ", 10, y);
+                        y += yShift;
+                        g2d.drawString(" " + "Đơn giá: " + dongia + "   ", 10, y);
+                        g2d.drawString("" + pn3a + "", 160, y);
+                        y += yShift;
+                    }
+
+                    g2d.drawString("-------------------------------------", 10, y);
+                    y += yShift;
+                    g2d.drawString(" Tổng tiền:                  " + sum + "   ", 10, y);
+                    y += yShift;
+                    g2d.drawString("-------------------------------------", 10, y);
+                    y += yShift;
+//                    g2d.drawString(" Cash      :                 " + txtcash.getText() + "   ", 10, y);
+//                    y += yShift;
+                    g2d.drawString("-------------------------------------", 10, y);
+//                    y += yShift;
+//                    g2d.drawString(" Balance   :                 " + txtbalance.getText() + "   ", 10, y);
+//                    y += yShift;
+
+                    g2d.drawString("*************************************", 10, y);
+                    y += yShift;
+                    g2d.drawString("     XIN CẢM ƠN VÀ HẸN GẶP LẠI            ", 10, y);
+                    y += yShift;
+                    g2d.drawString("*************************************", 10, y);
+                    y += yShift;
+                    g2d.drawString("          SOFTWARE BY:GTOUP 5         ", 10, y);
+                    y += yShift;
+                    g2d.drawString("      CONTACT: fpoly@fpt.edu.vn       ", 10, y);
+                    y += yShift;
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                result = PAGE_EXISTS;
+            }
+            return result;
+        }
+    }
 
     private void btnExportPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportPdfActionPerformed
-
+        int row = tblHoaDonChiTiet.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa chọn hóa đơn");
+        }else{
+             PrinterJob pj = PrinterJob.getPrinterJob();
+        pj.setPrintable(new BillPrintable(), getPageFormat(pj));
+        try {
+            pj.print();
+        } catch (PrinterException ex) {
+            ex.printStackTrace();
+        }
+        }
     }//GEN-LAST:event_btnExportPdfActionPerformed
 
 
@@ -2411,89 +2558,3 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
     private javax.swing.JTextField txtTimKiemPhieuTra;
     // End of variables declaration//GEN-END:variables
 }
-//  public class BillPrintable implements Printable {
-//        public int print(Graphics graphics, PageFormat pageFormat, int pageIndex)
-//                throws PrinterException {
-//            int rowHoaDon = tblHoaDon.getSelectedRow();
-//            int rowChiTietHD = tblHoaDonChiTiet.getSelectedRow();
-////            int r = itemName.size();
-//           
-//            int result = NO_SUCH_PAGE;
-//            if (pageIndex == 0) {
-//
-//                Graphics2D g2d = (Graphics2D) graphics;
-//                double width = pageFormat.getImageableWidth();
-//                g2d.translate((int) pageFormat.getImageableX(), (int) pageFormat.getImageableY());
-//
-//                //  FontMetrics metrics=g2d.getFontMetrics(new Font("Arial",Font.BOLD,7));
-//                try {
-//                    int y = 20;
-//                    int yShift = 10;
-//                    int headerRectHeight = 15;
-//                    // int headerRectHeighta=40;
-//
-//                    g2d.setFont(new Font("Monospaced", Font.PLAIN, 9));
-////                    g2d.drawImage(icon.getImage(), 50, 20, 90, 30, rootPane);
-//                    y += yShift + 30;
-//                    g2d.drawString("-------------------------------------", 12, y);
-//                    y += yShift;
-//                    g2d.drawString("         CodeGuid.com        ", 12, y);
-//                    y += yShift;
-//                    g2d.drawString("   No 00000 Address Line One ", 12, y);
-//                    y += yShift;
-//                    g2d.drawString("   Address Line 02 SRI LANKA ", 12, y);
-//                    y += yShift;
-//                    g2d.drawString("   www.facebook.com/CodeGuid ", 12, y);
-//                    y += yShift;
-//                    g2d.drawString("        +94700000000      ", 12, y);
-//                    y += yShift;
-//                    g2d.drawString("-------------------------------------", 12, y);
-//                    y += headerRectHeight;
-//
-//                    g2d.drawString(" Item Name                  Price   ", 10, y);
-//                    y += yShift;
-//                    g2d.drawString("-------------------------------------", 10, y);
-//                    y += headerRectHeight;
-//
-//                    for (int s = 0; s < tblHoaDon.getRowCount(); s++) {
-//                        g2d.drawString(" " + tblHoaDon.getValueAt(rowHoaDon, 0).toString() + "                            ", 10, y);
-//                        y += yShift;
-//                        g2d.drawString("      " + tblHoaDon.getValueAt(rowHoaDon, 1).toString() + " * " + tblHoaDon.getValueAt(rowHoaDon, 2).toString(), 10, y);
-//                        g2d.drawString(tblHoaDon.getValueAt(rowHoaDon, 3).toString(), 160, y);
-//                        y += yShift;
-//
-//                    }
-//
-//                    g2d.drawString("-------------------------------------", 10, y);
-//                    y += yShift;
-//                    g2d.drawString(" Total amount:               " + txttotalAmount.getText() + "   ", 10, y);
-//                    y += yShift;
-//                    g2d.drawString("-------------------------------------", 10, y);
-//                    y += yShift;
-//                    g2d.drawString(" Cash      :                 " + txtcash.getText() + "   ", 10, y);
-//                    y += yShift;
-//                    g2d.drawString("-------------------------------------", 10, y);
-//                    y += yShift;
-//                    g2d.drawString(" Balance   :                 " + txtbalance.getText() + "   ", 10, y);
-//                    y += yShift;
-//
-//                    g2d.drawString("*************************************", 10, y);
-//                    y += yShift;
-//                    g2d.drawString("       THANK YOU COME AGAIN            ", 10, y);
-//                    y += yShift;
-//                    g2d.drawString("*************************************", 10, y);
-//                    y += yShift;
-//                    g2d.drawString("       SOFTWARE BY:CODEGUID          ", 10, y);
-//                    y += yShift;
-//                    g2d.drawString("   CONTACT: contact@codeguid.com       ", 10, y);
-//                    y += yShift;
-//
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//
-//                result = PAGE_EXISTS;
-//            }
-//            return result;
-//        }
-

@@ -54,6 +54,9 @@ public class HoaDonService implements IHoaDon {
                 if (x.getTrangThai() != null) {
                     qlhd.setTrangThai(x.getTrangThai());
                 }
+                if (x.getBan().getSoBan() != null) {
+                    qlhd.setSoBan(x.getBan().getSoBan());
+                }
                 lstView.add(qlhd);
             }
         }

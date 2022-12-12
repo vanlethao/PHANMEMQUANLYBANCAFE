@@ -19,17 +19,27 @@ public class HoaDonViewModel {
     private String maNhanVien;
     private String tenNhanVien;
     private int trangThai;
+    private int soBan;
 
     public HoaDonViewModel() {
     }
 
-    public HoaDonViewModel(String id, String maHoaDon, LocalDateTime ngayTao, String maNhanVien, String tenNhanVien, int trangThai) {
+    public HoaDonViewModel(String id, String maHoaDon, LocalDateTime ngayTao, String maNhanVien, String tenNhanVien, int trangThai, int soBan) {
         this.id = id;
         this.maHoaDon = maHoaDon;
         this.ngayTao = ngayTao;
         this.maNhanVien = maNhanVien;
         this.tenNhanVien = tenNhanVien;
         this.trangThai = trangThai;
+        this.soBan = soBan;
+    }
+
+    public int getSoBan() {
+        return soBan;
+    }
+
+    public void setSoBan(int soBan) {
+        this.soBan = soBan;
     }
 
     public HoaDonViewModel(String id) {
@@ -95,7 +105,7 @@ public class HoaDonViewModel {
 
     public Object[] getDataHoaDonView() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            String fomatString = ngayTao.format(dtf);
-        return new Object[]{maHoaDon, fomatString, maNhanVien, tenNhanVien, getStatus()};
+        String fomatString = ngayTao.format(dtf);
+        return new Object[]{maHoaDon, fomatString, maNhanVien, tenNhanVien, soBan, getStatus()};
     }
 }
