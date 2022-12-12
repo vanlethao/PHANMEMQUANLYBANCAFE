@@ -17,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
@@ -37,6 +38,7 @@ public class PhieuTraHang implements Serializable {
     private String ma;
 
     @Column(name = "NgayTra")
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date ngayTra;
 
     @Column(name = "TrangThai")
