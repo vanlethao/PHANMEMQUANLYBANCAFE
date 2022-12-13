@@ -24,7 +24,7 @@
         <property name="hibernate.connection.password">
             123
         </property>
-       
+       <property name="hibernate.enable_lazy_load_no_trans"> true </property>
 
     </session-factory>
 </hibernate-configuration>
