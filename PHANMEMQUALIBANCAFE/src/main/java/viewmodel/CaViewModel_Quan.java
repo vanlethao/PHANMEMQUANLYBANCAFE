@@ -10,17 +10,17 @@ import java.time.LocalTime;
  *
  * @author PC
  */
-public class CaViewModel_Long {
+public class CaViewModel_Quan {
 
     private String id;
     private String ma;
     private LocalTime gioBatDau;
     private LocalTime gioKetThuc;
 
-    public CaViewModel_Long() {
+    public CaViewModel_Quan() {
     }
 
-    public CaViewModel_Long(String id, String ma, LocalTime gioBD, LocalTime gioKT) {
+    public CaViewModel_Quan(String id, String ma, LocalTime gioBD, LocalTime gioKT) {
         this.id = id;
         this.ma = ma;
         this.gioBatDau = gioBD;

@@ -5,6 +5,8 @@
 package domainmodel;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
 import javax.persistence.Column;
@@ -41,10 +43,10 @@ public class HoatDongCa implements Serializable {
     private Date ngayThucHien;
 
     @Column(name = "GioMoCa")
-    private LocalTime gioMoCa;
+    private LocalDateTime gioMoCa;
 
     @Column(name = "GioDongCa")
-    private LocalTime gioDongCa;
+    private LocalDateTime gioDongCa;
 
     @Column(name = "TienDauCa")
     private Float tienDauCa;
@@ -55,7 +57,7 @@ public class HoatDongCa implements Serializable {
     public HoatDongCa() {
     }
 
-    public HoatDongCa(String id, Ca ca, Date ngayThucHien, LocalTime gioMoCa, LocalTime gioDongCa, Float tienDauCa, Float tienCuoiCa) {
+    public HoatDongCa(String id, Ca ca, Date ngayThucHien, LocalDateTime gioMoCa, LocalDateTime gioDongCa, Float tienDauCa, Float tienCuoiCa) {
         this.id = id;
         this.ca = ca;
         this.ngayThucHien = ngayThucHien;
@@ -89,19 +91,19 @@ public class HoatDongCa implements Serializable {
         this.ngayThucHien = ngayThucHien;
     }
 
-    public LocalTime getGioMoCa() {
+    public LocalDateTime getGioMoCa() {
         return gioMoCa;
     }
 
-    public void setGioMoCa(LocalTime gioMoCa) {
+    public void setGioMoCa(LocalDateTime gioMoCa) {
         this.gioMoCa = gioMoCa;
     }
 
-    public LocalTime getGioDongCa() {
+    public LocalDateTime getGioDongCa() {
         return gioDongCa;
     }
 
-    public void setGioDongCa(LocalTime gioDongCa) {
+    public void setGioDongCa(LocalDateTime gioDongCa) {
         this.gioDongCa = gioDongCa;
     }
 

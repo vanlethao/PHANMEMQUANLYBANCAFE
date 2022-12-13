@@ -20,7 +20,7 @@ import utility.Hibernateutility;
  * @author PC
  */
 public class CaRepo {
-    
+
     public List<Ca> getAllCa() {
         List<Ca> lst = null;
         try ( Session session = Hibernateutility.getFactory().openSession()) {
@@ -31,30 +31,20 @@ public class CaRepo {
         return lst;
     }
 
-//    public Set<ChiTietCa> getChiTietCaByCa(String idCa) {
-//        Set<ChiTietCa> setCa = new HashSet<>();
-//        try ( Session session = Hibernateutility.getFactory().openSession()) {
-//            Ca ca = session.get(Ca.class, idCa);
-//            Set<ChiTietCa> chiTiet = ca.getChiTietCa();
-//            if (chiTiet != null) {
-//                for (ChiTietCa chiTietCa : chiTiet) {
-//                    setCa.add(chiTietCa);
-//                }
-//            }
-//            session.close();
-//        }
-//        return setCa;
-//
-//    }
-    public static List<ChiNhanh> getAllChiNhanh() {
-        List<ChiNhanh> ListChiNhanh = null;
+    public Ca getCabyMa(String maCa) {
+        Ca ca = null;
         try ( Session session = Hibernateutility.getFactory().openSession()) {
-            ListChiNhanh = session.createQuery("FROM ChiNhanh WHERE trangThai=1").list();
+            Query query = session.createQuery("From Ca WHERE ma=:maCa");
+            query.setParameter("maCa", maCa);
+            List<Ca> ListCa = query.getResultList();
+            if (ListCa.size() > 0) {
+                ca = ListCa.get(0);
+            }
             session.close();
         }
-        return ListChiNhanh;
+        return ca;
     }
-    
+
     public static Set<NhanVien> getNhanVienByChiNhanh(String idChiNhanh) {
         Set<NhanVien> setNhanVien = new HashSet<>();
         try ( Session session = Hibernateutility.getFactory().openSession()) {
@@ -70,15 +60,35 @@ public class CaRepo {
         return setNhanVien;
     }
 
-//    public static void addNhanVienToCa(String idNhanVien, String idCa) {
-//        try ( Session session = Hibernateutility.getFactory().openSession()) {
-//            Ca ca = session.get(Ca.class, idCa);
-//            Set<ChiTietCa> chiTietCa = ca.getChiTietCa();
-//            NhanVien nhanVien = session.get(NhanVien.class, idNhanVien);
-//            chiTietCa.add()
-//            session.close();
-//        }
-//    }
+    public static Set<Ca> getCaOfNhanVien(String idNhanVien) {
+        Set<Ca> caOfNhanVien = new HashSet<>();
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            NhanVien nhanVien = session.get(NhanVien.class, idNhanVien);
+            Set<Ca> allCa = nhanVien.getSetCa();
+            if (allCa != null) {
+                for (Ca ca : allCa) {
+                    caOfNhanVien.add(ca);
+                }
+            }
+            session.close();
+        }
+        return caOfNhanVien;
+    }
+
+    public static void addCaToNhanVien(String idNhanVien, Set<String> setIdCa) {
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            Transaction trans = session.beginTransaction();
+            NhanVien nhanVien = session.get(NhanVien.class, idNhanVien);
+            nhanVien.getSetCa().clear();
+            for (String idCa : setIdCa) {
+                Ca ca = session.get(Ca.class, idCa);
+                nhanVien.getSetCa().add(ca);
+            }
+            trans.commit();
+            session.close();
+        }
+    }
+
     public String insertCa(Ca ca) {
         String id = null;
         try ( Session session = Hibernateutility.getFactory().openSession()) {
@@ -89,5 +99,5 @@ public class CaRepo {
         }
         return id;
     }
-    
+
 }

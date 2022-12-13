@@ -4,10 +4,30 @@
  */
 package service;
 
+import java.util.List;
+import java.util.Set;
+import viewmodel.CaViewModel_Quan;
+import viewmodel.NhanVienViewModel_Van;
+
 /**
  *
  * @author PC
  */
 public interface ICa {
 
+    List<CaViewModel_Quan> getAllCa();
+
+    boolean checkExistedOfMaCa(String maCa);
+
+    String insertCa(CaViewModel_Quan ca);
+
+    boolean checkHourOfCa(String hour);
+
+    boolean checkMinuteOfCa(String minute);
+
+    Set<NhanVienViewModel_Van> getNhanVienByChiNhanh(String idChiNhanh);
+
+    void addCaToNhanVien(String idNhanVien, Set<String> setIdCa);
+
+    Set<CaViewModel_Quan> getCaOfNhanVien(String idNhanVien);
 }

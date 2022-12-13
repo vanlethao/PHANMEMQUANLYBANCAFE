@@ -122,7 +122,7 @@ public class ChiNhanhVM_Long {
     }
 
     public Object[] getDataNguyenLieuView() {
-        return new Object[]{id,ma};
+        return new Object[]{id, ma};
     }
 
 }

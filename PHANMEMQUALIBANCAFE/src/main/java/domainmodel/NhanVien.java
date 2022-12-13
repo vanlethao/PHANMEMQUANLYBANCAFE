@@ -6,15 +6,15 @@ package domainmodel;
 
 import java.io.Serializable;
 import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -59,18 +59,28 @@ public class NhanVien implements Serializable {
     @Column(name = "Avatar")
     private byte[] avatar;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "IdChiNhanh")
     private ChiNhanh chiNhanh;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "IdChucVu")
     private ChucVu chucVu;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "CHITIETCA",
+            joinColumns = {
+                @JoinColumn(name = "IdNv")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "IdCa")}
+    )
+    private Set<Ca> setCa;
 
     public NhanVien() {
     }
 
-    public NhanVien(String id, String ma, String hoTen, String quocGia, String thanhPho, String sdt, String gioiTinh, Float luong, Integer trangThai, byte[] avatar, ChiNhanh chiNhanh, ChucVu chucVu) {
+    public NhanVien(String id, String ma, String hoTen, String quocGia, String thanhPho,
+            String sdt, String gioiTinh, Float luong, Integer trangThai, byte[] avatar, ChiNhanh chiNhanh, ChucVu chucVu) {
         this.id = id;
         this.ma = ma;
         this.hoTen = hoTen;
@@ -179,6 +189,14 @@ public class NhanVien implements Serializable {
 
     public void setChucVu(ChucVu chucVu) {
         this.chucVu = chucVu;
+    }
+
+    public Set<Ca> getSetCa() {
+        return setCa;
+    }
+
+    public void setSetCa(Set<Ca> setCa) {
+        this.setCa = setCa;
     }
 
 }
