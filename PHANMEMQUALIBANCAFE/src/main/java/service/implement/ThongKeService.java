@@ -69,6 +69,7 @@ public class ThongKeService implements IThongKeService {
         List<ThongKeTheoThoiGianViewModel> listThongKe = new ArrayList<>();
         for (Date time : allDate) {
             String date = dateFormat.format(time);
+            System.out.println(date);
             var listHoaDon = ThongKeRepository.getAllHoaDonBanHangByDate(date);
             ThongKeTheoThoiGianViewModel thongKeView = new ThongKeTheoThoiGianViewModel();
             double tongTienHang = 0;
