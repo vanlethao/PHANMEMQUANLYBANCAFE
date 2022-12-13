@@ -59,11 +59,11 @@ public class NhanVien implements Serializable {
     @Column(name = "Avatar")
     private byte[] avatar;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "IdChiNhanh")
     private ChiNhanh chiNhanh;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "IdChucVu")
     private ChucVu chucVu;
 
