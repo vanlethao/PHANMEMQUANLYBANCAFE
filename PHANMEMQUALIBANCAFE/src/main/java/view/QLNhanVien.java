@@ -51,7 +51,7 @@ import viewmodel.NhanVienView;
  * @author trant
  */
 public class QLNhanVien extends javax.swing.JPanel {
-
+    
     List<NhanVienView> nhanVienViews;
     INhanVien iNhanVien;
     IKhuyenMai iKhuyenMai;
@@ -73,7 +73,7 @@ public class QLNhanVien extends javax.swing.JPanel {
         cbbFilterChiNhanh.setModel(new DefaultComboBoxModel(concatenate(new Object[]{"- Tất cả chi nhánh -"}, iKhuyenMai.getAllChiNhanh().toArray())));
         fillNVToTable();
     }
-
+    
     public QLNhanVien(String tenChucVu, ChiNhanh cn) {
         this.tenChucVu = tenChucVu;
         this.cn = cn;
@@ -85,11 +85,11 @@ public class QLNhanVien extends javax.swing.JPanel {
         nhanVienViews = iNhanVien.getAllNVByChiNhanh(cn);
         fillNVToTable();
     }
-
+    
     private void init() {
         iNhanVien = new NhanVienService();
         iKhuyenMai = new KhuyenMaiService();
-
+        
         rdoNam.setSelected(true);
         rdoAllNV.setSelected(true);
         txtSearchNV.setForeground(Color.GRAY);
@@ -101,19 +101,19 @@ public class QLNhanVien extends javax.swing.JPanel {
         Image image = new ImageIcon(getClass().getClassLoader().getResource("icon\\add-image.png")).getImage();
         defaultAvatar = new ImageIcon(image.getScaledInstance(150, 200, Image.SCALE_SMOOTH));
         lblAnhNV.setIcon(defaultAvatar);
-
+        
         tblNhanVien.getTableHeader().setDefaultRenderer(new CustomHeader());
         tblNhanVien.getTableHeader().setPreferredSize(new Dimension(0, 30));
         jScrollPane1.getViewport().setBackground(Color.WHITE);
     }
-
+    
     private Object[] concatenate(Object[] a, Object[] b) {
         Collection<Object> result = new ArrayList<Object>(a.length + b.length);
         result.addAll(Arrays.asList(a));
         result.addAll(Arrays.asList(b));
         return result.toArray();
     }
-
+    
     private ChiNhanhView toChiNhanhView(ChiNhanh cn) {
         return new ChiNhanhView(cn.getId(), cn.getMa());
     }
@@ -128,7 +128,7 @@ public class QLNhanVien extends javax.swing.JPanel {
             }
         }
     }
-
+    
     private void fillNVToControls(int row) {
         String id = tblNhanVien.getValueAt(row, 0) + "";
         NhanVienView nvv = iNhanVien.getNhanVienById(id);
@@ -138,13 +138,13 @@ public class QLNhanVien extends javax.swing.JPanel {
             txtSDT.setText(nvv.getSdt());
             txtThanhPho.setText(nvv.getThanhPho());
             txtQuocGia.setText(nvv.getQuocGia());
-
+            
             if (nvv.getLuong() != null) {
                 txtLuong.setText(nvv.getLuong() + "");
             } else {
                 txtLuong.setText("0.0");
             }
-
+            
             if (nvv.getGioTinh() != null) {
                 if (nvv.getGioTinh().equalsIgnoreCase("Nam")) {
                     rdoNam.setSelected(true);
@@ -152,7 +152,7 @@ public class QLNhanVien extends javax.swing.JPanel {
                     rdoNu.setSelected(true);
                 }
             }
-
+            
             if (nvv.getTrangThai() != null) {
                 if (nvv.getTrangThai() == 1) {
                     cbbTrangThai.setSelectedIndex(1);
@@ -160,7 +160,7 @@ public class QLNhanVien extends javax.swing.JPanel {
                     cbbTrangThai.setSelectedIndex(2);
                 }
             }
-
+            
             if (tenChucVu.equalsIgnoreCase("Ông chủ")) {
                 if (nvv.getChiNhanh() != null) {
                     cbbChiNhanh.setSelectedIndex(indexChiNhanh(tblNhanVien.getValueAt(row, 8) + ""));
@@ -180,7 +180,7 @@ public class QLNhanVien extends javax.swing.JPanel {
 //            cbbChiNhanh.setSelectedItem(nvv.getChiNhanh()));
         }
     }
-
+    
     private int indexChiNhanh(String maCN) {
         List<ChiNhanhView> cnvs = iKhuyenMai.getAllChiNhanhON();
         if (!cnvs.isEmpty()) {
@@ -192,7 +192,7 @@ public class QLNhanVien extends javax.swing.JPanel {
         }
         return 0;
     }
-
+    
     private int indexChucVu(String tenCV) {
         List<ChucVuView> cvvs = iNhanVien.getAllChucVu();
         if (!cvvs.isEmpty()) {
@@ -204,7 +204,7 @@ public class QLNhanVien extends javax.swing.JPanel {
         }
         return 0;
     }
-
+    
     private void resetControls() {
         txtMaNV.setText("");
         txtHoTenNV.setText("");
@@ -217,14 +217,14 @@ public class QLNhanVien extends javax.swing.JPanel {
         cbbChucVu.setSelectedIndex(0);
         cbbChiNhanh.setSelectedIndex(0);
     }
-
+    
     private Object[] getDataFormControls() {
         return new Object[]{txtMaNV.getText().trim(), txtHoTenNV.getText().trim(),
             txtSDT.getText().trim(), txtThanhPho.getText().trim(), txtQuocGia.getText().trim(),
             txtLuong.getText().trim(), cbbTrangThai.getSelectedIndex()
         };
     }
-
+    
     private NhanVien getNVFromControls() {
         if (tenChucVu.equalsIgnoreCase("Ông chủ")) {
             int type = cbbFilterChiNhanh.getSelectedIndex();
@@ -251,9 +251,9 @@ public class QLNhanVien extends javax.swing.JPanel {
                     iNhanVien.getChucVuById(((ChucVuView) cbbChucVu.getSelectedItem()).getId())
             );
         }
-
+        
     }
-
+    
     private void searchAndFilterNV(String search, int trangThai) {
         if (tenChucVu.equalsIgnoreCase("Ông chủ")) {
             int type = cbbFilterChiNhanh.getSelectedIndex();
@@ -368,7 +368,7 @@ public class QLNhanVien extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, iNhanVien.validateDataInput(getDataFormControls()));
         }
     }
-
+    
     private void updateNhanVien() {
         int row = tblNhanVien.getSelectedRow();
         if (row != -1) {
@@ -388,33 +388,42 @@ public class QLNhanVien extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(null, iNhanVien.updateNhanVien(id, getNVFromControls(), check));
                 }
                 int trangThai = rdoAllNV.isSelected() ? -1 : (rdoNVOn.isSelected() ? 1 : 0);
-                String search = txtSearchNV.getText().trim();
-                searchAndFilterNV(search, trangThai);
+                if (txtSearchNV.getForeground().equals(Color.BLACK)) {
+                    String search = txtSearchNV.getText().trim();
+                    searchAndFilterNV(search, trangThai);
+                } else {
+                    searchAndFilterNV("", trangThai);
+                }
+                System.out.println(nhanVienViews.size());
                 fillNVToTable();
             } else {
                 JOptionPane.showMessageDialog(null, iNhanVien.validateDataInput(getDataFormControls()));
             }
-
+            
         } else {
             JOptionPane.showMessageDialog(null, "Ban can chon 1 hang trong bang truoc!");
         }
     }
-
+    
     private void deleteNhaVien() {
         int row = tblNhanVien.getSelectedRow();
         if (row != -1) {
             String id = tblNhanVien.getValueAt(row, 0) + "";
             JOptionPane.showMessageDialog(null, iNhanVien.deleteNhanVien(id));
             int trangThai = rdoAllNV.isSelected() ? -1 : (rdoNVOn.isSelected() ? 1 : 0);
-            String search = txtSearchNV.getText().trim();
-            searchAndFilterNV(search, trangThai);
+            if (txtSearchNV.getForeground().equals(Color.BLACK)) {
+                String search = txtSearchNV.getText().trim();
+                searchAndFilterNV(search, trangThai);
+            } else {
+                searchAndFilterNV("", trangThai);
+            }
             fillNVToTable();
             resetControls();
         } else {
             JOptionPane.showMessageDialog(null, "Ban can chon 1 hang trong bang truoc!");
         }
     }
-
+    
     private void exportExcelNCC() {
         FileOutputStream excelFOU = null;
         BufferedOutputStream excelBOU = null;
@@ -425,7 +434,7 @@ public class QLNhanVien extends javax.swing.JPanel {
         excelFileChooser.setFileFilter(fnef);
         int excelChosser = excelFileChooser.showSaveDialog(null);
         if (excelChosser == JFileChooser.APPROVE_OPTION) {
-
+            
             try {
                 excelJTableExporter = new XSSFWorkbook();
                 XSSFSheet excelSheet = excelJTableExporter.createSheet("JTable Sheet");
@@ -458,7 +467,7 @@ public class QLNhanVien extends javax.swing.JPanel {
             }
         }
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -969,6 +978,11 @@ public class QLNhanVien extends javax.swing.JPanel {
         int row = tblNhanVien.getSelectedRow();
         if (row != -1) {
             fillNVToControls(row);
+            if((tblNhanVien.getValueAt(row, 10)+"").equalsIgnoreCase("Đang làm")) {
+                btnDeleteNV.setEnabled(true);
+            }else {
+                btnDeleteNV.setEnabled(false);
+            }
         }
     }//GEN-LAST:event_tblNhanVienMouseClicked
 
@@ -1065,10 +1079,10 @@ public class QLNhanVien extends javax.swing.JPanel {
     private javax.swing.JTextField txtThanhPho;
     // End of variables declaration//GEN-END:variables
 private class CustomHeader extends DefaultTableCellRenderer {
-
+        
         public CustomHeader() {
         }
-
+        
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
             Component com = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
