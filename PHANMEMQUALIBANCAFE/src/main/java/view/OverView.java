@@ -877,7 +877,7 @@ public class OverView extends javax.swing.JFrame {
 
     private void QLNguyenLieuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_QLNguyenLieuMouseClicked
 
-        if (chucVu.equalsIgnoreCase("Ông chủ") || chucVu.equalsIgnoreCase("Quản lý")) {
+        if (chucVu.equalsIgnoreCase("Ông chủ")) {
             QLNguyenLieu qlnl = new QLNguyenLieu(_admin, _nguoiDung);
             setMainPanel(qlnl);
         } else {
