@@ -152,7 +152,7 @@ public class CaRepo {
         return id;
     }
 
-    public Ca getCaDangHoatDong() {
+    public Ca getCaRunning() {
         Ca ca = null;
         try ( Session session = Hibernateutility.getFactory().openSession()) {
             Query q = session.createQuery("From HoatDongCa");
@@ -168,4 +168,36 @@ public class CaRepo {
         return ca;
     }
 
+    public HoatDongCa getHoatDongCaRunning() {
+        HoatDongCa hoatDongCa = null;
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            Query q = session.createQuery("From HoatDongCa");
+            List<HoatDongCa> list = q.getResultList();
+            for (HoatDongCa hdCa : list) {
+                if (hdCa.getGioDongCa() == null) {
+                    hoatDongCa = hdCa;
+                    break;
+                }
+            }
+            session.close();
+        }
+        return hoatDongCa;
+    }
+
+    public void updateHoatDongRunning(String idHoatDong, Float tienCuoiCa, LocalDateTime gioDongCa) {
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            Transaction trans = session.beginTransaction();
+            HoatDongCa activity = session.get(HoatDongCa.class, idHoatDong);
+            activity.setTienCuoiCa(tienCuoiCa);
+            activity.setGioDongCa(gioDongCa);
+            session.update(activity);
+            trans.commit();
+            session.close();
+        }
+
+    }
+
+//    public float doanhThuTrongCa() {
+//        
+//    }
 }

@@ -5,9 +5,9 @@
 package view;
 
 import domainmodel.Ca;
+import domainmodel.HoatDongCa;
 import domainmodel.TaiKhoanAdmin;
 import domainmodel.TaiKhoanNguoiDung;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -31,7 +31,7 @@ import viewmodel.NhanVienViewModel_Van;
  * @author trant
  */
 public class QLCa extends javax.swing.JPanel implements Runnable {
-
+    
     private CaRepo caRepo;
     private ICa caService;
     private IBanHangService banHangService;
@@ -40,7 +40,7 @@ public class QLCa extends javax.swing.JPanel implements Runnable {
     private DefaultTableModel modelTableNhanVien;
     private DefaultTableModel modelTableCa;
     private DefaultComboBoxModel<ChiNhanhViewModel_Hoang> modelComboChiNhanh;
-
+    
     public QLCa(TaiKhoanAdmin admin, TaiKhoanNguoiDung nguoiDung) {
         initComponents();
         _admin = admin;
@@ -55,9 +55,9 @@ public class QLCa extends javax.swing.JPanel implements Runnable {
         btnKhoiPhucCa.setEnabled(false);
         Thread loadData = new Thread(this);
         loadData.start();
-
+        
     }
-
+    
     @Override
     public void run() {
         if (_admin != null) {
@@ -66,11 +66,11 @@ public class QLCa extends javax.swing.JPanel implements Runnable {
             showNhanVienToTable(caService.getNhanVienByChiNhanh(
                     ((ChiNhanhViewModel_Hoang) modelComboChiNhanh.getElementAt(0)).getId())
             );
-
+            
         } else {
             cboChiNhanh.setVisible(false);
         }
-        Ca ca = caRepo.getCaDangHoatDong();
+        Ca ca = caRepo.getCaRunning();
         if (ca != null) {
             lblCaDangHoatDong.setText(ca.getMa() + " đang hoạt động");
         } else {
@@ -78,7 +78,7 @@ public class QLCa extends javax.swing.JPanel implements Runnable {
         }
         showCaToTable(caService.getAllCaDangSuDung());
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -93,24 +93,24 @@ public class QLCa extends javax.swing.JPanel implements Runnable {
         lblCanhBaoTienDauCa = new javax.swing.JLabel();
         dLongDongCa = new javax.swing.JDialog();
         pnlDongCa = new javax.swing.JPanel();
-        txtTienKetCuoiCa = new javax.swing.JTextField();
+        txtTienThucTeTrongKet = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         btnXacNhanDongCa = new javax.swing.JButton();
         btnDongCaHuyBo = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
+        lblDoanhThuTrongCa = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
+        lblChenhLech = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
+        lblTienKetDauCa = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
+        lblTienBanGiao = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
-        lblCanhBaoTienCuoiCa = new javax.swing.JLabel();
+        lblCanhBaoTienThucTe = new javax.swing.JLabel();
         buttonGroup1 = new javax.swing.ButtonGroup();
         pnlQLCa = new javax.swing.JPanel();
         btnMoCa = new javax.swing.JButton();
@@ -251,9 +251,14 @@ public class QLCa extends javax.swing.JPanel implements Runnable {
         pnlDongCa.setBackground(new java.awt.Color(225, 218, 197));
         pnlDongCa.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 0), 2));
 
-        txtTienKetCuoiCa.addActionListener(new java.awt.event.ActionListener() {
+        txtTienThucTeTrongKet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTienKetCuoiCaActionPerformed(evt);
+                txtTienThucTeTrongKetActionPerformed(evt);
+            }
+        });
+        txtTienThucTeTrongKet.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTienThucTeTrongKetKeyReleased(evt);
             }
         });
 
@@ -267,50 +272,60 @@ public class QLCa extends javax.swing.JPanel implements Runnable {
         btnXacNhanDongCa.setForeground(new java.awt.Color(255, 255, 255));
         btnXacNhanDongCa.setText("Xác nhận đóng ca");
         btnXacNhanDongCa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnXacNhanDongCa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXacNhanDongCaActionPerformed(evt);
+            }
+        });
 
         btnDongCaHuyBo.setBackground(new java.awt.Color(255, 0, 0));
         btnDongCaHuyBo.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         btnDongCaHuyBo.setForeground(new java.awt.Color(255, 255, 255));
         btnDongCaHuyBo.setText("Hủy bỏ");
         btnDongCaHuyBo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDongCaHuyBo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDongCaHuyBoActionPerformed(evt);
+            }
+        });
 
         jLabel12.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         jLabel12.setText("Doanh thu trong ca :");
 
-        jLabel13.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        jLabel13.setText("0");
-        jLabel13.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        lblDoanhThuTrongCa.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
+        lblDoanhThuTrongCa.setText("0");
+        lblDoanhThuTrongCa.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
 
         jLabel14.setText("VND");
 
         jLabel15.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         jLabel15.setText("Chênh lệch :");
 
-        jLabel16.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        jLabel16.setText("0");
-        jLabel16.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        lblChenhLech.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
+        lblChenhLech.setText("0");
+        lblChenhLech.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
 
         jLabel17.setText("VND");
 
         jLabel18.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         jLabel18.setText("Tiền két đầu ca :");
 
-        jLabel19.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        jLabel19.setText("0");
-        jLabel19.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        lblTienKetDauCa.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
+        lblTienKetDauCa.setText("0");
+        lblTienKetDauCa.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
 
         jLabel20.setText("VND");
 
         jLabel21.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         jLabel21.setText("Tiền bàn giao ( tiền mặt ) :");
 
-        jLabel22.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        jLabel22.setText("0");
-        jLabel22.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        lblTienBanGiao.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
+        lblTienBanGiao.setText("0");
+        lblTienBanGiao.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
 
         jLabel23.setText("VND");
 
-        lblCanhBaoTienCuoiCa.setForeground(new java.awt.Color(255, 0, 51));
+        lblCanhBaoTienThucTe.setForeground(new java.awt.Color(255, 0, 51));
 
         javax.swing.GroupLayout pnlDongCaLayout = new javax.swing.GroupLayout(pnlDongCa);
         pnlDongCa.setLayout(pnlDongCaLayout);
@@ -328,17 +343,17 @@ public class QLCa extends javax.swing.JPanel implements Runnable {
                 .addGroup(pnlDongCaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlDongCaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(pnlDongCaLayout.createSequentialGroup()
-                            .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblTienBanGiao, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
                             .addComponent(jLabel23))
                         .addGroup(pnlDongCaLayout.createSequentialGroup()
-                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblDoanhThuTrongCa, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
                             .addComponent(jLabel14)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlDongCaLayout.createSequentialGroup()
                         .addGroup(pnlDongCaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtTienKetCuoiCa, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblChenhLech, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtTienThucTeTrongKet, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(pnlDongCaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlDongCaLayout.createSequentialGroup()
                                 .addGap(18, 18, 18)
@@ -347,11 +362,11 @@ public class QLCa extends javax.swing.JPanel implements Runnable {
                                 .addGap(16, 16, 16)
                                 .addComponent(jLabel17))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlDongCaLayout.createSequentialGroup()
-                        .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblTienKetDauCa, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel20)))
                 .addGap(18, 18, 18)
-                .addComponent(lblCanhBaoTienCuoiCa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblCanhBaoTienThucTe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(pnlDongCaLayout.createSequentialGroup()
                 .addComponent(btnXacNhanDongCa, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -366,27 +381,27 @@ public class QLCa extends javax.swing.JPanel implements Runnable {
                     .addComponent(jLabel12)
                     .addGroup(pnlDongCaLayout.createSequentialGroup()
                         .addGroup(pnlDongCaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel13)
+                            .addComponent(lblDoanhThuTrongCa)
                             .addComponent(jLabel14))
                         .addGap(18, 18, 18)
                         .addGroup(pnlDongCaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel20)
-                            .addComponent(jLabel19)
+                            .addComponent(lblTienKetDauCa)
                             .addComponent(jLabel18))
                         .addGap(18, 18, 18)
                         .addGroup(pnlDongCaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel11)
-                            .addComponent(txtTienKetCuoiCa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTienThucTeTrongKet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6)
-                            .addComponent(lblCanhBaoTienCuoiCa, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblCanhBaoTienThucTe, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(pnlDongCaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel16)
+                            .addComponent(lblChenhLech)
                             .addComponent(jLabel17)
                             .addComponent(jLabel15))
                         .addGap(18, 18, 18)
                         .addGroup(pnlDongCaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel22)
+                            .addComponent(lblTienBanGiao)
                             .addComponent(jLabel23)
                             .addComponent(jLabel21))))
                 .addGap(33, 33, 33)
@@ -940,7 +955,7 @@ public class QLCa extends javax.swing.JPanel implements Runnable {
                     dLogMoCa.setVisible(true);
                     dLogMoCa.setSize(720, 350);
                     dLogMoCa.setLocationRelativeTo(null);
-
+                    
                 } else {
                     JOptionPane.showMessageDialog(this, "Chưa đến giờ, không thể mở ca");
                 }
@@ -948,13 +963,20 @@ public class QLCa extends javax.swing.JPanel implements Runnable {
                 JOptionPane.showMessageDialog(this, "Vui lòng chọn ca muốn mở");
             }
         }
-
     }//GEN-LAST:event_btnMoCaActionPerformed
 
     private void btnDongCaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDongCaActionPerformed
-        dLongDongCa.setVisible(true);
-        dLongDongCa.setSize(740, 350);
-        dLongDongCa.setLocationRelativeTo(null);
+        Ca caRunning = caRepo.getCaRunning();
+        HoatDongCa activity = caRepo.getHoatDongCaRunning();
+        if (caRunning != null) {
+            dLongDongCa.setVisible(true);
+            dLongDongCa.setSize(740, 350);
+            dLongDongCa.setLocationRelativeTo(null);
+            lblTienKetDauCa.setText(String.valueOf(activity.getTienDauCa()));
+           // lblDoanhThuTrongCa.setText();
+        } else {
+            JOptionPane.showMessageDialog(this, "Không có ca nào đang hoạt động");
+        }
     }//GEN-LAST:event_btnDongCaActionPerformed
 
     private void dLogMoCaWindowLostFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_dLogMoCaWindowLostFocus
@@ -1004,12 +1026,12 @@ public class QLCa extends javax.swing.JPanel implements Runnable {
                 showCaToTable(caService.getAllCaDangSuDung());
                 clearFormCRUD();
             }
-
+            
         } else {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn ca muốn xóa");
         }
     }//GEN-LAST:event_btnXoaCaActionPerformed
-
+    
     private void clearFormCRUD() {
         txtMaCa.setText("");
         txtGioBatDau.setText("");
@@ -1088,7 +1110,7 @@ public class QLCa extends javax.swing.JPanel implements Runnable {
             } else {
                 lblCanhBaoMa.setText("Mã này đã được sử dụng");
                 txtMaCa.setText("");
-
+                
             }
         }
     }//GEN-LAST:event_txtMaCaKeyReleased
@@ -1193,7 +1215,6 @@ public class QLCa extends javax.swing.JPanel implements Runnable {
         int row = tblCa.getSelectedRow();
         if (row != -1) {
             DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            LocalDate dateNow = LocalDate.now();
             LocalDateTime dateTimeNow = LocalDateTime.now();
             String strDateTimeNow = dateTimeFormat.format(dateTimeNow);
             LocalDateTime timeOpenCa = LocalDateTime.parse(strDateTimeNow, dateTimeFormat);
@@ -1219,15 +1240,47 @@ public class QLCa extends javax.swing.JPanel implements Runnable {
         }
     }//GEN-LAST:event_txtTienKetDauCaKeyReleased
 
-    private void txtTienKetCuoiCaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTienKetCuoiCaActionPerformed
+    private void txtTienThucTeTrongKetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTienThucTeTrongKetActionPerformed
         if (!banHangService.checkSo(txtTienKetDauCa.getText())) {
-            lblCanhBaoTienCuoiCa.setText("Số tiền không hợp lệ");
-            txtTienKetCuoiCa.setText("");
+            lblCanhBaoTienThucTe.setText("Số tiền không hợp lệ");
         } else {
-            lblCanhBaoTienCuoiCa.setText("");
+            float tienChenhLech = Float.parseFloat(txtTienThucTeTrongKet.getText())
+                    - Float.parseFloat(lblTienKetDauCa.getText());
+            lblChenhLech.setText(String.valueOf(tienChenhLech));
+            lblTienBanGiao.setText(txtTienThucTeTrongKet.getText());
+            lblCanhBaoTienThucTe.setText("");
         }
-    }//GEN-LAST:event_txtTienKetCuoiCaActionPerformed
+    }//GEN-LAST:event_txtTienThucTeTrongKetActionPerformed
 
+    private void txtTienThucTeTrongKetKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTienThucTeTrongKetKeyReleased
+        if (banHangService.checkSo(txtTienThucTeTrongKet.getText())) {
+            lblCanhBaoTienThucTe.setText("Số tiền không hợp lệ");
+        } else {
+            lblCanhBaoTienThucTe.setText("Số tiền không hợp lệ");
+        }
+    }//GEN-LAST:event_txtTienThucTeTrongKetKeyReleased
+
+    private void btnDongCaHuyBoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDongCaHuyBoActionPerformed
+        lblDoanhThuTrongCa.setText("0");
+        lblTienKetDauCa.setText("0");
+        txtTienThucTeTrongKet.setText("");
+        lblChenhLech.setText("0");
+        lblTienBanGiao.setText("0");
+        dLongDongCa.setVisible(false);
+    }//GEN-LAST:event_btnDongCaHuyBoActionPerformed
+
+    private void btnXacNhanDongCaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacNhanDongCaActionPerformed
+        HoatDongCa activity = caRepo.getHoatDongCaRunning();
+        DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime dateTimeNow = LocalDateTime.now();
+        String strDateTimeNow = dateTimeFormat.format(dateTimeNow);
+        LocalDateTime timeCloseCa = LocalDateTime.parse(strDateTimeNow, dateTimeFormat);
+        caRepo.updateHoatDongRunning(activity.getId(), Float.parseFloat(lblTienBanGiao.getText()),
+                timeCloseCa);
+        lblCaDangHoatDong.setText("Chưa mở ca");
+        JOptionPane.showMessageDialog(this, "Đóng ca thành công");
+    }//GEN-LAST:event_btnXacNhanDongCaActionPerformed
+    
     private void showNhanVienToTable(Set<NhanVienViewModel_Van> setNhanVienView) {
         modelTableNhanVien.setRowCount(0);
         for (NhanVienViewModel_Van nv : setNhanVienView) {
@@ -1235,7 +1288,7 @@ public class QLCa extends javax.swing.JPanel implements Runnable {
                 nv.getMaNhanVien(), nv.getHoTen()});
         }
     }
-
+    
     private void showCaToTable(List<CaViewModel_Quan> setCaView) {
         modelTableCa.setRowCount(0);
         for (CaViewModel_Quan caView : setCaView) {
@@ -1263,17 +1316,13 @@ public class QLCa extends javax.swing.JPanel implements Runnable {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
@@ -1291,9 +1340,13 @@ public class QLCa extends javax.swing.JPanel implements Runnable {
     private javax.swing.JLabel lblCanhBaoGioBatDau;
     private javax.swing.JLabel lblCanhBaoGioKetThuc;
     private javax.swing.JLabel lblCanhBaoMa;
-    private javax.swing.JLabel lblCanhBaoTienCuoiCa;
     private javax.swing.JLabel lblCanhBaoTienDauCa;
+    private javax.swing.JLabel lblCanhBaoTienThucTe;
+    private javax.swing.JLabel lblChenhLech;
+    private javax.swing.JLabel lblDoanhThuTrongCa;
     private javax.swing.JLabel lblGoiYCapNhatCaNv;
+    private javax.swing.JLabel lblTienBanGiao;
+    private javax.swing.JLabel lblTienKetDauCa;
     private javax.swing.JLabel lbliconGoiyCapNhatCaNv;
     private javax.swing.JPanel pnlCRUDCa;
     private javax.swing.JPanel pnlCa;
@@ -1310,7 +1363,7 @@ public class QLCa extends javax.swing.JPanel implements Runnable {
     private javax.swing.JTextField txtMaCa;
     private javax.swing.JTextField txtPhutBatDau;
     private javax.swing.JTextField txtPhutKetThuc;
-    private javax.swing.JTextField txtTienKetCuoiCa;
     private javax.swing.JTextField txtTienKetDauCa;
+    private javax.swing.JTextField txtTienThucTeTrongKet;
     // End of variables declaration//GEN-END:variables
 }

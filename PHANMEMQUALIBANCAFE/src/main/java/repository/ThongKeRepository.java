@@ -19,6 +19,7 @@ import utility.Hibernateutility;
 
 /**
  *
+ *
  * @author trant
  */
 public class ThongKeRepository {
@@ -26,7 +27,9 @@ public class ThongKeRepository {
     public static List<HoaDonBanHang> getAllHoaDonBanHangByDate(String date) {
         List<HoaDonBanHang> listHoaDon = null;
         try ( Session session = Hibernateutility.getFactory().openSession()) {
-            Query query = session.createQuery("FROM HoaDonBanHang WHERE ngayTao=" + "'" + date + "'");
+            String beginDay = date + " 00:00:00";
+            String endDay = date + " 23:59:59";
+            Query query = session.createQuery("FROM HoaDonBanHang WHERE ngayTao BETWEEN " + "'" + beginDay + "'" + " AND " + "'" + endDay + "'");
             listHoaDon = query.getResultList();
             session.close();
         }
