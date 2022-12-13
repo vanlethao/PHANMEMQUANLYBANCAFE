@@ -124,12 +124,14 @@ chinhanh.setTrangThai(0);
     }
 //     
 
-    public void update(ChiNhanh cn, String ma, String thanhpho, String quocgia) {
+    public void update(ChiNhanh cn, String ma, String thanhpho, String quocgia, int trangThai, Date date) {
         try ( Session session = Hibernateutility.getFactory().openSession()) {
             Transaction trans = session.beginTransaction();
             cn.setMa(ma);
             cn.setThanhPho(thanhpho);
             cn.setQuocGia(quocgia);
+            cn.setTrangThai(trangThai);
+            cn.setNgayKhaiTruong(date);
             session.update(cn);
             trans.commit();
             session.close();

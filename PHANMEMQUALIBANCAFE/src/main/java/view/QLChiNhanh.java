@@ -553,7 +553,15 @@ dtmNV.addRow(new Object[]{cn.getMa(),cn.getTen(),cn.getIdcn()});
                 if (txtMa.getText().equals(tblBang.getValueAt(row, 0).toString())) {
                     ChiNhanh mauView = new ChiNhanh();
                     mauView.setMa(tblBang.getValueAt(row, 0).toString());
-                    chiNhanhS.update(mauView, txtMa.getText(), txtThanhPho.getText(), txtQuocGia.getText());
+                    String ngS = txtNgayKC.getText();
+            Date ng = Date.valueOf(ngS);
+                    int trangThai;
+            if (rdoDHD.isSelected()) {
+                trangThai = 1;
+            } else {
+                trangThai = 0;
+            }
+                    chiNhanhS.update(mauView, txtMa.getText(), txtThanhPho.getText(), txtQuocGia.getText(), trangThai, ng);
                     JOptionPane.showMessageDialog(this, "Sửa thành công");
                     lstcn = chiNhanhS.getAll();
                     show(chiNhanhS.getAll());

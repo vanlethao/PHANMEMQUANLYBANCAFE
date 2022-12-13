@@ -43,9 +43,9 @@ public class ChiNhanhSevice implements IChiNhanh {
     }
 
     @Override
-    public void update(ChiNhanh cn, String ma, String thanhpho, String quocgia) {
+    public void update(ChiNhanh cn, String ma, String thanhpho, String quocgia, int trangThai, Date date) {
         ChiNhanh chinhanh = chinhanhRepo.getChiNhanh(cn.getMa());
-        chinhanhRepo.update(chinhanh, ma, thanhpho, quocgia);
+        chinhanhRepo.update(chinhanh, ma, thanhpho, quocgia, trangThai, date);
     }
 
 

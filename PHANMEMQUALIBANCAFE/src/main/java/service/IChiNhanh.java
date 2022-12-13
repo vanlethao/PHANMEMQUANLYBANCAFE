@@ -26,7 +26,7 @@ public interface IChiNhanh {
 List<NhanVienVM_Long> getAllNV();
     List<ChiNhanhVM_Long> getAll();
    String insertChiNhanh(String ma, String quocGia, String thanhPho, Date ngayKhaiTruong, float giaTriDiem, float giaTriDoiDiem, int trangThai);
- void update(ChiNhanh cnV, String ma, String thanhpho, String quocgia);
+ void update(ChiNhanh cnV, String ma, String thanhpho, String quocgia, int trangThai, Date date);
  void deleteMauSac(String maMau);
   String getChiNhanh(String ma);
   List<ChiNhanh> findByMa(String ma);
