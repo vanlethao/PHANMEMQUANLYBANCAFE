@@ -9,6 +9,7 @@ import domainmodel.NguyenLieu;
 import java.util.Date;
 import java.util.List;
 import viewmodel.ChiNhanhVM_Long;
+import viewmodel.NguyenLieuDangSuDung;
 import viewmodel.NguyenLieuViewModel_Long;
 
 /**
@@ -19,7 +20,7 @@ public interface INguyenLieu {
     List<NguyenLieuViewModel_Long> getAll();
 //      void insertNguyenLieuToChiNhanh(String idChiNhanh, NguyenLieu nguyenLieu, String ma, String ten, Date hsd, String dvt, Float slt);
     String insertNguyenLieu(String ma, String ten, Date hsd, String dvt, Float slt, String idChiNhanh);
-    
+    List<NguyenLieuViewModel_Long> getAllNguyenLieuByChiNhanh(String idChiNhanh);
      void deleteMauSac(String idnguyenLieu, String idChiNhanh);
 void deleteNguyenLieu(String idNguyenLieu);
      void update(String id, String ma, String ten, String donViTinh, float soLuongTon, Date ngay);

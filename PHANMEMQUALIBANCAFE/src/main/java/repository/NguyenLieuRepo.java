@@ -23,6 +23,20 @@ import utility.Hibernateutility;
  */
 public class NguyenLieuRepo {
 
+     public Set<NguyenLieu> getAllNguyenLieuByChiNhanh(String idChiNhanh) {
+        Set<NguyenLieu> setNguyenLieu = new HashSet<>();
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            ChiNhanh chiNhanh = session.get(ChiNhanh.class, idChiNhanh);
+            Set<NguyenLieu> allNguyenLieu = chiNhanh.getListNguyenLieu();
+            for (NguyenLieu nguyenLieu : allNguyenLieu) {
+                setNguyenLieu.add(nguyenLieu);
+            }
+            session.close();
+        }
+        return setNguyenLieu;
+    }
+    
+    
        public String getChiTietSpByIdSanPham(String id) {
         String setChiTiet = null;
         try ( Session session = Hibernateutility.getFactory().openSession()) {

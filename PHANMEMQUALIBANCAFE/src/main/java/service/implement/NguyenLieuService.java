@@ -13,6 +13,7 @@ import repository.NguyenLieuRepo;
 
 import service.INguyenLieu;
 import viewmodel.ChiNhanhVM_Long;
+import viewmodel.NguyenLieuDangSuDung;
 import viewmodel.NguyenLieuViewModel_Long;
 
 /**
@@ -116,4 +117,20 @@ lstViewMD.add(new NguyenLieuViewModel_Long(ctpk.getId(), ctpk.getMa(), ctpk.getT
 //    public String getChiTietSpByIdSanPham(String id) {
 //        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
 //    }
+
+    @Override
+    public List<NguyenLieuViewModel_Long> getAllNguyenLieuByChiNhanh(String idChiNhanh) {
+      List<NguyenLieuViewModel_Long> listNguyenLieu = new ArrayList<>();
+        var ListNl = nr.getAllNguyenLieuByChiNhanh(idChiNhanh);
+        for (NguyenLieu nguyenLieu : ListNl) {
+            NguyenLieuViewModel_Long nl = new NguyenLieuViewModel_Long();
+            nl.setId(nguyenLieu.getId());
+            nl.setMa(nguyenLieu.getMa());
+            nl.setTen(nguyenLieu.getTen());
+            nl.setSoLuongTon(nguyenLieu.getSoLuongTon());
+            nl.setHanSuDung(nguyenLieu.getHanSuDung());
+            listNguyenLieu.add(nl);
+        }
+        return listNguyenLieu;
+    }
 }
