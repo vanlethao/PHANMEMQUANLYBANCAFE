@@ -5,10 +5,7 @@
 package domainmodel;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,7 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
@@ -38,10 +34,6 @@ public class HoatDongCa implements Serializable {
     @JoinColumn(name = "IdCa")
     private Ca ca;
 
-    @Column(name = "NgayThucHien")
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date ngayThucHien;
-
     @Column(name = "GioMoCa")
     private LocalDateTime gioMoCa;
 
@@ -57,10 +49,9 @@ public class HoatDongCa implements Serializable {
     public HoatDongCa() {
     }
 
-    public HoatDongCa(String id, Ca ca, Date ngayThucHien, LocalDateTime gioMoCa, LocalDateTime gioDongCa, Float tienDauCa, Float tienCuoiCa) {
+    public HoatDongCa(String id, Ca ca, LocalDateTime gioMoCa, LocalDateTime gioDongCa, Float tienDauCa, Float tienCuoiCa) {
         this.id = id;
         this.ca = ca;
-        this.ngayThucHien = ngayThucHien;
         this.gioMoCa = gioMoCa;
         this.gioDongCa = gioDongCa;
         this.tienDauCa = tienDauCa;
@@ -81,14 +72,6 @@ public class HoatDongCa implements Serializable {
 
     public void setCa(Ca ca) {
         this.ca = ca;
-    }
-
-    public Date getNgayThucHien() {
-        return ngayThucHien;
-    }
-
-    public void setNgayThucHien(Date ngayThucHien) {
-        this.ngayThucHien = ngayThucHien;
     }
 
     public LocalDateTime getGioMoCa() {

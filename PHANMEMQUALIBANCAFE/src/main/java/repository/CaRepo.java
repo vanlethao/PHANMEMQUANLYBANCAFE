@@ -6,7 +6,9 @@ package repository;
 
 import domainmodel.Ca;
 import domainmodel.ChiNhanh;
+import domainmodel.HoatDongCa;
 import domainmodel.NhanVien;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -21,10 +23,20 @@ import utility.Hibernateutility;
  */
 public class CaRepo {
 
-    public List<Ca> getAllCa() {
+    public List<Ca> getAllCaDangSuDung() {
         List<Ca> lst = null;
         try ( Session session = Hibernateutility.getFactory().openSession()) {
             Query q = session.createQuery("From Ca WHERE trangThai=1");
+            lst = q.getResultList();
+            session.close();
+        }
+        return lst;
+    }
+
+    public List<Ca> getAllCaDaXoa() {
+        List<Ca> lst = null;
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            Query q = session.createQuery("From Ca WHERE trangThai=0");
             lst = q.getResultList();
             session.close();
         }
@@ -98,6 +110,62 @@ public class CaRepo {
             session.close();
         }
         return id;
+    }
+
+    public static void updateCa(Ca ca) {
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            Transaction trans = session.beginTransaction();
+            session.update(ca);
+            trans.commit();
+            session.close();
+        }
+    }
+
+    public void changeState(String idCa) {
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            Transaction trans = session.beginTransaction();
+            Ca ca = session.get(Ca.class, idCa);
+            if (ca.getTrangThai() == 1) {
+                ca.setTrangThai(0);
+            } else {
+                ca.setTrangThai(1);
+            }
+            session.update(ca);
+            trans.commit();
+            session.close();
+        }
+    }
+
+    public String insertHoatDongCa(String idCa, LocalDateTime gioMoCa, Float tienDauCa) {
+        String id = null;
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            Transaction trans = session.beginTransaction();
+            HoatDongCa hoatDong = new HoatDongCa();
+            Ca ca = session.get(Ca.class, idCa);
+            hoatDong.setCa(ca);
+            hoatDong.setGioMoCa(gioMoCa);
+            hoatDong.setTienDauCa(tienDauCa);
+            id = (String) session.save(hoatDong);
+            trans.commit();
+            session.close();
+        }
+        return id;
+    }
+
+    public Ca getCaDangHoatDong() {
+        Ca ca = null;
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            Query q = session.createQuery("From HoatDongCa");
+            List<HoatDongCa> list = q.getResultList();
+            for (HoatDongCa hoatDongCa : list) {
+                if (hoatDongCa.getGioDongCa() == null) {
+                    ca = hoatDongCa.getCa();
+                    break;
+                }
+            }
+            session.close();
+        }
+        return ca;
     }
 
 }

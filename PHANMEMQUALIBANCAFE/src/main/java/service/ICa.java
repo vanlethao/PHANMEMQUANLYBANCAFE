@@ -15,11 +15,17 @@ import viewmodel.NhanVienViewModel_Van;
  */
 public interface ICa {
 
-    List<CaViewModel_Quan> getAllCa();
+    List<CaViewModel_Quan> getAllCaDangSuDung();
+
+    List<CaViewModel_Quan> getAllCaDaXoa();
 
     boolean checkExistedOfMaCa(String maCa);
 
     String insertCa(CaViewModel_Quan ca);
+
+    void updateCa(CaViewModel_Quan ca);
+
+    void changeStateOfCa(String idCa);
 
     boolean checkHourOfCa(String hour);
 

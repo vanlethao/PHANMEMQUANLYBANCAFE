@@ -21,18 +21,18 @@ import viewmodel.NhanVienViewModel_Van;
  * @author PC
  */
 public class CaService implements ICa {
-
+    
     private CaRepo _caRepo;
-
+    
     public CaService() {
         _caRepo = new CaRepo();
     }
-
+    
     @Override
-    public List<CaViewModel_Quan> getAllCa() {
+    public List<CaViewModel_Quan> getAllCaDangSuDung() {
         List<Ca> listCa = null;
         List<CaViewModel_Quan> listView = new ArrayList<>();
-        listCa = _caRepo.getAllCa();
+        listCa = _caRepo.getAllCaDangSuDung();
         if (listCa != null) {
             for (Ca ca : listCa) {
                 CaViewModel_Quan caView = new CaViewModel_Quan();
@@ -42,11 +42,30 @@ public class CaService implements ICa {
                 caView.setGioKT(ca.getGioKetThuc());
                 listView.add(caView);
             }
-
+            
         }
         return listView;
     }
-
+    
+    @Override
+    public List<CaViewModel_Quan> getAllCaDaXoa() {
+        List<Ca> listCa = null;
+        List<CaViewModel_Quan> listView = new ArrayList<>();
+        listCa = _caRepo.getAllCaDaXoa();
+        if (listCa != null) {
+            for (Ca ca : listCa) {
+                CaViewModel_Quan caView = new CaViewModel_Quan();
+                caView.setId(ca.getId());
+                caView.setMa(ca.getMa());
+                caView.setGioBD(ca.getGioBatDau());
+                caView.setGioKT(ca.getGioKetThuc());
+                listView.add(caView);
+            }
+            
+        }
+        return listView;
+    }
+    
     @Override
     public boolean checkExistedOfMaCa(String maCa) {
         Ca ca = _caRepo.getCabyMa(maCa);
@@ -55,7 +74,7 @@ public class CaService implements ICa {
         }
         return true;
     }
-
+    
     @Override
     public String insertCa(CaViewModel_Quan caView) {
         String id = null;
@@ -67,7 +86,23 @@ public class CaService implements ICa {
         id = _caRepo.insertCa(ca);
         return id;
     }
-
+    
+    @Override
+    public void updateCa(CaViewModel_Quan caView) {
+        Ca ca = new Ca();
+        ca.setId(caView.getId());
+        ca.setMa(caView.getMa());
+        ca.setGioBatDau(caView.getGioBD());
+        ca.setGioKetThuc(caView.getGioKT());
+        ca.setTrangThai(1);
+        _caRepo.updateCa(ca);
+    }
+    
+    @Override
+    public void changeStateOfCa(String idCa) {
+        _caRepo.changeState(idCa);
+    }
+    
     @Override
     public Set<NhanVienViewModel_Van> getNhanVienByChiNhanh(String idChiNhanh) {
         Set<NhanVienViewModel_Van> listView = new HashSet<>();
@@ -83,12 +118,12 @@ public class CaService implements ICa {
         }
         return listView;
     }
-
+    
     @Override
     public void addCaToNhanVien(String idNhanVien, Set<String> setIdCa) {
         _caRepo.addCaToNhanVien(idNhanVien, setIdCa);
     }
-
+    
     @Override
     public Set<CaViewModel_Quan> getCaOfNhanVien(String idNhanVien) {
         var allCa = _caRepo.getCaOfNhanVien(idNhanVien);
@@ -105,7 +140,7 @@ public class CaService implements ICa {
         }
         return caViewOfNhanVien;
     }
-
+    
     @Override
     public boolean checkHourOfCa(String hour) {
         Pattern regexTime = Pattern.compile("^[0-9]{1,2}$");
@@ -116,7 +151,7 @@ public class CaService implements ICa {
         }
         return false;
     }
-
+    
     public boolean checkMinuteOfCa(String minute) {
         Pattern regexTime = Pattern.compile("^[0-9]{1,2}$");
         if (regexTime.matcher(minute).find()) {
