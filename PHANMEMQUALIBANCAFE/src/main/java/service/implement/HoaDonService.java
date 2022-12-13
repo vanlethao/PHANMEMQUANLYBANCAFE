@@ -63,8 +63,14 @@ public class HoaDonService implements IHoaDon {
         return lstView;
     }
     @Override
-    public HoaDonBanHang getHoaDonByMa(String maHD) {
-        return hoaDonRepo.getHoaDonByMa(maHD);
+    public HoaDonViewModel getHoaDonByMa(String maHD) {
+        HoaDonBanHang hd = hoaDonRepo.getHoaDonByMa(maHD);
+        HoaDonViewModel hdVIew= null;
+        if (hdVIew !=null) {
+            hdVIew= new HoaDonViewModel();
+            hdVIew.setMaHoaDon(hd.getMa());
+        }
+        return hdVIew;
     }
 
     @Override

@@ -17,7 +17,7 @@ public interface IHoaDon {
 
     List<HoaDonViewModel> getAllHoaDon();
 
-    HoaDonBanHang getHoaDonByMa(String maHD);
+    HoaDonViewModel getHoaDonByMa(String maHD);
 
     String updateTrangThai(String maHD,Integer trangThai);
     

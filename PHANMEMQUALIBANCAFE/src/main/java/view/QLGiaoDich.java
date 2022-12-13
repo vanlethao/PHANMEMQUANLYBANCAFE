@@ -21,6 +21,8 @@ package view;
 //import com.itextpdf.layout.element.Paragraph;
 //import com.itextpdf.layout.element.Table;
 //import com.itextpdf.pdfa.PdfADocument;
+import domainmodel.ChiTietHoaDon;
+import domainmodel.HoaDonBanHang;
 import domainmodel.NhaCungCap;
 import domainmodel.NhanVien;
 import domainmodel.TaiKhoanAdmin;
@@ -277,6 +279,8 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
         jPanel6 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         tblHoaDonChiTiet = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        lblTongTien = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
         tblHoaDon = new javax.swing.JTable();
@@ -394,21 +398,37 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
         tblHoaDonChiTiet.getTableHeader().setReorderingAllowed(false);
         jScrollPane5.setViewportView(tblHoaDonChiTiet);
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setText("Tổng tiền:");
+
+        lblTongTien.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblTongTien.setText("10000");
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 1027, Short.MAX_VALUE)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 1027, Short.MAX_VALUE)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane5)
-                .addContainerGap())
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 764, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel10.setBackground(new java.awt.Color(228, 212, 189));
@@ -507,7 +527,7 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
         btnExportPdf.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnExportPdf.setForeground(new java.awt.Color(255, 255, 255));
         btnExportPdf.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_print_35px.png"))); // NOI18N
-        btnExportPdf.setText("Export PDF");
+        btnExportPdf.setText("In hóa đơn");
         btnExportPdf.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnExportPdf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1791,6 +1811,15 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
         int row = tblHoaDon.getSelectedRow();
         lstChiTietHD = hoaDonChiTietService.getHoaDonChiTietByMaHoaDon(tblHoaDon.getValueAt(row, 0).toString());
         loadTableHoaDonChiTiet(lstChiTietHD);
+        float tongTien = 0;
+        BigDecimal thanhTienSauKM = null;
+        for (int i = 0; i < lstChiTietHD.size(); i++) {
+            thanhTienSauKM = lstChiTietHD.get(i).getThanhTienSauKM();
+            float thanhTienSauKm = thanhTienSauKM.floatValue();
+            tongTien += thanhTienSauKm;
+        }
+        String tong_Tien = String.valueOf(tongTien);
+        lblTongTien.setText(tong_Tien);
     }//GEN-LAST:event_tblHoaDonMouseClicked
     private void loadHuyPhieuNhap(Set<PhieuNhapViewModel> lstPhieuNhap) {
         modelPhieuNhap = (DefaultTableModel) tblPhieuNhap.getModel();
@@ -2395,19 +2424,20 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
 
     public class BillPrintable implements Printable {
 
-        public int print(Graphics graphics, PageFormat pageFormat, int pageIndex)
-                throws PrinterException {
+        public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
             //CTHD
-            int row = tblHoaDonChiTiet.getSelectedRow();
-            String pn1a = tblHoaDonChiTiet.getValueAt(row, 1).toString();
-            int pn2a = Integer.valueOf(tblHoaDonChiTiet.getValueAt(row, 2).toString());
-            float pn3a = Float.valueOf(tblHoaDonChiTiet.getValueAt(row, 5).toString());
-            float dongia = Float.valueOf(tblHoaDonChiTiet.getValueAt(row, 3).toString());
-            float pp1a = pn2a * pn3a;
-            int sum = 0;
-            for (int i = 0; i < tblHoaDonChiTiet.getRowCount(); i++) {
-                sum += pp1a;
-            }
+            int rowHD = tblHoaDon.getSelectedRow();
+            lstChiTietHD = hoaDonChiTietService.getHoaDonChiTietByMaHoaDon(tblHoaDon.getValueAt(rowHD, 0).toString());
+            lstHoaDon = hoaDonService.getAllHoaDon();
+            HoaDonViewModel ctView = hoaDonService.getHoaDonByMa(tblHoaDon.getValueAt(rowHD, 0).toString());
+            ctView = lstHoaDon.get(rowHD);
+            String tenNv = ctView.getTenNhanVien();
+            int soBan = ctView.getSoBan();
+            String tenSP = null;
+            int soLuong = 0;
+            BigDecimal thanhTienSauKM = null;
+            BigDecimal donGia = null;
+            float sum = 0;
             ImageIcon icon = new javax.swing.ImageIcon(getClass().getResource("/icon/download.png"));
             int result = NO_SUCH_PAGE;
             if (pageIndex == 0) {
@@ -2435,9 +2465,9 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
                     y += yShift;
                     g2d.drawString("        SĐT: +84345412376      ", 12, y);
                     y += yShift;
-                    g2d.drawString("Thu ngân:", 12, y);
+                    g2d.drawString("Thu ngân: " + tenNv + "", 12, y);
                     y += yShift;
-                    g2d.drawString("Bàn:", 12, y);
+                    g2d.drawString("Bàn:" + soBan + "", 12, y);
                     y += yShift;
                     g2d.drawString("-------------------------------------", 12, y);
                     y += headerRectHeight;
@@ -2447,14 +2477,21 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
                     g2d.drawString("-------------------------------------", 10, y);
                     y += headerRectHeight;
 
-                    for (int s = 0; s < tblHoaDonChiTiet.getRowCount(); s++) {
-                        g2d.drawString(" " + pn1a + "(" + pn2a + ")                            ", 10, y);
+                    for (int s = 0; s < lstChiTietHD.size(); s++) {
+                        tenSP = lstChiTietHD.get(s).getTenSanPham();
+                        soLuong = lstChiTietHD.get(s).getSoLuongMua();
+                        donGia = lstChiTietHD.get(s).getGiaBan();
+                        thanhTienSauKM = lstChiTietHD.get(s).getThanhTienSauKM();
+                        float thanhTienSauKm = thanhTienSauKM.floatValue();
+                        for (int i = 0; i < lstChiTietHD.size(); i++) {
+                            sum += thanhTienSauKm;
+                        }
+                        g2d.drawString(" " + tenSP + "(" + soLuong + ")                            ", 10, y);
                         y += yShift;
-                        g2d.drawString(" " + "Đơn giá: " + dongia + "   ", 10, y);
-                        g2d.drawString("" + pn3a + "", 160, y);
+                        g2d.drawString(" " + "Đơn giá: " + donGia + "   ", 10, y);
+                        g2d.drawString("" + thanhTienSauKM + "", 160, y);
                         y += yShift;
                     }
-
                     g2d.drawString("-------------------------------------", 10, y);
                     y += yShift;
                     g2d.drawString(" Tổng tiền:                  " + sum + "   ", 10, y);
@@ -2490,17 +2527,17 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
     }
 
     private void btnExportPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportPdfActionPerformed
-        int row = tblHoaDonChiTiet.getSelectedRow();
+        int row = tblHoaDon.getSelectedRow();
         if (row == -1) {
             JOptionPane.showMessageDialog(this, "Bạn chưa chọn hóa đơn");
-        }else{
-             PrinterJob pj = PrinterJob.getPrinterJob();
-        pj.setPrintable(new BillPrintable(), getPageFormat(pj));
-        try {
-            pj.print();
-        } catch (PrinterException ex) {
-            ex.printStackTrace();
-        }
+        } else {
+            PrinterJob pj = PrinterJob.getPrinterJob();
+            pj.setPrintable(new BillPrintable(), getPageFormat(pj));
+            try {
+                pj.print();
+            } catch (PrinterException ex) {
+                ex.printStackTrace();
+            }
         }
     }//GEN-LAST:event_btnExportPdfActionPerformed
 
@@ -2535,6 +2572,7 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
     private com.toedter.calendar.JDateChooser dateNgayNhap;
     private com.toedter.calendar.JDateChooser dateNgayTra;
     private com.toedter.calendar.JDateChooser dateTo;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
@@ -2575,6 +2613,7 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lblCNNhap;
     private javax.swing.JLabel lblCNTra;
+    private javax.swing.JLabel lblTongTien;
     private javax.swing.JRadioButton rdoHoanThanhPhieuNhap;
     private javax.swing.JRadioButton rdoHoanThanhPhieuTra;
     private javax.swing.JRadioButton rdoHuyPhieuNhap;
