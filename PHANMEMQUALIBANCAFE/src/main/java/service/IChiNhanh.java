@@ -13,6 +13,7 @@ import java.util.Set;
 import viewmodel.ChiNhanhVM_Long;
 import viewmodel.ChiNhanhViewModel_Long;
 import viewmodel.KhuVucViewModel;
+import viewmodel.NhanVienVM_Long;
 import viewmodel.NhanVienViewModel_Hoang;
 
 
@@ -21,7 +22,8 @@ import viewmodel.NhanVienViewModel_Hoang;
  * @author PC
  */
 public interface IChiNhanh {
-
+    void deleteCN(String idCN);
+List<NhanVienVM_Long> getAllNV();
     List<ChiNhanhVM_Long> getAll();
    String insertChiNhanh(String ma, String quocGia, String thanhPho, Date ngayKhaiTruong, float giaTriDiem, float giaTriDoiDiem, int trangThai);
  void update(ChiNhanh cnV, String ma, String thanhpho, String quocgia);

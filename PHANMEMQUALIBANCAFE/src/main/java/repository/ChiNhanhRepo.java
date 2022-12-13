@@ -26,6 +26,26 @@ public class ChiNhanhRepo {
 
     
     
+    public void deleteCN(String idCN) {
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            Transaction trans = session.beginTransaction();
+            ChiNhanh chinhanh = session.get(ChiNhanh.class, idCN);
+//            ban.setTrangThaiSuDung(0);
+chinhanh.setTrangThai(0);
+            session.update(chinhanh);
+            trans.commit();
+            session.close();
+        }
+    }
+    
+     public List<NhanVien> getAllNV() {
+        Session session = Hibernateutility.getFactory().openSession();
+        Query q = session.createQuery("From NhanVien");
+        List<NhanVien> lst = q.getResultList();
+        return lst;
+
+    }
+    
    
        
        

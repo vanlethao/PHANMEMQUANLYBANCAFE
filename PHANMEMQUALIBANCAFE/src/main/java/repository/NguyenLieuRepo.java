@@ -189,13 +189,15 @@ public class NguyenLieuRepo {
         return mauSac;
     }
 
-    public void update(String id, String ma, String ten, String donViTinh) {
+    public void update(String id, String ma, String ten, String donViTinh, float soLuongTon, Date ngay) {
         try ( Session session = Hibernateutility.getFactory().openSession()) {
             Transaction trans = session.beginTransaction();
             NguyenLieu nguyenlieu = session.get(NguyenLieu.class, id);
             nguyenlieu.setMa(ma);
             nguyenlieu.setTen(ten);
             nguyenlieu.setDonViTinh(donViTinh);
+            nguyenlieu.setSoLuongTon(soLuongTon);
+            nguyenlieu.setHanSuDung(ngay);
             session.update(nguyenlieu);
             trans.commit();
             session.close();

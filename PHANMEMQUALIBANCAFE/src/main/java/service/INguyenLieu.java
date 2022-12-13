@@ -22,6 +22,6 @@ public interface INguyenLieu {
     
      void deleteMauSac(String idnguyenLieu, String idChiNhanh);
 void deleteNguyenLieu(String idNguyenLieu);
-     void update(String id, String ma, String ten, String donViTinh);
+     void update(String id, String ma, String ten, String donViTinh, float soLuongTon, Date ngay);
   String getNguyeLieu(String ma);
 }

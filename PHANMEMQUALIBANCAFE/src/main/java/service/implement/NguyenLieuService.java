@@ -57,14 +57,14 @@ lstViewMD.add(new NguyenLieuViewModel_Long(ctpk.getId(), ctpk.getMa(), ctpk.getT
 //    }
 
     @Override
-    public void update(String id, String ma, String ten, String donViTinh) {
-        nr.update(id, ma, ten, donViTinh);
+    public void update(String id, String ma, String ten, String donViTinh, float soLuongTon, Date ngay) {
+        nr.update(id, ma, ten, donViTinh, soLuongTon, ngay);
     }
 
-    public static void main(String[] args) {
-        NguyenLieuService ns = new NguyenLieuService();
-        ns.update("BC99620B-A27E-436A-8B12-628CCCDF31F9", "nl1", "sss", "111");
-    }
+//    public static void main(String[] args) {
+//        NguyenLieuService ns = new NguyenLieuService();
+//        ns.update("BC99620B-A27E-436A-8B12-628CCCDF31F9", "nl1", "sss", "111");
+//    }
 
 //    @Override
 //    public void insertNguyenLieuToChiNhanh(String idChiNhanh, NguyenLieu nguyenLieu) {

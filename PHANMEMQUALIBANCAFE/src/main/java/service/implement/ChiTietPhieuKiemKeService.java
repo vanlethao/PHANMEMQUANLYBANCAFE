@@ -43,7 +43,7 @@ public class ChiTietPhieuKiemKeService implements IChiTietPhieuKiemKe{
           var allPKK = chitietRepo.getAllChiTietHoaDon();
        List<ChiTietPhieuKiemKeViewModel_Long> lstViewMD= new ArrayList<>();
        for(ChiTietPhieuKiemKe ctpk : allPKK){
-           lstViewMD.add(new ChiTietPhieuKiemKeViewModel_Long("", "", ctpk.getSoLuong(), ctpk.getSoLuongChenhlech(), ctpk.getSoLuongThucTe(), ctpk.getLiDo(), ctpk.getNguyenLieuKey().getSoLuongTon()));
+           lstViewMD.add(new ChiTietPhieuKiemKeViewModel_Long(ctpk.getKiemKeKey().getMa(), "", ctpk.getSoLuong(), ctpk.getSoLuongChenhlech(), ctpk.getSoLuongThucTe(), ctpk.getLiDo(), ctpk.getNguyenLieuKey().getSoLuongTon()));
        }
        return lstViewMD;
     }
@@ -62,8 +62,8 @@ public class ChiTietPhieuKiemKeService implements IChiTietPhieuKiemKe{
 //    }
 
     @Override
-    public void insertNguyenLieu(float SoLuong, float SoLuongThucTe, float SoLuongChenhLech, String liDo, String idnl, String idpk) {
-       chitietRepo.insertNguyenLieu(SoLuong, SoLuongThucTe, SoLuongChenhLech, liDo, idnl, idpk);
+    public void insertNguyenLieu( float SoLuongThucTe,  String liDo, String idnl, String idpk) {
+       chitietRepo.insertNguyenLieu(SoLuongThucTe, liDo, idnl, idpk);
     }
 
     @Override

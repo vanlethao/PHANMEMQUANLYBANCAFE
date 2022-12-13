@@ -84,6 +84,6 @@ public class NguyenLieuViewModel_Long {
     }
     
      public Object[] toDataRow() {
-        return new Object[]{ma, ten, soLuongTon, hanSuDung, donVitinh};
+        return new Object[]{id,ma, ten, soLuongTon, hanSuDung, donVitinh};
     }
 }

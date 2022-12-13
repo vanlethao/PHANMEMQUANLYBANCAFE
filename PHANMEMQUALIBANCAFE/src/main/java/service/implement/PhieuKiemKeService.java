@@ -40,7 +40,7 @@ public class PhieuKiemKeService implements IPhieuKiemKe{
        var allPKK = pkkRepo.getAllPKK();
        List<PhieuKiemKeViewModel_Long> lstViewMD= new ArrayList<>();
        for(PhieuKiemKe pk : allPKK){
-           lstViewMD.add(new PhieuKiemKeViewModel_Long(pk.getId(),pk.getMa(),pk.getNgayKiemKe(),pk.getTrangThai(),null,null));
+           lstViewMD.add(new PhieuKiemKeViewModel_Long(pk.getId(),pk.getMa(),pk.getNgayKiemKe(),pk.getTrangThai(),pk.getNhanVien().getMa(),null));
 
        }
        return lstViewMD;

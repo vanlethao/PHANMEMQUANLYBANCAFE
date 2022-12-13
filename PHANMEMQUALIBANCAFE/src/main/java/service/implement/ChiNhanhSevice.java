@@ -20,6 +20,7 @@ import utility.Hibernateutility;
 import viewmodel.ChiNhanhVM_Long;
 import viewmodel.ChiNhanhViewModel_Long;
 import viewmodel.KhuVucViewModel;
+import viewmodel.NhanVienVM_Long;
 import viewmodel.NhanVienViewModel_Hoang;
 
 /**
@@ -122,6 +123,31 @@ public class ChiNhanhSevice implements IChiNhanh {
     @Override
     public String insertChiNhanh(String ma, String quocGia, String thanhPho, Date ngayKhaiTruong, float giaTriDiem, float giaTriDoiDiem, int trangThai) {
         return chinhanhRepo.insertChiNhanh(ma, quocGia, thanhPho, ngayKhaiTruong, giaTriDiem, giaTriDoiDiem, trangThai);
+    }
+
+    @Override
+    public List<NhanVienVM_Long> getAllNV() {
+           var allNV = chinhanhRepo.getAllNV();
+        List<NhanVienVM_Long> lstViewMD = new ArrayList<>();
+        if(allNV !=null){
+            for (NhanVien cn : allNV) {
+//                ChiNhanhVM_Long cnView = new ChiNhanhVM_Long();
+NhanVienVM_Long nv = new NhanVienVM_Long();
+                if(cn.getMa() != null){
+                    
+                }
+//            lstViewMD.add(new ChiNhanhVM_Long(cn.getId(), cn.getMa(), cn.getQuocGia(), cn.getThanhPho(), cn.getNgayKhaiTruong(), cn.getTrangThai(), cn.getGiaTriDoiDiem(), cn.getGiaTriDiem(),""));
+lstViewMD.add(new NhanVienVM_Long(cn.getId(), cn.getHoTen(), cn.getMa(), cn.getChiNhanh().getMa()));
+        }
+        }
+        
+        return lstViewMD;
+    }
+
+    @Override
+    public void deleteCN(String idCN) {
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+chinhanhRepo.deleteCN(idCN);
     }
 
 
