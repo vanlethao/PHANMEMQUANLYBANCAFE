@@ -91,7 +91,6 @@ public class BanHang extends javax.swing.JPanel implements Runnable {
                             int valueCompare = timeNow.compareTo(timeEndCa);
                             if (valueCompare >= 0) {
                                 stop = true;
-                                JOptionPane.showMessageDialog(pnlLeft, "Vui lòng mở ca mới để tiếp tục bán hàng");
                                 btnThanhToan.setEnabled(false);
                                 btnOpenFormAddGuest.setEnabled(false);
                                 lblStateMoCa.setText("Chưa mở ca");

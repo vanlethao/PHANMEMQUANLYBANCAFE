@@ -58,15 +58,17 @@ public class PhieuTraRepo {
         }
         return lstChiTietPhieuTra;
     }
- public NhaCungCap getNhaCungCapByPhieuTra(String idPhieuTra){
+
+    public NhaCungCap getNhaCungCapByPhieuTra(String idPhieuTra) {
         NhaCungCap ncc = null;
-        try( Session session = Hibernateutility.getFactory().openSession()){
-            PhieuTraHang pn = session.get(PhieuTraHang.class , idPhieuTra);
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            PhieuTraHang pn = session.get(PhieuTraHang.class, idPhieuTra);
             ncc = pn.getNhaCungCap();
             session.close();
         }
         return ncc;
     }
+
     public Set<ChiTietPhieuTra> getPhieuTraByChiTietPhieuTra(String idPhieuTra) {
         Set<ChiTietPhieuTra> setCtpt = null;
         try ( Session session = Hibernateutility.getFactory().openSession()) {
@@ -140,10 +142,8 @@ public class PhieuTraRepo {
         try ( Session session = Hibernateutility.getFactory().openSession()) {
             Transaction trans = session.beginTransaction();
             NguyenLieu nl = session.get(NguyenLieu.class, idNguyenLieu);
-            if (soLuongTra > nl.getSoLuongTon()) {
-                float soLuongNL = nl.getSoLuongTon() - soLuongTra;
-                nl.setSoLuongTon(soLuongNL);
-            }
+            float soLuongNL = nl.getSoLuongTon() - soLuongTra;
+            nl.setSoLuongTon(soLuongNL);
             session.update(nl);
             trans.commit();
             session.close();
