@@ -71,7 +71,7 @@ public class QLNguyenLieu extends javax.swing.JPanel {
     private DefaultComboBoxModel<ChiNhanhVM_Long> modelComBoChiNhanh;
     private DefaultComboBoxModel<NguyenLieuViewModel_Long> modelComBoNguyenlieu1;
     private IChiNhanh cnS = new ChiNhanhSevice();
-
+private DefaultComboBoxModel<PhieuKiemKeViewModel_Long> modelComBoNguyenLieu2;
     private DefaultComboBoxModel<NhanVienViewModel_Hoang> modelComBoNhanVien;
 
     private List<ChiNhanhVM_Long> lstCN = new ArrayList<>();
@@ -1125,9 +1125,9 @@ if(checkFormEmptyCTPhieu(txtSLTT, txtLiDo)){
    
         dtmHT.setRowCount(0);
 
-        modelComBoNguyenLieu = (DefaultComboBoxModel) new DefaultComboBoxModel<>(
+        modelComBoNguyenLieu2 = (DefaultComboBoxModel) new DefaultComboBoxModel<>(
                 nguyenlieuS.getAllNguyenLieuByChiNhanh(((ChiNhanhVM_Long) modelComBoChiNhanh.getSelectedItem()).getId()).toArray());
-        cbbNL.setModel((DefaultComboBoxModel) modelComBoNguyenLieu); 
+        cbbNL.setModel((DefaultComboBoxModel) modelComBoNguyenLieu2); 
 //                cbbNguyenLieu.setModel((DefaultComboBoxModel) modelComBoNguyenLieu); 
 //        cbbNguyenLieu.setModel((DefaultComboBoxModel) modelComBoNguyenLieu); 
 // loadTablePhieuNhap(phieuNhapSevice.getAllPhieuNhapByChiNhanh(((ChiNhanhViewModel_Hoang) comboChiNhanh.getSelectedItem()).getId()));
