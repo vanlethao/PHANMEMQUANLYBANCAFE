@@ -126,6 +126,10 @@ public class QLNguyenLieu extends javax.swing.JPanel {
 
         modelComBoNhanVien = (DefaultComboBoxModel) new DefaultComboBoxModel<>(pKKeSevice.getAllNV().toArray());
         cbbNV.setModel((DefaultComboBoxModel) modelComBoNhanVien);
+        
+        
+        modelComBoChiNhanh = (DefaultComboBoxModel) new DefaultComboBoxModel<>(cnS.getAllConHD().toArray());
+        cbbCNPKK.setModel((DefaultComboBoxModel) modelComBoChiNhanh);
 
         show(lstnl);
         ShowKK(lstPKK);
@@ -158,9 +162,9 @@ public class QLNguyenLieu extends javax.swing.JPanel {
     private boolean checkMaSp(String maSp) {
         if (nguyenlieuS.getChiNhanh(maSp) != null) {
             JOptionPane.showMessageDialog(this, "Mã đã tồn tại");
-            return true;
-        } else {
             return false;
+        } else {
+            return true;
         }
     }
     
@@ -193,7 +197,7 @@ public class QLNguyenLieu extends javax.swing.JPanel {
         Pattern regexInt = Pattern.compile("[a-zA-Z]+");
         Pattern regexDouble = Pattern.compile("[a-zA-Z]+");
         if (!regexInt.matcher(mark).find() && !regexDouble.matcher(mark).find()) {
-            JOptionPane.showMessageDialog(this, "chu ban oi");
+            JOptionPane.showMessageDialog(this, "Nhập chữ");
             return false;
         } else {
             return true;
@@ -308,6 +312,8 @@ public class QLNguyenLieu extends javax.swing.JPanel {
         jLabel19 = new javax.swing.JLabel();
         txtNgayPkk = new com.toedter.calendar.JDateChooser();
         jButton7 = new javax.swing.JButton();
+        cbbCNPKK = new javax.swing.JComboBox<>();
+        jLabel21 = new javax.swing.JLabel();
 
         jTabbedPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
@@ -482,7 +488,7 @@ public class QLNguyenLieu extends javax.swing.JPanel {
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(44, 44, 44)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -534,7 +540,7 @@ public class QLNguyenLieu extends javax.swing.JPanel {
                             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(357, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel6)
                         .addGap(18, 18, 18)
@@ -750,6 +756,15 @@ public class QLNguyenLieu extends javax.swing.JPanel {
             }
         });
 
+        cbbCNPKK.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbbCNPKK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbCNPKKActionPerformed(evt);
+            }
+        });
+
+        jLabel21.setText("Chi Nhánh");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -764,8 +779,12 @@ public class QLNguyenLieu extends javax.swing.JPanel {
                                     .addComponent(jLabel4)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addComponent(jLabel17)
-                                        .addComponent(jLabel18)))
-                                .addGap(55, 55, 55)
+                                        .addComponent(jLabel18))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel21)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(cbbCNPKK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(30, 30, 30)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(cbbNL, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -790,7 +809,7 @@ public class QLNguyenLieu extends javax.swing.JPanel {
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 739, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(689, Short.MAX_VALUE))
+                .addContainerGap(678, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -799,7 +818,11 @@ public class QLNguyenLieu extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(cbbCNPKK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel21)))
                         .addGap(26, 26, 26)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -823,7 +846,7 @@ public class QLNguyenLieu extends javax.swing.JPanel {
                             .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 235, Short.MAX_VALUE))
+                .addGap(0, 231, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Phiếu kiểm kê", jPanel1);
@@ -906,17 +929,17 @@ public class QLNguyenLieu extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void cbbCNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbCNActionPerformed
-       int row = tblBang1.getSelectedRow();
+    
         dtmHT.setRowCount(0);
 
         modelComBoNguyenLieu = (DefaultComboBoxModel) new DefaultComboBoxModel<>(
                 nguyenlieuS.getAllNguyenLieuByChiNhanh(((ChiNhanhVM_Long) modelComBoChiNhanh.getSelectedItem()).getId()).toArray());
-        
+//                cbbNguyenLieu.setModel((DefaultComboBoxModel) modelComBoNguyenLieu); 
 //        cbbNguyenLieu.setModel((DefaultComboBoxModel) modelComBoNguyenLieu); 
 // loadTablePhieuNhap(phieuNhapSevice.getAllPhieuNhapByChiNhanh(((ChiNhanhViewModel_Hoang) comboChiNhanh.getSelectedItem()).getId()));
         ChiNhanhVM_Long cn = (ChiNhanhVM_Long) cbbCN.getSelectedItem();
         show1(nguyenlieuS.getAllNguyenLieuByChiNhanh(cn.getId()));
-        fill(row, lstnl);
+      
 
 // TODO add your handling code here:
     }//GEN-LAST:event_cbbCNActionPerformed
@@ -991,7 +1014,7 @@ if(checkFormEmptyCTPhieu(txtSLTT, txtLiDo)){
         pKKeSevice.deletePKK(tblBangPkk.getValueAt(row1, 0).toString());
         modelComBoNguyenLieu = (DefaultComboBoxModel) new DefaultComboBoxModel<>(pKKeSevice.getAllPKK().toArray());
         cbbpkk.setModel((DefaultComboBoxModel) modelComBoNguyenLieu);
-        JOptionPane.showMessageDialog(this, "Them tc");
+        JOptionPane.showMessageDialog(this, "Xoá tc");
 
         lstPKK = pKKeSevice.getAllPKK();
         lstChitietPhieuKiemKe = chiTietPKKS.getAllChiTietHoaDon();
@@ -1063,10 +1086,35 @@ if(checkFormEmptyCTPhieu(txtSLTT, txtLiDo)){
         // TODO add your handling code here:
     }//GEN-LAST:event_tblBang1MouseClicked
 
+    private void cbbCNPKKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbCNPKKActionPerformed
+
+//        int row = tblBang1.getSelectedRow();
+      
+
+   
+        dtmHT.setRowCount(0);
+
+        modelComBoNguyenLieu = (DefaultComboBoxModel) new DefaultComboBoxModel<>(
+                nguyenlieuS.getAllNguyenLieuByChiNhanh(((ChiNhanhVM_Long) modelComBoChiNhanh.getSelectedItem()).getId()).toArray());
+        cbbNL.setModel((DefaultComboBoxModel) modelComBoNguyenLieu); 
+//                cbbNguyenLieu.setModel((DefaultComboBoxModel) modelComBoNguyenLieu); 
+//        cbbNguyenLieu.setModel((DefaultComboBoxModel) modelComBoNguyenLieu); 
+// loadTablePhieuNhap(phieuNhapSevice.getAllPhieuNhapByChiNhanh(((ChiNhanhViewModel_Hoang) comboChiNhanh.getSelectedItem()).getId()));
+        ChiNhanhVM_Long cn = (ChiNhanhVM_Long) cbbCN.getSelectedItem();
+        show1(nguyenlieuS.getAllNguyenLieuByChiNhanh(cn.getId()));
+     
+       
+      
+      
+       
+            // TODO add your handling code here:
+    }//GEN-LAST:event_cbbCNPKKActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cbbCN;
+    private javax.swing.JComboBox<String> cbbCNPKK;
     private javax.swing.JComboBox<String> cbbNL;
     private javax.swing.JComboBox<String> cbbNV;
     private javax.swing.JComboBox<String> cbbpkk;
@@ -1089,6 +1137,7 @@ if(checkFormEmptyCTPhieu(txtSLTT, txtLiDo)){
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
