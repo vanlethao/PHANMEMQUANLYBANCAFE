@@ -47,7 +47,7 @@ public class Hibernateutility {
 
     static {
         Configuration config = new Configuration();
-        config.configure(new File("hibernate.cfg.xml"));
+        config.configure("hibernate.cfg.xml");
         config.addAnnotatedClass(Ban.class);
         config.addAnnotatedClass(Ca.class);
         config.addAnnotatedClass(ChiNhanh.class);

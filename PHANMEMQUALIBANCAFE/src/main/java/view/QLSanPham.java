@@ -134,7 +134,7 @@ public class QLSanPham extends javax.swing.JPanel implements Runnable {
         lbUpload.setBackground(new java.awt.Color(225, 218, 197));
         lbUpload.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lbUpload.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbUpload.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/upload_to_ftp_25px.png"))); // NOI18N
+        lbUpload.setIcon(new javax.swing.ImageIcon(getClass().getClassLoader().getResource("icon/upload_to_ftp_25px.png"))); // NOI18N
         lbUpload.setText("Upload");
         lbUpload.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lbUpload.setOpaque(true);
@@ -151,7 +151,7 @@ public class QLSanPham extends javax.swing.JPanel implements Runnable {
         });
 
         btnThemSP.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        btnThemSP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Plus_48px.png"))); // NOI18N
+        btnThemSP.setIcon(new javax.swing.ImageIcon(getClass().getClassLoader().getResource("icon/Plus_48px.png"))); // NOI18N
         btnThemSP.setText("Thêm mới");
         btnThemSP.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnThemSP.addActionListener(new java.awt.event.ActionListener() {
@@ -309,7 +309,7 @@ public class QLSanPham extends javax.swing.JPanel implements Runnable {
         pnlRight.setForeground(new java.awt.Color(108, 83, 54));
 
         btnCapNhat.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        btnCapNhat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/available_updates_48px.png"))); // NOI18N
+        btnCapNhat.setIcon(new javax.swing.ImageIcon(getClass().getClassLoader().getResource("icon/available_updates_48px.png"))); // NOI18N
         btnCapNhat.setText("Cập nhật");
         btnCapNhat.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCapNhat.addActionListener(new java.awt.event.ActionListener() {
@@ -319,7 +319,7 @@ public class QLSanPham extends javax.swing.JPanel implements Runnable {
         });
 
         btnXoa.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/waste_48px.png"))); // NOI18N
+        btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getClassLoader().getResource("icon/waste_48px.png"))); // NOI18N
         btnXoa.setText("Xóa");
         btnXoa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnXoa.addActionListener(new java.awt.event.ActionListener() {
@@ -435,7 +435,7 @@ public class QLSanPham extends javax.swing.JPanel implements Runnable {
         );
 
         lblChiNhanh.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
-        lblChiNhanh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/location_10px.png"))); // NOI18N
+        lblChiNhanh.setIcon(new javax.swing.ImageIcon(getClass().getClassLoader().getResource("icon/location_10px.png"))); // NOI18N
         lblChiNhanh.setText("Chi nhánh");
 
         cboChiNhanh.addActionListener(new java.awt.event.ActionListener() {
@@ -493,7 +493,7 @@ public class QLSanPham extends javax.swing.JPanel implements Runnable {
             ShowSanPhamToTable(sanPhamService.getAllSanPhamDangBanByChiNhanh(banHangService.getChiNhanhbyTaiKhoan(_nguoiDung.getId()).getId()));
 
         }
-        Image image = new ImageIcon(getClass().getClassLoader().getResource("icon\\add-image.png")).getImage();
+        Image image = new ImageIcon(getClass().getClassLoader().getResource("icon/add-image.png")).getImage();
         defaultAvatar = new ImageIcon(image.getScaledInstance(187, 186, Image.SCALE_SMOOTH));
         lblAnh.setIcon(defaultAvatar);
     }

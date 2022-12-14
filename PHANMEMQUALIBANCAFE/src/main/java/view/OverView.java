@@ -179,7 +179,7 @@ public class OverView extends javax.swing.JFrame {
 
         lblBanHang.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblBanHang.setForeground(new java.awt.Color(102, 51, 0));
-        lblBanHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/buying_35px.png"))); // NOI18N
+        lblBanHang.setIcon(new javax.swing.ImageIcon(getClass().getClassLoader().getResource("icon/buying_35px.png"))); // NOI18N
         lblBanHang.setText(" Bán hàng");
         banHang.add(lblBanHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 60));
 
@@ -202,7 +202,7 @@ public class OverView extends javax.swing.JFrame {
 
         lblQlCNhanh.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblQlCNhanh.setForeground(new java.awt.Color(102, 51, 0));
-        lblQlCNhanh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/online_store_35px.png"))); // NOI18N
+        lblQlCNhanh.setIcon(new javax.swing.ImageIcon(getClass().getClassLoader().getResource("icon/online_store_35px.png"))); // NOI18N
         lblQlCNhanh.setText(" Quản lý chi nhánh");
         qlChiNhanh.add(lblQlCNhanh, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 60));
 
@@ -225,7 +225,7 @@ public class OverView extends javax.swing.JFrame {
 
         lblQlGiaoDich.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblQlGiaoDich.setForeground(new java.awt.Color(102, 51, 0));
-        lblQlGiaoDich.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/receipt_35px.png"))); // NOI18N
+        lblQlGiaoDich.setIcon(new javax.swing.ImageIcon(getClass().getClassLoader().getResource("icon/receipt_35px.png"))); // NOI18N
         lblQlGiaoDich.setText(" Quản lý giao dịch");
         QLGiaoDich.add(lblQlGiaoDich, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 60));
 
@@ -248,7 +248,7 @@ public class OverView extends javax.swing.JFrame {
 
         lblQlNguyenLieu.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblQlNguyenLieu.setForeground(new java.awt.Color(102, 51, 0));
-        lblQlNguyenLieu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/flour_35px.png"))); // NOI18N
+        lblQlNguyenLieu.setIcon(new javax.swing.ImageIcon(getClass().getClassLoader().getResource("icon/flour_35px.png"))); // NOI18N
         lblQlNguyenLieu.setText(" Quản lý nguyên liệu");
         QLNguyenLieu.add(lblQlNguyenLieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 60));
 
@@ -271,7 +271,7 @@ public class OverView extends javax.swing.JFrame {
 
         lblQlSanPham.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblQlSanPham.setForeground(new java.awt.Color(102, 51, 0));
-        lblQlSanPham.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/coffee_to_go_35px.png"))); // NOI18N
+        lblQlSanPham.setIcon(new javax.swing.ImageIcon(getClass().getClassLoader().getResource("icon/coffee_to_go_35px.png"))); // NOI18N
         lblQlSanPham.setText(" Quản lý sản phẩm");
         QLSanPham.add(lblQlSanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 60));
 
@@ -294,7 +294,7 @@ public class OverView extends javax.swing.JFrame {
 
         lblQlNhanVien.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblQlNhanVien.setForeground(new java.awt.Color(102, 51, 0));
-        lblQlNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/management_35px.png"))); // NOI18N
+        lblQlNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getClassLoader().getResource("icon/management_35px.png"))); // NOI18N
         lblQlNhanVien.setText(" Quản lý nhân viên");
         QLNhanVien.add(lblQlNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 60));
 
@@ -317,7 +317,7 @@ public class OverView extends javax.swing.JFrame {
 
         lblKhuyenMai.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblKhuyenMai.setForeground(new java.awt.Color(102, 51, 0));
-        lblKhuyenMai.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/sale_35px.png"))); // NOI18N
+        lblKhuyenMai.setIcon(new javax.swing.ImageIcon(getClass().getClassLoader().getResource("icon/sale_35px.png"))); // NOI18N
         lblKhuyenMai.setText(" Khuyến mại");
         khuyenMai.add(lblKhuyenMai, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 60));
 
@@ -340,7 +340,7 @@ public class OverView extends javax.swing.JFrame {
 
         lblBan.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblBan.setForeground(new java.awt.Color(102, 51, 0));
-        lblBan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/grid_35px.png"))); // NOI18N
+        lblBan.setIcon(new javax.swing.ImageIcon(getClass().getClassLoader().getResource("icon/grid_35px.png"))); // NOI18N
         lblBan.setText(" Bàn");
         ban.add(lblBan, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 60));
 
@@ -363,7 +363,7 @@ public class OverView extends javax.swing.JFrame {
 
         lblQlca.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblQlca.setForeground(new java.awt.Color(102, 51, 0));
-        lblQlca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/business_35px.png"))); // NOI18N
+        lblQlca.setIcon(new javax.swing.ImageIcon(getClass().getClassLoader().getResource("icon/business_35px.png"))); // NOI18N
         lblQlca.setText(" Quản lý ca");
         QLCa.add(lblQlca, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 60));
 
@@ -386,7 +386,7 @@ public class OverView extends javax.swing.JFrame {
 
         lblThongKe.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblThongKe.setForeground(new java.awt.Color(102, 51, 0));
-        lblThongKe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/analytics_35px.png"))); // NOI18N
+        lblThongKe.setIcon(new javax.swing.ImageIcon(getClass().getClassLoader().getResource("icon/analytics_35px.png"))); // NOI18N
         lblThongKe.setText(" Thống kê");
         thongKe.add(lblThongKe, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 60));
 
@@ -409,7 +409,7 @@ public class OverView extends javax.swing.JFrame {
 
         lblQlDoiTac.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblQlDoiTac.setForeground(new java.awt.Color(102, 51, 0));
-        lblQlDoiTac.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/handshake_35px.png"))); // NOI18N
+        lblQlDoiTac.setIcon(new javax.swing.ImageIcon(getClass().getClassLoader().getResource("icon/handshake_35px.png"))); // NOI18N
         lblQlDoiTac.setText(" Quản lý đối tác");
         QLDoiTac.add(lblQlDoiTac, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 60));
 
@@ -432,7 +432,7 @@ public class OverView extends javax.swing.JFrame {
 
         lblQlNguoiDung.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblQlNguoiDung.setForeground(new java.awt.Color(102, 51, 0));
-        lblQlNguoiDung.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/account_35px.png"))); // NOI18N
+        lblQlNguoiDung.setIcon(new javax.swing.ImageIcon(getClass().getClassLoader().getResource("icon/account_35px.png"))); // NOI18N
         lblQlNguoiDung.setText(" Quản lý người dùng");
         QLNguoiDung.add(lblQlNguoiDung, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 60));
 
@@ -459,7 +459,7 @@ public class OverView extends javax.swing.JFrame {
 
         lblBanHang1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblBanHang1.setForeground(new java.awt.Color(102, 51, 0));
-        lblBanHang1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/buying_35px.png"))); // NOI18N
+        lblBanHang1.setIcon(new javax.swing.ImageIcon(getClass().getClassLoader().getResource("icon/buying_35px.png"))); // NOI18N
         lblBanHang1.setText("Bán hàng");
         banHang1.add(lblBanHang1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 110, -1));
 
@@ -482,7 +482,7 @@ public class OverView extends javax.swing.JFrame {
 
         lblQlNguoiDung1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblQlNguoiDung1.setForeground(new java.awt.Color(102, 51, 0));
-        lblQlNguoiDung1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/account_35px.png"))); // NOI18N
+        lblQlNguoiDung1.setIcon(new javax.swing.ImageIcon(getClass().getClassLoader().getResource("icon/account_35px.png"))); // NOI18N
         lblQlNguoiDung1.setText("Quản lý người dùng");
         qlChiNhanh1.add(lblQlNguoiDung1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 180, -1));
 
@@ -505,7 +505,7 @@ public class OverView extends javax.swing.JFrame {
 
         lblQlGiaoDich1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblQlGiaoDich1.setForeground(new java.awt.Color(102, 51, 0));
-        lblQlGiaoDich1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/receipt_35px.png"))); // NOI18N
+        lblQlGiaoDich1.setIcon(new javax.swing.ImageIcon(getClass().getClassLoader().getResource("icon/receipt_35px.png"))); // NOI18N
         lblQlGiaoDich1.setText("Quản lý giao dịch");
         QLGiaoDich1.add(lblQlGiaoDich1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 160, -1));
 
@@ -528,7 +528,7 @@ public class OverView extends javax.swing.JFrame {
 
         lblQlNguyenLieu1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblQlNguyenLieu1.setForeground(new java.awt.Color(102, 51, 0));
-        lblQlNguyenLieu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/flour_35px.png"))); // NOI18N
+        lblQlNguyenLieu1.setIcon(new javax.swing.ImageIcon(getClass().getClassLoader().getResource("icon/flour_35px.png"))); // NOI18N
         lblQlNguyenLieu1.setText("Quản lý nguyên liệu");
         QLNguyenLieu1.add(lblQlNguyenLieu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 180, -1));
 
@@ -551,7 +551,7 @@ public class OverView extends javax.swing.JFrame {
 
         lblQlSanPham1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblQlSanPham1.setForeground(new java.awt.Color(102, 51, 0));
-        lblQlSanPham1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/coffee_to_go_35px.png"))); // NOI18N
+        lblQlSanPham1.setIcon(new javax.swing.ImageIcon(getClass().getClassLoader().getResource("icon/coffee_to_go_35px.png"))); // NOI18N
         lblQlSanPham1.setText("Quản lý sản phẩm");
         QLSanPham1.add(lblQlSanPham1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 170, -1));
 
@@ -574,7 +574,7 @@ public class OverView extends javax.swing.JFrame {
 
         lblQlNhanVien1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblQlNhanVien1.setForeground(new java.awt.Color(102, 51, 0));
-        lblQlNhanVien1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/management_35px.png"))); // NOI18N
+        lblQlNhanVien1.setIcon(new javax.swing.ImageIcon(getClass().getClassLoader().getResource("icon/management_35px.png"))); // NOI18N
         lblQlNhanVien1.setText("Quản lý nhân viên");
         QLNhanVien1.add(lblQlNhanVien1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 170, -1));
 
@@ -597,7 +597,7 @@ public class OverView extends javax.swing.JFrame {
 
         lblKhuyenMai1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblKhuyenMai1.setForeground(new java.awt.Color(102, 51, 0));
-        lblKhuyenMai1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/sale_35px.png"))); // NOI18N
+        lblKhuyenMai1.setIcon(new javax.swing.ImageIcon(getClass().getClassLoader().getResource("icon/sale_35px.png"))); // NOI18N
         lblKhuyenMai1.setText("Khuyến mại");
         khuyenMai1.add(lblKhuyenMai1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 130, -1));
 
@@ -620,7 +620,7 @@ public class OverView extends javax.swing.JFrame {
 
         lblBan1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblBan1.setForeground(new java.awt.Color(102, 51, 0));
-        lblBan1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/grid_35px.png"))); // NOI18N
+        lblBan1.setIcon(new javax.swing.ImageIcon(getClass().getClassLoader().getResource("icon/grid_35px.png"))); // NOI18N
         lblBan1.setText("Bàn");
         ban1.add(lblBan1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 80, -1));
 
@@ -643,7 +643,7 @@ public class OverView extends javax.swing.JFrame {
 
         lblQlca1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblQlca1.setForeground(new java.awt.Color(102, 51, 0));
-        lblQlca1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/business_35px.png"))); // NOI18N
+        lblQlca1.setIcon(new javax.swing.ImageIcon(getClass().getClassLoader().getResource("icon/business_35px.png"))); // NOI18N
         lblQlca1.setText("Quản lý ca");
         QLCa1.add(lblQlca1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 120, -1));
 
@@ -666,7 +666,7 @@ public class OverView extends javax.swing.JFrame {
 
         lblThongKe1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblThongKe1.setForeground(new java.awt.Color(102, 51, 0));
-        lblThongKe1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/analytics_35px.png"))); // NOI18N
+        lblThongKe1.setIcon(new javax.swing.ImageIcon(getClass().getClassLoader().getResource("icon/analytics_35px.png"))); // NOI18N
         lblThongKe1.setText("Thống kê");
         thongKe1.add(lblThongKe1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 110, -1));
 
@@ -689,7 +689,7 @@ public class OverView extends javax.swing.JFrame {
 
         lblQlDoiTac1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblQlDoiTac1.setForeground(new java.awt.Color(102, 51, 0));
-        lblQlDoiTac1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/handshake_35px.png"))); // NOI18N
+        lblQlDoiTac1.setIcon(new javax.swing.ImageIcon(getClass().getClassLoader().getResource("icon/handshake_35px.png"))); // NOI18N
         lblQlDoiTac1.setText("Quản lý đối tác");
         QLDoiTac1.add(lblQlDoiTac1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 150, -1));
 
@@ -712,7 +712,7 @@ public class OverView extends javax.swing.JFrame {
 
         lblQlChiNhanh1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblQlChiNhanh1.setForeground(new java.awt.Color(102, 51, 0));
-        lblQlChiNhanh1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/online_store_35px.png"))); // NOI18N
+        lblQlChiNhanh1.setIcon(new javax.swing.ImageIcon(getClass().getClassLoader().getResource("icon/online_store_35px.png"))); // NOI18N
         lblQlChiNhanh1.setText("Quản lý chi nhánh");
         QLNguoiDung1.add(lblQlChiNhanh1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 170, -1));
 
@@ -741,7 +741,7 @@ public class OverView extends javax.swing.JFrame {
         jLabel13.setText("The coffee family");
 
         btnDangXuat.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        btnDangXuat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_Logout_Rounded_30px.png"))); // NOI18N
+        btnDangXuat.setIcon(new javax.swing.ImageIcon(getClass().getClassLoader().getResource("icon/icons8_Logout_Rounded_30px.png"))); // NOI18N
         btnDangXuat.setText("Đăng xuất");
         btnDangXuat.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnDangXuat.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -761,12 +761,12 @@ public class OverView extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(108, 83, 54));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin tài khoản", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14), new java.awt.Color(255, 255, 255))); // NOI18N
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/location_30px.png"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getClassLoader().getResource("icon/location_30px.png"))); // NOI18N
 
         lblTenTaiKhoan.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblTenTaiKhoan.setForeground(new java.awt.Color(255, 255, 255));
         lblTenTaiKhoan.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblTenTaiKhoan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/account_30px.png"))); // NOI18N
+        lblTenTaiKhoan.setIcon(new javax.swing.ImageIcon(getClass().getClassLoader().getResource("icon/account_30px.png"))); // NOI18N
         lblTenTaiKhoan.setText(" Tên tài khoản");
 
         lblChiNhanh.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
