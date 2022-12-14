@@ -189,6 +189,7 @@ public class QLNguyenLieu extends javax.swing.JPanel {
         txtTen.setText(nl.getTen());
         txtDVT.setText(nl.getDonVitinh());
         txtSLT.setText(String.valueOf(nl.getSoLuongTon()));
+        txtHSD.setDate(nl.getHanSuDung());
 //        txtHSD.setText(String.valueOf(nl.getHanSuDung()));
 
     }
@@ -226,6 +227,7 @@ public class QLNguyenLieu extends javax.swing.JPanel {
     public void fillPKK(int indexPkk, List<PhieuKiemKeViewModel_Long> lst) {
         PhieuKiemKeViewModel_Long pkk = lst.get(indexPkk);
         txtMaPKK.setText(pkk.getMa());
+        txtNgayPkk.setDate(pkk.getNgayKiemKe());
         
 //        txtNgayPKK.setText(String.valueOf(pkk.getNgayKiemKe()));
     }
