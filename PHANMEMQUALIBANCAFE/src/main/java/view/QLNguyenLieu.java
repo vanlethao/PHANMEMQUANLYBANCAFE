@@ -1011,6 +1011,10 @@ if(checkFormEmptyCTPhieu(txtSLTT, txtLiDo)){
 //            String ngkkS = txtNgayPKK.getText();
 //            java.sql.Date ngkk = java.sql.Date.valueOf(ngkkS);
 //            pKKeSevice.insertBan(txtMaPKK.getText(), ngkk, 1);
+
+
+
+
             NhanVienViewModel_Hoang nv = (NhanVienViewModel_Hoang) cbbNV.getSelectedItem();
 
             int trangThai;
