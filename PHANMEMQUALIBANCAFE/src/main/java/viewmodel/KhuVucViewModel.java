@@ -41,7 +41,16 @@ public class KhuVucViewModel {
      public Object[] getDataKhuVuc() {
         return new Object[]{idKhuVuc, makhuvuc, trangthai == 1 ? "Đang Hoạt Động" : "Dừng Hoạt Động"};
     }
+    public String gettrangthai() {
 
+        if (trangthai == 1) {
+            return "Đang Hoạt Động";
+        } else if (trangthai == 0) {
+            return "Dừng Hoạt Động";
+        }
+        return null;
+
+    }
     @Override
     public String toString() {
         return makhuvuc ;
