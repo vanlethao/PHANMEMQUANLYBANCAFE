@@ -8,6 +8,7 @@ import service.IKhuyenMai;
 import domainmodel.KhuyenMai;
 import domainmodel.SanPham;
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.Date;
 import viewmodel.ChiNhanhView;
 import viewmodel.KhuyenMaiView;
@@ -18,7 +19,7 @@ import viewmodel.SanPhamViewModel;
  * @author duong
  */
 public class KhuyenMaiService implements IKhuyenMai {
-
+    private static final long MILLIS_IN_A_DAY = 1000 * 60 * 60 * 24;
     KhuyenMaiRepo khuyenMaiRepo;
 
     public KhuyenMaiService() {
@@ -172,6 +173,7 @@ public class KhuyenMaiService implements IKhuyenMai {
     @Override
     public String validateDataInput(Object[] data) { // dung cho add du lieu
         Date now = new Date();
+        Date prevNow = new Date(now.getTime() - MILLIS_IN_A_DAY);
         String message = "";
 //        if (khuyenMai.getMa().isBlank()) {
 //            message += "\"Ma khuyen mai\" khong de trong!\n";
@@ -179,22 +181,26 @@ public class KhuyenMaiService implements IKhuyenMai {
 
         if (((String) data[0]).isBlank()) {
             message += "\"Ten khuyen mai\" khong de trong!\n";
+        }else if (((String) data[1]).length() > 30) {
+            message += "\"Ten khuyen mai\" khong duoc qua 30 ky tu! Ban dang nhap: " + ((String) data[0]).length() + "ky tu\n";
         }
 
         if (((String) data[1]).isBlank()) {
             message += "\"Mo ta\" khong de trong!\n";
+        }else if (((String) data[1]).length() > 200) {
+            message += "\"Mo ta\" khong duoc qua 200 ky tu! Ban dang nhap: " + ((String) data[1]).length() + "ky tu\n";
         }
 
         if ((Date) data[2] == null) {
             message += "\"Ngay bat dau\" khong de trong!\n";
-        } else if (((Date) data[2]).before(now)) {
+        } else if (((Date) data[2]).before(prevNow)) {// van tra false neu 2 ngay bang nhau, so sanh voi ngay truoc do thi se ok
             message += "\"Ngay bat dau\" khong duoc truoc ngay hien tai\n";
         }
 
         if ((Date) data[3] == null) {
             message += "\"Ngay ket thuc\" khong de trong!\n";
         } else if (((Date) data[3]).before((Date) data[2])) {
-            message += "\"Ngay ket thuc\" phai lon hon hoac bang \"Ngay bat dau\"!\n";
+            message += "\"Ngay ket thuc\" phai sau hoac bang \"Ngay bat dau\"!\n";
         }
 
 //        if(khuyenMai.getTrangThai()) {
