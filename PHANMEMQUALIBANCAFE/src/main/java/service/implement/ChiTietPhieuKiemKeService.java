@@ -43,7 +43,7 @@ public class ChiTietPhieuKiemKeService implements IChiTietPhieuKiemKe{
           var allPKK = chitietRepo.getAllChiTietHoaDon();
        List<ChiTietPhieuKiemKeViewModel_Long> lstViewMD= new ArrayList<>();
        for(ChiTietPhieuKiemKe ctpk : allPKK){
-           lstViewMD.add(new ChiTietPhieuKiemKeViewModel_Long(ctpk.getKiemKeKey().getMa(), "", ctpk.getSoLuong(), ctpk.getSoLuongChenhlech(), ctpk.getSoLuongThucTe(), ctpk.getLiDo(), ctpk.getNguyenLieuKey().getSoLuongTon()));
+           lstViewMD.add(new ChiTietPhieuKiemKeViewModel_Long(ctpk.getKiemKeKey().getMa(), ctpk.getNguyenLieuKey().getMa(), ctpk.getSoLuong(), ctpk.getSoLuongChenhlech(), ctpk.getSoLuongThucTe(), ctpk.getLiDo(), ctpk.getNguyenLieuKey().getSoLuongTon()));
        }
        return lstViewMD;
     }
@@ -95,6 +95,12 @@ return lstView;
         return listView;
   
         }
+
+    @Override
+    public void update(String id, Float soLuongThucTe, String liDo) {
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+chitietRepo.update(id, soLuongThucTe, liDo);
+    }
   
     
 }

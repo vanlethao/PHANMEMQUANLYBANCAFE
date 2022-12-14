@@ -8,6 +8,7 @@ import domainmodel.ChiNhanh;
 import domainmodel.NguyenLieu;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import viewmodel.ChiNhanhVM_Long;
 import viewmodel.NguyenLieuDangSuDung;
 import viewmodel.NguyenLieuViewModel_Long;
@@ -17,6 +18,8 @@ import viewmodel.NguyenLieuViewModel_Long;
  * @author PC
  */
 public interface INguyenLieu {
+    List<NguyenLieuViewModel_Long> getAllNguyenLieuByChiNhanh1(String MA);
+    List<NguyenLieuViewModel_Long> getAllNL(String ma);
     List<NguyenLieuViewModel_Long> getAll();
 //      void insertNguyenLieuToChiNhanh(String idChiNhanh, NguyenLieu nguyenLieu, String ma, String ten, Date hsd, String dvt, Float slt);
     String insertNguyenLieu(String ma, String ten, Date hsd, String dvt, Float slt, String idChiNhanh);

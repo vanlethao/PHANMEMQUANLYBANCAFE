@@ -25,6 +25,7 @@ import java.util.regex.Pattern;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
@@ -62,12 +63,12 @@ public class QLChiNhanh extends javax.swing.JPanel {
         initComponents();
 
         tblBang.setModel(dtm);
-        String[] header = {"Ma", "QuocGia", "ThanhPho", "NgayKC", "Diem", "DoiDiem", "TrangThai"};
+        String[] header = {"ID","Mã", "Quốc Gia", "Thành Phố", "Ngày Kiểm Kê", "Điểm", "Đổi Điểm", "Trạng Thái"};
         dtm.setColumnIdentifiers(header);
         lstcn = chiNhanhS.getAll();
         
         tblNV.setModel(dtmNV);
-        String[] header1 = {"Ma","Tên", "Chi Nhánh"};
+        String[] header1 = {"Mã","Tên", "Chi Nhánh"};
         dtmNV.setColumnIdentifiers(header1);
         lstnv = chiNhanhS.getAllNV();
 
@@ -92,7 +93,7 @@ dtmNV.addRow(new Object[]{cn.getMa(),cn.getTen(),cn.getIdcn()});
     private void show(List<ChiNhanhVM_Long> lst) {
         dtm.setRowCount(0);
         for (ChiNhanhVM_Long cn : lst) {
-            dtm.addRow(new Object[]{cn.getMa(), cn.getQuocGia(), cn.getThanhPho(), cn.getNgayKhaiTruong(), cn.getGiaTriDiem(), cn.getGiaTriDoiDiem(),cn.getTrangThai()==1?"Ðang hoat dong":"DungHoatDong"
+            dtm.addRow(new Object[]{cn.getId(),cn.getMa(), cn.getQuocGia(), cn.getThanhPho(), cn.getNgayKhaiTruong(), cn.getGiaTriDiem(), cn.getGiaTriDoiDiem(),cn.getTrangThai()==1?"Ðang hoat dong":"DungHoatDong"
             });
         }
     }
@@ -105,13 +106,26 @@ dtmNV.addRow(new Object[]{cn.getMa(),cn.getTen(),cn.getIdcn()});
             return true;
         }
     }
+    
+    
+      private boolean checkFormEmptyDiem(JTextField ma, JTextField ten) {
+        if (ma.getText().isBlank() || ten.getText().isBlank()) {
+            JOptionPane.showMessageDialog(this, "Không được trống");
+            return false;
+        } else {
+            return true;
+        }
+    }
+      
+      
+      
 
     public void fill(int index, List<ChiNhanhVM_Long> lst) {
         ChiNhanhVM_Long cn = lst.get(index);
         txtMa.setText(cn.getMa());
         txtThanhPho.setText(cn.getThanhPho());
         txtQuocGia.setText(cn.getQuocGia());
-        txtNgayKC.setText(String.valueOf(cn.getNgayKhaiTruong()));
+//        txtNgayKC.setText(String.valueOf(cn.getNgayKhaiTruong()));
     }
 
     private boolean checkMaSp(String maSp) {
@@ -155,7 +169,6 @@ dtmNV.addRow(new Object[]{cn.getMa(),cn.getTen(),cn.getIdcn()});
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         txtQuocGia = new javax.swing.JTextField();
-        txtNgayKC = new javax.swing.JTextField();
         txtThanhPho = new javax.swing.JTextField();
         txtMa = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
@@ -177,6 +190,7 @@ dtmNV.addRow(new Object[]{cn.getMa(),cn.getTen(),cn.getIdcn()});
         jScrollPane2 = new javax.swing.JScrollPane();
         tblNV = new javax.swing.JTable();
         jLabel13 = new javax.swing.JLabel();
+        txtNgayKC = new com.toedter.calendar.JDateChooser();
 
         jPanel2.setBackground(new java.awt.Color(225, 218, 197));
 
@@ -234,9 +248,6 @@ dtmNV.addRow(new Object[]{cn.getMa(),cn.getTen(),cn.getIdcn()});
 
         txtQuocGia.setBackground(new java.awt.Color(225, 218, 197));
         txtQuocGia.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
-
-        txtNgayKC.setBackground(new java.awt.Color(225, 218, 197));
-        txtNgayKC.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
 
         txtThanhPho.setBackground(new java.awt.Color(225, 218, 197));
         txtThanhPho.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(0, 0, 0)));
@@ -398,6 +409,10 @@ dtmNV.addRow(new Object[]{cn.getMa(),cn.getTen(),cn.getIdcn()});
 
         jLabel13.setText("Nhân viên");
 
+        txtNgayKC.setDateFormatString("dd-MM-yyyy");
+        txtNgayKC.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtNgayKC.setIcon(null);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -432,8 +447,8 @@ dtmNV.addRow(new Object[]{cn.getMa(),cn.getTen(),cn.getIdcn()});
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addComponent(txtQuocGia, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(txtThanhPho, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(txtNgayKC, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(txtThanhPho, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(txtNgayKC, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addComponent(txtMa, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addGap(54, 54, 54)
@@ -471,11 +486,15 @@ dtmNV.addRow(new Object[]{cn.getMa(),cn.getTen(),cn.getIdcn()});
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
                             .addComponent(txtMa, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(28, 28, 28)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtNgayKC, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
-                        .addGap(31, 31, 31)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(35, 35, 35)
+                                .addComponent(jLabel4)
+                                .addGap(31, 31, 31))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtNgayKC, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtThanhPho, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5))
@@ -525,16 +544,16 @@ dtmNV.addRow(new Object[]{cn.getMa(),cn.getTen(),cn.getIdcn()});
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 //        JOptionPane.showConfirmDialog(jButton1, "Them");
-        if (checkFormEmpty(txtMa, txtQuocGia) && !checkMaSp(txtMa.getText()) && checkChu(txtQuocGia.getText()) && checkChu(txtThanhPho.getText())) {
-            String ngS = txtNgayKC.getText();
-            Date ng = Date.valueOf(ngS);
+        if (checkFormEmpty(txtMa, txtQuocGia) && !checkMaSp(txtMa.getText()) && checkChu(txtQuocGia.getText()) && checkChu(txtThanhPho.getText()) && checkFormEmptyDiem(txtDiem, txtDoiDiem)) {
+//            String ngS = txtNgayKC.getText();
+//            Date ng = Date.valueOf(ngS);
              int trangThai;
             if (rdoDHD.isSelected()) {
                 trangThai = 1;
             } else {
                 trangThai = 0;
             }
-            chiNhanhS.insertChiNhanh(txtMa.getText(), txtQuocGia.getText(), txtThanhPho.getText(), ng, Float.valueOf(txtDiem.getText()), Float.valueOf(txtDoiDiem.getText()), trangThai);
+            chiNhanhS.insertChiNhanh(txtMa.getText(), txtQuocGia.getText(), txtThanhPho.getText(), txtNgayKC.getDate(), Float.valueOf(txtDiem.getText()), Float.valueOf(txtDoiDiem.getText()), trangThai);
             JOptionPane.showMessageDialog(this, "Thêm thành công");
             lstcn = chiNhanhS.getAll();
             show(chiNhanhS.getAll());
@@ -550,18 +569,18 @@ dtmNV.addRow(new Object[]{cn.getMa(),cn.getTen(),cn.getIdcn()});
             JOptionPane.showMessageDialog(this, "Vui lòng click vào Bảng");
         } else {
             if (checkFormEmpty(txtMa, txtQuocGia)) {
-                if (txtMa.getText().equals(tblBang.getValueAt(row, 0).toString())) {
+                if (txtMa.getText().equals(tblBang.getValueAt(row, 1).toString())) {
                     ChiNhanh mauView = new ChiNhanh();
-                    mauView.setMa(tblBang.getValueAt(row, 0).toString());
-                    String ngS = txtNgayKC.getText();
-            Date ng = Date.valueOf(ngS);
+                    mauView.setMa(tblBang.getValueAt(row, 1).toString());
+//                    String ngS = txtNgayKC.getText();
+//            Date ng = Date.valueOf(ngS);
                     int trangThai;
             if (rdoDHD.isSelected()) {
                 trangThai = 1;
             } else {
                 trangThai = 0;
             }
-                    chiNhanhS.update(mauView, txtMa.getText(), txtThanhPho.getText(), txtQuocGia.getText(), trangThai, ng);
+                    chiNhanhS.update(mauView, txtMa.getText(), txtThanhPho.getText(), txtQuocGia.getText(), trangThai, txtNgayKC.getDate());
                     JOptionPane.showMessageDialog(this, "Sửa thành công");
                     lstcn = chiNhanhS.getAll();
                     show(chiNhanhS.getAll());
@@ -681,7 +700,7 @@ show(chiNhanhS.getAll());
     private javax.swing.JTextField txtDiem;
     private javax.swing.JTextField txtDoiDiem;
     private javax.swing.JTextField txtMa;
-    private javax.swing.JTextField txtNgayKC;
+    private com.toedter.calendar.JDateChooser txtNgayKC;
     private javax.swing.JTextField txtQuocGia;
     private javax.swing.JTextField txtThanhPho;
     // End of variables declaration//GEN-END:variables

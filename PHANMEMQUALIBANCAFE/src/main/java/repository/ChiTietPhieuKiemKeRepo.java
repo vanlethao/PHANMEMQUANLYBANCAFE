@@ -52,6 +52,37 @@ public class ChiTietPhieuKiemKeRepo {
         }
         return lstChiTietPKK;
     }
+    
+    
+      public void update(String id, Float soLuongThucTe, String liDo) {
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            Transaction trans = session.beginTransaction();
+            ChiTietPhieuKiemKe nguyenlieu = session.get(ChiTietPhieuKiemKe.class, id);
+//            nguyenlieu.setMa(ma);
+//            nguyenlieu.setTen(ten);
+//            nguyenlieu.setDonViTinh(donViTinh);
+//            nguyenlieu.setSoLuongTon(soLuongTon);
+//            nguyenlieu.setHanSuDung(ngay);
+nguyenlieu.setSoLuongThucTe(soLuongThucTe);
+nguyenlieu.setLiDo(liDo);
+            session.update(nguyenlieu);
+            trans.commit();
+            session.close();
+        }
+    }
+      
+      
+      public void update(ChiTietPhieuKiemKe cn,Float soLuongThucTe, String liDo) {
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            Transaction trans = session.beginTransaction();
+          cn.setSoLuongThucTe(soLuongThucTe);
+          cn.setLiDo(liDo);
+            session.update(cn);
+            trans.commit();
+            session.close();
+        }
+    }
+
 // public String insertNguyenLieu(float SoLuong, float SoLuongThucTe, float SoLuongChenhLech, String liDo, String idnl, String idpk) {
 //        String id = null;
 //        try ( Session session = Hibernateutility.getFactory().openSession()) {

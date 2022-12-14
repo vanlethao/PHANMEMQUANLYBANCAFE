@@ -9,6 +9,7 @@ import domainmodel.NguyenLieu;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import repository.NguyenLieuRepo;
 
 import service.INguyenLieu;
@@ -129,6 +130,37 @@ lstViewMD.add(new NguyenLieuViewModel_Long(ctpk.getId(), ctpk.getMa(), ctpk.getT
             nl.setTen(nguyenLieu.getTen());
             nl.setSoLuongTon(nguyenLieu.getSoLuongTon());
             nl.setHanSuDung(nguyenLieu.getHanSuDung());
+            nl.setDonVitinh(nguyenLieu.getDonViTinh());
+            listNguyenLieu.add(nl);
+        }
+        return listNguyenLieu;
+    }
+
+    @Override
+    public List<NguyenLieuViewModel_Long> getAllNL(String ma) {
+        var allNL = nr.getAllNL(ma);
+       
+       List<NguyenLieuViewModel_Long> lstViewMD= new ArrayList<>();
+       for(NguyenLieu ctpk : allNL){
+//           lstViewMD.add(new ChiTietPhieuKiemKeViewModel_Long("", "", ctpk.getSoLuong(), ctpk.getSoLuongChenhlech(), ctpk.getSoLuongThucTe(), ctpk.getLiDo()));
+lstViewMD.add(new NguyenLieuViewModel_Long(ctpk.getId(), ctpk.getMa(), ctpk.getTen(), ctpk.getHanSuDung(), ctpk.getDonViTinh(), ctpk.getSoLuongTon()));
+       }
+       return lstViewMD;
+    }
+
+    @Override
+    public List<NguyenLieuViewModel_Long> getAllNguyenLieuByChiNhanh1(String MA) {
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    List<NguyenLieuViewModel_Long> listNguyenLieu = new ArrayList<>();
+        var ListNl = nr.getAllNguyenLieuByChiNhanh1(MA);
+        for (NguyenLieu nguyenLieu : ListNl) {
+            NguyenLieuViewModel_Long nl = new NguyenLieuViewModel_Long();
+            nl.setId(nguyenLieu.getId());
+            nl.setMa(nguyenLieu.getMa());
+            nl.setTen(nguyenLieu.getTen());
+            nl.setSoLuongTon(nguyenLieu.getSoLuongTon());
+            nl.setHanSuDung(nguyenLieu.getHanSuDung());
+            nl.setDonVitinh(nguyenLieu.getDonViTinh());
             listNguyenLieu.add(nl);
         }
         return listNguyenLieu;

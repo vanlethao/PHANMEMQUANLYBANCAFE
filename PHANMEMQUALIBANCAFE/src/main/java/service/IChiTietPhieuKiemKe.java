@@ -16,6 +16,7 @@ import viewmodel.PhieuKiemKeViewModel_Long;
  * @author PC
  */
 public interface IChiTietPhieuKiemKe {
+   void update(String id, Float soLuongThucTe, String liDo);
   public List<ChiTietPhieuKiemKeViewModel_Long> getCYPKKbyPKK(String idPhieu);
     List<ChiTietPhieuKiemKeViewModel_Long> getAllChiTietHoaDon();
  void insertNguyenLieu( float SoLuongThucTe,String liDo, String idnl, String idpk);

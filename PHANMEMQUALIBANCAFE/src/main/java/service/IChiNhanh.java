@@ -22,6 +22,7 @@ import viewmodel.NhanVienViewModel_Hoang;
  * @author PC
  */
 public interface IChiNhanh {
+    List<ChiNhanhVM_Long> getAllConHD();
     void deleteCN(String idCN);
 List<NhanVienVM_Long> getAllNV();
     List<ChiNhanhVM_Long> getAll();

@@ -41,7 +41,7 @@ public class PhieuKiemKeRepo {
         List<NhanVien> list = null;
         try ( Session session = Hibernateutility.getFactory().openSession()) {
             Transaction trans = session.beginTransaction();
-            list = session.createQuery("FROM NhanVien").list();
+            list = session.createQuery("FROM NhanVien where TrangThai =1").list();
             trans.commit();
             session.close();
         }

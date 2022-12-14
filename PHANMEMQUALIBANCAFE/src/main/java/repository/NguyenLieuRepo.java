@@ -22,6 +22,31 @@ import utility.Hibernateutility;
  * @author PC
  */
 public class NguyenLieuRepo {
+    
+    
+//      public Set<ChiTietPhieuNhap> searchPhieuNhap(String maPN) {
+//        Transaction trans = null;
+//        Set<ChiTietPhieuNhap> listChiTiet = new HashSet<>();
+//        try ( Session session = Hibernateutility.getFactory().openSession()) {
+//            trans = session.beginTransaction();
+//            Query query = session.createQuery("FROM PhieuNhapHang WHERE Ma like :Ma");
+//            query.setParameter("Ma", "%" + maPN + "%");
+//            List<PhieuNhapHang> listSearch = query.list();
+//            for (PhieuNhapHang x : listSearch) {
+//                for (ChiTietPhieuNhap ctpn : x.getChiTietPhieuNhap()) {
+//                    listChiTiet.add(ctpn);
+//                }
+//            }
+//            trans.commit();
+//            session.close();
+//        } catch (Exception ex) {
+//            System.out.println("Lỗi ko thể tìm kiếm");
+//        }
+//        return listChiTiet;
+//    }
+
+    
+    
 
      public Set<NguyenLieu> getAllNguyenLieuByChiNhanh(String idChiNhanh) {
         Set<NguyenLieu> setNguyenLieu = new HashSet<>();
@@ -31,6 +56,21 @@ public class NguyenLieuRepo {
             for (NguyenLieu nguyenLieu : allNguyenLieu) {
                 setNguyenLieu.add(nguyenLieu);
             }
+            session.close();
+        }
+        return setNguyenLieu;
+    }
+     
+     
+      public Set<NguyenLieu> getAllNguyenLieuByChiNhanh1(String MA) {
+        Set<NguyenLieu> setNguyenLieu = new HashSet<>();
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+//            ChiNhanh chiNhanh = session.get(ChiNhanh.class, );
+NguyenLieu nl = session.get(NguyenLieu.class, MA);
+//            Set<NguyenLieu> allNguyenLieu = chiNhanh.getListNguyenLieu();
+//            for (NguyenLieu nguyenLieu : allNguyenLieu) {
+//                setNguyenLieu.add(nguyenLieu);
+//            }
             session.close();
         }
         return setNguyenLieu;
@@ -51,6 +91,15 @@ public class NguyenLieuRepo {
     public List<NguyenLieu> getAll() {
         Session session = Hibernateutility.getFactory().openSession();
         Query q = session.createQuery("From NguyenLieu");
+        List<NguyenLieu> lst = q.getResultList();
+        return lst;
+
+    }
+    
+    
+      public List<NguyenLieu> getAllNL(String ma) {
+        Session session = Hibernateutility.getFactory().openSession();
+        Query q = session.createQuery("From NguyenLieu Where ma = ma");
         List<NguyenLieu> lst = q.getResultList();
         return lst;
 

@@ -51,8 +51,21 @@ chinhanh.setTrangThai(0);
        
        
     public List<ChiNhanh> getAll() {
+       List<ChiNhanh> list = null;
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            Transaction trans = session.beginTransaction();
+            list = session.createQuery("FROM ChiNhanh").list();
+            trans.commit();
+            session.close();
+        }
+        return list;
+
+    }
+    
+    
+      public List<ChiNhanh> getAllConHD() {
         Session session = Hibernateutility.getFactory().openSession();
-        Query q = session.createQuery("From ChiNhanh");
+        Query q = session.createQuery("From ChiNhanh where TrangThai =1");
         List<ChiNhanh> lst = q.getResultList();
         return lst;
 

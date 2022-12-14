@@ -150,7 +150,30 @@ lstViewMD.add(new NhanVienVM_Long(cn.getId(), cn.getHoTen(), cn.getMa(), cn.getC
 chinhanhRepo.deleteCN(idCN);
     }
 
+    @Override
+    public List<ChiNhanhVM_Long> getAllConHD() {
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+// var allCN = chinhanhRepo.getAll();
+//        List<ChiNhanhVM_Long> lstViewMD = new ArrayList<>();
+//        if(allCN !=null){
+//            for (ChiNhanh cn : allCN) {
+//                ChiNhanhVM_Long cnView = new ChiNhanhVM_Long();
+//                if(cn.getMa() != null){
+//                    
+//                }
+//            lstViewMD.add(new ChiNhanhVM_Long(cn.getId(), cn.getMa(), cn.getQuocGia(), cn.getThanhPho(), cn.getNgayKhaiTruong(), cn.getTrangThai(), cn.getGiaTriDoiDiem(), cn.getGiaTriDiem(),""));
+//        }
+//    }
+//
+//return lstViewMD;
+  var allNV = chinhanhRepo.getAllConHD();
+       List<ChiNhanhVM_Long> lstViewMD= new ArrayList<>();
+       for(ChiNhanh cn : allNV){
+//           lstViewMD.add(new NhanVienViewModel_Hoang(nv.getId(), nv.getMa(), nv.getHoTen()));
+lstViewMD.add(new ChiNhanhVM_Long(cn.getId(), cn.getMa(), cn.getQuocGia(), cn.getThanhPho(), cn.getNgayKhaiTruong(), cn.getTrangThai(), cn.getGiaTriDoiDiem(), cn.getGiaTriDiem(),""));
 
+       }
+       return lstViewMD;
 
-
+    }
 }
