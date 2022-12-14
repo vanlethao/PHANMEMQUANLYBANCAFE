@@ -1171,8 +1171,11 @@ if(checkFormEmptyCTPhieu(txtSLTT, txtLiDo)){
             }
 //                    chiNhanhS.update(mauView, txtMa.getText(), txtThanhPho.getText(), txtQuocGia.getText(), trangThai, txtNgayKC.getDate());
 pKKeSevice.update(mauView, txtMaPKK.getText(), trangThai, txtNgayPkk.getDate());
+    modelComBoNguyenLieu = (DefaultComboBoxModel) new DefaultComboBoxModel<>(pKKeSevice.getAllPKKcbb().toArray());
+        cbbpkk.setModel((DefaultComboBoxModel) modelComBoNguyenLieu);
                     JOptionPane.showMessageDialog(this, "Sửa thành công");
                     lstPKK = pKKeSevice.getAllPKK();
+                    
 //                    show(chiNhanhS.getAll());
 ShowKK(lstPKK);
                 }
