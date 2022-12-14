@@ -13,15 +13,17 @@ public class NhanVienVM_Long {
     private String ten;
     private String ma;
     private String idcn;
+    private int trangThai;
 
     public NhanVienVM_Long() {
     }
 
-    public NhanVienVM_Long(String id, String ten, String ma, String idcn) {
+    public NhanVienVM_Long(String id, String ten, String ma, String idcn, int trangThai) {
         this.id = id;
         this.ten = ten;
         this.ma = ma;
         this.idcn = idcn;
+        this.trangThai = trangThai;
     }
 
     public String getId() {
@@ -56,10 +58,19 @@ public class NhanVienVM_Long {
         this.idcn = idcn;
     }
 
+    public int getTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(int trangThai) {
+        this.trangThai = trangThai;
+    }
+
     @Override
     public String toString() {
-        return "NhanVienVM_Long{" + "id=" + id + ", ten=" + ten + ", ma=" + ma + ", idcn=" + idcn + '}';
+        return "NhanVienVM_Long{" + "id=" + id + ", ten=" + ten + ", ma=" + ma + ", idcn=" + idcn + ", trangThai=" + trangThai + '}';
     }
+
     
     
 }

@@ -137,7 +137,7 @@ NhanVienVM_Long nv = new NhanVienVM_Long();
                     
                 }
 //            lstViewMD.add(new ChiNhanhVM_Long(cn.getId(), cn.getMa(), cn.getQuocGia(), cn.getThanhPho(), cn.getNgayKhaiTruong(), cn.getTrangThai(), cn.getGiaTriDoiDiem(), cn.getGiaTriDiem(),""));
-lstViewMD.add(new NhanVienVM_Long(cn.getId(), cn.getHoTen(), cn.getMa(), cn.getChiNhanh().getMa()));
+lstViewMD.add(new NhanVienVM_Long(cn.getId(), cn.getHoTen(), cn.getMa(), cn.getChiNhanh().getMa(),cn.getTrangThai()));
         }
         }
         
