@@ -27,10 +27,15 @@ import domainmodel.NhaCungCap;
 import domainmodel.NhanVien;
 import domainmodel.TaiKhoanAdmin;
 import domainmodel.TaiKhoanNguoiDung;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.ImageObserver;
 import java.awt.print.PageFormat;
 import java.awt.print.Paper;
@@ -136,6 +141,7 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
     IBanHangService iBanHang = new BanHangService();
     IBanService iBanService = new BanService();
     Set<ChiNhanhViewModel_Hoang> lstChiNhanh = new HashSet<>();
+    private int hoveredRow = -1, hoveredColumn = -1;
 
     public QLGiaoDich(TaiKhoanAdmin admin, TaiKhoanNguoiDung nguoiDung) {
         initComponents();
@@ -153,6 +159,14 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
         loadTableHoaDon(lstHoaDon);
         Thread loadGIaoDich = new Thread(this);
         loadGIaoDich.start();
+        tblHoaDon.setRowHeight(30);
+        tblHoaDonChiTiet.setRowHeight(30);
+        tblPhieuNhap.setRowHeight(30);
+        tblPhieuNhapChiTiet.setRowHeight(30);
+        tblNguyenLieu.setRowHeight(20);
+        tblNguyenLieuTra.setRowHeight(20);
+        tblPhieuTra.setRowHeight(20);
+        tblChiTietPhieuTra.setRowHeight(20);
     }
 
     @Override
@@ -437,7 +451,7 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
         tblHoaDon.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tblHoaDon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
+                {"", null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null}
@@ -454,6 +468,8 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
                 return canEdit [columnIndex];
             }
         });
+        tblHoaDon.setGridColor(new java.awt.Color(108, 83, 54));
+        tblHoaDon.setSelectionBackground(new java.awt.Color(108, 83, 54));
         tblHoaDon.getTableHeader().setReorderingAllowed(false);
         tblHoaDon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
