@@ -136,6 +136,7 @@ dtmNV.addRow(new Object[]{cn.getMa(),cn.getTen(),cn.getIdcn(),cn.getTrangThai()=
             }
         txtDiem.setText(String.valueOf(cn.getGiaTriDiem()));
         txtDoiDiem.setText(String.valueOf(cn.getGiaTriDoiDiem()));
+        txtNgayKC.setDate(cn.getNgayKhaiTruong());
 //        txtNgayKC.setText(String.valueOf(cn.getNgayKhaiTruong()));
     }
 
