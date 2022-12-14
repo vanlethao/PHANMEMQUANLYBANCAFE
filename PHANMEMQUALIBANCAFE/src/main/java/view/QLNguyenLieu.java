@@ -7,6 +7,7 @@ package view;
 import domainmodel.ChiNhanh;
 import domainmodel.NguyenLieu;
 import domainmodel.NhanVien;
+import domainmodel.PhieuKiemKe;
 import domainmodel.TaiKhoanAdmin;
 import domainmodel.TaiKhoanNguoiDung;
 import java.io.BufferedOutputStream;
@@ -115,7 +116,7 @@ public class QLNguyenLieu extends javax.swing.JPanel {
         lstPKK = pKKeSevice.getAllPKK();
 
 //        lstChiNhanhVM = cnS.getAll();
-        modelComBoNguyenLieu = (DefaultComboBoxModel) new DefaultComboBoxModel<>(pKKeSevice.getAllPKK().toArray());
+        modelComBoNguyenLieu = (DefaultComboBoxModel) new DefaultComboBoxModel<>(pKKeSevice.getAllPKKcbb().toArray());
         cbbpkk.setModel((DefaultComboBoxModel) modelComBoNguyenLieu);
 
         modelComBoChiNhanh = (DefaultComboBoxModel) new DefaultComboBoxModel<>(cnS.getAllConHD().toArray());
@@ -313,6 +314,7 @@ public class QLNguyenLieu extends javax.swing.JPanel {
         jButton6 = new javax.swing.JButton();
         jLabel19 = new javax.swing.JLabel();
         txtNgayPkk = new com.toedter.calendar.JDateChooser();
+        jButton3 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         cbbCNPKK = new javax.swing.JComboBox<>();
         jLabel21 = new javax.swing.JLabel();
@@ -674,6 +676,17 @@ public class QLNguyenLieu extends javax.swing.JPanel {
         txtNgayPkk.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtNgayPkk.setIcon(null);
 
+        jButton3.setBackground(new java.awt.Color(108, 83, 54));
+        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/replay_20px.png"))); // NOI18N
+        jButton3.setText("Sửa");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -698,23 +711,22 @@ public class QLNguyenLieu extends javax.swing.JPanel {
                                 .addComponent(jLabel11)))
                         .addGap(29, 29, 29)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                    .addComponent(rdoOK)
+                                    .addGap(27, 27, 27)
+                                    .addComponent(rdoNo))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                    .addComponent(cbbNV, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(75, 75, 75)))
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPanel3Layout.createSequentialGroup()
-                                            .addComponent(rdoOK)
-                                            .addGap(27, 27, 27)
-                                            .addComponent(rdoNo))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                            .addComponent(cbbNV, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(75, 75, 75)))
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(txtNgayPkk, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(21, 21, 21)))
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
-                                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)))
-                            .addComponent(txtMaPKK, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtNgayPkk, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(21, 21, 21))
+                            .addComponent(txtMaPKK, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
+                            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
+                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(32, 32, 32)
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -730,7 +742,9 @@ public class QLNguyenLieu extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtMaPKK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtMaPKK, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -749,7 +763,7 @@ public class QLNguyenLieu extends javax.swing.JPanel {
                     .addComponent(jLabel19)
                     .addComponent(cbbNV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(57, 57, 57)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -916,7 +930,7 @@ public class QLNguyenLieu extends javax.swing.JPanel {
               show1(lstnl);
 
         } else {
-            JOptionPane.showMessageDialog(this, "Bip");
+           
         }
 
 
@@ -967,7 +981,7 @@ if(checkFormEmptyCTPhieu(txtSLTT, txtLiDo)){
         ShowCTKK(lstChitietPhieuKiemKe);
         // TODO add your handling code here:
 }else{
-       JOptionPane.showMessageDialog(this, "Bip");
+      
 }
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -1134,6 +1148,34 @@ if(checkFormEmptyCTPhieu(txtSLTT, txtLiDo)){
         }          // TODO add your handling code here:
     }//GEN-LAST:event_cbbNLItemStateChanged
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+ int row = tblBangPkk.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng click vào Bảng");
+        } else {
+            
+                if (txtMaPKK.getText().equals(tblBangPkk.getValueAt(row, 1).toString())) {
+                    PhieuKiemKe mauView = new PhieuKiemKe();
+                    mauView.setMa(tblBangPkk.getValueAt(row, 1).toString());
+//                    String ngS = txtNgayKC.getText();
+//            Date ng = Date.valueOf(ngS);
+                    int trangThai;
+            if (rdoOK.isSelected()) {
+                trangThai = 1;
+            } else {
+                trangThai = 0;
+            }
+//                    chiNhanhS.update(mauView, txtMa.getText(), txtThanhPho.getText(), txtQuocGia.getText(), trangThai, txtNgayKC.getDate());
+pKKeSevice.update(mauView, txtMaPKK.getText(), trangThai, txtNgayPkk.getDate());
+                    JOptionPane.showMessageDialog(this, "Sửa thành công");
+                    lstPKK = pKKeSevice.getAllPKK();
+//                    show(chiNhanhS.getAll());
+ShowKK(lstPKK);
+                }
+            
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
@@ -1144,6 +1186,7 @@ if(checkFormEmptyCTPhieu(txtSLTT, txtLiDo)){
     private javax.swing.JComboBox<String> cbbpkk;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;

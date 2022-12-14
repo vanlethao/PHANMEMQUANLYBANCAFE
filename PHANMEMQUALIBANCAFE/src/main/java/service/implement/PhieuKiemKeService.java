@@ -103,5 +103,32 @@ NhanVien nv = pkkRepo.getNhanVienFromID(nhanVien.getId());
        return lstViewMD;
     }
 
+    @Override
+    public void update(PhieuKiemKe cn, String ma, int trangThai, Date date) {
+        PhieuKiemKe chinhanh = pkkRepo.getChiNhanh(cn.getMa());
+        pkkRepo.update(chinhanh, ma, trangThai, date);
+    }
+
+    @Override
+    public String getChiNhanh(String ma) {
+         String id = null;
+        if (pkkRepo.getChiNhanh(ma) == null) {
+            return id;
+        } else {
+            return id = pkkRepo.getChiNhanh(ma).getId();
+        }
+    }
+
+    @Override
+    public List<PhieuKiemKeViewModel_Long> getAllPKKcbb() {
+         var allPKK = pkkRepo.getAllPKKcbb();
+       List<PhieuKiemKeViewModel_Long> lstViewMD= new ArrayList<>();
+       for(PhieuKiemKe pk : allPKK){
+           lstViewMD.add(new PhieuKiemKeViewModel_Long(pk.getId(),pk.getMa(),pk.getNgayKiemKe(),pk.getTrangThai(),pk.getNhanVien().getMa(),null));
+
+       }
+       return lstViewMD;
+    }
+
    
 }

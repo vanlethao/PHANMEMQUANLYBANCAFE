@@ -37,6 +37,18 @@ public class PhieuKiemKeRepo {
     }
     
     
+     public List<PhieuKiemKe> getAllPKKcbb() {
+        List<PhieuKiemKe> list = null;
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            Transaction trans = session.beginTransaction();
+            list = session.createQuery("FROM PhieuKiemKe where TrangThai =1").list();
+            trans.commit();
+            session.close();
+        }
+        return list;
+    }
+    
+    
      public List<NhanVien> getAllNV() {
         List<NhanVien> list = null;
         try ( Session session = Hibernateutility.getFactory().openSession()) {
@@ -121,6 +133,46 @@ pkk.setId(idPKK);
         }
         return pk;
     }
+    
+    
+     public void update(PhieuKiemKe cn, String ma, int trangThai, Date date) {
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            Transaction trans = session.beginTransaction();
+            cn.setMa(ma);
+            cn.setTrangThai(trangThai);
+            cn.setNgayKiemKe(date);
+           
+            session.update(cn);
+            trans.commit();
+            session.close();
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+       public PhieuKiemKe getChiNhanh(String ma) {
+        PhieuKiemKe chinhanh = null;
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            Transaction trans = session.beginTransaction();
+            Query query = session.createQuery("FROM PhieuKiemKe Where ma=:ma");
+            query.setParameter("ma", ma);
+            List<PhieuKiemKe> list = query.getResultList();
+            if (list.size() > 0) {
+                chinhanh = list.get(0);
+            }
+            trans.commit();
+            session.close();
+        }
+        return chinhanh;
+    }
+    
+    
+    
+    
     public static void main(String[] args) {
         deletePKK("ss");
     }

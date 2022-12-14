@@ -4,6 +4,7 @@
  */
 package service;
 
+import domainmodel.ChiNhanh;
 import domainmodel.ChiTietPhieuKiemKe;
 import domainmodel.NguyenLieu;
 import domainmodel.NhanVien;
@@ -22,6 +23,9 @@ import viewmodel.PhieuKiemKeViewModel_Long;
  * @author PC
  */
 public interface IPhieuKiemKe {
+    List<PhieuKiemKeViewModel_Long> getAllPKKcbb();
+  void update(PhieuKiemKe cn, String ma, int trangThai, Date date);
+    String getChiNhanh(String ma);
     List<NhanVienViewModel_Hoang> getAllNV();
  String insertPKK(String ma, Date ngayKiemKe, int trangThai, NhanVienViewModel_Hoang nhanVien);
   void deletePKK(String idPKK);
