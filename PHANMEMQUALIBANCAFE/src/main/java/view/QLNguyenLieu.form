@@ -1014,9 +1014,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblTT">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="jLabel22"/>
-              </Properties>
             </Component>
           </SubComponents>
         </Container>

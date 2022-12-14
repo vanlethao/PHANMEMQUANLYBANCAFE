@@ -773,8 +773,6 @@ public class QLNguyenLieu extends javax.swing.JPanel {
 
         jLabel21.setText("Chi Nhánh");
 
-        lblTT.setText("jLabel22");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
