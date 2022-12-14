@@ -58,7 +58,9 @@ public class ThongKeService implements IThongKeService {
             datesInRange.add(result);
             calendar.add(Calendar.DATE, 1);
         }
-
+        Date result = calendar.getTime();
+        datesInRange.add(result);
+        calendar.add(Calendar.DATE, 1);
         return datesInRange;
     }
 
@@ -69,7 +71,6 @@ public class ThongKeService implements IThongKeService {
         List<ThongKeTheoThoiGianViewModel> listThongKe = new ArrayList<>();
         for (Date time : allDate) {
             String date = dateFormat.format(time);
-            System.out.println(date);
             var listHoaDon = ThongKeRepository.getAllHoaDonBanHangByDate(date);
             ThongKeTheoThoiGianViewModel thongKeView = new ThongKeTheoThoiGianViewModel();
             double tongTienHang = 0;

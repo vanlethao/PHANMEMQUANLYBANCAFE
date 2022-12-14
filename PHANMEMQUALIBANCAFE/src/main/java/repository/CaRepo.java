@@ -136,13 +136,15 @@ public class CaRepo {
         }
     }
 
-    public String insertHoatDongCa(String idCa, LocalDateTime gioMoCa, Float tienDauCa) {
+    public String insertHoatDongCaOfChiNhanh(String idCa, String idChiNhanh, LocalDateTime gioMoCa, Float tienDauCa) {
         String id = null;
         try ( Session session = Hibernateutility.getFactory().openSession()) {
             Transaction trans = session.beginTransaction();
             HoatDongCa hoatDong = new HoatDongCa();
             Ca ca = session.get(Ca.class, idCa);
+            ChiNhanh chiNhanh = session.get(ChiNhanh.class, idChiNhanh);
             hoatDong.setCa(ca);
+            hoatDong.setChiNhanh(chiNhanh);
             hoatDong.setGioMoCa(gioMoCa);
             hoatDong.setTienDauCa(tienDauCa);
             id = (String) session.save(hoatDong);
@@ -152,10 +154,10 @@ public class CaRepo {
         return id;
     }
 
-    public Ca getCaRunning() {
+    public Ca getCaRunningOfChiNhanh(String idChiNhanh) {
         Ca ca = null;
         try ( Session session = Hibernateutility.getFactory().openSession()) {
-            Query q = session.createQuery("From HoatDongCa");
+            Query q = session.createQuery("From HoatDongCa WHERE idChiNhanh=" + "'" + idChiNhanh + "'");
             List<HoatDongCa> list = q.getResultList();
             for (HoatDongCa hoatDongCa : list) {
                 if (hoatDongCa.getGioDongCa() == null) {
@@ -168,10 +170,10 @@ public class CaRepo {
         return ca;
     }
 
-    public HoatDongCa getHoatDongCaRunning() {
+    public HoatDongCa getHoatDongCaRunningOfChiNhanh(String idChiNhanh) {
         HoatDongCa hoatDongCa = null;
         try ( Session session = Hibernateutility.getFactory().openSession()) {
-            Query q = session.createQuery("From HoatDongCa");
+            Query q = session.createQuery("From HoatDongCa WHERE idChiNhanh=" + "'" + idChiNhanh + "'");
             List<HoatDongCa> list = q.getResultList();
             for (HoatDongCa hdCa : list) {
                 if (hdCa.getGioDongCa() == null) {
@@ -196,8 +198,4 @@ public class CaRepo {
         }
 
     }
-
-//    public float doanhThuTrongCa() {
-//        
-//    }
 }

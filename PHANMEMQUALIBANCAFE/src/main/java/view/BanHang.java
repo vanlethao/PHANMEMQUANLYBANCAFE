@@ -4,6 +4,7 @@
  */
 package view;
 
+import domainmodel.Ca;
 import domainmodel.NhanVien;
 import domainmodel.TaiKhoanAdmin;
 import domainmodel.TaiKhoanNguoiDung;
@@ -13,13 +14,17 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import repository.CaRepo;
 import service.IBanHangService;
 import service.implement.BanHangService;
 import viewmodel.Area;
@@ -35,6 +40,8 @@ import viewmodel.ThemKhachViewModel;
  */
 public class BanHang extends javax.swing.JPanel implements Runnable {
 
+    Ca caIsRunning = null;
+    private CaRepo caRepo;
     private IBanHangService banHangService;
     private List<ItemSanPham> listItemSanPham;
     private DefaultTableModel modelTableChonSp;
@@ -52,6 +59,7 @@ public class BanHang extends javax.swing.JPanel implements Runnable {
         initComponents();
         _admin = admin;
         _nguoiDung = nguoiDung;
+        caRepo = new CaRepo();
         listItemSanPham = new ArrayList<>();
         listItemBan = new ArrayList<>();
         hideInfoKhach();
@@ -60,7 +68,46 @@ public class BanHang extends javax.swing.JPanel implements Runnable {
         banHangService = new BanHangService();
         Thread loadData = new Thread(this);
         loadData.start();
+        try {
+            loadData.join();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(BanHang.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        checkTimeOfCa();
 
+    }
+
+    private void checkTimeOfCa() {
+        Thread notificationCloseCa = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                boolean stop = false;
+                while (stop == false) {
+                    if (caIsRunning != null) {
+                        try {
+                            Thread.sleep(1000);
+                            LocalTime timeNow = LocalTime.now();
+                            LocalTime timeEndCa = caIsRunning.getGioKetThuc();
+                            int valueCompare = timeNow.compareTo(timeEndCa);
+                            if (valueCompare >= 0) {
+                                stop = true;
+                                JOptionPane.showMessageDialog(pnlLeft, "Vui lòng mở ca mới để tiếp tục bán hàng");
+                                btnThanhToan.setEnabled(false);
+                                btnOpenFormAddGuest.setEnabled(false);
+                                lblStateMoCa.setText("Chưa mở ca");
+
+                            }
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(QLCa.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+
+                    } else {
+                        stop = true;
+                    }
+                }
+            }
+        });
+        notificationCloseCa.start();
     }
 
     @Override
@@ -72,6 +119,16 @@ public class BanHang extends javax.swing.JPanel implements Runnable {
             cboChiNhanh.setVisible(false);
             showProductForSale(banHangService.getAllProductForSaleByChiNhanh(_chiNhanhNguoiDung.getId()));
             showKhuyenMai(_chiNhanhNguoiDung.getId());
+            caIsRunning = caRepo.getCaRunningOfChiNhanh(_chiNhanhNguoiDung.getId());
+            if (caIsRunning != null) {
+                btnThanhToan.setEnabled(true);
+                btnOpenFormAddGuest.setEnabled(true);
+                lblStateMoCa.setText("");
+            } else {
+                btnThanhToan.setEnabled(false);
+                btnOpenFormAddGuest.setEnabled(false);
+                lblStateMoCa.setText("Chưa mở ca");
+            }
         } else {
             cboChiNhanh.setVisible(true);
             modelComboChiNhanh = (DefaultComboBoxModel) new DefaultComboBoxModel<>(banHangService.getAllChiNhanh().toArray());
@@ -82,6 +139,17 @@ public class BanHang extends javax.swing.JPanel implements Runnable {
                     ((ChiNhanhViewModel_Hoang) modelComboChiNhanh.getElementAt(0)).getId())
             );
             showKhuyenMai(((ChiNhanhViewModel_Hoang) modelComboChiNhanh.getSelectedItem()).getId());
+            caIsRunning = caRepo.getCaRunningOfChiNhanh(((ChiNhanhViewModel_Hoang) modelComboChiNhanh.getElementAt(0)).getId());
+            if (caIsRunning != null) {
+                btnThanhToan.setEnabled(true);
+                btnOpenFormAddGuest.setEnabled(true);
+                lblStateMoCa.setText("");
+            } else {
+                btnThanhToan.setEnabled(false);
+                btnOpenFormAddGuest.setEnabled(false);
+                lblStateMoCa.setText("Chưa mở ca");
+
+            }
         }
         cboKhuVuc.setModel((DefaultComboBoxModel) modelComboArea);
         setEventClickForItemSanPham();
@@ -170,6 +238,7 @@ public class BanHang extends javax.swing.JPanel implements Runnable {
         jLabel5 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         txtHienThiKhach = new javax.swing.JTextArea();
+        lblStateMoCa = new javax.swing.JLabel();
 
         DlogTraTien.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         DlogTraTien.setUndecorated(true);
@@ -975,6 +1044,8 @@ public class BanHang extends javax.swing.JPanel implements Runnable {
         txtHienThiKhach.setBorder(null);
         jScrollPane4.setViewportView(txtHienThiKhach);
 
+        lblStateMoCa.setForeground(new java.awt.Color(255, 0, 51));
+
         javax.swing.GroupLayout pnlHoaDonLayout = new javax.swing.GroupLayout(pnlHoaDon);
         pnlHoaDon.setLayout(pnlHoaDonLayout);
         pnlHoaDonLayout.setHorizontalGroup(
@@ -982,10 +1053,6 @@ public class BanHang extends javax.swing.JPanel implements Runnable {
             .addGroup(pnlHoaDonLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlHoaDonLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnThanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(70, 70, 70))
                     .addGroup(pnlHoaDonLayout.createSequentialGroup()
                         .addGroup(pnlHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -995,7 +1062,15 @@ public class BanHang extends javax.swing.JPanel implements Runnable {
                                 .addComponent(jLabel5)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(pnlTimKhach, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap())))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlHoaDonLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(pnlHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(pnlHoaDonLayout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(lblStateMoCa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnThanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(70, 70, 70))))
         );
         pnlHoaDonLayout.setVerticalGroup(
             pnlHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1005,13 +1080,15 @@ public class BanHang extends javax.swing.JPanel implements Runnable {
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnThanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblStateMoCa, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -1491,6 +1568,18 @@ public class BanHang extends javax.swing.JPanel implements Runnable {
         );
         setEventClickForItemSanPham();
         showKhuyenMai(((ChiNhanhViewModel_Hoang) modelComboChiNhanh.getSelectedItem()).getId());
+        Ca caRunning = caRepo.getCaRunningOfChiNhanh(((ChiNhanhViewModel_Hoang) modelComboChiNhanh.getSelectedItem()).getId());
+        if (caRunning != null) {
+            btnThanhToan.setEnabled(true);
+            btnOpenFormAddGuest.setEnabled(true);
+            lblStateMoCa.setText("");
+        } else {
+            btnThanhToan.setEnabled(false);
+            btnOpenFormAddGuest.setEnabled(false);
+            lblStateMoCa.setText("Chưa mở ca");
+        }
+        caIsRunning = caRepo.getCaRunningOfChiNhanh(((ChiNhanhViewModel_Hoang) modelComboChiNhanh.getSelectedItem()).getId());
+        checkTimeOfCa();
     }//GEN-LAST:event_cboChiNhanhActionPerformed
 
     private void btnOpenFormAddGuestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenFormAddGuestActionPerformed
@@ -1684,6 +1773,7 @@ public class BanHang extends javax.swing.JPanel implements Runnable {
     private javax.swing.JLabel lblDiemTichLuy;
     private javax.swing.JLabel lblSoBan;
     private javax.swing.JLabel lblSoTienCanTra;
+    private javax.swing.JLabel lblStateMoCa;
     private javax.swing.JLabel lblTienCanThanhToan;
     private javax.swing.JLabel lblTienThua;
     private javax.swing.JLabel lblTienTichLuy;

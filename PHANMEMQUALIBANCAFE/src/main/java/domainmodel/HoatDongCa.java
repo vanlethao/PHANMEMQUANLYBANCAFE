@@ -34,6 +34,10 @@ public class HoatDongCa implements Serializable {
     @JoinColumn(name = "IdCa")
     private Ca ca;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "IdChiNhanh")
+    private ChiNhanh chiNhanh;
+
     @Column(name = "GioMoCa")
     private LocalDateTime gioMoCa;
 
@@ -49,9 +53,10 @@ public class HoatDongCa implements Serializable {
     public HoatDongCa() {
     }
 
-    public HoatDongCa(String id, Ca ca, LocalDateTime gioMoCa, LocalDateTime gioDongCa, Float tienDauCa, Float tienCuoiCa) {
+    public HoatDongCa(String id, Ca ca, ChiNhanh chiNhanh, LocalDateTime gioMoCa, LocalDateTime gioDongCa, Float tienDauCa, Float tienCuoiCa) {
         this.id = id;
         this.ca = ca;
+        this.chiNhanh = chiNhanh;
         this.gioMoCa = gioMoCa;
         this.gioDongCa = gioDongCa;
         this.tienDauCa = tienDauCa;
@@ -104,6 +109,14 @@ public class HoatDongCa implements Serializable {
 
     public void setTienCuoiCa(Float tienCuoiCa) {
         this.tienCuoiCa = tienCuoiCa;
+    }
+
+    public ChiNhanh getChiNhanh() {
+        return chiNhanh;
+    }
+
+    public void setChiNhanh(ChiNhanh chiNhanh) {
+        this.chiNhanh = chiNhanh;
     }
 
 }
