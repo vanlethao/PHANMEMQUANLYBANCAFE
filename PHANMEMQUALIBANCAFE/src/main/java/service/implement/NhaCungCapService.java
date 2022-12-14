@@ -149,6 +149,8 @@ public class NhaCungCapService implements INhaCungCap {
 
         if (((String) data[1]).isBlank()) {
             message += "\"Ten NCC\" khong de trong!\n";
+        }else if (((String) data[1]).length() > 30) {
+            message += "\"Ten NCC\" khong duoc qua 30 ky tu! Ban dang nhap: " + ((String) data[0]).length() + "ky tu\n";
         }
 
         if (((Integer) data[2]) == 0) {

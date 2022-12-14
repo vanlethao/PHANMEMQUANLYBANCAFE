@@ -198,6 +198,8 @@ public class KhachHangService implements IKhachHang {
 
         if (((String) data[1]).isBlank()) {
             message += "\"Ten KH\" khong duoc de trong!\n";
+        }else if (((String) data[1]).length() > 30) {
+            message += "\"Ten KH\" khong duoc qua 30 ky tu! Ban dang nhap: " + ((String) data[1]).length() + "ky tu\n";
         }
 
         if (((String) data[2]).isBlank()) {

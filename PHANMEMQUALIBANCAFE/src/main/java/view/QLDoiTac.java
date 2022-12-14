@@ -640,7 +640,7 @@ public class QLDoiTac extends javax.swing.JPanel {
                 {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Mã nhân viên", "Họ tên", "Giới tính", "Số điện thoại", "Thành phố", "Quốc gia", "Trạng thái", "Điểm tích lũy"
+                "ID", "Mã KH", "Họ tên", "Giới tính", "Số điện thoại", "Thành phố", "Quốc gia", "Trạng thái", "Điểm tích lũy"
             }
         ));
         tblKhachHang.setRowHeight(25);
@@ -674,7 +674,7 @@ public class QLDoiTac extends javax.swing.JPanel {
 
         jPanel3.setBackground(new java.awt.Color(228, 212, 189));
 
-        jLabel5.setText("Mã nhân viên:");
+        jLabel5.setText("Mã KH:");
 
         jLabel7.setText("Họ tên:");
 
