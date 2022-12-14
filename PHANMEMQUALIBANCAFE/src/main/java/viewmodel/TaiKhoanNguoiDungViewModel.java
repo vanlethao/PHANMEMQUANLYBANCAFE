@@ -12,7 +12,7 @@ public class TaiKhoanNguoiDungViewModel {
     public TaiKhoanNguoiDungViewModel() {
     }
 
-    public TaiKhoanNguoiDungViewModel(String id, String TenTk, String MatKhau, String MaNhanVien, String tenNhanVien,int trangthai) {
+    public TaiKhoanNguoiDungViewModel(String id, String TenTk, String MatKhau, String MaNhanVien, String tenNhanVien, int trangthai) {
         this.id = id;
         this.TenTk = TenTk;
         this.MatKhau = MatKhau;
@@ -20,8 +20,6 @@ public class TaiKhoanNguoiDungViewModel {
         this.tenNhanVien = tenNhanVien;
         this.trangthai = trangthai;
     }
-
-   
 
     public String getId() {
         return id;
@@ -72,7 +70,18 @@ public class TaiKhoanNguoiDungViewModel {
     }
 
     public Object[] getDataTK() {
-        return new Object[]{id, TenTk, MatKhau, MaNhanVien,  trangthai == 1 ? "Đang Hoạt Động" : "Dừng Hoạt Động"};
+        return new Object[]{id, TenTk, MatKhau, MaNhanVien, trangthai == 1 ? "Đang Hoạt Động" : "Dừng Hoạt Động"};
+    }
+
+    public String gettrangthai() {
+
+        if (trangthai == 1) {
+            return "Đang Hoạt Động";
+        } else if (trangthai == 0) {
+            return "Dừng Hoạt Động";
+        }
+        return null;
+
     }
 
     @Override

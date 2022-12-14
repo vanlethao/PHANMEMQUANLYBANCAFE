@@ -317,7 +317,7 @@ public class Ban extends javax.swing.JPanel {
             tblKhuVuc.getColumnModel().getColumn(2).setResizable(false);
         }
 
-        cbTrangThaiKhuVuc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đang Hoạt Động", "Dừng Hoạt Động" }));
+        cbTrangThaiKhuVuc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đang hoạt động", "Dừng hoạt động" }));
         cbTrangThaiKhuVuc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbTrangThaiKhuVucActionPerformed(evt);
@@ -453,10 +453,10 @@ public class Ban extends javax.swing.JPanel {
     
     private void fillDataToFormKhuVuc(int row) {
         txtMaKhuVuc.setText(tblKhuVuc.getValueAt(row, 1).toString());
-        if (tblKhuVuc.getValueAt(row, 2).toString().equalsIgnoreCase("Dừng Hoạt Động")) {
-            cbTrangThaiKhuVuc.setSelectedIndex(0);
-        } else {
+        if (tblKhuVuc.getValueAt(row, 2).toString().equalsIgnoreCase("Dừng hoạt động")) {
             cbTrangThaiKhuVuc.setSelectedIndex(1);
+        } else {
+            cbTrangThaiKhuVuc.setSelectedIndex(0);
         }
         
     }
@@ -496,13 +496,14 @@ public class Ban extends javax.swing.JPanel {
         } else {
             if (checkFormEmpty1(txtMaKhuVuc)) {
                 KhuVucViewModel khuVucViewModel = new KhuVucViewModel();
+                khuVucViewModel.setIdKhuVuc(tblKhuVuc.getValueAt(row, 0).toString());
                 khuVucViewModel.setMakhuvuc(tblKhuVuc.getValueAt(row, 1).toString());
-                if (cbTrangThaiKhuVuc.getSelectedIndex() == 0) {
-                    khuVucViewModel.setTrangthai(1);
-                } else {
-                    khuVucViewModel.setTrangthai(0);
-                }
-                iKhuVucService.updateKhuVuc(khuVucViewModel, txtMaKhuVuc.getText(), cbTrangThaiKhuVuc.getSelectedIndex() == 1 ? 1 : 0);
+//                if (cbTrangThaiKhuVuc.getSelectedIndex() == 1) {
+//                    khuVucViewModel.setTrangthai(0);
+//                } else {
+//                    khuVucViewModel.setTrangthai(1);
+//                }
+                iKhuVucService.updateKhuVuc(khuVucViewModel, txtMaKhuVuc.getText(),cbTrangThaiKhuVuc.getSelectedIndex() == 1 ? 0 : 1);
                 JOptionPane.showMessageDialog(this, "Cập nhật thành công  ");
                 if (taiKhoanAdmin != null) {
                     load_KhuVuc_By_ChiNhanh(iKhuVucService.getAllKhuVucByChiNhanh(
