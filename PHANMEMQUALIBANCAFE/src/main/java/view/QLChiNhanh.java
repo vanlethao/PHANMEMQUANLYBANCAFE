@@ -95,7 +95,7 @@ dtmNV.addRow(new Object[]{cn.getMa(),cn.getTen(),cn.getIdcn(),cn.getTrangThai()=
     private void show(List<ChiNhanhVM_Long> lst) {
         dtm.setRowCount(0);
         for (ChiNhanhVM_Long cn : lst) {
-            dtm.addRow(new Object[]{cn.getId(),cn.getMa(), cn.getQuocGia(), cn.getThanhPho(), cn.getNgayKhaiTruong(), cn.getGiaTriDiem(), cn.getGiaTriDoiDiem(),cn.getTrangThai()==1?"Ðang hoat dong":"DungHoatDong"
+            dtm.addRow(new Object[]{cn.getId(),cn.getMa(), cn.getQuocGia(), cn.getThanhPho(), cn.getNgayKhaiTruong(), cn.getGiaTriDiem(), cn.getGiaTriDoiDiem(),cn.getTrangThai()==1?"Ðang Hoạt Động":"Dừng Hoạt Động"
             });
         }
     }

@@ -316,6 +316,7 @@ public class QLNguyenLieu extends javax.swing.JPanel {
         jButton7 = new javax.swing.JButton();
         cbbCNPKK = new javax.swing.JComboBox<>();
         jLabel21 = new javax.swing.JLabel();
+        lblTT = new javax.swing.JLabel();
 
         jTabbedPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
@@ -597,6 +598,11 @@ public class QLNguyenLieu extends javax.swing.JPanel {
         });
 
         cbbNL.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbbNL.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbbNLItemStateChanged(evt);
+            }
+        });
 
         jLabel17.setText("Nguyên Liệu");
 
@@ -767,6 +773,8 @@ public class QLNguyenLieu extends javax.swing.JPanel {
 
         jLabel21.setText("Chi Nhánh");
 
+        lblTT.setText("jLabel22");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -803,9 +811,12 @@ public class QLNguyenLieu extends javax.swing.JPanel {
                                         .addComponent(jLabel2))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(9, 9, 9)
-                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(46, 46, 46)
-                                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblTT)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(46, 46, 46)
+                                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 739, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -841,7 +852,9 @@ public class QLNguyenLieu extends javax.swing.JPanel {
                                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(40, 40, 40)
                                 .addComponent(jLabel17))
-                            .addComponent(cbbNL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(cbbNL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblTT, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(33, 33, 33)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1112,6 +1125,17 @@ if(checkFormEmptyCTPhieu(txtSLTT, txtLiDo)){
             // TODO add your handling code here:
     }//GEN-LAST:event_cbbCNPKKActionPerformed
 
+    private void cbbNLItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbNLItemStateChanged
+  for (NguyenLieuViewModel_Long nvView : nguyenlieuS.getAll()) {
+            if (nvView.getMa().equals(cbbNL.getSelectedItem().toString())) {
+//                lblHienThi.setText(nvView.getHoTen());
+                lblTT.setText(String.valueOf(nvView.getSoLuongTon()));
+                break;
+            }
+            
+        }          // TODO add your handling code here:
+    }//GEN-LAST:event_cbbNLItemStateChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
@@ -1156,6 +1180,7 @@ if(checkFormEmptyCTPhieu(txtSLTT, txtLiDo)){
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JLabel lblTT;
     private javax.swing.JRadioButton rdoNo;
     private javax.swing.JRadioButton rdoOK;
     private javax.swing.JTable tblBang;
