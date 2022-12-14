@@ -141,7 +141,7 @@ dtmNV.addRow(new Object[]{cn.getMa(),cn.getTen(),cn.getIdcn(),cn.getTrangThai()=
 
     private boolean checkMaSp(String maSp) {
         if (chiNhanhS.getChiNhanh(maSp) != null) {
-            JOptionPane.showMessageDialog(this, "Mã sản phẩm đã tồn tại");
+            JOptionPane.showMessageDialog(this, "Mã đã tồn tại");
             return true;
         } else {
             return false;

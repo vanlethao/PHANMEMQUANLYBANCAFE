@@ -165,4 +165,15 @@ lstViewMD.add(new NguyenLieuViewModel_Long(ctpk.getId(), ctpk.getMa(), ctpk.getT
         }
         return listNguyenLieu;
     }
+
+    @Override
+    public String getChiNhanh(String ma) {
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    String id = null;
+        if (nr.getChiNhanh(ma)== null) {
+            return id;
+        } else {
+            return id = nr.getChiNhanh(ma).getId();
+        }
+    }
 }

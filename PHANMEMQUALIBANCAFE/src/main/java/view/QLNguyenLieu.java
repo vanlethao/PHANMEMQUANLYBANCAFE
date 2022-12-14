@@ -155,6 +155,14 @@ public class QLNguyenLieu extends javax.swing.JPanel {
         }
     }
 
+    private boolean checkMaSp(String maSp) {
+        if (nguyenlieuS.getChiNhanh(maSp) != null) {
+            JOptionPane.showMessageDialog(this, "Mã đã tồn tại");
+            return true;
+        } else {
+            return false;
+        }
+    }
     
      private void show1(List<NguyenLieuViewModel_Long> lst) {
         dtmHT.setRowCount(0);
@@ -181,7 +189,16 @@ public class QLNguyenLieu extends javax.swing.JPanel {
 
     }
     
-    
+     public boolean checkChu(String mark) {
+        Pattern regexInt = Pattern.compile("[a-zA-Z]+");
+        Pattern regexDouble = Pattern.compile("[a-zA-Z]+");
+        if (!regexInt.matcher(mark).find() && !regexDouble.matcher(mark).find()) {
+            JOptionPane.showMessageDialog(this, "chu ban oi");
+            return false;
+        } else {
+            return true;
+        }
+    }
     
      public void fillHT(int index, List<NguyenLieuViewModel_Long> lst) {
         NguyenLieuViewModel_Long nl = lst.get(index);
@@ -835,7 +852,7 @@ public class QLNguyenLieu extends javax.swing.JPanel {
     }//GEN-LAST:event_tblBangMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (checkFormEmpty(txtMa, txtDVT) && checkVuotquakituKhuVuc(txtMa.getText())) {
+        if (checkFormEmpty(txtMa, txtDVT) && checkVuotquakituKhuVuc(txtMa.getText()) && checkChu(txtTen.getText()) && checkMaSp(txtMa.getText())) {
 //            String ngS = txtHSD.getText();
 //            java.sql.Date ng = java.sql.Date.valueOf(ngS);
 

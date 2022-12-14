@@ -18,6 +18,7 @@ import viewmodel.NguyenLieuViewModel_Long;
  * @author PC
  */
 public interface INguyenLieu {
+  String getChiNhanh(String ma);
     List<NguyenLieuViewModel_Long> getAllNguyenLieuByChiNhanh1(String MA);
     List<NguyenLieuViewModel_Long> getAllNL(String ma);
     List<NguyenLieuViewModel_Long> getAll();

@@ -76,6 +76,21 @@ NguyenLieu nl = session.get(NguyenLieu.class, MA);
         return setNguyenLieu;
     }
     
+         public NguyenLieu getChiNhanh(String ma) {
+        NguyenLieu chinhanh = null;
+        try ( Session session = Hibernateutility.getFactory().openSession()) {
+            Transaction trans = session.beginTransaction();
+            Query query = session.createQuery("FROM NguyenLieu Where ma=:ma");
+            query.setParameter("ma", ma);
+            List<NguyenLieu> list = query.getResultList();
+            if (list.size() > 0) {
+                chinhanh = list.get(0);
+            }
+            trans.commit();
+            session.close();
+        }
+        return chinhanh;
+    }
     
        public String getChiTietSpByIdSanPham(String id) {
         String setChiTiet = null;
