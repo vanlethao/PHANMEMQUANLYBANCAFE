@@ -1143,7 +1143,7 @@ if(checkFormEmptyCTPhieu(txtSLTT, txtLiDo)){
 
     private void cbbNLItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbNLItemStateChanged
   for (NguyenLieuViewModel_Long nvView : nguyenlieuS.getAll()) {
-            if (nvView.getMa().equals(cbbNL.getSelectedItem().toString())) {
+            if (nvView.getTen().equals(cbbNL.getSelectedItem().toString())) {
 //                lblHienThi.setText(nvView.getHoTen());
                 lblTT.setText(String.valueOf(nvView.getSoLuongTon()));
                 break;

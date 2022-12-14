@@ -80,7 +80,7 @@ public class NguyenLieuViewModel_Long {
 
     @Override
     public String toString() {
-        return ma;
+        return ten;
     }
     
      public Object[] toDataRow() {
