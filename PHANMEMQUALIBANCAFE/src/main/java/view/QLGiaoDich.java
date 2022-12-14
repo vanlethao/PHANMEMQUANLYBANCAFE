@@ -1898,8 +1898,8 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
                 if (tblPhieuNhap.getValueAt(row, 7).toString().equalsIgnoreCase("Phiếu tạm")) {
                     for (int i = 0; i < tblNguyenLieu.getRowCount(); i++) {
                         phieuNhapSevice.updateSoluongNguyenLieu(tblNguyenLieu.getValueAt(i, 0).toString(), Float.parseFloat(tblNguyenLieu.getValueAt(i, 3).toString()));
-                        JOptionPane.showMessageDialog(this, "Đã hoàn thành phiếu và cập nhật số lượng trong kho");
                     }
+                    JOptionPane.showMessageDialog(this, "Đã hoàn thành phiếu và cập nhật số lượng trong kho");
                     JOptionPane.showMessageDialog(this, phieuNhapSevice.updateTrangThaiPhieuNhap(tblPhieuNhap.getValueAt(row, 1).toString(), 3));
                     loadAll(((ChiNhanhViewModel_Hoang) comboChiNhanh.getSelectedItem()).getId());
                     loadDaHoanThanh(lstPhieuNhap);
@@ -1978,10 +1978,10 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
                 if (chon == JOptionPane.YES_OPTION) {
                     for (int i = 0; i < tblNguyenLieuTra.getRowCount(); i++) {
                         phieuTraService.updateSoluongNguyenLieuTra(tblNguyenLieuTra.getValueAt(i, 0).toString(), Float.parseFloat(tblNguyenLieuTra.getValueAt(i, 3).toString()));
-                        JOptionPane.showMessageDialog(this, "Đã hoàn thành phiếu và cập nhật số lượng trong kho");
                         clearPhieuTra();
                         break;
                     }
+                    JOptionPane.showMessageDialog(this, "Đã hoàn thành phiếu và cập nhật số lượng trong kho");
                     JOptionPane.showMessageDialog(this, phieuTraService.updateTrangThaiPhieuTra(tblPhieuTra.getValueAt(row, 1).toString(), 3));
                     loadAllTra(((ChiNhanhViewModel_Hoang) comboChiNhanhTra.getSelectedItem()).getId());
                     loadTablePhieuTraHoanThanh(lstPhieuTra);
