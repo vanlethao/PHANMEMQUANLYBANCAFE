@@ -862,7 +862,7 @@
                     <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                       <ComponentRef name="buttonGroup1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="OK"/>
+                    <Property name="text" type="java.lang.String" value="X&#xe1;c Nh&#x1ead;n"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="rdoNo">
@@ -870,7 +870,7 @@
                     <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                       <ComponentRef name="buttonGroup1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="No"/>
+                    <Property name="text" type="java.lang.String" value="T&#x1ea1;m"/>
                   </Properties>
                 </Component>
                 <Container class="javax.swing.JScrollPane" name="jScrollPane4">

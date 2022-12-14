@@ -142,7 +142,7 @@ public class QLNguyenLieu extends javax.swing.JPanel {
     private void ShowKK(List<PhieuKiemKeViewModel_Long> lst) {
         dtm2.setRowCount(0);
         for (PhieuKiemKeViewModel_Long pk : lst) {
-            dtm2.addRow(new Object[]{pk.getId(), pk.getMa(), pk.getNgayKiemKe(), pk.getTrangThai() == 1 ? "ok" : "no", pk.getMaNhanVien()});
+            dtm2.addRow(new Object[]{pk.getId(), pk.getMa(), pk.getNgayKiemKe(), pk.getTrangThai() == 1 ? "Xác Nhận" : "Tạm", pk.getMaNhanVien()});
         }
     }
 
@@ -623,10 +623,10 @@ public class QLNguyenLieu extends javax.swing.JPanel {
         jLabel13.setText("Trạng Thái");
 
         buttonGroup1.add(rdoOK);
-        rdoOK.setText("OK");
+        rdoOK.setText("Xác Nhận");
 
         buttonGroup1.add(rdoNo);
-        rdoNo.setText("No");
+        rdoNo.setText("Tạm");
 
         tblBangPkk.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
