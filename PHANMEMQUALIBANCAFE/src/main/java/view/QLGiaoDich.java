@@ -409,6 +409,7 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
                 return canEdit [columnIndex];
             }
         });
+        tblHoaDonChiTiet.setSelectionBackground(new java.awt.Color(108, 83, 54));
         tblHoaDonChiTiet.getTableHeader().setReorderingAllowed(false);
         jScrollPane5.setViewportView(tblHoaDonChiTiet);
 
@@ -425,11 +426,11 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 1027, Short.MAX_VALUE)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 873, Short.MAX_VALUE)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
-                        .addComponent(lblTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -556,20 +557,22 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
+                        .addContainerGap()
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnExportPdf)
+                            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 694, Short.MAX_VALUE)
                             .addGroup(jPanel10Layout.createSequentialGroup()
+                                .addGap(19, 19, 19)
                                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addGap(32, 32, 32)
                                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(40, 40, 40)
-                                .addComponent(btnLocHoaDon)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addGap(109, 109, 109)
+                        .addComponent(btnLocHoaDon)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnExportPdf)))
                 .addContainerGap())
         );
         jPanel10Layout.setVerticalGroup(
@@ -578,10 +581,13 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
                 .addContainerGap()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnLocHoaDon, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnExportPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnExportPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addComponent(btnLocHoaDon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(5, 5, 5)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 705, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -593,9 +599,9 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -733,6 +739,7 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
                 return canEdit [columnIndex];
             }
         });
+        tblPhieuNhap.setSelectionBackground(new java.awt.Color(108, 83, 54));
         tblPhieuNhap.getTableHeader().setReorderingAllowed(false);
         tblPhieuNhap.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -775,6 +782,7 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
                 return canEdit [columnIndex];
             }
         });
+        tblPhieuNhapChiTiet.setSelectionBackground(new java.awt.Color(108, 83, 54));
         tblPhieuNhapChiTiet.getTableHeader().setReorderingAllowed(false);
         jScrollPane8.setViewportView(tblPhieuNhapChiTiet);
         if (tblPhieuNhapChiTiet.getColumnModel().getColumnCount() > 0) {
@@ -972,6 +980,7 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
                 return canEdit [columnIndex];
             }
         });
+        tblNguyenLieu.setSelectionBackground(new java.awt.Color(108, 83, 54));
         tblNguyenLieu.getTableHeader().setReorderingAllowed(false);
         tblNguyenLieu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1130,6 +1139,7 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
                 return canEdit [columnIndex];
             }
         });
+        tblChiTietPhieuTra.setSelectionBackground(new java.awt.Color(108, 83, 54));
         tblChiTietPhieuTra.getTableHeader().setReorderingAllowed(false);
         jScrollPane3.setViewportView(tblChiTietPhieuTra);
         if (tblChiTietPhieuTra.getColumnModel().getColumnCount() > 0) {
@@ -1265,6 +1275,7 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
                 return canEdit [columnIndex];
             }
         });
+        tblPhieuTra.setSelectionBackground(new java.awt.Color(108, 83, 54));
         tblPhieuTra.getTableHeader().setReorderingAllowed(false);
         tblPhieuTra.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1428,6 +1439,7 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
                 return canEdit [columnIndex];
             }
         });
+        tblNguyenLieuTra.setSelectionBackground(new java.awt.Color(108, 83, 54));
         tblNguyenLieuTra.getTableHeader().setReorderingAllowed(false);
         tblNguyenLieuTra.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1835,7 +1847,7 @@ public class QLGiaoDich extends javax.swing.JPanel implements Runnable {
             tongTien += thanhTienSauKm;
         }
         String tong_Tien = String.valueOf(tongTien);
-        lblTongTien.setText(tong_Tien);
+        lblTongTien.setText(tong_Tien+" VNĐ");
     }//GEN-LAST:event_tblHoaDonMouseClicked
     private void loadHuyPhieuNhap(Set<PhieuNhapViewModel> lstPhieuNhap) {
         modelPhieuNhap = (DefaultTableModel) tblPhieuNhap.getModel();
