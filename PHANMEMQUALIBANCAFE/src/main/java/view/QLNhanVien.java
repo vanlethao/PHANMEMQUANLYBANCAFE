@@ -98,7 +98,7 @@ public class QLNhanVien extends javax.swing.JPanel {
         cbbChiNhanh.setModel(new DefaultComboBoxModel(iKhuyenMai.getAllChiNhanhON().toArray()));
 
 //        cbbFilterChiNhanh.setModel(new DefaultComboBoxModel(concatenate(new Object[]{"- Tat ca chi nhanh -"}, iKhuyenMai.getAllChiNhanhON().toArray())));
-        Image image = new ImageIcon(getClass().getClassLoader().getResource("icon\\add-image.png")).getImage();
+        Image image = new ImageIcon(getClass().getClassLoader().getResource("icon/add-image.png")).getImage();
         defaultAvatar = new ImageIcon(image.getScaledInstance(150, 200, Image.SCALE_SMOOTH));
         lblAnhNV.setIcon(defaultAvatar);
         
@@ -544,7 +544,7 @@ public class QLNhanVien extends javax.swing.JPanel {
         btnAddNhanVien.setBackground(new java.awt.Color(108, 83, 54));
         btnAddNhanVien.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnAddNhanVien.setForeground(new java.awt.Color(255, 255, 255));
-        btnAddNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/add_20px.png"))); // NOI18N
+        btnAddNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getClassLoader().getResource("icon/add_20px.png"))); // NOI18N
         btnAddNhanVien.setText("Thêm");
         btnAddNhanVien.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -555,7 +555,7 @@ public class QLNhanVien extends javax.swing.JPanel {
         btnUpdateNV.setBackground(new java.awt.Color(108, 83, 54));
         btnUpdateNV.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnUpdateNV.setForeground(new java.awt.Color(255, 255, 255));
-        btnUpdateNV.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_sync_30px.png"))); // NOI18N
+        btnUpdateNV.setIcon(new javax.swing.ImageIcon(getClass().getClassLoader().getResource("icon/icons8_sync_30px.png"))); // NOI18N
         btnUpdateNV.setText("Cập Nhật");
         btnUpdateNV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -566,7 +566,7 @@ public class QLNhanVien extends javax.swing.JPanel {
         btnDeleteNV.setBackground(new java.awt.Color(108, 83, 54));
         btnDeleteNV.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnDeleteNV.setForeground(new java.awt.Color(255, 255, 255));
-        btnDeleteNV.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_remove_30px.png"))); // NOI18N
+        btnDeleteNV.setIcon(new javax.swing.ImageIcon(getClass().getClassLoader().getResource("icon/icons8_remove_30px.png"))); // NOI18N
         btnDeleteNV.setText("Xóa ");
         btnDeleteNV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -577,7 +577,7 @@ public class QLNhanVien extends javax.swing.JPanel {
         btnExecl.setBackground(new java.awt.Color(108, 83, 54));
         btnExecl.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnExecl.setForeground(new java.awt.Color(255, 255, 255));
-        btnExecl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_microsoft_excel_30px.png"))); // NOI18N
+        btnExecl.setIcon(new javax.swing.ImageIcon(getClass().getClassLoader().getResource("icon/icons8_microsoft_excel_30px.png"))); // NOI18N
         btnExecl.setText("Xuất Excel");
         btnExecl.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -637,7 +637,7 @@ public class QLNhanVien extends javax.swing.JPanel {
 
         btnChonAnhNV.setBackground(new java.awt.Color(108, 83, 54));
         btnChonAnhNV.setForeground(new java.awt.Color(255, 255, 255));
-        btnChonAnhNV.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/upload_to_ftp_25px.png"))); // NOI18N
+        btnChonAnhNV.setIcon(new javax.swing.ImageIcon(getClass().getClassLoader().getResource("icon/upload_to_ftp_25px.png"))); // NOI18N
         btnChonAnhNV.setText("Chọn ảnh");
         btnChonAnhNV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
